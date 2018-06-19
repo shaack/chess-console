@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chess Console</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./assets/style/screen.css">
+
+</head>
+<body>
+<div class="container-fluid">
+    <h1>Chess Console</h1>
+    <div id="console-container"></div>
+</div>
+<script type="module">
+    import {App} from "./src/svjs-app/App.js"
+    import {ChessConsole} from "./src/chess-console/ChessConsole.js"
+
+    const app = App.create()
+    app.addModule(new ChessConsole(document.getElementById("console-container")))
+</script>
+</body>
+</html>
