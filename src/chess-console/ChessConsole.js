@@ -5,12 +5,32 @@
  */
 
 import {Module} from "../../src/svjs-app/Module.js"
+import {MOVE_INPUT_MODE, Chessboard} from "../cm-chessboard/Chessboard.js"
 
 export class ChessConsole extends Module {
 
     constructor(element, config) {
         super(element, config)
         this.render()
+        this.elements = {
+            chessboard: this.element.querySelector(".chessboard"),
+            lastError: this.element.querySelector(".last-error")
+        }
+        this.chessboard = new Chessboard(this.elements.chessboard,
+            {
+                responsive: true,
+                position: "empty",
+                moveInputMode: MOVE_INPUT_MODE.dragPiece,
+                sprite: {
+                    url: "./assets/images/chessboard-sprite.svg", // pieces and markers
+                }
+            })
+        this.resize()
+    }
+
+    resize() {
+        const width = this.elements.chessboard.offsetWidth;
+        this.elements.chessboard.style.height = (width * 0.94) + "px";
     }
 
     render() {
