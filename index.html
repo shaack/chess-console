@@ -14,12 +14,25 @@
     <h1>Chess Console</h1>
     <div id="console-container"></div>
 </div>
+<script src="./node_modules/chess.js/chess.min.js"></script>
 <script type="module">
     import {App} from "./src/svjs-app/App.js"
     import {ChessConsole} from "./src/chess-console/ChessConsole.js"
+    import {LocalPlayer} from "./src/chess-console/players/LocalPlayer.js"
+    import {RandomPlayer} from "./src/chess-console/players/RandomPlayer.js"
+    import {COLOR, FEN_START_POSITION} from "./src/cm-chessboard/Chessboard.js"
 
     const app = App.create()
-    app.addModule(new ChessConsole(document.getElementById("console-container")))
+    app.addModule(new ChessConsole(document.getElementById("console-container"), {
+        position: FEN_START_POSITION,
+        playerColor: COLOR.white,
+        player: {name: "Local Player", type: LocalPlayer},
+        opponent: {name: "Random Player", type: RandomPlayer},
+        // opponent: {name: "Stockfish", class: EnginePlayer},
+        components: [
+
+        ]
+    }))
 </script>
 </body>
 </html>
