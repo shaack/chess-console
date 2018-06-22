@@ -65,8 +65,8 @@ export class LocalPlayer extends ChessConsolePlayer {
                 }
             })
         } else if (event.type === INPUT_EVENT_TYPE.moveStart) {
-            if (this.chessConsole.model.plyViewed !== this.chessConsole.model.ply) {
-                this.chessConsole.model.plyViewed = this.chessConsole.model.ply
+            if (this.chessConsole.state.plyViewed !== this.chessConsole.state.ply) {
+                this.chessConsole.state.plyViewed = this.chessConsole.state.ply
                 return false
             } else {
                 return true
@@ -75,10 +75,10 @@ export class LocalPlayer extends ChessConsolePlayer {
     }
 
     moveRequest(fen, moveResponse) {
-        const color = this.chessConsole.model.chess.turn() === 'w' ? COLOR.white : COLOR.black
-        if (!this.chessConsole.model.chess.game_over()) {
+        const color = this.chessConsole.state.chess.turn() === 'w' ? COLOR.white : COLOR.black
+        if (!this.chessConsole.state.chess.game_over()) {
             // console.log("moveRequest, Enable move input", this.name, color);
-            this.chessConsole.chessboard.enableMoveInput(
+            this.chessConsole.view.chessboard.enableMoveInput(
                 (event) => {
                     return this.moveInputCallback(event, fen, moveResponse)
                 }, color
@@ -87,7 +87,7 @@ export class LocalPlayer extends ChessConsolePlayer {
     }
 
     moveDone(move) {
-        this.chessConsole.chessboard.disableMoveInput()
+        this.chessConsole.view.chessboard.disableMoveInput()
     }
 
 }

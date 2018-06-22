@@ -22,6 +22,7 @@ export class ChessConsoleState {
         this.lastError = null
         this.result = null
         this.running = null
+        this.forcedPlayer = null
     }
 
     pieces(type = null, color = null) {

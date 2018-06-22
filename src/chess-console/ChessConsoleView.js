@@ -7,6 +7,12 @@
 import {Observe} from "../svjs-observe/Observe.js"
 import {Chessboard, MOVE_INPUT_MODE} from "../cm-chessboard/Chessboard.js"
 
+export const MARKER_TYPE = {
+    lastMove: {class: "last-move", slice: "marker1"},
+    check: {class: "check", slice: "marker2"},
+    wrongMove: {class: "wrong-move", slice: "marker1"}
+};
+
 export class ChessConsoleView {
 
     constructor(chessConsole, callback) {
@@ -88,6 +94,20 @@ export class ChessConsoleView {
 
     setPositionOfPlyViewed(animated = true) {
         this.chessboard.setPosition(this.state.fenOfPly(this.state.plyViewed), animated);
+    }
+
+    markLastMove() {
+        window.clearTimeout(this.markLastMoveDebounce);
+        this.markLastMoveDebounce = setTimeout(() => {
+            this.chessboard.removeMarkers(null, MARKER_TYPE.lastMove);
+            if (this.model.showLastMove && this.model.plyViewed === this.model.ply) {
+                const lastMove = this.model.lastMove();
+                if (lastMove) {
+                    this.chessboard.addMarker(lastMove.from, MARKER_TYPE.lastMove);
+                    this.chessboard.addMarker(lastMove.to, MARKER_TYPE.lastMove);
+                }
+            }
+        });
     }
 
 }
