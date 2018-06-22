@@ -4,16 +4,15 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Module} from "../svjs-app/Module.js"
+import {AppModule} from "../svjs-app/AppModule.js"
 import {COLOR} from "../cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
 import {ChessConsoleView} from "./ChessConsoleView.js"
-import {FEN_EMPTY_POSITION, FEN_START_POSITION} from "../cm-chessboard/Chessboard.js"
 
-export class ChessConsole extends Module {
+export class ChessConsole extends AppModule {
 
-    constructor(element, props, components) {
-        super(element, props)
+    constructor(container, props, components) {
+        super(container, props)
         Object.assign(this.components, components)
         this.state = new ChessConsoleState()
         this.state.chess.load(props.position)

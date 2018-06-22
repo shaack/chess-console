@@ -13,8 +13,8 @@ export class ChessConsolePlayer {
         this.name = name
         /** @var ChessConsole */
         this.chessConsole = chessConsole
-        this.topBarElement = chessConsole.element.querySelector(".player.top")
-        this.bottomBarElement = chessConsole.element.querySelector(".player.bottom")
+        this.topBarElement = chessConsole.container.querySelector(".player.top")
+        this.bottomBarElement = chessConsole.container.querySelector(".player.bottom")
         Observe.property(this.chessConsole.view.chessboard.state, "orientation", () => {
             this.redraw()
         })

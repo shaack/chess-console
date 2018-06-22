@@ -16,9 +16,12 @@ symlinkModule("svjs-svg")
 symlinkModule("svjs-observe")
 symlinkModule("svjs-audio")
 
+console.log("Please run 'npm install' after every 'npm update'")
+
 function symlinkModule(moduleName) {
     try {
         fs.unlink(moduleName, () => {
+            console.log("Creating link to Module", moduleName, "in /src")
             fs.symlinkSync(resolveModulePath(moduleName), moduleName, "dir")
         })
     } catch (e) {
@@ -28,9 +31,7 @@ function symlinkModule(moduleName) {
 
 function resolveModulePath(moduleName) {
     try {
-        console.log("moduleName", moduleName)
         const pathToMainJs = require.resolve(moduleName)
-        console.log(pathToMainJs)
         return pathToMainJs.substr(0, pathToMainJs.lastIndexOf(moduleName) + moduleName.length)
     } catch (e) {
         console.warn("module '" + moduleName + "' not found")

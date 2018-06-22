@@ -10,12 +10,12 @@ import {Chessboard, MOVE_INPUT_MODE} from "../cm-chessboard/Chessboard.js"
 export class ChessConsoleView {
 
     constructor(chessConsole, callback) {
-        this.element = chessConsole.element
+        this.container = chessConsole.container
         this.state = chessConsole.state
         this.render()
         this.elements = {
-            chessboard: this.element.querySelector(".chessboard"),
-            lastError: this.element.querySelector(".last-error")
+            chessboard: this.container.querySelector(".chessboard"),
+            lastError: this.container.querySelector(".last-error")
         }
         this.chessboard = new Chessboard(this.elements.chessboard,
             {
@@ -63,7 +63,7 @@ export class ChessConsoleView {
         const colsetConsoleGame = "console-game col-lg-7 order-lg-2 col-md-8 order-md-1 order-sm-1 col-sm-12 order-sm-1"
         const colsetConsoleControls = "console-controls col-lg-3 order-lg-3 col-md-4 order-md-2 col-sm-8 order-sm-3"
         const colsetConsoleStatus = "console-status col-lg-2 order-lg-1 order-md-3 col-sm-4 order-sm-2"
-        this.element.innerHTML =
+        this.container.innerHTML =
             `<div class="row chess-console">
                 <div class="${colsetConsoleGame}">
                     <div class="player top">&nbsp;</div>
