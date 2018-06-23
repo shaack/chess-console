@@ -29,7 +29,7 @@
     "bootstrap": "^4.1.1",
     "chess.js": "^0.10.2",
     "cm-bootstrap-modal": "^1.2.5",
-    "cm-chessboard": "^2.11.35",
+    "cm-chessboard": "^2.12.1",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "svjs-app": "^1.1.4",
