@@ -11,7 +11,7 @@ export const MARKER_TYPE = {
     lastMove: {class: "last-move", slice: "marker1"},
     check: {class: "check", slice: "marker2"},
     wrongMove: {class: "wrong-move", slice: "marker1"}
-};
+}
 
 export class ChessConsoleView {
 
@@ -33,19 +33,12 @@ export class ChessConsoleView {
                 }
             }, () => {
                 this.state.observeChess((params) => {
-                    console.log("observeChess", params)
                     let animated = true
                     if (params.functionName === "load_pgn") {
                         animated = false
                     }
                     this.setPositionOfPlyViewed(animated)
                     this.markLastMove()
-                })
-                Observe.property(this.state, "showLastMove", () => {
-                    this.markLastMove()
-                })
-                Observe.property(this.state, "lastError", () => {
-                    this.showLastError()
                 })
                 Observe.property(this.state, "plyViewed", () => {
                     this.setPositionOfPlyViewed()
@@ -93,21 +86,21 @@ export class ChessConsoleView {
     }
 
     setPositionOfPlyViewed(animated = true) {
-        this.chessboard.setPosition(this.state.fenOfPly(this.state.plyViewed), animated);
+        this.chessboard.setPosition(this.state.fenOfPly(this.state.plyViewed), animated)
     }
 
     markLastMove() {
-        window.clearTimeout(this.markLastMoveDebounce);
+        window.clearTimeout(this.markLastMoveDebounce)
         this.markLastMoveDebounce = setTimeout(() => {
-            this.chessboard.removeMarkers(null, MARKER_TYPE.lastMove);
-            if (this.model.showLastMove && this.model.plyViewed === this.model.ply) {
-                const lastMove = this.model.lastMove();
+            this.chessboard.removeMarkers(null, MARKER_TYPE.lastMove)
+            if (this.state.plyViewed === this.state.ply) {
+                const lastMove = this.state.lastMove()
                 if (lastMove) {
-                    this.chessboard.addMarker(lastMove.from, MARKER_TYPE.lastMove);
-                    this.chessboard.addMarker(lastMove.to, MARKER_TYPE.lastMove);
+                    this.chessboard.addMarker(lastMove.from, MARKER_TYPE.lastMove)
+                    this.chessboard.addMarker(lastMove.to, MARKER_TYPE.lastMove)
                 }
             }
-        });
+        })
     }
 
 }

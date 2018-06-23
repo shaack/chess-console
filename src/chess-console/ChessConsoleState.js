@@ -18,7 +18,6 @@ export class ChessConsoleState {
         this.chess = new Chess("8/8/8/8/8/8/8/8")
         this.plyViewed = 0
         this.ply = 0
-        this.showLastMove = true
         this.lastError = null
         this.result = null
         this.running = null

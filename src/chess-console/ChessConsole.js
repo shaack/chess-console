@@ -10,24 +10,28 @@ import {COLOR} from "../cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
 import {ChessConsoleView} from "./ChessConsoleView.js"
 
-/*
-export const MESSAGE_TYPE = {
-    finishedLoading: function(console) {
+
+export const MESSAGE = {
+    afterConstruction: function(console) {
         this.console = console
     },
-    moveDone: function(console, move) {
+    illegalMove: function(console, player, move) {
+        this.console = console
+        this.player = player
+        this.move = move
+    },
+    afterLegalMove: function(console, move) {
         this.console = console
         this.move = move
     }
 }
-*/
 
 export class ChessConsole extends AppModule {
 
     constructor(container, props, components) {
         super(container, props)
         Object.assign(this.components, components)
-        // this.messageBroker = new MessageBroker()
+        this.messageBroker = new MessageBroker()
         this.state = new ChessConsoleState()
         this.state.chess.load(props.position)
         this.view = new ChessConsoleView(this, () => {
@@ -35,7 +39,7 @@ export class ChessConsole extends AppModule {
             this.opponent = new props.opponent.type(props.opponent.name, this)
             this.nextMove()
         })
-        // this.messageBroker.publish(messageTypes.finishedLoading(this))
+        this.messageBroker.publish(new MESSAGE.afterConstruction(this))
     }
 
     playerWhite() {
@@ -69,7 +73,6 @@ export class ChessConsole extends AppModule {
      * - calls `moveRequest()` in next player
      */
     nextMove() {
-        this.state.lastError = null
         let playerToMove = this.state.forcedPlayer
         if (!playerToMove) {
             playerToMove = this.playerToMove()
@@ -88,7 +91,7 @@ export class ChessConsole extends AppModule {
         const moveResult = this.state.chess.move(move)
         if (!moveResult) {
             console.warn("illegal move", move)
-            this.illegalMove(move)
+            this.messageBroker.publish(new MESSAGE.illegalMove(this, move))
             return
         }
         if (this.state.plyViewed === this.state.ply - 1) {
@@ -108,13 +111,14 @@ export class ChessConsole extends AppModule {
      * called, when an illegal move occurred
      */
     illegalMove(move) {
-        this.model.lastError = move
+        // todo this must be done in view
+        /*
+        this.state.lastError = move
         window.clearTimeout(this.illegalMoveDebounce)
+
         this.illegalMoveDebounce = setTimeout(() => {
             this.model.lastError = null
         }, 10000)
-        // todo this must be done in view
-        /*
         for (let i = 0; i < 2; i++) {
             setTimeout(() => {
                 this.chessboard.addMarker(move.from, MARKER_TYPE.wrongMove);
