@@ -72,8 +72,10 @@ export class ChessConsole extends AppModule {
      * - calls `moveRequest()` in next player
      */
     nextMove() {
+        const playerToMove = this.playerToMove()
+        this.messageBroker.publish(new MESSAGE.moveRequest(playerToMove))
         setTimeout(() => {
-            this.playerToMove().moveRequest(this.state.chess.fen(), (san) => {
+            playerToMove.moveRequest(this.state.chess.fen(), (san) => {
                 this.moveResponse(san)
             })
         })

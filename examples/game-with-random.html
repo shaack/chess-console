@@ -24,12 +24,13 @@
     import {PlayerBars} from "../src/chess-console/components/PlayerBars.js"
 
     const app = App.create()
-    const chessConsole = app.addModule(ChessConsole, document.getElementById("console-container"), {
-        player: {name: "Local Player", type: LocalPlayer},
-        opponent: {name: "Random Player", type: RandomPlayer},
-        position: FEN_START_POSITION,
-        playerColor: COLOR.white
-    })
+    const chessConsole = app.addModule(ChessConsole,
+        document.getElementById("console-container"), {
+            player: {name: "Local Player", type: LocalPlayer},
+            opponent: {name: "Random Player", type: RandomPlayer},
+            position: FEN_START_POSITION,
+            playerColor: COLOR.white
+        })
     chessConsole.addComponent(PlayerBars)
 
 </script>

@@ -11,46 +11,13 @@ export class ChessConsolePlayer {
 
     constructor(name, chessConsole) {
         this.name = name
-        /** @var ChessConsole */
         this.chessConsole = chessConsole
-        /*
-        this.topBarElement = chessConsole.container.querySelector(".player.top")
-        this.bottomBarElement = chessConsole.container.querySelector(".player.bottom")
-        Observe.property(this.chessConsole.view.chessboard.state, "orientation", () => {
-            this.redraw()
-        })
-        this.redraw()
-        */
     }
 
-    /*
-    redraw() {
-        clearTimeout(this.redrawDebounce)
-        this.redrawDebounce = setTimeout(() => {
-            const isWhite = this.chessConsole.playerWhite() === this
-            this.myBarElement().innerHTML = (this.name ? this.name : "&nbsp;")
-        })
-    }
-
-    myBarElement() {
-        const isWhite = this.chessConsole.playerWhite() === this
-        if (isWhite && this.chessConsole.view.chessboard.getOrientation() === COLOR.white ||
-            !isWhite && this.chessConsole.view.chessboard.getOrientation() === COLOR.black) {
-            return this.bottomBarElement
-        } else {
-            return this.topBarElement
-        }
-    }
-    */
     moveRequest(fen, moveResponse) {
     }
 
     moveDone(move) {
     }
 
-    /*
-    getPlayerColor() {
-        return null // return ChessUtils.getPlayerColor(this.chessConsole.config.game, this.name);
-    }
-    */
 }
