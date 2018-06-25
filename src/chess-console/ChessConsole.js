@@ -79,7 +79,6 @@ export class ChessConsole extends AppModule {
                 this.moveResponse(san)
             })
         })
-
     }
 
     /*
@@ -103,27 +102,4 @@ export class ChessConsole extends AppModule {
         }
     }
 
-    /*
-     * called, when an illegal move occurred
-     */
-    illegalMove(move) {
-        // todo this must be done in view
-        /*
-        this.state.lastError = move
-        window.clearTimeout(this.illegalMoveDebounce)
-
-        this.illegalMoveDebounce = setTimeout(() => {
-            this.model.lastError = null
-        }, 10000)
-        for (let i = 0; i < 2; i++) {
-            setTimeout(() => {
-                this.chessboard.addMarker(move.from, MARKER_TYPE.wrongMove);
-                this.chessboard.addMarker(move.to, MARKER_TYPE.wrongMove);
-            }, i * 400);
-            setTimeout(() => {
-                this.chessboard.removeMarkers(null, MARKER_TYPE.wrongMove);
-            }, i * 400 + 200);
-        }
-        */
-    }
 }
