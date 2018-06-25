@@ -8,7 +8,7 @@ html body .container-fluid {
   display: inline-block; }
   /* line 12, screen.scss */
   .chess-console .player.to-move:after {
-    color: #080;
+    color: #333;
     margin-left: 8px;
     content: "■"; }
 

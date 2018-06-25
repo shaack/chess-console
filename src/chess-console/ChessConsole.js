@@ -12,16 +12,16 @@ import {ChessConsoleView} from "./ChessConsoleView.js"
 
 
 export const MESSAGE = {
-    gameStarted: function () {},
-    gameFinished: function () {},
-    illegalMove: function (player, move) {
+    // gameStarted: function () {},
+    /// gameFinished: function () {},
+    illegalMove: function illegalMove(player, move) {
         this.player = player
         this.move = move
     },
-    moveRequest: function(player) {
+    moveRequest: function moveRequest(player) {
         this.player = player
     },
-    moveDone: function (player, move) {
+    moveDone: function moveDone(player, move) {
         this.player = player
         this.move = move
     }
@@ -90,15 +90,14 @@ export class ChessConsole extends AppModule {
     moveResponse(move) {
         const moveResult = this.state.chess.move(move)
         if (!moveResult) {
-            console.warn("illegal move", move)
-            this.messageBroker.publish(new MESSAGE.illegalMove(move))
+            this.messageBroker.publish(new MESSAGE.illegalMove(this.playerToMove(), move))
             return
         }
         if (this.state.plyViewed === this.state.ply - 1) {
             this.state.plyViewed++
         }
         this.opponentOf(this.playerToMove()).moveDone(this.state.lastMove())
-        this.messageBroker.publish(new MESSAGE.moveDone(move))
+        this.messageBroker.publish(new MESSAGE.moveDone(this.opponentOf(this.playerToMove()), move))
         if (!this.state.chess.game_over()) {
             this.nextMove()
         }

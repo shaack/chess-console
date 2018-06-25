@@ -6,6 +6,7 @@
 
 import {Observe} from "../svjs-observe/Observe.js"
 import {Chessboard, MOVE_INPUT_MODE} from "../cm-chessboard/Chessboard.js"
+import {MESSAGE} from "./ChessConsole.js"
 
 export const MARKER_TYPE = {
     lastMove: {class: "last-move", slice: "marker1"},
@@ -43,6 +44,17 @@ export class ChessConsoleView {
                 Observe.property(this.state, "plyViewed", () => {
                     this.setPositionOfPlyViewed()
                     this.markLastMove()
+                })
+                chessConsole.messageBroker.subscribe(MESSAGE.illegalMove, (message) => {
+                    for (let i = 0; i < 2; i++) {
+                        setTimeout(() => {
+                            this.chessboard.addMarker(message.move.from, MARKER_TYPE.wrongMove);
+                            this.chessboard.addMarker(message.move.to, MARKER_TYPE.wrongMove);
+                        }, i * 400);
+                        setTimeout(() => {
+                            this.chessboard.removeMarkers(null, MARKER_TYPE.wrongMove);
+                        }, i * 400 + 200);
+                    }
                 })
                 this.setPositionOfPlyViewed(false)
                 callback()

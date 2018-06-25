@@ -10,7 +10,7 @@ html {
   .player {
     display: inline-block;
     &.to-move:after {
-      color: #080;
+      color: #333;
       margin-left: 8px;
       content: "■";
     }
