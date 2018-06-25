@@ -25,10 +25,10 @@
 
     const app = App.create()
     const chessConsole = app.addModule(ChessConsole, document.getElementById("console-container"), {
-        position: FEN_START_POSITION,
-        playerColor: COLOR.white,
         player: {name: "Local Player", type: LocalPlayer},
-        opponent: {name: "Random Player", type: RandomPlayer}
+        opponent: {name: "Random Player", type: RandomPlayer},
+        position: FEN_START_POSITION,
+        playerColor: COLOR.white
     })
     chessConsole.addComponent(PlayerBars)
 

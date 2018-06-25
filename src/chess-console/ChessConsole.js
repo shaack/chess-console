@@ -28,15 +28,15 @@ export const MESSAGE = {
 }
 
 export class ChessConsole extends AppModule {
-ˆ
+
     constructor(app, container, props) {
         super(app, container, props)
         this.messageBroker = new MessageBroker()
         this.state = new ChessConsoleState()
         this.state.chess.load(props.position)
+        this.player = new props.player.type(props.player.name, this)
+        this.opponent = new props.opponent.type(props.opponent.name, this)
         this.view = new ChessConsoleView(this, () => {
-            this.player = new props.player.type(props.player.name, this)
-            this.opponent = new props.opponent.type(props.opponent.name, this)
             this.nextMove()
         })
     }
