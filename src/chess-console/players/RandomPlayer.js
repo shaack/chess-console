@@ -1,6 +1,7 @@
 /**
- * Author: shaack
- * Date: 21.12.2017
+ * Author and copyright: Stefan Haack (https://shaack.com)
+ * Repository: https://github.com/shaack/chess-console
+ * License: MIT, see file 'LICENSE'
  */
 
 import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
@@ -17,6 +18,7 @@ export class RandomPlayer extends ChessConsolePlayer {
     }
 
     moveRequest(fen, moveResponse) {
+        super.moveRequest(fen, moveResponse)
         this.chess.load(fen)
         const possibleMoves = this.chess.moves({verbose: true})
         if (possibleMoves.length > 0) {

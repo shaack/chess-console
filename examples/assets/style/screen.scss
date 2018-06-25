@@ -5,3 +5,14 @@ html {
     }
   }
 }
+
+.chess-console {
+  .player {
+    display: inline-block;
+    &.to-move:after {
+      color: #080;
+      margin-left: 8px;
+      content: "■";
+    }
+  }
+}

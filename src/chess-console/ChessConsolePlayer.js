@@ -25,19 +25,26 @@ export class ChessConsolePlayer {
         clearTimeout(this.redrawDebounce)
         this.redrawDebounce = setTimeout(() => {
             const isWhite = this.chessConsole.playerWhite() === this
-            if (isWhite && this.chessConsole.view.chessboard.getOrientation() === COLOR.white ||
-                !isWhite && this.chessConsole.view.chessboard.getOrientation() === COLOR.black) {
-                this.bottomBarElement.innerHTML = (this.name ? this.name : "&nbsp;")
-            } else {
-                this.topBarElement.innerHTML = (this.name ? this.name : "&nbsp;")
-            }
+            this.myBarElement().innerHTML = (this.name ? this.name : "&nbsp;")
         })
     }
 
-    moveRequest(moveResponse) {
+    myBarElement() {
+        const isWhite = this.chessConsole.playerWhite() === this
+        if (isWhite && this.chessConsole.view.chessboard.getOrientation() === COLOR.white ||
+            !isWhite && this.chessConsole.view.chessboard.getOrientation() === COLOR.black) {
+            return this.bottomBarElement
+        } else {
+            return this.topBarElement
+        }
+    }
+
+    moveRequest(fen, moveResponse) {
+        this.myBarElement().classList.add("to-move")
     }
 
     moveDone(move) {
+        this.myBarElement().classList.remove("to-move")
     }
 
     newGame(gameConfig) {

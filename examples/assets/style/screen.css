@@ -1,5 +1,15 @@
+@charset "UTF-8";
 /* line 3, screen.scss */
 html body .container-fluid {
   max-width: 1000px; }
+
+/* line 10, screen.scss */
+.chess-console .player {
+  display: inline-block; }
+  /* line 12, screen.scss */
+  .chess-console .player.to-move:after {
+    color: #080;
+    margin-left: 8px;
+    content: "■"; }
 
 /*# sourceMappingURL=screen.css.map */
