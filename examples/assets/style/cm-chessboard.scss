@@ -99,6 +99,10 @@ $light-blue: #d7e3fc;
         stroke: blue;
         opacity: 0.5;
       }
+      &.last-move {
+        stroke: black;
+        opacity: 0.4;
+      }
     }
   }
   .pieces, .markers {
