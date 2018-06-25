@@ -18,7 +18,6 @@ export class RandomPlayer extends ChessConsolePlayer {
     }
 
     moveRequest(fen, moveResponse) {
-        super.moveRequest(fen, moveResponse)
         this.chess.load(fen)
         const possibleMoves = this.chess.moves({verbose: true})
         if (possibleMoves.length > 0) {

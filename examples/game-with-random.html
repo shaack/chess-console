@@ -23,15 +23,12 @@
     import {COLOR, FEN_START_POSITION} from "../src/cm-chessboard/Chessboard.js"
 
     const app = App.create()
-    app.addModule(new ChessConsole(document.getElementById("console-container"), {
+    new ChessConsole(app, document.getElementById("console-container"), {
         position: FEN_START_POSITION,
         playerColor: COLOR.white,
         player: {name: "Local Player", type: LocalPlayer},
         opponent: {name: "Random Player", type: RandomPlayer},
-        components: [
-
-        ]
-    }))
+    })
 </script>
 </body>
 </html>

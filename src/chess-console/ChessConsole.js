@@ -34,9 +34,8 @@ export const MESSAGE = {
 
 export class ChessConsole extends AppModule {
 
-    constructor(container, props, components) {
-        super(container, props)
-        Object.assign(this.components, components)
+    constructor(app, container, props) {
+        super(app, container, props)
         this.messageBroker = new MessageBroker()
         this.state = new ChessConsoleState()
         this.state.chess.load(props.position)
