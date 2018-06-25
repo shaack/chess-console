@@ -12,28 +12,23 @@ import {ChessConsoleView} from "./ChessConsoleView.js"
 
 
 export const MESSAGE = {
-    constructed: function (console) {
-        this.console = console
-    },
-    gameStarted: function (console) {
-        this.console = console
-    },
-    gameFinished: function (console) {
-        this.console = console
-    },
-    illegalMove: function (console, player, move) {
-        this.console = console
+    gameStarted: function () {},
+    gameFinished: function () {},
+    illegalMove: function (player, move) {
         this.player = player
         this.move = move
     },
-    moveDone: function (console, move) {
-        this.console = console
+    moveRequest: function(player) {
+        this.player = player
+    },
+    moveDone: function (player, move) {
+        this.player = player
         this.move = move
     }
 }
 
 export class ChessConsole extends AppModule {
-
+ˆ
     constructor(app, container, props) {
         super(app, container, props)
         this.messageBroker = new MessageBroker()
@@ -44,7 +39,6 @@ export class ChessConsole extends AppModule {
             this.opponent = new props.opponent.type(props.opponent.name, this)
             this.nextMove()
         })
-        this.messageBroker.publish(new MESSAGE.constructed(this))
     }
 
     playerWhite() {
@@ -95,14 +89,14 @@ export class ChessConsole extends AppModule {
         const moveResult = this.state.chess.move(move)
         if (!moveResult) {
             console.warn("illegal move", move)
-            this.messageBroker.publish(new MESSAGE.illegalMove(this, move))
+            this.messageBroker.publish(new MESSAGE.illegalMove(move))
             return
         }
         if (this.state.plyViewed === this.state.ply - 1) {
             this.state.plyViewed++
         }
         this.opponentOf(this.playerToMove()).moveDone(this.state.lastMove())
-        this.messageBroker.publish(new MESSAGE.moveDone(this, move))
+        this.messageBroker.publish(new MESSAGE.moveDone(move))
         if (!this.state.chess.game_over()) {
             this.nextMove()
         }
