@@ -5,34 +5,20 @@
     <title>Chess Console</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./assets/style/screen.css">
-    <link rel="stylesheet" href="./assets/style/cm-chessboard.css">
+    <link rel="stylesheet" href="examples/assets/style/screen.css">
+    <link rel="stylesheet" href="examples/assets/style/cm-chessboard.css">
 
 </head>
 <body>
 <div class="container-fluid">
-    <h1>Chess Console</h1>
-    <div id="console-container"></div>
+<h1>chess-console</h1>
+<p>A modular component-based chess client.</p>
+<h2>Examples</h2>
+<ul>
+    <li><a href="./examples/game-with-random.html">Play a game against chess.js (random moves)</a></li>
+    <li><a href="./examples/play-both-local.html">Play both opponents local</a></li>
+    <!-- <li><a href="./examples/game-with-random.html">Analyse mode</a></li> -->
+</ul>
 </div>
-<script src="./node_modules/chess.js/chess.min.js"></script>
-<script type="module">
-    import {App} from "./src/svjs-app/App.js"
-    import {ChessConsole} from "./src/chess-console/ChessConsole.js"
-    import {LocalPlayer} from "./src/chess-console/players/LocalPlayer.js"
-    import {RandomPlayer} from "./src/chess-console/players/RandomPlayer.js"
-    import {COLOR, FEN_START_POSITION} from "./src/cm-chessboard/Chessboard.js"
-
-    const app = App.create()
-    app.addModule(new ChessConsole(document.getElementById("console-container"), {
-        position: FEN_START_POSITION,
-        playerColor: COLOR.white,
-        player: {name: "Local Player", type: LocalPlayer},
-        opponent: {name: "Random Player", type: RandomPlayer},
-        // opponent: {name: "Stockfish", class: EnginePlayer},
-        components: [
-
-        ]
-    }))
-</script>
 </body>
 </html>
