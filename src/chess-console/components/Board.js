@@ -22,7 +22,6 @@ export class Board extends Component {
         super(module, props)
         module.board = this
         this.state = module.state
-        this.container = module.container.querySelector(".console-board")
         this.elements = {
             playerTop: document.createElement("div"),
             playerBottom: document.createElement("div"),
@@ -31,10 +30,9 @@ export class Board extends Component {
         this.elements.playerTop.setAttribute("class", "player top")
         this.elements.playerBottom.setAttribute("class", "player bottom")
         this.elements.chessboard.setAttribute("class", "chessboard")
-
-        this.container.appendChild(this.elements.playerTop)
-        this.container.appendChild(this.elements.chessboard)
-        this.container.appendChild(this.elements.playerBottom)
+        module.boardContainer.appendChild(this.elements.playerTop)
+        module.boardContainer.appendChild(this.elements.chessboard)
+        module.boardContainer.appendChild(this.elements.playerBottom)
         this.resize()
         this.chessboard = new Chessboard(this.elements.chessboard,
             {

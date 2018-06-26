@@ -16,6 +16,7 @@ export class History extends Component {
 
         this.element = document.createElement("div")
         this.element.setAttribute("class", "history")
+        this.module.statusContainer.appendChild(this.element)
 
         this.state = module.state
         this.state.observeChess(() => {
@@ -45,11 +46,11 @@ export class History extends Component {
                 sanWhite = history[i]
                 // console.log(sanWhite);
                 if (sanWhite) {
-                    sanWhite = ChessTools.renderSan(sanWhite, 0)
+                    sanWhite = ChessTools.renderSan(sanWhite, 1)
                 }
                 sanBlack = history[i + 1]
                 if (sanBlack) {
-                    sanBlack = ChessTools.renderSan(sanBlack, 1)
+                    sanBlack = ChessTools.renderSan(sanBlack, 0)
                 } else {
                     sanBlack = ""
                 }
