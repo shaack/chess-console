@@ -8,7 +8,6 @@ import {AppModule} from "../svjs-app/AppModule.js"
 import {MessageBroker} from "../svjs-message-broker/MessageBroker.js"
 import {COLOR} from "../cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
-import {ChessConsoleView} from "./ChessConsoleView.js"
 
 
 export const MESSAGE = {
@@ -48,12 +47,10 @@ export class ChessConsole extends AppModule {
                 <div class="console-status ${colsetConsoleStatus}">
                 </div>
             </div>`
+        this.boardContainer = this.container.querySelector(".console-board")
+        this.controlsContainer = this.container.querySelector(".console-controls")
+        this.statusContainer = this.container.querySelector(".console-status")
         this.nextMove()
-        /*
-        this.view = new ChessConsoleView(this, () => {
-            this.nextMove()
-        })
-        */
     }
 
     playerWhite() {

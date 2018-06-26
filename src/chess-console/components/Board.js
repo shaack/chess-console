@@ -6,9 +6,15 @@
 
 import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../cm-chessboard/Chessboard.js"
 import {MESSAGE} from "../ChessConsole.js"
-import {MARKER_TYPE} from "../ChessConsoleView.js"
 import {Observe} from "../../svjs-observe/Observe.js"
 import {Component} from "../../svjs-app/Component.js"
+
+export const MARKER_TYPE = {
+    lastMove: {class: "last-move", slice: "marker1"},
+    check: {class: "check", slice: "marker2"},
+    wrongMove: {class: "wrong-move", slice: "marker1"}
+}
+
 
 export class Board extends Component {
 
@@ -111,18 +117,21 @@ export class Board extends Component {
     }
 
     markPlayerToMove() {
-        this.elements.playerTop.classList.remove("to-move")
-        this.elements.playerBottom.classList.remove("to-move")
-        const playerMove = this.module.playerToMove()
-        if (
-            this.chessboard.getOrientation() === COLOR.white &&
-            playerMove === this.module.playerWhite() ||
-            this.chessboard.getOrientation() === COLOR.black &&
-            playerMove === this.module.playerBlack()) {
-            this.elements.playerBottom.classList.add("to-move")
-        } else {
-            this.elements.playerTop.classList.add("to-move")
-        }
+        clearTimeout(this.markPlayerToMoveDebounce)
+        this.markPlayerToMoveDebounce = setTimeout(() => {
+            this.elements.playerTop.classList.remove("to-move")
+            this.elements.playerBottom.classList.remove("to-move")
+            const playerMove = this.module.playerToMove()
+            if (
+                this.chessboard.getOrientation() === COLOR.white &&
+                playerMove === this.module.playerWhite() ||
+                this.chessboard.getOrientation() === COLOR.black &&
+                playerMove === this.module.playerBlack()) {
+                this.elements.playerBottom.classList.add("to-move")
+            } else {
+                this.elements.playerTop.classList.add("to-move")
+            }
+        }, 10)
     }
 
 }

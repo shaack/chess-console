@@ -13,7 +13,10 @@ export class History extends Component {
 
     constructor(module) {
         super(module)
-        this.element = module.container.querySelector(".history")
+
+        this.element = document.createElement("div")
+        this.element.setAttribute("class", "history")
+
         this.state = module.state
         this.state.observeChess(() => {
             this.redraw()
