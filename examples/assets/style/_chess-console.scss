@@ -1,0 +1,143 @@
+@import "../../../node_modules/bootstrap/scss/variables";
+
+.chess-console {
+  .games-navigation {
+    width: 100%;
+    overflow: hidden;
+    .control-icons {
+      display: flex;
+      width: 100%;
+      max-width: 200px;
+      margin: 0 0 $spacer 0;
+      // background-color: rgba(0,0,0,0.1);
+      .text {
+        flex: auto fit-content;
+        position: relative;
+        top: 4px;
+        margin: 0;
+      }
+      .btn {
+        flex: auto;
+        margin: 0;
+        padding: 8px 0;
+        // background-color: red;
+      }
+    }
+  }
+  .console-controls, .console-status {
+    margin-top: 5px;
+  }
+  .console-game {
+    // margin-top: -1.4em;
+    .chessboard {
+      width: 100%;
+    }
+    .player {
+      // text-align: center;
+      font-weight: bold;
+      font-size: 120%;
+      &.to-move:after {
+        color: #333;
+        margin-left: 8px;
+        content: "■";
+      }
+    }
+    .clock {
+      font-family: 'DSDIGI', sans-serif;
+      font-size: 150%;
+      line-height: 0.99;
+    }
+  }
+  .console-status {
+    .history {
+      max-height: 284px;
+      max-width: 210px;
+      overflow-y: auto;
+      overflow-x: visible;
+      margin-bottom: $spacer;
+      width: calc(100% + 8px);
+      table {
+        width: 100%;
+        .num {
+          width: 18%;
+        }
+        .ply {
+          cursor: pointer;
+          width: 41%;
+        }
+      }
+    }
+    .captured-pieces {
+      margin-bottom: $spacer;
+    }
+  }
+  .control-icons {
+    float: left;
+    .text {
+      float: left;
+      padding: 4px 3px;
+    }
+    .autoplay {
+      .fa-play {
+        color: $green;
+      }
+      .fa-stop {
+        color: $orange;
+      }
+    }
+    button {
+      float: left;
+      margin-right: $spacer-small;
+      margin-bottom: $spacer-small;
+    }
+    .game-control {
+      .btn {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+    }
+    margin-bottom: $spacer-small;
+  }
+  .console-controls {
+    .game-status {
+      font-weight: bold;
+      margin-bottom: $spacer;
+    }
+    .last-error {
+      color: $danger;
+      margin-bottom: $spacer;
+    }
+    .move-input {
+      margin-bottom: $spacer;
+      .first-move {
+        color: $gray-800;
+        font-size: 280%;
+        width: 100%;
+        overflow: hidden;
+      }
+      .conditional-moves {
+        margin-bottom: $spacer-small;
+      }
+      .move-input-controls {
+        width: 100%;
+        button {
+          float: left;
+          margin-right: $spacer-small;
+          margin-bottom: $spacer-small;
+        }
+      }
+    }
+  }
+}
+
+.modal svg.piece {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ccc;
+  }
+}
+
+button.close {
+  cursor: pointer;
+}

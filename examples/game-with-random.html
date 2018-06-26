@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="assets/style/screen.css">
-    <link rel="stylesheet" href="assets/style/cm-chessboard.css">
+    <link rel="stylesheet" href="assets/style/_cm-chessboard.css">
 
 </head>
 <body>
@@ -22,6 +22,7 @@
     import {RandomPlayer} from "../src/chess-console/players/RandomPlayer.js"
     import {COLOR, FEN_START_POSITION} from "../src/cm-chessboard/Chessboard.js"
     import {PlayerBars} from "../src/chess-console/components/PlayerBars.js"
+    import {History} from "../src/chess-console/components/History.js"
 
     const app = App.create()
     const chessConsole = app.addModule(ChessConsole,
@@ -32,6 +33,7 @@
             playerColor: COLOR.white
         })
     chessConsole.addComponent(PlayerBars)
+    chessConsole.addComponent(History)
 
 </script>
 </body>

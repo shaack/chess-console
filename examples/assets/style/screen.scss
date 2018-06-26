@@ -1,18 +1,13 @@
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+$spacer-small: $spacer / 2;
+
+@import "chess-console";
+@import "cm-chessboard";
+
 html {
   body {
     .container-fluid {
       max-width: 1000px;
-    }
-  }
-}
-
-.chess-console {
-  .player {
-    display: inline-block;
-    &.to-move:after {
-      color: #333;
-      margin-left: 8px;
-      content: "■";
     }
   }
 }
