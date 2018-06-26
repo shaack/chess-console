@@ -8061,21 +8061,21 @@ a.text-dark:hover, a.text-dark:focus {
   margin-top: 5px; }
 
 /* line 32, _chess-console.scss */
-.chess-console .console-game .chessboard {
+.chess-console .console-board .chessboard {
   width: 100%; }
 
 /* line 35, _chess-console.scss */
-.chess-console .console-game .player {
+.chess-console .console-board .player {
   font-weight: bold;
   font-size: 120%; }
   /* line 39, _chess-console.scss */
-  .chess-console .console-game .player.to-move:after {
+  .chess-console .console-board .player.to-move:after {
     color: #333;
     margin-left: 8px;
     content: "■"; }
 
 /* line 45, _chess-console.scss */
-.chess-console .console-game .clock {
+.chess-console .console-board .clock {
   font-family: 'DSDIGI', sans-serif;
   font-size: 150%;
   line-height: 0.99; }
