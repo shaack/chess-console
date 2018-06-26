@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Chessboard, MOVE_INPUT_MODE} from "../../cm-chessboard/Chessboard.js"
+import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../cm-chessboard/Chessboard.js"
 import {MESSAGE} from "../ChessConsole.js"
 import {MARKER_TYPE} from "../ChessConsoleView.js"
 import {Observe} from "../../svjs-observe/Observe.js"
@@ -25,6 +25,7 @@ export class Board extends Component {
         this.elements.playerTop.setAttribute("class", "player top")
         this.elements.playerBottom.setAttribute("class", "player bottom")
         this.elements.chessboard.setAttribute("class", "chessboard")
+
         this.container.appendChild(this.elements.playerTop)
         this.container.appendChild(this.elements.chessboard)
         this.container.appendChild(this.elements.playerBottom)
@@ -65,6 +66,14 @@ export class Board extends Component {
                 window.addEventListener("resize", () => {
                     this.resize()
                 })
+                Observe.property(this.chessboard.state, "orientation", () => {
+                    this.setPlayerNames()
+                })
+                module.messageBroker.subscribe(MESSAGE.moveRequest, (player) => {
+                    this.markPlayerToMove()
+                })
+                this.setPlayerNames()
+                this.markPlayerToMove()
             })
     }
 
@@ -89,6 +98,31 @@ export class Board extends Component {
                 }
             }
         })
+    }
+
+    setPlayerNames() {
+        if (this.chessboard.getOrientation() === COLOR.white) {
+            this.elements.playerBottom.innerHTML = this.module.player.name
+            this.elements.playerTop.innerHTML = this.module.opponent.name
+        } else {
+            this.elements.playerBottom.innerHTML = this.module.opponent.name
+            this.elements.playerTop.innerHTML = this.module.player.name
+        }
+    }
+
+    markPlayerToMove() {
+        this.elements.playerTop.classList.remove("to-move")
+        this.elements.playerBottom.classList.remove("to-move")
+        const playerMove = this.module.playerToMove()
+        if (
+            this.chessboard.getOrientation() === COLOR.white &&
+            playerMove === this.module.playerWhite() ||
+            this.chessboard.getOrientation() === COLOR.black &&
+            playerMove === this.module.playerBlack()) {
+            this.elements.playerBottom.classList.add("to-move")
+        } else {
+            this.elements.playerTop.classList.add("to-move")
+        }
     }
 
 }
