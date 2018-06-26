@@ -104,8 +104,12 @@ $light-blue: #d7e3fc;
         opacity: 0.4;
       }
       &.wrong-move {
-        stroke: #dc3545;
+        stroke: $danger;
         opacity: 0.9;
+      }
+      &.check {
+        stroke: $danger;
+        opacity: 0.5;
       }
     }
   }

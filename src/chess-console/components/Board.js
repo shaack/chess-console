@@ -94,11 +94,17 @@ export class Board extends Component {
         window.clearTimeout(this.markLastMoveDebounce)
         this.markLastMoveDebounce = setTimeout(() => {
             this.chessboard.removeMarkers(null, MARKER_TYPE.lastMove)
+            this.chessboard.removeMarkers(null, MARKER_TYPE.check)
             if (this.state.plyViewed === this.state.ply) {
                 const lastMove = this.state.lastMove()
                 if (lastMove) {
                     this.chessboard.addMarker(lastMove.from, MARKER_TYPE.lastMove)
                     this.chessboard.addMarker(lastMove.to, MARKER_TYPE.lastMove)
+                }
+                if (this.state.chess.in_check() || this.state.chess.in_checkmate()) {
+                    const kingSquare = this.state.pieces("k", this.state.chess.turn())[0];
+                    console.log("in_check!", kingSquare)
+                    this.chessboard.addMarker(kingSquare.square, MARKER_TYPE.check);
                 }
             }
         })

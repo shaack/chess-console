@@ -8256,7 +8256,12 @@ button.close {
   stroke: #dc3545;
   opacity: 0.9; }
 
-/* line 112, _cm-chessboard.scss */
+/* line 110, _cm-chessboard.scss */
+.cm-chessboard .markers .marker.check {
+  stroke: #dc3545;
+  opacity: 0.5; }
+
+/* line 116, _cm-chessboard.scss */
 .cm-chessboard .pieces, .cm-chessboard .markers {
   pointer-events: none; }
 
