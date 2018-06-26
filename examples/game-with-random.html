@@ -24,6 +24,7 @@
     import {COLOR, FEN_START_POSITION} from "../src/cm-chessboard/Chessboard.js"
     import {PlayerBars} from "../src/chess-console/components/PlayerBars.js"
     import {History} from "../src/chess-console/components/History.js"
+    import {Board} from "../src/chess-console/components/Board.js"
 
     const app = App.create()
     const chessConsole = app.addModule(ChessConsole,
@@ -33,6 +34,7 @@
             position: FEN_START_POSITION,
             playerColor: COLOR.white
         })
+    chessConsole.addComponent(Board)
     // chessConsole.addComponent(PlayerBars)
     // chessConsole.addComponent(History)
 

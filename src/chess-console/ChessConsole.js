@@ -36,9 +36,24 @@ export class ChessConsole extends AppModule {
         this.state.chess.load(props.position)
         this.player = new props.player.type(props.player.name, this)
         this.opponent = new props.opponent.type(props.opponent.name, this)
+        const colsetConsoleGame = "col-lg-7 order-lg-2 col-md-8 order-md-1 order-sm-1 col-sm-12 order-sm-1"
+        const colsetConsoleControls = "col-lg-3 order-lg-3 col-md-4 order-md-2 col-sm-8 order-sm-3"
+        const colsetConsoleStatus = "col-lg-2 order-lg-1 order-md-3 col-sm-4 order-sm-2"
+        this.container.innerHTML =
+            `<div class="row chess-console">
+                <div class="console-board ${colsetConsoleGame}">
+                </div>
+                <div class="console-controls ${colsetConsoleControls}">
+                </div>
+                <div class="console-status ${colsetConsoleStatus}">
+                </div>
+            </div>`
+        this.nextMove()
+        /*
         this.view = new ChessConsoleView(this, () => {
             this.nextMove()
         })
+        */
     }
 
     playerWhite() {
