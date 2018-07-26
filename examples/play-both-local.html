@@ -27,13 +27,11 @@
     const chessConsole = app.addModule(ChessConsole,
         document.getElementById("console-container"), {
             player: {name: "Local Player 1", type: LocalPlayer},
-            opponent: {name: "Local Player 2", type: LocalPlayer},
-            position: FEN_START_POSITION,
-            playerColor: COLOR.white
+            opponent: {name: "Local Player 2", type: LocalPlayer}
         })
     chessConsole.addComponent(Board)
-    // chessConsole.addComponent(History)
-    // chessConsole.addComponent(HistoryControl)
+    chessConsole.addComponent(History)
+    chessConsole.addComponent(HistoryControl)
 
 </script>
 </body>

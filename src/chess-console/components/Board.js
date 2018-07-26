@@ -69,7 +69,7 @@ export class Board extends Component {
         window.addEventListener("resize", () => {
             this.resize()
         })
-        Observe.property(this.chessboard.state, "orientation", () => {
+        Observe.property(module.state, "orientation", () => {
             this.setPlayerNames()
         })
         module.messageBroker.subscribe(MESSAGE.moveRequest, (player) => {
@@ -89,7 +89,7 @@ export class Board extends Component {
         this.setPositionOfPlyViewedDebounced = setTimeout(() => {
             const from = this.chessboard.getPosition()
             const to = this.state.fenOfPly(this.state.plyViewed)
-            console.log("setPosition", from, "=>", to)
+            // console.log("setPosition", from, "=>", to)
             this.chessboard.setPosition(to, animated)
         })
     }
@@ -114,7 +114,7 @@ export class Board extends Component {
     }
 
     setPlayerNames() {
-        if (this.chessboard.getOrientation() === COLOR.white) {
+        if (this.module.state.orientation === COLOR.white) {
             this.elements.playerBottom.innerHTML = this.module.player.name
             this.elements.playerTop.innerHTML = this.module.opponent.name
         } else {
@@ -130,9 +130,9 @@ export class Board extends Component {
             this.elements.playerBottom.classList.remove("to-move")
             const playerMove = this.module.playerToMove()
             if (
-                this.chessboard.getOrientation() === COLOR.white &&
+                this.module.state.orientation === COLOR.white &&
                 playerMove === this.module.playerWhite() ||
-                this.chessboard.getOrientation() === COLOR.black &&
+                this.module.state.orientation === COLOR.black &&
                 playerMove === this.module.playerBlack()) {
                 this.elements.playerBottom.classList.add("to-move")
             } else {

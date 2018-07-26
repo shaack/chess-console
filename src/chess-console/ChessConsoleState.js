@@ -14,8 +14,9 @@ export const GAME_STATE = {
 
 export class ChessConsoleState {
 
-    constructor() {
-        this.chess = new Chess("8/8/8/8/8/8/8/8")
+    constructor(props) {
+        this.chess = new Chess(props.position)
+        this.orientation = props.orientation
         this.plyViewed = 0
         this.ply = 0
         this.lastError = null
