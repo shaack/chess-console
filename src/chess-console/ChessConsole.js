@@ -35,21 +35,28 @@ export class ChessConsole extends AppModule {
         this.state.chess.load(props.position)
         this.player = new props.player.type(props.player.name, this)
         this.opponent = new props.opponent.type(props.opponent.name, this)
-        const colsetConsoleGame = "col-lg-7 order-lg-2 col-md-8 order-md-1 order-sm-1 col-sm-12 order-sm-1"
-        const colsetConsoleControls = "col-lg-3 order-lg-3 col-md-4 order-md-2 col-sm-8 order-sm-3"
-        const colsetConsoleStatus = "col-lg-2 order-lg-1 order-md-3 col-sm-4 order-sm-2"
+        const colSets = {
+            consoleGame: "col-lg-7 order-lg-2 col-md-8 order-md-1 order-sm-1 col-sm-12 order-sm-1",
+            consoleControls: "col-lg-3 order-lg-3 col-md-4 order-md-2 col-sm-8 order-sm-3",
+            consoleStatus: "col-lg-2 order-lg-1 order-md-3 col-sm-4 order-sm-2"
+        }
         this.container.innerHTML =
             `<div class="row chess-console">
-                <div class="console-board ${colsetConsoleGame}">
+                <div class="chess-console-board ${colSets.consoleGame}">
                 </div>
-                <div class="console-controls ${colsetConsoleControls}">
+                <div class="chess-console-controls ${colSets.consoleControls}">
+                    <div class="control-buttons flex-buttons">
+                    </div>
                 </div>
-                <div class="console-status ${colsetConsoleStatus}">
+                <div class="chess-console-status ${colSets.consoleStatus}">
                 </div>
             </div>`
-        this.boardContainer = this.container.querySelector(".console-board")
-        this.controlsContainer = this.container.querySelector(".console-controls")
-        this.statusContainer = this.container.querySelector(".console-status")
+        this.componentContainers = {
+            board: this.container.querySelector(".chess-console-board"),
+            controls: this.container.querySelector(".chess-console-controls"),
+            controlButtons: this.container.querySelector(".chess-console-controls .control-buttons"),
+            status: this.container.querySelector(".chess-console-status")
+        }
         this.nextMove()
     }
 

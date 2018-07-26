@@ -30,55 +30,53 @@ export class Board extends Component {
         this.elements.playerTop.setAttribute("class", "player top")
         this.elements.playerBottom.setAttribute("class", "player bottom")
         this.elements.chessboard.setAttribute("class", "chessboard")
-        module.boardContainer.appendChild(this.elements.playerTop)
-        module.boardContainer.appendChild(this.elements.chessboard)
-        module.boardContainer.appendChild(this.elements.playerBottom)
+        module.componentContainers.board.appendChild(this.elements.playerTop)
+        module.componentContainers.board.appendChild(this.elements.chessboard)
+        module.componentContainers.board.appendChild(this.elements.playerBottom)
         this.resize()
-        this.chessboard = new Chessboard(this.elements.chessboard,
-            {
-                responsive: true,
-                position: "empty",
-                moveInputMode: MOVE_INPUT_MODE.dragPiece,
-                sprite: {
-                    url: "./assets/images/chessboard-sprite.svg", // pieces and markers
-                }
-            }, () => {
-                this.state.observeChess((params) => {
-                    let animated = true
-                    if (params.functionName === "load_pgn") {
-                        animated = false
-                    }
-                    this.setPositionOfPlyViewed(animated)
-                    this.markLastMove()
-                })
-                Observe.property(this.state, "plyViewed", () => {
-                    this.setPositionOfPlyViewed()
-                    this.markLastMove()
-                })
-                this.module.messageBroker.subscribe(MESSAGE.illegalMove, (message) => {
-                    for (let i = 0; i < 2; i++) {
-                        setTimeout(() => {
-                            this.chessboard.addMarker(message.move.from, MARKER_TYPE.wrongMove)
-                            this.chessboard.addMarker(message.move.to, MARKER_TYPE.wrongMove)
-                        }, i * 400)
-                        setTimeout(() => {
-                            this.chessboard.removeMarkers(null, MARKER_TYPE.wrongMove)
-                        }, i * 400 + 200)
-                    }
-                })
-                this.setPositionOfPlyViewed(false)
-                window.addEventListener("resize", () => {
-                    this.resize()
-                })
-                Observe.property(this.chessboard.state, "orientation", () => {
-                    this.setPlayerNames()
-                })
-                module.messageBroker.subscribe(MESSAGE.moveRequest, (player) => {
-                    this.markPlayerToMove()
-                })
-                this.setPlayerNames()
-                this.markPlayerToMove()
-            })
+        this.chessboard = new Chessboard(this.elements.chessboard, {
+            responsive: true,
+            position: "empty",
+            moveInputMode: MOVE_INPUT_MODE.dragPiece,
+            sprite: {
+                url: "./assets/images/chessboard-sprite.svg", // pieces and markers
+            }
+        })
+        this.state.observeChess((params) => {
+            let animated = true
+            if (params.functionName === "load_pgn") {
+                animated = false
+            }
+            this.setPositionOfPlyViewed(animated)
+            this.markLastMove()
+        })
+        Observe.property(this.state, "plyViewed", () => {
+            this.setPositionOfPlyViewed()
+            this.markLastMove()
+        })
+        this.module.messageBroker.subscribe(MESSAGE.illegalMove, (message) => {
+            for (let i = 0; i < 2; i++) {
+                setTimeout(() => {
+                    this.chessboard.addMarker(message.move.from, MARKER_TYPE.wrongMove)
+                    this.chessboard.addMarker(message.move.to, MARKER_TYPE.wrongMove)
+                }, i * 400)
+                setTimeout(() => {
+                    this.chessboard.removeMarkers(null, MARKER_TYPE.wrongMove)
+                }, i * 400 + 200)
+            }
+        })
+        this.setPositionOfPlyViewed(false)
+        window.addEventListener("resize", () => {
+            this.resize()
+        })
+        Observe.property(this.chessboard.state, "orientation", () => {
+            this.setPlayerNames()
+        })
+        module.messageBroker.subscribe(MESSAGE.moveRequest, (player) => {
+            this.markPlayerToMove()
+        })
+        this.setPlayerNames()
+        this.markPlayerToMove()
     }
 
     resize() {
@@ -87,7 +85,14 @@ export class Board extends Component {
     }
 
     setPositionOfPlyViewed(animated = true) {
-        this.chessboard.setPosition(this.state.fenOfPly(this.state.plyViewed), animated)
+        console.warn("setPositionOfPlyViewed", animated)
+        clearTimeout(this.setPositionOfPlyViewedDebounced)
+        this.setPositionOfPlyViewedDebounced = setTimeout(() => {
+            const from = this.chessboard.getPosition()
+            const to = this.state.fenOfPly(this.state.plyViewed)
+            console.log(from, "=>", to)
+            this.chessboard.setPosition(to, animated)
+        })
     }
 
     markLastMove() {
@@ -102,9 +107,8 @@ export class Board extends Component {
                     this.chessboard.addMarker(lastMove.to, MARKER_TYPE.lastMove)
                 }
                 if (this.state.chess.in_check() || this.state.chess.in_checkmate()) {
-                    const kingSquare = this.state.pieces("k", this.state.chess.turn())[0];
-                    console.log("in_check!", kingSquare)
-                    this.chessboard.addMarker(kingSquare.square, MARKER_TYPE.check);
+                    const kingSquare = this.state.pieces("k", this.state.chess.turn())[0]
+                    this.chessboard.addMarker(kingSquare.square, MARKER_TYPE.check)
                 }
             }
         })

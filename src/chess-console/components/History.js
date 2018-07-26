@@ -16,7 +16,7 @@ export class History extends Component {
 
         this.element = document.createElement("div")
         this.element.setAttribute("class", "history")
-        this.module.statusContainer.appendChild(this.element)
+        this.module.componentContainers.status.appendChild(this.element)
 
         this.state = module.state
         this.state.observeChess(() => {

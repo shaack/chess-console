@@ -8035,138 +8035,119 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6; } }
 
 /* line 4, _chess-console.scss */
-.chess-console .games-navigation {
-  width: 100%;
-  overflow: hidden; }
-  /* line 7, _chess-console.scss */
-  .chess-console .games-navigation .control-icons {
-    display: flex;
-    width: 100%;
-    max-width: 200px;
-    margin: 0 0 1rem 0; }
-    /* line 13, _chess-console.scss */
-    .chess-console .games-navigation .control-icons .text {
-      flex: auto fit-content;
-      position: relative;
-      top: 4px;
-      margin: 0; }
-    /* line 19, _chess-console.scss */
-    .chess-console .games-navigation .control-icons .btn {
-      flex: auto;
-      margin: 0;
-      padding: 8px 0; }
+.chess-console .chess-console-controls, .chess-console .chess-console-status {
+  margin-top: 20px; }
 
-/* line 27, _chess-console.scss */
-.chess-console .console-controls, .chess-console .console-status {
-  margin-top: 5px; }
-
-/* line 32, _chess-console.scss */
-.chess-console .console-board .chessboard {
+/* line 9, _chess-console.scss */
+.chess-console .chess-console-board .chessboard {
   width: 100%; }
 
-/* line 35, _chess-console.scss */
-.chess-console .console-board .player {
+/* line 12, _chess-console.scss */
+.chess-console .chess-console-board .player {
   font-weight: bold;
   font-size: 120%; }
-  /* line 39, _chess-console.scss */
-  .chess-console .console-board .player.to-move:after {
+  /* line 16, _chess-console.scss */
+  .chess-console .chess-console-board .player.to-move:after {
     color: #333;
     margin-left: 8px;
     content: "■"; }
 
-/* line 45, _chess-console.scss */
-.chess-console .console-board .clock {
+/* line 22, _chess-console.scss */
+.chess-console .chess-console-board .clock {
   font-family: 'DSDIGI', sans-serif;
   font-size: 150%;
   line-height: 0.99; }
 
-/* line 52, _chess-console.scss */
-.chess-console .console-status .history {
+/* line 29, _chess-console.scss */
+.chess-console .chess-console-status .history {
   max-height: 284px;
   max-width: 210px;
   overflow-y: auto;
   overflow-x: visible;
   margin-bottom: 1rem;
   width: calc(100% + 8px); }
-  /* line 59, _chess-console.scss */
-  .chess-console .console-status .history table {
+  /* line 36, _chess-console.scss */
+  .chess-console .chess-console-status .history table {
     width: 100%; }
-    /* line 61, _chess-console.scss */
-    .chess-console .console-status .history table .num {
+    /* line 38, _chess-console.scss */
+    .chess-console .chess-console-status .history table .num {
       width: 18%; }
-    /* line 64, _chess-console.scss */
-    .chess-console .console-status .history table .ply {
+    /* line 41, _chess-console.scss */
+    .chess-console .chess-console-status .history table .ply {
       cursor: pointer;
       width: 41%; }
 
-/* line 70, _chess-console.scss */
-.chess-console .console-status .captured-pieces {
+/* line 47, _chess-console.scss */
+.chess-console .chess-console-status .captured-pieces {
   margin-bottom: 1rem; }
 
-/* line 74, _chess-console.scss */
-.chess-console .control-icons {
-  float: left;
-  margin-bottom: 0.5rem; }
-  /* line 76, _chess-console.scss */
-  .chess-console .control-icons .text {
-    float: left;
-    padding: 4px 3px; }
-  /* line 81, _chess-console.scss */
-  .chess-console .control-icons .autoplay .fa-play {
-    color: #28a745; }
-  /* line 84, _chess-console.scss */
-  .chess-console .control-icons .autoplay .fa-stop {
-    color: #fd7e14; }
-  /* line 88, _chess-console.scss */
-  .chess-console .control-icons button {
-    float: left;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem; }
-  /* line 94, _chess-console.scss */
-  .chess-console .control-icons .game-control .btn {
-    background-color: rgba(0, 0, 0, 0.04); }
+/* line 54, _chess-console.scss */
+.chess-console .chess-console-controls .flex-buttons .autoplay .fa-play {
+  color: #28a745; }
 
-/* line 101, _chess-console.scss */
-.chess-console .console-controls .game-status {
+/* line 57, _chess-console.scss */
+.chess-console .chess-console-controls .flex-buttons .autoplay .fa-stop {
+  color: #fd7e14; }
+
+/* line 62, _chess-console.scss */
+.chess-console .chess-console-controls .flex-buttons .game-control .btn {
+  background-color: rgba(0, 0, 0, 0.04); }
+
+/* line 67, _chess-console.scss */
+.chess-console .chess-console-controls .game-status {
   font-weight: bold;
   margin-bottom: 1rem; }
 
-/* line 105, _chess-console.scss */
-.chess-console .console-controls .last-error {
+/* line 71, _chess-console.scss */
+.chess-console .chess-console-controls .last-error {
   color: #dc3545;
   margin-bottom: 1rem; }
 
-/* line 109, _chess-console.scss */
-.chess-console .console-controls .move-input {
+/* line 75, _chess-console.scss */
+.chess-console .chess-console-controls .move-input {
   margin-bottom: 1rem; }
-  /* line 111, _chess-console.scss */
-  .chess-console .console-controls .move-input .first-move {
+  /* line 77, _chess-console.scss */
+  .chess-console .chess-console-controls .move-input .first-move {
     color: #343a40;
     font-size: 280%;
     width: 100%;
     overflow: hidden; }
-  /* line 117, _chess-console.scss */
-  .chess-console .console-controls .move-input .conditional-moves {
+  /* line 83, _chess-console.scss */
+  .chess-console .chess-console-controls .move-input .conditional-moves {
     margin-bottom: 0.5rem; }
-  /* line 120, _chess-console.scss */
-  .chess-console .console-controls .move-input .move-input-controls {
+  /* line 86, _chess-console.scss */
+  .chess-console .chess-console-controls .move-input .move-input-controls {
     width: 100%; }
-    /* line 122, _chess-console.scss */
-    .chess-console .console-controls .move-input .move-input-controls button {
+    /* line 88, _chess-console.scss */
+    .chess-console .chess-console-controls .move-input .move-input-controls button {
       float: left;
       margin-right: 0.5rem;
       margin-bottom: 0.5rem; }
 
-/* line 132, _chess-console.scss */
+/* line 98, _chess-console.scss */
+.flex-buttons {
+  float: left;
+  margin-bottom: 0.5rem; }
+  /* line 100, _chess-console.scss */
+  .flex-buttons .text {
+    float: left;
+    padding: 4px 3px; }
+  /* line 104, _chess-console.scss */
+  .flex-buttons button {
+    float: left;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem; }
+
+/* line 112, _chess-console.scss */
 .modal svg.piece {
   width: 40px;
   height: 40px;
   cursor: pointer; }
-  /* line 136, _chess-console.scss */
+  /* line 116, _chess-console.scss */
   .modal svg.piece:hover {
     background-color: #ccc; }
 
-/* line 141, _chess-console.scss */
+/* line 121, _chess-console.scss */
 button.close {
   cursor: pointer; }
 

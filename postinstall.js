@@ -12,6 +12,7 @@ process.chdir('./src')
 
 symlinkModule("svjs-app")
 symlinkModule("svjs-utils")
+symlinkModule("svjs-i18n")
 symlinkModule("svjs-message-broker")
 symlinkModule("svjs-svg")
 symlinkModule("svjs-observe")

@@ -1,33 +1,10 @@
 @import "../../../node_modules/bootstrap/scss/variables";
 
 .chess-console {
-  .games-navigation {
-    width: 100%;
-    overflow: hidden;
-    .control-icons {
-      display: flex;
-      width: 100%;
-      max-width: 200px;
-      margin: 0 0 $spacer 0;
-      // background-color: rgba(0,0,0,0.1);
-      .text {
-        flex: auto fit-content;
-        position: relative;
-        top: 4px;
-        margin: 0;
-      }
-      .btn {
-        flex: auto;
-        margin: 0;
-        padding: 8px 0;
-        // background-color: red;
-      }
-    }
+  .chess-console-controls, .chess-console-status {
+    margin-top: 20px;
   }
-  .console-controls, .console-status {
-    margin-top: 5px;
-  }
-  .console-board {
+  .chess-console-board {
     // margin-top: -1.4em;
     .chessboard {
       width: 100%;
@@ -48,7 +25,7 @@
       line-height: 0.99;
     }
   }
-  .console-status {
+  .chess-console-status {
     .history {
       max-height: 284px;
       max-width: 210px;
@@ -71,33 +48,22 @@
       margin-bottom: $spacer;
     }
   }
-  .control-icons {
-    float: left;
-    .text {
-      float: left;
-      padding: 4px 3px;
-    }
-    .autoplay {
-      .fa-play {
-        color: $green;
+  .chess-console-controls {
+    .flex-buttons {
+      .autoplay {
+        .fa-play {
+          color: $green;
+        }
+        .fa-stop {
+          color: $orange;
+        }
       }
-      .fa-stop {
-        color: $orange;
-      }
-    }
-    button {
-      float: left;
-      margin-right: $spacer-small;
-      margin-bottom: $spacer-small;
-    }
-    .game-control {
-      .btn {
-        background-color: rgba(0, 0, 0, 0.04);
+      .game-control {
+        .btn {
+          background-color: rgba(0, 0, 0, 0.04);
+        }
       }
     }
-    margin-bottom: $spacer-small;
-  }
-  .console-controls {
     .game-status {
       font-weight: bold;
       margin-bottom: $spacer;
@@ -127,6 +93,20 @@
       }
     }
   }
+}
+
+.flex-buttons {
+  float: left;
+  .text {
+    float: left;
+    padding: 4px 3px;
+  }
+  button {
+    float: left;
+    margin-right: $spacer-small;
+    margin-bottom: $spacer-small;
+  }
+  margin-bottom: $spacer-small;
 }
 
 .modal svg.piece {
