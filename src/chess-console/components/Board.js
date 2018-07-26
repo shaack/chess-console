@@ -71,6 +71,8 @@ export class Board extends Component {
         })
         Observe.property(module.state, "orientation", () => {
             this.setPlayerNames()
+            this.chessboard.setOrientation(module.state.orientation)
+            this.markPlayerToMove()
         })
         module.messageBroker.subscribe(MESSAGE.moveRequest, (player) => {
             this.markPlayerToMove()

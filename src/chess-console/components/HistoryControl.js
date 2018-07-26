@@ -13,9 +13,6 @@ export class HistoryControl extends Component {
     constructor(module) {
         super(module)
 
-        this.element = document.createElement("span")
-        this.element.setAttribute("class", "history-control")
-        module.componentContainers.controlButtons.appendChild(this.element)
         const i18n = new I18n(module.props.locale)
         i18n.load({
             de: {
@@ -35,13 +32,17 @@ export class HistoryControl extends Component {
                 "turn_board": "Turn board"
             }
         }).then(() => {
+            this.element = document.createElement("span")
+            this.element.setAttribute("class", "history-control")
+            module.componentContainers.controlButtons.appendChild(this.element)
             const $element = $(this.element)
-            $element.html(`<button type="button" title="${i18n.t('to_game_start')}" class="btn btn-icon first"><i class="fa fa-fw fa-fast-backward" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('one_move_back')}" class="btn btn-icon back"><i class="fa fa-fw fa-step-backward" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('one_move_forward')}" class="btn btn-icon forward"><i class="fa fa-fw fa-step-forward" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('to_last_move')}" class="btn btn-icon last"><i class="fa fa-fw fa-fast-forward" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('auto_run')}" class="btn btn-icon autoplay"><i class="fa fa-fw fa-play" aria-hidden="true"></i><i class="fa fa-fw fa-stop" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('turn_board')}" class="btn btn-icon orientation"><i class="fa fa-fw fa-exchange-alt" data-fa-transform="rotate-90" aria-hidden="true"></i></button>`)
+            console.log(module.componentContainers.controlButtons)
+            $element.html(`<button type="button" title="${i18n.t('to_game_start')}" class="btn btn-icon first">1<i class="fa fa-fw fa-fast-backward" aria-hidden="true"></i></button>
+                <button type="button" title="${i18n.t('one_move_back')}" class="btn btn-icon back">2<i class="fa fa-fw fa-step-backward" aria-hidden="true"></i></button>
+                <button type="button" title="${i18n.t('one_move_forward')}" class="btn btn-icon forward">3<i class="fa fa-fw fa-step-forward" aria-hidden="true"></i></button>
+                <button type="button" title="${i18n.t('to_last_move')}" class="btn btn-icon last">4<i class="fa fa-fw fa-fast-forward" aria-hidden="true"></i></button>
+                <button type="button" title="${i18n.t('auto_run')}" class="btn btn-icon autoplay">5<i class="fa fa-fw fa-play" aria-hidden="true"></i><i class="fa fa-fw fa-stop" aria-hidden="true"></i></button>
+                <button type="button" title="${i18n.t('turn_board')}" class="btn btn-icon orientation">6<i class="fa fa-fw fa-exchange-alt" data-fa-transform="rotate-90" aria-hidden="true"></i></button>`)
             this.$btnFirst = $element.find(".first")
             this.$btnBack = $element.find(".back")
             this.$btnForward = $element.find(".forward")
@@ -71,7 +72,7 @@ export class HistoryControl extends Component {
                 this.module.state.plyViewed = this.module.state.ply
             })
             this.$btnOrientation.click(() => {
-                this.module.chessboard.setOrientation(this.module.chessboard.getOrientation() === COLOR.white ? COLOR.black : COLOR.white)
+                this.module.state.orientation = this.module.state.orientation === COLOR.white ? COLOR.black : COLOR.white
             })
             this.$btnAutoplay.click(() => {
                 if (this.autoplay) {
