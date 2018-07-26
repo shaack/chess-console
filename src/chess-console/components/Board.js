@@ -85,12 +85,11 @@ export class Board extends Component {
     }
 
     setPositionOfPlyViewed(animated = true) {
-        console.warn("setPositionOfPlyViewed", animated)
         clearTimeout(this.setPositionOfPlyViewedDebounced)
         this.setPositionOfPlyViewedDebounced = setTimeout(() => {
             const from = this.chessboard.getPosition()
             const to = this.state.fenOfPly(this.state.plyViewed)
-            console.log(from, "=>", to)
+            console.log("setPosition", from, "=>", to)
             this.chessboard.setPosition(to, animated)
         })
     }
