@@ -39,7 +39,7 @@ export class Board extends Component {
             position: "empty",
             moveInputMode: MOVE_INPUT_MODE.dragPiece,
             sprite: {
-                url: "./assets/images/chessboard-sprite.svg", // pieces and markers
+                url: module.props.assetsFolder + "/img/chessboard-sprite.svg", // pieces and markers
             }
         })
         this.state.observeChess((params) => {

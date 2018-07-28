@@ -31,15 +31,17 @@ export class ChessConsole extends AppModule {
     constructor(app, container, props = {}) {
         super(app, container, props)
         this.props = {
+            assetsFolder: "/assets",
             position: FEN_START_POSITION,
             playerColor: COLOR.white,
             orientation: COLOR.white,
             locale: navigator.language
         }
+        Object.assign(this.props, props)
         this.messageBroker = new MessageBroker()
         this.state = new ChessConsoleState(this.props)
-        this.player = new props.player.type(props.player.name, this)
-        this.opponent = new props.opponent.type(props.opponent.name, this)
+        this.player = new this.props.player.type(this.props.player.name, this)
+        this.opponent = new this.props.opponent.type(this.props.opponent.name, this)
         const colSets = {
             consoleGame: "col-lg-7 order-lg-2 col-md-8 order-md-1 order-sm-1 col-sm-12 order-sm-1",
             consoleControls: "col-lg-3 order-lg-3 col-md-4 order-md-2 col-sm-8 order-sm-3",

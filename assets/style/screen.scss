@@ -1,8 +1,8 @@
-@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap/scss/bootstrap";
 $spacer-small: $spacer / 2;
 
 @import "chess-console";
-@import "cm-chessboard";
+@import "_cm-chessboard.css";
 
 html {
   body {

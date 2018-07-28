@@ -5,7 +5,7 @@
     <title>Chess Console</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css"/>
-    <link rel="stylesheet" href="assets/style/screen.css">
+    <link rel="stylesheet" href="../assets/style/screen.css">
 
 </head>
 <body>
@@ -28,7 +28,8 @@
     const chessConsole = app.addModule(ChessConsole,
         document.getElementById("console-container"), {
             player: {name: "Local Player", type: LocalPlayer},
-            opponent: {name: "Random Player", type: RandomPlayer}
+            opponent: {name: "Random Player", type: RandomPlayer},
+            assetsFolder: "../assets"
         })
     chessConsole.addComponent(Board)
     chessConsole.addComponent(History)
