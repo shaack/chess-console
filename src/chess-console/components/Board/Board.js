@@ -4,10 +4,10 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../cm-chessboard/Chessboard.js"
-import {MESSAGE} from "../ChessConsole.js"
-import {Observe} from "../../svjs-observe/Observe.js"
-import {Component} from "../../svjs-app/Component.js"
+import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../../cm-chessboard/Chessboard.js"
+import {MESSAGE} from "../../ChessConsole.js"
+import {Observe} from "../../../svjs-observe/Observe.js"
+import {Component} from "../../../svjs-app/Component.js"
 
 export const MARKER_TYPE = {
     lastMove: {class: "last-move", slice: "marker1"},
@@ -116,31 +116,38 @@ export class Board extends Component {
     }
 
     setPlayerNames() {
-        if (this.module.state.orientation === COLOR.white) {
-            this.elements.playerBottom.innerHTML = this.module.player.name
-            this.elements.playerTop.innerHTML = this.module.opponent.name
+        if(this.module.state.gameStarted) {
+            if (this.module.state.orientation === COLOR.white) {
+                this.elements.playerBottom.innerHTML = this.module.player.name
+                this.elements.playerTop.innerHTML = this.module.opponent.name
+            } else {
+                this.elements.playerBottom.innerHTML = this.module.opponent.name
+                this.elements.playerTop.innerHTML = this.module.player.name
+            }
         } else {
-            this.elements.playerBottom.innerHTML = this.module.opponent.name
-            this.elements.playerTop.innerHTML = this.module.player.name
+            this.elements.playerTop.innerHTML = "&nbsp;"
+            this.elements.playerBottom.innerHTML = "&nbsp;"
         }
     }
 
     markPlayerToMove() {
-        clearTimeout(this.markPlayerToMoveDebounce)
-        this.markPlayerToMoveDebounce = setTimeout(() => {
-            this.elements.playerTop.classList.remove("to-move")
-            this.elements.playerBottom.classList.remove("to-move")
-            const playerMove = this.module.playerToMove()
-            if (
-                this.module.state.orientation === COLOR.white &&
-                playerMove === this.module.playerWhite() ||
-                this.module.state.orientation === COLOR.black &&
-                playerMove === this.module.playerBlack()) {
-                this.elements.playerBottom.classList.add("to-move")
-            } else {
-                this.elements.playerTop.classList.add("to-move")
-            }
-        }, 10)
+        if(this.module.state.gameRunning) {
+            clearTimeout(this.markPlayerToMoveDebounce)
+            this.markPlayerToMoveDebounce = setTimeout(() => {
+                this.elements.playerTop.classList.remove("to-move")
+                this.elements.playerBottom.classList.remove("to-move")
+                const playerMove = this.module.playerToMove()
+                if (
+                    this.module.state.orientation === COLOR.white &&
+                    playerMove === this.module.playerWhite() ||
+                    this.module.state.orientation === COLOR.black &&
+                    playerMove === this.module.playerBlack()) {
+                    this.elements.playerBottom.classList.add("to-move")
+                } else {
+                    this.elements.playerTop.classList.add("to-move")
+                }
+            }, 10)
+        }
     }
 
 }
