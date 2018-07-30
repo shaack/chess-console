@@ -4,24 +4,19 @@
  */
 
 import {Observe} from "../svjs-observe/Observe.js"
-
-/*
-export const GAME_STATE = {
-    UNKNOWN: 0,
-    RUNNING: 1,
-}
-*/
+import {COLOR} from "../cm-chessboard/Chessboard.js"
 
 export class ChessConsoleState {
 
     constructor(props) {
-        this.chess = new Chess(props.position)
-        this.orientation = props.orientation
+        this.chess = new Chess()
+        this.gameStarted = false
+        this.gameRunning = false
+        this.playerColor = COLOR.white
+        this.orientation = COLOR.white
         this.plyViewed = 0
         this.ply = 0
         this.lastError = null
-        this.result = null
-        this.running = null
     }
 
     pieces(type = null, color = null) {

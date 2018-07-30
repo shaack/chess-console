@@ -11,8 +11,8 @@ import {ChessConsoleState} from "./ChessConsoleState.js"
 
 
 export const MESSAGE = {
-    // gameStarted: function () {},
-    /// gameFinished: function () {},
+    // gameStart: function gameStart() {}, // todo
+    // gameFinished: function gameFinished() {}, // todo
     illegalMove: function illegalMove(player, move) {
         this.player = player
         this.move = move
@@ -20,9 +20,10 @@ export const MESSAGE = {
     moveRequest: function moveRequest(player) {
         this.player = player
     },
-    moveDone: function moveDone(player, move) {
+    moveDone: function moveDone(player, move, moveResult) {
         this.player = player
         this.move = move
+        this.moveResult = moveResult
     }
 }
 
@@ -32,9 +33,9 @@ export class ChessConsole extends AppModule {
         super(app, container, props)
         this.props = {
             assetsFolder: "/assets",
-            position: FEN_START_POSITION,
-            playerColor: COLOR.white,
-            orientation: COLOR.white,
+            // position: FEN_START_POSITION,
+            // playerColor: COLOR.white,
+            // orientation: COLOR.white,
             locale: navigator.language
         }
         Object.assign(this.props, props)
@@ -64,7 +65,10 @@ export class ChessConsole extends AppModule {
             controlButtons: this.container.querySelector(".chess-console-controls .control-buttons"),
             status: this.container.querySelector(".chess-console-status")
         }
-        this.requestNextMove()
+    }
+
+    startGame(playerColor, position) {
+
     }
 
     playerWhite() {
@@ -122,7 +126,7 @@ export class ChessConsole extends AppModule {
             this.state.plyViewed++
         }
         this.opponentOf(this.playerToMove()).moveDone(this.state.lastMove())
-        this.messageBroker.publish(new MESSAGE.moveDone(this.opponentOf(this.playerToMove()), move))
+        this.messageBroker.publish(new MESSAGE.moveDone(this.opponentOf(this.playerToMove()), move, moveResult))
         if (!this.state.chess.game_over()) {
             this.requestNextMove()
         }
