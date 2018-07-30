@@ -13,7 +13,7 @@ export class HistoryControl extends Component {
     constructor(module) {
         super(module)
 
-        const i18n = new I18n(module.props.locale)
+        const i18n = new I18n()
         i18n.load({
             de: {
                 "to_game_start": "Zum Spielstart",
@@ -71,7 +71,9 @@ export class HistoryControl extends Component {
                 this.module.state.plyViewed = this.module.state.ply
             })
             this.$btnOrientation.click(() => {
-                this.module.state.orientation = this.module.state.orientation === COLOR.white ? COLOR.black : COLOR.white
+                if(this.module.state.gameStarted) {
+                    this.module.state.orientation = this.module.state.orientation === COLOR.white ? COLOR.black : COLOR.white
+                }
             })
             this.$btnAutoplay.click(() => {
                 if (this.autoplay) {
@@ -133,9 +135,16 @@ export class HistoryControl extends Component {
                 this.$btnAutoplay.prop('disabled', true)
             }
             if (this.module.state.orientation !== this.module.state.playerColor) {
-                this.$btnOrientation.addClass("btn-active")
+                this.$btnOrientation.addClass("btn-active") // todo
             } else {
-                this.$btnOrientation.removeClass("btn-active")
+                this.$btnOrientation.removeClass("btn-active") // todo
+            }
+            if(this.module.state.gameStarted) {
+                this.$btnAutoplay.prop('disabled', false)
+                this.$btnOrientation.prop('disabled', false)
+            } else {
+                this.$btnAutoplay.prop('disabled', true)
+                this.$btnOrientation.prop('disabled', true)
             }
         })
         this.updatePlayIcon()
