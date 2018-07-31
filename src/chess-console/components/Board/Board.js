@@ -55,6 +55,14 @@ export class Board extends Component {
                     url: module.props.assetsFolder + "/img/chessboard-sprite.svg", // pieces and markers
                 }
             })
+            Observe.property(module.state, ["orientation", "playerColor"], () => {
+                this.setPlayerNames()
+                this.chessboard.setOrientation(module.state.orientation)
+                this.markPlayerToMove()
+            })
+            module.messageBroker.subscribe(MESSAGE.moveRequest, () => {
+                this.markPlayerToMove()
+            })
             this.chessboard.initialization.then(() => {
                 this.module.messageBroker.subscribe(MESSAGE.illegalMove, (message) => {
                     for (let i = 0; i < 3; i++) {
@@ -70,14 +78,6 @@ export class Board extends Component {
                 this.setPositionOfPlyViewed(false)
                 window.addEventListener("resize", () => {
                     this.resize()
-                })
-                Observe.property(module.state, "orientation", () => {
-                    this.setPlayerNames()
-                    this.chessboard.setOrientation(module.state.orientation)
-                    this.markPlayerToMove()
-                })
-                module.messageBroker.subscribe(MESSAGE.moveRequest, () => {
-                    this.markPlayerToMove()
                 })
                 this.setPlayerNames()
                 this.markPlayerToMove()
@@ -121,13 +121,16 @@ export class Board extends Component {
     }
 
     setPlayerNames() {
-        if (this.module.state.orientation === COLOR.white) {
-            this.elements.playerBottom.innerHTML = this.module.player.name
-            this.elements.playerTop.innerHTML = this.module.opponent.name
-        } else {
-            this.elements.playerBottom.innerHTML = this.module.opponent.name
-            this.elements.playerTop.innerHTML = this.module.player.name
-        }
+        window.clearTimeout(this.setPlayerNamesDebounce)
+        this.setPlayerNamesDebounce = setTimeout(() => {
+            if (this.module.state.playerColor === this.module.state.orientation) {
+                this.elements.playerBottom.innerHTML = this.module.player.name
+                this.elements.playerTop.innerHTML = this.module.opponent.name
+            } else {
+                this.elements.playerBottom.innerHTML = this.module.opponent.name
+                this.elements.playerTop.innerHTML = this.module.player.name
+            }
+        })
     }
 
     markPlayerToMove() {

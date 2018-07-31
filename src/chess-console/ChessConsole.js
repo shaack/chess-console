@@ -90,8 +90,11 @@ export class ChessConsole extends AppModule {
         })
     }
 
-    startGame(playerColor) {
-        this.state.playerColor = playerColor
+    startGame(props) {
+        this.state.playerColor = props.playerColor
+        this.state.orientation = props.playerColor
+        this.state.chess.reset()
+        this.state.plyViewed = 0
         this.nextMove()
     }
 

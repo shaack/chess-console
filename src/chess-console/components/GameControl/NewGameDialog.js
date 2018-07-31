@@ -5,14 +5,52 @@
  */
 
 import "../../../../node_modules/bootstrap-show-modal/src/bootstrap-show-modal.js"
+import {COLOR} from "../../../cm-chesstools/ChessTools.js"
 
 export class NewGameDialog {
 
-    static show(props) {
+    static show(module, props) {
+        const i18n = module.i18n
+        i18n.load({
+            de: {
+                color: "Farbe",
+                white: "Weiss",
+                black: "Schwarz",
+                random: "zufällig"
+            },
+            en: {
+                color: "Color",
+                white: "White",
+                black: "Black",
+                random: "Random"
+            }
+        })
         props.modalClass = "fade"
-        props.footer = ''
-        const dialog = $.showModal(props)
-
+        props.body = `<div class="form-group row">
+                        <div class="col-3"><label for="color" class="col-form-label">${i18n.t("color")}</label></div>
+                        <div class="col-9"><select id="color" class="form-control">
+                        <option value="random">${i18n.t("random")}</option>
+                        <option value="w">${i18n.t("white")}</option>
+                        <option value="b">${i18n.t("black")}</option>
+                        </select></div>
+                        </div>`
+        props.footer = `<button type="button" class="btn btn-link" data-dismiss="modal">${i18n.t("cancel")}</button>
+            <button type="submit" class="btn btn-primary">${i18n.t("ok")}</button>`
+        props.onCreate = (modal) => {
+            $(modal.element).on("submit", "form", function (event) {
+                event.preventDefault()
+                var $form = $(modal.element).find("form")
+                let color = $form.find("#color").val()
+                if (color !== COLOR.white && color !== COLOR.black) {
+                    color = (Math.random() > 0.5) ? COLOR.white : COLOR.black
+                }
+                modal.hide()
+                module.startGame({playerColor: color})
+            })
+        }
+        return new Promise((resolve) => {
+            const dialog = $.showModal(props)
+        })
     }
 
 }

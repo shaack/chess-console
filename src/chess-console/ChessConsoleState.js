@@ -31,7 +31,7 @@ export class ChessConsoleState {
                 }
             } else if (color === null && piece !== null && piece.type === type) {
                 result.push(piece)
-            } else if (piece !== null && piece.color === color && piece.type === type) {
+            } else if (piece !== null && piece.playerColor === color && piece.type === type) {
                 result.push(piece)
             }
         }

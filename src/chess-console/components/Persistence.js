@@ -22,9 +22,12 @@ export class Persistence extends Component {
         try {
             if (localStorage.getItem(this.prefix + "playerColor") !== null) {
                 this.module.state.playerColor = JSON.parse(localStorage.getItem(this.prefix + "playerColor"))
+                console.log("before", this.module.state.orientation)
+                this.module.state.orientation = this.module.state.playerColor
+                console.log("after", this.module.state.orientation)
             } else {
                 console.log("starting new game")
-                this.module.startGame(COLOR.white)
+                this.module.startGame({playerColor: COLOR.white})
             }
             if (localStorage.getItem(this.prefix + "pgn") !== null) {
                 this.module.state.chess.load_pgn(localStorage.getItem(this.prefix + "pgn"))
@@ -33,7 +36,8 @@ export class Persistence extends Component {
             this.module.nextMove()
         } catch (e) {
             localStorage.clear()
-            console.error(e)
+            console.warn(e)
+            this.module.startGame({playerColor: COLOR.white})
         }
     }
 
