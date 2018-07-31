@@ -16,8 +16,8 @@ export class Persistence extends Component {
         })
     }
 
-    load(prefix) {
-        this.prefix = prefix
+    load(user) {
+        this.prefix = user + "-"
         try {
             if (localStorage.getItem(this.props.prefix + "playerColor") !== null) {
                 this.module.state.playerColor = JSON.parse(localStorage.getItem(this.prefix + "playerColor"))
@@ -27,7 +27,6 @@ export class Persistence extends Component {
             if (localStorage.getItem(this.props.prefix + "pgn") !== null) {
                 this.module.state.chess.load_pgn(localStorage.getItem(this.prefix + "pgn"))
                 this.module.state.plyViewed = this.module.state.plyCount
-                this.module.state.gameStarted = true
             }
         } catch (e) {
             localStorage.clear()

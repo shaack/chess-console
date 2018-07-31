@@ -48,10 +48,11 @@ export class HistoryControl extends Component {
             this.$btnLast = $element.find(".last")
             this.$btnAutoplay = $element.find(".autoplay")
             this.$btnOrientation = $element.find(".orientation")
-
+/*
             this.module.state.observeChess(() => {
                 this.setButtonStates()
             })
+            */
             Observe.property(this.module.state, "plyViewed", () => {
                 this.setButtonStates()
             })
@@ -72,12 +73,10 @@ export class HistoryControl extends Component {
                 this.module.state.plyViewed++
             })
             this.$btnLast.click(() => {
-                this.module.state.plyViewed = this.module.state.plyCount
+                this.module.state.plyViewed = this.module.state.plyCount()
             })
             this.$btnOrientation.click(() => {
-                if(this.module.state.gameStarted) {
-                    this.module.state.orientation = this.module.state.orientation === COLOR.white ? COLOR.black : COLOR.white
-                }
+                this.module.state.orientation = this.module.state.orientation === COLOR.white ? COLOR.black : COLOR.white
             })
             this.$btnAutoplay.click(() => {
                 if (this.autoplay) {
@@ -87,13 +86,13 @@ export class HistoryControl extends Component {
                 } else {
                     this.module.state.plyViewed++
                     this.autoplay = setInterval(() => {
-                        if (this.module.state.plyViewed >= this.module.state.plyCount) {
+                        if (this.module.state.plyViewed >= this.module.state.plyCount()) {
                             clearInterval(this.autoplay)
                             this.autoplay = null
                             this.updatePlayIcon()
                         } else {
                             this.module.state.plyViewed++
-                            if (this.module.state.plyViewed >= this.module.state.plyCount) {
+                            if (this.module.state.plyViewed >= this.module.state.plyCount()) {
                                 clearInterval(this.autoplay)
                                 this.autoplay = null
                                 this.updatePlayIcon()
@@ -129,7 +128,7 @@ export class HistoryControl extends Component {
                 this.$btnFirst.prop('disabled', true)
                 this.$btnBack.prop('disabled', true)
             }
-            if (this.module.state.plyViewed < this.module.state.plyCount) {
+            if (this.module.state.plyViewed < this.module.state.plyCount()) {
                 this.$btnLast.prop('disabled', false)
                 this.$btnForward.prop('disabled', false)
                 this.$btnAutoplay.prop('disabled', false)
@@ -138,13 +137,15 @@ export class HistoryControl extends Component {
                 this.$btnForward.prop('disabled', true)
                 this.$btnAutoplay.prop('disabled', true)
             }
-            if(this.module.state.gameStarted) {
+            /*
+            if(this.module.state.gameStarted()) {
                 this.$btnAutoplay.prop('disabled', false)
                 this.$btnOrientation.prop('disabled', false)
             } else {
                 this.$btnAutoplay.prop('disabled', true)
                 this.$btnOrientation.prop('disabled', true)
             }
+            */
         })
         this.updatePlayIcon()
     }

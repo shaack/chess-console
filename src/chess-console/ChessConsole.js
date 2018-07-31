@@ -103,7 +103,6 @@ export class ChessConsole extends AppModule {
      */
     nextMove() {
         const playerToMove = this.playerToMove()
-        console.log("nextMove", playerToMove.name)
         this.messageBroker.publish(new MESSAGE.moveRequest(playerToMove))
         setTimeout(() => {
             playerToMove.moveRequest(this.state.chess.fen(), (san) => {
@@ -120,7 +119,6 @@ export class ChessConsole extends AppModule {
     moveResponse(move) {
         const moveResult = this.state.chess.move(move)
         const playerToMove = this.playerToMove()
-        console.log("moveResponse", move, moveResult)
         if (!moveResult) {
             this.messageBroker.publish(new MESSAGE.illegalMove(playerToMove, move))
             return

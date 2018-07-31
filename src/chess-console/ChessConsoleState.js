@@ -39,8 +39,7 @@ export class ChessConsoleState {
     }
 
     plyCount() {
-        const history = this.chess.history()
-        return history.length
+        return this.chess.history().length // todo performance optimize
     }
 
     lastMove() {
