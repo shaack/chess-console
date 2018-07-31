@@ -18,7 +18,6 @@ export class Persistence extends Component {
     }
 
     load(user) {
-        console.log("load", user)
         this.prefix = user + "-"
         try {
             if (localStorage.getItem(this.prefix + "playerColor") !== null) {
@@ -31,6 +30,7 @@ export class Persistence extends Component {
                 this.module.state.chess.load_pgn(localStorage.getItem(this.prefix + "pgn"))
                 this.module.state.plyViewed = this.module.state.plyCount()
             }
+            this.module.nextMove()
         } catch (e) {
             localStorage.clear()
             console.error(e)
