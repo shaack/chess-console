@@ -35,13 +35,17 @@ export class GameControl extends Component {
 
             this.$btnUndoMove.click(() => {
                 this.module.state.chess.undo()
-                this.module.state.chess.undo()
+                if(this.module.playerToMove() !== this.module.player) {
+                    this.module.state.chess.undo()
+                } else {
+                    this.module.nextMove()
+                }
                 if(this.module.state.plyViewed > this.module.state.ply) {
                     this.module.state.plyViewed = this.module.state.ply;
                 }
             })
             this.$btnStartNewGame.click(() => {
-                NewGameDialog.show({
+                NewGameDialog.show(module, {
                     title: i18n.t('start_game')
                 }).then((gamePrefs) => {
                     console.log("new Game", gamePrefs)

@@ -19,11 +19,9 @@ export class History extends Component {
         this.module.componentContainers.status.appendChild(this.element)
 
         this.state = module.state
-        /*
         this.state.observeChess(() => {
             this.redraw()
         })
-        */
         Observe.property(module.state, "plyViewed", () => {
             this.redraw()
         })
