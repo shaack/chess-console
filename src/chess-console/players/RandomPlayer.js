@@ -25,6 +25,6 @@ export class RandomPlayer extends ChessConsolePlayer {
                 const randomMove = possibleMoves[this.random(0, possibleMoves.length - 1)]
                 moveResponse({from: randomMove.from, to: randomMove.to})
             }
-        }, 100)
+        }, 250)
     }
 }
