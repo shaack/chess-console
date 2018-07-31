@@ -22,7 +22,6 @@ export class Board extends Component {
         super(module, props)
         this.initialization = new Promise((resolve) => {
             module.board = this
-            this.state = module.state
             this.elements = {
                 playerTop: document.createElement("div"),
                 playerBottom: document.createElement("div"),
@@ -35,7 +34,7 @@ export class Board extends Component {
             module.componentContainers.board.appendChild(this.elements.chessboard)
             module.componentContainers.board.appendChild(this.elements.playerBottom)
             this.resize()
-            this.state.observeChess((params) => {
+            this.module.state.observeChess((params) => {
                 let animated = true
                 if (params.functionName === "load_pgn") {
                     animated = false
@@ -43,7 +42,7 @@ export class Board extends Component {
                 this.setPositionOfPlyViewed(animated)
                 this.markLastMove()
             })
-            Observe.property(this.state, "plyViewed", () => {
+            Observe.property(this.module.state, "plyViewed", () => {
                 this.setPositionOfPlyViewed()
                 this.markLastMove()
             })
@@ -95,7 +94,7 @@ export class Board extends Component {
         clearTimeout(this.setPositionOfPlyViewedDebounced)
         this.setPositionOfPlyViewedDebounced = setTimeout(() => {
             const from = this.chessboard.getPosition()
-            const to = this.state.fenOfPly(this.state.plyViewed)
+            const to = this.module.state.fenOfPly(this.module.state.plyViewed)
             // console.log("setPosition", from, "=>", to)
             this.chessboard.setPosition(to, animated)
         })
@@ -106,14 +105,14 @@ export class Board extends Component {
         this.markLastMoveDebounce = setTimeout(() => {
             this.chessboard.removeMarkers(null, MARKER_TYPE.lastMove)
             this.chessboard.removeMarkers(null, MARKER_TYPE.check)
-            if (this.state.plyViewed === this.state.plyCount()) {
-                const lastMove = this.state.lastMove()
+            if (this.module.state.plyViewed === this.module.state.plyCount()) {
+                const lastMove = this.module.state.lastMove()
                 if (lastMove) {
                     this.chessboard.addMarker(lastMove.from, MARKER_TYPE.lastMove)
                     this.chessboard.addMarker(lastMove.to, MARKER_TYPE.lastMove)
                 }
-                if (this.state.chess.in_check() || this.state.chess.in_checkmate()) {
-                    const kingSquare = this.state.pieces("k", this.state.chess.turn())[0]
+                if (this.module.state.chess.in_check() || this.module.state.chess.in_checkmate()) {
+                    const kingSquare = this.module.state.pieces("k", this.module.state.chess.turn())[0]
                     this.chessboard.addMarker(kingSquare.square, MARKER_TYPE.check)
                 }
             }
