@@ -1,6 +1,7 @@
 /**
- * Author: shaack
- * Date: 21.12.2017
+ * Author and copyright: Stefan Haack (https://shaack.com)
+ * Repository: https://github.com/shaack/chess-console
+ * License: MIT, see file 'LICENSE'
  */
 
 import {Observe} from "../svjs-observe/Observe.js"
@@ -10,12 +11,9 @@ export class ChessConsoleState {
 
     constructor(props) {
         this.chess = new Chess()
-        this.gameStarted = false
-        this.gameRunning = false
         this.playerColor = COLOR.white
         this.orientation = COLOR.white
         this.plyViewed = 0
-        this.ply = 0
         this.lastError = null
     }
 
@@ -40,6 +38,11 @@ export class ChessConsoleState {
         return result
     }
 
+    plyCount() {
+        const history = this.chess.history()
+        return history.length
+    }
+
     lastMove() {
         const history = this.chess.history({verbose: true})
         if (history.length > 0) {
@@ -49,18 +52,18 @@ export class ChessConsoleState {
         }
     }
 
-    fenOfPly(ply) {
+    fenOfPly(plyCount) {
         let tmpChess = new Chess()
         let history = this.chess.history({verbose: true})
-        if (history.length === ply) {
+        if (history.length === plyCount) {
             return this.chess.fen()
         }
-        for (let i = 0; i < Math.min(ply, history.length); i++) {
+        for (let i = 0; i < Math.min(plyCount, history.length); i++) {
             tmpChess.move(history[i])
         }
         return tmpChess.fen()
     }
-
+/*
     observeChess(callback) {
         const chessManipulationMethods = [
             'move', 'clear', 'load', 'load_pgn', 'put', 'remove', 'reset', 'undo'
@@ -71,6 +74,6 @@ export class ChessConsoleState {
                 callback(params)
             })
         })
-    };
-
+    }
+*/
 }

@@ -16,6 +16,7 @@
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../node_modules/chess.js/chess.min.js"></script>
 <script type="module">
+
     import {App} from "../src/svjs-app/App.js"
     import {ChessConsole} from "../src/chess-console/ChessConsole.js"
     import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.js"
@@ -29,15 +30,15 @@
     const app = App.create()
     const chessConsole = app.addModule(ChessConsole,
         document.getElementById("console-container"), {
+            assetsFolder: "../assets",
             player: {name: "Local Player", type: LocalPlayer},
-            opponent: {name: "Random Player", type: RandomPlayer},
-            assetsFolder: "../assets"
+            opponent: {name: "Random Player", type: RandomPlayer}
         })
     chessConsole.addComponent(Board)
     chessConsole.addComponent(History)
-    chessConsole.addComponent(HistoryControl)
-    chessConsole.addComponent(GameControl)
-    // chessConsole.addComponent(Persistence)
+    //chessConsole.addComponent(HistoryControl)
+    //chessConsole.addComponent(GameControl)
+    chessConsole.addComponent(Persistence).load("guest")
 
 </script>
 </body>

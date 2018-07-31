@@ -5,29 +5,29 @@
  */
 import {Component} from "../../svjs-app/Component.js"
 import {MESSAGE} from "../ChessConsole.js"
+import {COLOR} from "../../cm-chesstools/ChessTools.js"
 
 export class Persistence extends Component {
 
-    constructor(module, props = {}) {
+    constructor(module) {
         super(module)
-        this.props = {
-            prefix: "cc-"
-        }
-        Object.assign(this.props, props)
-        this.load()
-        module.messageBroker.subscribe(MESSAGE.moveDone, (player, move, moveResult) => {
-            console.log(player, move, moveResult)
+        module.messageBroker.subscribe(MESSAGE.legalMove, (data) => {
             this.save()
         })
     }
 
-    load() {
+    load(prefix) {
+        this.prefix = prefix
         try {
             if (localStorage.getItem(this.props.prefix + "playerColor") !== null) {
-                this.module.state.playerColor = JSON.parse(localStorage.getItem(this.props.prefix + "playerColor"))
+                this.module.state.playerColor = JSON.parse(localStorage.getItem(this.prefix + "playerColor"))
+            } else {
+                this.module.startGame(COLOR.white)
             }
             if (localStorage.getItem(this.props.prefix + "pgn") !== null) {
-                this.module.state.chess.load_pgn(localStorage.getItem(this.props.prefix + "pgn"))
+                this.module.state.chess.load_pgn(localStorage.getItem(this.prefix + "pgn"))
+                this.module.state.plyViewed = this.module.state.plyCount
+                this.module.state.gameStarted = true
             }
         } catch (e) {
             localStorage.clear()
@@ -36,7 +36,7 @@ export class Persistence extends Component {
     }
 
     save() {
-        localStorage.setItem(this.props.prefix + "playerColor", JSON.stringify(this.module.state.playerColor));
-        localStorage.setItem(this.props.prefix + "pgn", this.module.state.chess.pgn());
+        localStorage.setItem(this.prefix + "playerColor", JSON.stringify(this.module.state.playerColor));
+        localStorage.setItem(this.prefix + "pgn", this.module.state.chess.pgn());
     }
 }

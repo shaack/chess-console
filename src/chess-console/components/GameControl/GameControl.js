@@ -32,19 +32,26 @@ export class GameControl extends Component {
                 <button type="button" title="${i18n.t('start_game')}" class="btn btn-icon startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>`)
             this.$btnUndoMove = $element.find(".undoMove")
             this.$btnStartNewGame = $element.find(".startNewGame")
+            this.$btnUndoMove.click(() => {
+                console.log("undo move")
+            })
+            this.$btnStartNewGame.click(() => {
+                console.log("start new game")
+            })
+            this.observe()
             this.enableButtons()
         })
     }
 
     enableButtons() {
-        if (this.module.state.ply < 2) {
+        if (this.module.state.plyCount < 2) {
             this.$btnUndoMove.prop("disabled", true)
         } else {
             this.$btnUndoMove.prop("disabled", false)
         }
     }
 
-    observer() {
+    observe() {
         this.module.state.observeChess(() => {
             this.enableButtons()
         })

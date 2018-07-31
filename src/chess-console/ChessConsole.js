@@ -11,19 +11,22 @@ import {ChessConsoleState} from "./ChessConsoleState.js"
 
 
 export const MESSAGE = {
-    // gameStart: function gameStart() {}, // todo
-    // gameFinished: function gameFinished() {}, // todo
+    gameStarted: function gameStarted() {},
+    gameFinished: function gameFinished() {},
+    moveRequest: function moveRequest(player) {
+        this.player = player
+    },
+    legalMove: function legalMove(player, move, moveResult) {
+        this.player = player
+        this.move = move
+        this.moveResult = moveResult
+    },
     illegalMove: function illegalMove(player, move) {
         this.player = player
         this.move = move
     },
-    moveRequest: function moveRequest(player) {
-        this.player = player
-    },
-    moveDone: function moveDone(player, move, moveResult) {
-        this.player = player
-        this.move = move
-        this.moveResult = moveResult
+    plyViewed: function plyViewed(plyCount) {
+        this.plyCount = plyCount
     }
 }
 
@@ -32,11 +35,7 @@ export class ChessConsole extends AppModule {
     constructor(app, container, props = {}) {
         super(app, container, props)
         this.props = {
-            assetsFolder: "/assets",
-            // position: FEN_START_POSITION,
-            // playerColor: COLOR.white,
-            // orientation: COLOR.white,
-            locale: navigator.language
+            assetsFolder: "/assets"
         }
         Object.assign(this.props, props)
         this.messageBroker = new MessageBroker()
@@ -67,16 +66,17 @@ export class ChessConsole extends AppModule {
         }
     }
 
-    startGame(playerColor, position) {
-
+    startGame(playerColor) {
+        this.state.playerColor = playerColor
+        this.nextMove()
     }
 
     playerWhite() {
-        return this.props.playerColor === COLOR.white ? this.player : this.opponent
+        return this.state.playerColor === COLOR.white ? this.player : this.opponent
     }
 
     playerBlack() {
-        return this.props.playerColor === COLOR.white ? this.opponent : this.player
+        return this.state.playerColor === COLOR.white ? this.opponent : this.player
     }
 
     playerToMove() {
@@ -101,8 +101,9 @@ export class ChessConsole extends AppModule {
     /*
      * - calls `moveRequest()` in next player
      */
-    requestNextMove() {
+    nextMove() {
         const playerToMove = this.playerToMove()
+        console.log("nextMove", playerToMove.name)
         this.messageBroker.publish(new MESSAGE.moveRequest(playerToMove))
         setTimeout(() => {
             playerToMove.moveRequest(this.state.chess.fen(), (san) => {
@@ -118,17 +119,19 @@ export class ChessConsole extends AppModule {
      */
     moveResponse(move) {
         const moveResult = this.state.chess.move(move)
+        const playerToMove = this.playerToMove()
+        console.log("moveResponse", move, moveResult)
         if (!moveResult) {
-            this.messageBroker.publish(new MESSAGE.illegalMove(this.playerToMove(), move))
+            this.messageBroker.publish(new MESSAGE.illegalMove(playerToMove, move))
             return
         }
-        if (this.state.plyViewed === this.state.ply - 1) {
+        if (this.state.plyViewed === this.state.plyCount() - 1) {
             this.state.plyViewed++
         }
-        this.opponentOf(this.playerToMove()).moveDone(this.state.lastMove())
-        this.messageBroker.publish(new MESSAGE.moveDone(this.opponentOf(this.playerToMove()), move, moveResult))
+        // this.opponentOf(this.playerToMove()).legalMove(this.state.lastMove())
+        this.messageBroker.publish(new MESSAGE.legalMove(playerToMove, move, moveResult))
         if (!this.state.chess.game_over()) {
-            this.requestNextMove()
+            this.nextMove()
         }
     }
 
