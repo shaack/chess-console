@@ -95,6 +95,7 @@ export class ChessConsole extends AppModule {
         this.state.orientation = props.playerColor
         this.state.chess.reset()
         this.state.plyViewed = 0
+        this.messageBroker.publish(new MESSAGE.gameStarted())
         this.nextMove()
     }
 

@@ -28,8 +28,18 @@ export class Sound extends Component {
         module.messageBroker.subscribe(MESSAGE.gameStarted, () => {
             this.audioSprite.play("game_start")
         })
-        module.messageBroker.subscribe(MESSAGE.legalMove, () => {
-            this.audioSprite.play("move")
+        module.messageBroker.subscribe(MESSAGE.legalMove, (data) => {
+            const flags = data.moveResult.flags
+            if(flags.indexOf("p") !== -1) {
+                this.audioSprite.play("game_won") // todo create promotion sound
+            } else if(flags.indexOf("c") !== -1) {
+                this.audioSprite.play("capture")
+            } else {
+                this.audioSprite.play("move")
+            }
+            if (this.module.state.chess.in_check() || this.module.state.chess.in_checkmate()) {
+                this.audioSprite.play("check")
+            }
         })
         module.messageBroker.subscribe(MESSAGE.illegalMove, () => {
             this.audioSprite.play("wrong_move")
