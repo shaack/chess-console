@@ -39,7 +39,8 @@
     chessConsole.addComponent(History)
     chessConsole.addComponent(HistoryControl)
     chessConsole.addComponent(GameControl)
-    chessConsole.addComponent(Persistence).load("guest")
+    chessConsole.addComponent(Persistence)
+        .then((component) => component.load("guest"))
 
 </script>
 </body>

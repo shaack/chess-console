@@ -8,11 +8,14 @@ import {AppModule} from "../svjs-app/AppModule.js"
 import {MessageBroker} from "../svjs-message-broker/MessageBroker.js"
 import {FEN_START_POSITION, COLOR} from "../cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
+import {I18n} from "../svjs-i18n/I18n.js"
 
 
 export const MESSAGE = {
-    gameStarted: function gameStarted() {},
-    gameFinished: function gameFinished() {},
+    gameStarted: function gameStarted() {
+    },
+    gameFinished: function gameFinished() {
+    },
     moveRequest: function moveRequest(player) {
         this.player = player
     },
@@ -64,6 +67,27 @@ export class ChessConsole extends AppModule {
             controlButtons: this.container.querySelector(".chess-console-controls .control-buttons"),
             status: this.container.querySelector(".chess-console-status")
         }
+        this.i18n = new I18n({locale: props.locale})
+        this.initialisation = this.i18n.load({
+            de: {
+                ok: "OK",
+                cancel: "Abbrechen"
+            },
+            en: {
+                ok: "OK",
+                cancel: "Cancel"
+            }
+        })
+    }
+
+    addComponent(componentType, props = {}) {
+        return new Promise((resolve) => {
+            this.initialisation.then(() => {
+                const component = new componentType(this, props)
+                this.components.push(component)
+                resolve(component)
+            })
+        })
     }
 
     startGame(playerColor) {

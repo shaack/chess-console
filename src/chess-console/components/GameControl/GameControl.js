@@ -13,7 +13,7 @@ export class GameControl extends Component {
     constructor(module) {
         super(module)
 
-        const i18n = new I18n(module.props.locale)
+        const i18n = module.i18n
         i18n.load({
             de: {
                 "start_game": "Ein neues Spiel starten",
@@ -41,7 +41,9 @@ export class GameControl extends Component {
                 }
             })
             this.$btnStartNewGame.click(() => {
-                NewGameDialog.show().then((gamePrefs) => {
+                NewGameDialog.show({
+                    title: i18n.t('start_game')
+                }).then((gamePrefs) => {
                     console.log("new Game", gamePrefs)
                 })
             })

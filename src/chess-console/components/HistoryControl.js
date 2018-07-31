@@ -13,7 +13,7 @@ export class HistoryControl extends Component {
     constructor(module) {
         super(module)
 
-        const i18n = new I18n()
+        const i18n = module.i18n
         i18n.load({
             de: {
                 "to_game_start": "Zum Spielstart",

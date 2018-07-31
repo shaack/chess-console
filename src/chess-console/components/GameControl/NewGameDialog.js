@@ -8,13 +8,11 @@ import "../../../../node_modules/bootstrap-show-modal/src/bootstrap-show-modal.j
 
 export class NewGameDialog {
 
-    static show() {
-        return new Promise((resolve) => {
-            const dialog = $.showModal({
-                modalClass: "fade",
+    static show(props) {
+        props.modalClass = "fade"
+        props.footer = ''
+        const dialog = $.showModal(props)
 
-            })
-        })
     }
 
 }
