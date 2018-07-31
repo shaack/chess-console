@@ -27,6 +27,7 @@
     import {HistoryControl} from "../src/chess-console/components/HistoryControl.js"
     import {GameControl} from "../src/chess-console/components/GameControl/GameControl.js"
     import {Persistence} from "../src/chess-console/components/Persistence.js"
+    import {Sound} from "../src/chess-console/components/Sound.js"
 
     const app = App.create()
     const chessConsole = app.addModule(ChessConsole,
@@ -39,6 +40,7 @@
     chessConsole.addComponent(History)
     chessConsole.addComponent(HistoryControl)
     chessConsole.addComponent(GameControl)
+    chessConsole.addComponent(Sound)
     chessConsole.addComponent(Persistence)
         .then((component) => component.load("guest"))
 
