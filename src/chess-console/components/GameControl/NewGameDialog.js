@@ -16,20 +16,20 @@ export class NewGameDialog {
                 color: "Farbe",
                 white: "Weiss",
                 black: "Schwarz",
-                random: "zufällig"
+                auto: "automatisch"
             },
             en: {
                 color: "Color",
                 white: "White",
                 black: "Black",
-                random: "Random"
+                auto: "automatically"
             }
         })
         props.modalClass = "fade"
         props.body = `<div class="form-group row">
                         <div class="col-3"><label for="color" class="col-form-label">${i18n.t("color")}</label></div>
                         <div class="col-9"><select id="color" class="form-control">
-                        <option value="random">${i18n.t("random")}</option>
+                        <option value="auto">${i18n.t("auto")}</option>
                         <option value="w">${i18n.t("white")}</option>
                         <option value="b">${i18n.t("black")}</option>
                         </select></div>
@@ -42,7 +42,7 @@ export class NewGameDialog {
                 var $form = $(modal.element).find("form")
                 let color = $form.find("#color").val()
                 if (color !== COLOR.white && color !== COLOR.black) {
-                    color = (Math.random() > 0.5) ? COLOR.white : COLOR.black
+                    color = (module.state.playerColor === COLOR.white) ? COLOR.black : COLOR.white
                 }
                 modal.hide()
                 module.startGame({playerColor: color})
