@@ -5,7 +5,6 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-@import url(_cm-chessboard.css);
 /* line 1, ../../node_modules/bootstrap/scss/_root.scss */
 :root {
   --blue: #007bff;
@@ -8190,6 +8189,101 @@ a.text-dark:hover, a.text-dark:focus {
 /* line 121, _chess-console.scss */
 button.close {
   cursor: pointer; }
+
+/* line 13, _cm-chessboard.scss */
+.cm-chessboard .board.input-enabled .square {
+  cursor: pointer; }
+
+/* line 17, _cm-chessboard.scss */
+.cm-chessboard .board .border {
+  fill: rgba(0, 0, 0, 0.7); }
+
+/* line 21, _cm-chessboard.scss */
+.cm-chessboard .board .square.white {
+  fill: #eedab6; }
+
+/* line 24, _cm-chessboard.scss */
+.cm-chessboard .board .square.black {
+  fill: #c7a47b; }
+
+/* line 31, _cm-chessboard.scss */
+.cm-chessboard.has-border .board .border {
+  fill: #eedab6; }
+
+/* line 34, _cm-chessboard.scss */
+.cm-chessboard.has-border .board .border-inner {
+  fill: #c7a47b; }
+
+/* line 39, _cm-chessboard.scss */
+.cm-chessboard .coordinates {
+  pointer-events: none;
+  user-select: none; }
+  /* line 42, _cm-chessboard.scss */
+  .cm-chessboard .coordinates .coordinate {
+    fill: rgba(0, 0, 0, 0.7);
+    font-size: 7px;
+    cursor: default; }
+
+/* line 51, _cm-chessboard.scss */
+.cm-chessboard.green .board .square.white {
+  fill: #bddac4; }
+
+/* line 54, _cm-chessboard.scss */
+.cm-chessboard.green .board .square.black {
+  fill: #8ebd9b; }
+
+/* line 61, _cm-chessboard.scss */
+.cm-chessboard.green.has-border .board .border {
+  fill: #bddac4; }
+
+/* line 64, _cm-chessboard.scss */
+.cm-chessboard.green.has-border .board .border-inner {
+  fill: #8ebd9b; }
+
+/* line 73, _cm-chessboard.scss */
+.cm-chessboard.blue .board .square.white {
+  fill: #d7e3fc; }
+
+/* line 76, _cm-chessboard.scss */
+.cm-chessboard.blue .board .square.black {
+  fill: #aec0e9; }
+
+/* line 83, _cm-chessboard.scss */
+.cm-chessboard.blue.has-border .board .border {
+  fill: #d7e3fc; }
+
+/* line 86, _cm-chessboard.scss */
+.cm-chessboard.blue.has-border .board .border-inner {
+  fill: #aec0e9; }
+
+/* line 94, _cm-chessboard.scss */
+.cm-chessboard .markers .marker.move {
+  stroke: black;
+  opacity: 0.7; }
+
+/* line 98, _cm-chessboard.scss */
+.cm-chessboard .markers .marker.emphasize {
+  stroke: blue;
+  opacity: 0.5; }
+
+/* line 102, _cm-chessboard.scss */
+.cm-chessboard .markers .marker.last-move {
+  stroke: black;
+  opacity: 0.4; }
+
+/* line 106, _cm-chessboard.scss */
+.cm-chessboard .markers .marker.wrong-move {
+  stroke: #dc3545;
+  opacity: 0.5; }
+
+/* line 110, _cm-chessboard.scss */
+.cm-chessboard .markers .marker.check {
+  stroke: #dc3545;
+  opacity: 0.5; }
+
+/* line 116, _cm-chessboard.scss */
+.cm-chessboard .pieces, .cm-chessboard .markers {
+  pointer-events: none; }
 
 /* line 9, screen.scss */
 html body .container-fluid {
