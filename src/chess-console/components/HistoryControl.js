@@ -48,11 +48,11 @@ export class HistoryControl extends Component {
             this.$btnLast = $element.find(".last")
             this.$btnAutoplay = $element.find(".autoplay")
             this.$btnOrientation = $element.find(".orientation")
-/*
+
             this.module.state.observeChess(() => {
                 this.setButtonStates()
             })
-            */
+
             Observe.property(this.module.state, "plyViewed", () => {
                 this.setButtonStates()
             })

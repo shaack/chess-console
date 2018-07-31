@@ -33,17 +33,23 @@ export class GameControl extends Component {
             this.$btnUndoMove = $element.find(".undoMove")
             this.$btnStartNewGame = $element.find(".startNewGame")
             this.$btnUndoMove.click(() => {
-                console.log("undo move")
+                this.module.state.chess.undo()
+                this.module.state.chess.undo()
+                if(this.module.state.plyViewed > this.module.state.ply) {
+                    this.module.state.plyViewed = this.module.state.ply;
+                }
             })
             this.$btnStartNewGame.click(() => {
                 console.log("start new game")
             })
-            this.observe()
-            this.enableButtons()
+            this.module.state.observeChess(() => {
+                this.setButtonStates()
+            })
+            this.setButtonStates()
         })
     }
 
-    enableButtons() {
+    setButtonStates() {
         if (this.module.state.plyCount < 2) {
             this.$btnUndoMove.prop("disabled", true)
         } else {
@@ -51,13 +57,5 @@ export class GameControl extends Component {
         }
     }
 
-    observe() {
-        this.module.state.observeChess(() => {
-            this.enableButtons()
-        })
-        Observe.property(this.module.state, "ply", () => {
-            this.enableButtons()
-        })
-    }
 
 }

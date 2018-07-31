@@ -12,7 +12,7 @@ export class Persistence extends Component {
 
     constructor(module) {
         super(module)
-        module.messageBroker.subscribe(MESSAGE.legalMove, (data) => {
+        this.module.state.observeChess(() => {
             this.save()
         })
     }

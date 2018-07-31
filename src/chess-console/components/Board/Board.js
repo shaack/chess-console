@@ -35,11 +35,6 @@ export class Board extends Component {
             module.componentContainers.board.appendChild(this.elements.chessboard)
             module.componentContainers.board.appendChild(this.elements.playerBottom)
             this.resize()
-            module.messageBroker.subscribe(MESSAGE.legalMove, () => {
-                this.setPositionOfPlyViewed()
-                this.markLastMove()
-            })
-            /*
             this.state.observeChess((params) => {
                 let animated = true
                 if (params.functionName === "load_pgn") {
@@ -48,7 +43,6 @@ export class Board extends Component {
                 this.setPositionOfPlyViewed(animated)
                 this.markLastMove()
             })
-            */
             Observe.property(this.state, "plyViewed", () => {
                 this.setPositionOfPlyViewed()
                 this.markLastMove()

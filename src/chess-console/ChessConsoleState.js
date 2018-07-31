@@ -62,7 +62,7 @@ export class ChessConsoleState {
         }
         return tmpChess.fen()
     }
-/*
+
     observeChess(callback) {
         const chessManipulationMethods = [
             'move', 'clear', 'load', 'load_pgn', 'put', 'remove', 'reset', 'undo'
@@ -74,5 +74,5 @@ export class ChessConsoleState {
             })
         })
     }
-*/
+
 }
