@@ -6,7 +6,7 @@
 
 import {Component} from "../../../svjs-app/Component.js"
 import {I18n} from "../../../svjs-i18n/I18n.js"
-import {Observe} from "../../../svjs-observe/Observe.js"
+import {NewGameDialog} from "./NewGameDialog.js"
 
 export class GameControl extends Component {
 
@@ -32,6 +32,7 @@ export class GameControl extends Component {
                 <button type="button" title="${i18n.t('start_game')}" class="btn btn-icon startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>`)
             this.$btnUndoMove = $element.find(".undoMove")
             this.$btnStartNewGame = $element.find(".startNewGame")
+
             this.$btnUndoMove.click(() => {
                 this.module.state.chess.undo()
                 this.module.state.chess.undo()
@@ -40,8 +41,11 @@ export class GameControl extends Component {
                 }
             })
             this.$btnStartNewGame.click(() => {
-                console.log("start new game")
+                NewGameDialog.show().then((gamePrefs) => {
+                    console.log("new Game", gamePrefs)
+                })
             })
+
             this.module.state.observeChess(() => {
                 this.setButtonStates()
             })
@@ -50,7 +54,7 @@ export class GameControl extends Component {
     }
 
     setButtonStates() {
-        if (this.module.state.plyCount < 2) {
+        if (this.module.state.plyCount() < 2) {
             this.$btnUndoMove.prop("disabled", true)
         } else {
             this.$btnUndoMove.prop("disabled", false)
