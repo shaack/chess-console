@@ -121,38 +121,31 @@ export class Board extends Component {
     }
 
     setPlayerNames() {
-        if(this.module.state.gameStarted) {
-            if (this.module.state.orientation === COLOR.white) {
-                this.elements.playerBottom.innerHTML = this.module.player.name
-                this.elements.playerTop.innerHTML = this.module.opponent.name
-            } else {
-                this.elements.playerBottom.innerHTML = this.module.opponent.name
-                this.elements.playerTop.innerHTML = this.module.player.name
-            }
+        if (this.module.state.orientation === COLOR.white) {
+            this.elements.playerBottom.innerHTML = this.module.player.name
+            this.elements.playerTop.innerHTML = this.module.opponent.name
         } else {
-            this.elements.playerTop.innerHTML = "&nbsp;"
-            this.elements.playerBottom.innerHTML = "&nbsp;"
+            this.elements.playerBottom.innerHTML = this.module.opponent.name
+            this.elements.playerTop.innerHTML = this.module.player.name
         }
     }
 
     markPlayerToMove() {
-        if(this.module.state.gameStarted && !this.module.state.gameFinished) {
-            clearTimeout(this.markPlayerToMoveDebounce)
-            this.markPlayerToMoveDebounce = setTimeout(() => {
-                this.elements.playerTop.classList.remove("to-move")
-                this.elements.playerBottom.classList.remove("to-move")
-                const playerMove = this.module.playerToMove()
-                if (
-                    this.module.state.orientation === COLOR.white &&
-                    playerMove === this.module.playerWhite() ||
-                    this.module.state.orientation === COLOR.black &&
-                    playerMove === this.module.playerBlack()) {
-                    this.elements.playerBottom.classList.add("to-move")
-                } else {
-                    this.elements.playerTop.classList.add("to-move")
-                }
-            }, 10)
-        }
+        clearTimeout(this.markPlayerToMoveDebounce)
+        this.markPlayerToMoveDebounce = setTimeout(() => {
+            this.elements.playerTop.classList.remove("to-move")
+            this.elements.playerBottom.classList.remove("to-move")
+            const playerMove = this.module.playerToMove()
+            if (
+                this.module.state.orientation === COLOR.white &&
+                playerMove === this.module.playerWhite() ||
+                this.module.state.orientation === COLOR.black &&
+                playerMove === this.module.playerBlack()) {
+                this.elements.playerBottom.classList.add("to-move")
+            } else {
+                this.elements.playerTop.classList.add("to-move")
+            }
+        }, 10)
     }
 
 }
