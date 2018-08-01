@@ -6,9 +6,10 @@
 
 export class ChessConsolePlayer {
 
-    constructor(name, chessConsole) {
+    constructor(name, chessConsole, props) {
         this.name = name
         this.chessConsole = chessConsole
+        this.props = props
     }
 
     moveRequest(fen, moveResponse) {

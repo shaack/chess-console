@@ -8,8 +8,8 @@ import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
 
 export class RandomPlayer extends ChessConsolePlayer {
 
-    constructor(name, chessConsole) {
-        super(name, chessConsole)
+    constructor(name, chessConsole, props) {
+        super(name, chessConsole, props)
         this.chess = new Chess()
     }
 

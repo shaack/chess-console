@@ -45,8 +45,8 @@ export class ChessConsole extends AppModule {
         Object.assign(this.props, props)
         this.messageBroker = new MessageBroker()
         this.state = new ChessConsoleState(this.props)
-        this.player = new this.props.player.type(this.props.player.name, this)
-        this.opponent = new this.props.opponent.type(this.props.opponent.name, this)
+        this.player = new this.props.player.type(this.props.player.name, this, this.props.player.props)
+        this.opponent = new this.props.opponent.type(this.props.opponent.name, this, this.props.opponent.props)
         const colSets = {
             consoleGame: "col-lg-7 order-lg-2 col-md-8 order-md-1 order-sm-1 col-sm-12 order-sm-1",
             consoleControls: "col-lg-3 order-lg-3 col-md-4 order-md-2 col-sm-8 order-sm-3",

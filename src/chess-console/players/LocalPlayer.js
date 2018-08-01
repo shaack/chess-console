@@ -10,8 +10,8 @@ import {PromotionDialog} from "../components/Board/PromotionDialog.js"
 
 export class LocalPlayer extends ChessConsolePlayer {
 
-    constructor(name, chessConsole) {
-        super(name, chessConsole)
+    constructor(name, chessConsole, props) {
+        super(name, chessConsole, props)
         this.promotionDialog = new PromotionDialog()
     }
 
