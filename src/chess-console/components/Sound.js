@@ -14,6 +14,7 @@ export class Sound extends Component {
         super(module)
         this.audioSprite = new AudioSprite(module.props.assetsFolder + "/sound/chess_sounds.mp3",
             {
+                gain: 0.4,
                 slices: {
                     "game_start": {offset: 0, duration: 0.9},
                     "game_won": {offset: 0.9, duration: 1.8},
@@ -43,6 +44,9 @@ export class Sound extends Component {
         })
         module.messageBroker.subscribe(MESSAGE.illegalMove, () => {
             this.audioSprite.play("wrong_move")
+        })
+        module.messageBroker.subscribe(MESSAGE.moveUndone, () => {
+            this.audioSprite.play("take_back")
         })
     }
 

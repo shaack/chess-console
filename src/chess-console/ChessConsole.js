@@ -28,7 +28,9 @@ export const MESSAGE = {
         this.player = player
         this.move = move
     },
-    plyViewed: function plyViewed(plyCount) {
+    moveUndone: function moveUndone() {
+    },
+    plyViewed: function plyViewed(plyCount) { // todo delete
         this.plyCount = plyCount
     }
 }
@@ -126,6 +128,18 @@ export class ChessConsole extends AppModule {
         }
     }
 
+    undoMove() {
+        this.state.chess.undo()
+        if (this.playerToMove() !== this.player) {
+            this.state.chess.undo()
+        }
+        if (this.state.plyViewed > this.state.plyCount) {
+            this.state.plyViewed = this.state.plyCount
+        }
+        this.messageBroker.publish(new MESSAGE.moveUndone())
+        this.nextMove()
+    }
+
     /*
      * - calls `moveRequest()` in next player
      */
@@ -151,11 +165,12 @@ export class ChessConsole extends AppModule {
             this.messageBroker.publish(new MESSAGE.illegalMove(playerToMove, move))
             return
         }
-        if (this.state.plyViewed === this.state.plyCount() - 1) {
+        if (this.state.plyViewed === this.state.plyCount - 1) {
             this.state.plyViewed++
         }
         // this.opponentOf(this.playerToMove()).legalMove(this.state.lastMove())
         this.messageBroker.publish(new MESSAGE.legalMove(playerToMove, move, moveResult))
+        playerToMove.moveDone(move, moveResult)
         if (!this.state.chess.game_over()) {
             this.nextMove()
         }

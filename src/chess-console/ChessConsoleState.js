@@ -14,6 +14,7 @@ export class ChessConsoleState {
         this.playerColor = COLOR.white
         this.orientation = COLOR.white
         this.plyViewed = 0
+        this.plyCount = 0
         this.lastError = null
     }
 
@@ -36,10 +37,6 @@ export class ChessConsoleState {
             }
         }
         return result
-    }
-
-    plyCount() {
-        return this.chess.history().length // todo performance optimize
     }
 
     lastMove() {
@@ -69,7 +66,7 @@ export class ChessConsoleState {
         ]
         chessManipulationMethods.forEach((methodName) => {
             Observe.postFunction(this.chess, methodName, (params) => {
-                this.ply = this.chess.history().length
+                this.plyCount = this.chess.history().length
                 callback(params)
             })
         })

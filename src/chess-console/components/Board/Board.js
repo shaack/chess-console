@@ -105,7 +105,7 @@ export class Board extends Component {
         this.markLastMoveDebounce = setTimeout(() => {
             this.chessboard.removeMarkers(null, MARKER_TYPE.lastMove)
             this.chessboard.removeMarkers(null, MARKER_TYPE.check)
-            if (this.module.state.plyViewed === this.module.state.plyCount()) {
+            if (this.module.state.plyViewed === this.module.state.plyCount) {
                 const lastMove = this.module.state.lastMove()
                 if (lastMove) {
                     this.chessboard.addMarker(lastMove.from, MARKER_TYPE.lastMove)

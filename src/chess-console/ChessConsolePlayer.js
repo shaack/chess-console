@@ -14,7 +14,7 @@ export class ChessConsolePlayer {
     moveRequest(fen, moveResponse) {
     }
 
-    moveDone(move) {
+    moveDone(move, moveResult) {
     }
 
 }

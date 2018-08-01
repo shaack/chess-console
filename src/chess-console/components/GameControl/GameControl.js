@@ -34,15 +34,7 @@ export class GameControl extends Component {
             this.$btnStartNewGame = $element.find(".startNewGame")
 
             this.$btnUndoMove.click(() => {
-                this.module.state.chess.undo()
-                if(this.module.playerToMove() !== this.module.player) {
-                    this.module.state.chess.undo()
-                } else {
-                    this.module.nextMove()
-                }
-                if(this.module.state.plyViewed > this.module.state.ply) {
-                    this.module.state.plyViewed = this.module.state.ply;
-                }
+                this.module.undoMove()
             })
             this.$btnStartNewGame.click(() => {
                 NewGameDialog.show(module, {
@@ -60,7 +52,7 @@ export class GameControl extends Component {
     }
 
     setButtonStates() {
-        if (this.module.state.plyCount() < 2) {
+        if (this.module.state.plyCount < 2) {
             this.$btnUndoMove.prop("disabled", true)
         } else {
             this.$btnUndoMove.prop("disabled", false)

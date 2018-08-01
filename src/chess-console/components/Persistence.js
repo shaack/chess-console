@@ -29,7 +29,7 @@ export class Persistence extends Component {
             }
             if (localStorage.getItem(this.prefix + "pgn") !== null) {
                 this.module.state.chess.load_pgn(localStorage.getItem(this.prefix + "pgn"))
-                this.module.state.plyViewed = this.module.state.plyCount()
+                this.module.state.plyViewed = this.module.state.plyCount
             }
             this.module.nextMove()
         } catch (e) {

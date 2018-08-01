@@ -73,7 +73,7 @@ export class HistoryControl extends Component {
                 this.module.state.plyViewed++
             })
             this.$btnLast.click(() => {
-                this.module.state.plyViewed = this.module.state.plyCount()
+                this.module.state.plyViewed = this.module.state.plyCount
             })
             this.$btnOrientation.click(() => {
                 this.module.state.orientation = this.module.state.orientation === COLOR.white ? COLOR.black : COLOR.white
@@ -86,13 +86,13 @@ export class HistoryControl extends Component {
                 } else {
                     this.module.state.plyViewed++
                     this.autoplay = setInterval(() => {
-                        if (this.module.state.plyViewed >= this.module.state.plyCount()) {
+                        if (this.module.state.plyViewed >= this.module.state.plyCount) {
                             clearInterval(this.autoplay)
                             this.autoplay = null
                             this.updatePlayIcon()
                         } else {
                             this.module.state.plyViewed++
-                            if (this.module.state.plyViewed >= this.module.state.plyCount()) {
+                            if (this.module.state.plyViewed >= this.module.state.plyCount) {
                                 clearInterval(this.autoplay)
                                 this.autoplay = null
                                 this.updatePlayIcon()
@@ -128,7 +128,7 @@ export class HistoryControl extends Component {
                 this.$btnFirst.prop('disabled', true)
                 this.$btnBack.prop('disabled', true)
             }
-            if (this.module.state.plyViewed < this.module.state.plyCount()) {
+            if (this.module.state.plyViewed < this.module.state.plyCount) {
                 this.$btnLast.prop('disabled', false)
                 this.$btnForward.prop('disabled', false)
                 this.$btnAutoplay.prop('disabled', false)

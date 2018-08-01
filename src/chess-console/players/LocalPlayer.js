@@ -27,6 +27,7 @@ export class LocalPlayer extends ChessConsolePlayer {
             callback(moveResult)
             return true
         } else { // is a promotion?
+            console.log(squareFrom, tmpChess.ascii())
             if (tmpChess.get(squareFrom).type === "p") {
                 const possibleMoves = tmpChess.moves({square: squareFrom, verbose: true})
                 for (let possibleMove of possibleMoves) {
@@ -65,8 +66,8 @@ export class LocalPlayer extends ChessConsolePlayer {
                 }
             })
         } else if (event.type === INPUT_EVENT_TYPE.moveStart) {
-            if (this.chessConsole.state.plyViewed !== this.chessConsole.state.plyCount()) {
-                this.chessConsole.state.plyViewed = this.chessConsole.state.plyCount()
+            if (this.chessConsole.state.plyViewed !== this.chessConsole.state.plyCount) {
+                this.chessConsole.state.plyViewed = this.chessConsole.state.plyCount
                 return false
             } else {
                 return true
@@ -77,7 +78,6 @@ export class LocalPlayer extends ChessConsolePlayer {
     moveRequest(fen, moveResponse) {
         const color = this.chessConsole.state.chess.turn() === 'w' ? COLOR.white : COLOR.black
         if (!this.chessConsole.state.chess.game_over()) {
-            // console.log("moveRequest, Enable move input", this.name, color);
             this.chessConsole.board.chessboard.enableMoveInput(
                 (event) => {
                     return this.moveInputCallback(event, fen, moveResponse)
