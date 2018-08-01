@@ -27,7 +27,6 @@ export class LocalPlayer extends ChessConsolePlayer {
             callback(moveResult)
             return true
         } else { // is a promotion?
-            console.log(squareFrom, tmpChess.ascii())
             if (tmpChess.get(squareFrom).type === "p") {
                 const possibleMoves = tmpChess.moves({square: squareFrom, verbose: true})
                 for (let possibleMove of possibleMoves) {
