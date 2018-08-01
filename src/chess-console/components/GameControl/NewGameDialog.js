@@ -24,9 +24,9 @@ export class NewGameDialog {
                 black: "Black",
                 auto: "automatically"
             }
-        })
-        props.modalClass = "fade"
-        props.body = `<div class="form-group row">
+        }).then(() => {
+            props.modalClass = "fade"
+            props.body = `<div class="form-group row">
                         <div class="col-3"><label for="color" class="col-form-label">${i18n.t("color")}</label></div>
                         <div class="col-9"><select id="color" class="form-control">
                         <option value="auto">${i18n.t("auto")}</option>
@@ -34,22 +34,21 @@ export class NewGameDialog {
                         <option value="b">${i18n.t("black")}</option>
                         </select></div>
                         </div>`
-        props.footer = `<button type="button" class="btn btn-link" data-dismiss="modal">${i18n.t("cancel")}</button>
+            props.footer = `<button type="button" class="btn btn-link" data-dismiss="modal">${i18n.t("cancel")}</button>
             <button type="submit" class="btn btn-primary">${i18n.t("ok")}</button>`
-        props.onCreate = (modal) => {
-            $(modal.element).on("submit", "form", function (event) {
-                event.preventDefault()
-                var $form = $(modal.element).find("form")
-                let color = $form.find("#color").val()
-                if (color !== COLOR.white && color !== COLOR.black) {
-                    color = (module.state.playerColor === COLOR.white) ? COLOR.black : COLOR.white
-                }
-                modal.hide()
-                module.startGame({playerColor: color})
-            })
-        }
-        return new Promise((resolve) => {
-            const dialog = $.showModal(props)
+            props.onCreate = (modal) => {
+                $(modal.element).on("submit", "form", function (event) {
+                    event.preventDefault()
+                    const $form = $(modal.element).find("form")
+                    let color = $form.find("#color").val()
+                    if (color !== COLOR.white && color !== COLOR.black) {
+                        color = (module.state.playerColor === COLOR.white) ? COLOR.black : COLOR.white
+                    }
+                    modal.hide()
+                    module.startGame({playerColor: color})
+                })
+            }
+            $.showModal(props)
         })
     }
 
