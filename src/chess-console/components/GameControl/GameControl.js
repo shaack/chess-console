@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Component} from "../../../svjs-app/Component.js"
+import {Component} from "../../../../lib/svjs-app/Component.js"
 import {NewGameDialog} from "./NewGameDialog.js"
 
 export class GameControl extends Component {

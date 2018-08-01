@@ -4,8 +4,8 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Observe} from "../svjs-observe/Observe.js"
-import {COLOR} from "../cm-chessboard/Chessboard.js"
+import {Observe} from "../../lib/svjs-observe/Observe.js"
+import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 
 export class ChessConsoleState {
 

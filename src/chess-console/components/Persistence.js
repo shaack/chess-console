@@ -4,9 +4,8 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Component} from "../../svjs-app/Component.js"
-import {MESSAGE} from "../ChessConsole.js"
-import {COLOR} from "../../cm-chesstools/ChessTools.js"
+import {Component} from "../../../lib/svjs-app/Component.js"
+import {COLOR} from "../../../lib/cm-chesstools/ChessTools.js"
 
 export class Persistence extends Component {
 

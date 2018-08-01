@@ -4,10 +4,10 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Observe} from "../../svjs-observe/Observe.js"
-import {Component} from "../../svjs-app/Component.js"
-import {Event} from "../../svjs-utils/Event.js"
-import {ChessTools} from "../../cm-chesstools/ChessTools.js"
+import {Observe} from "../../../lib/svjs-observe/Observe.js"
+import {Component} from "../../../lib/svjs-app/Component.js"
+import {Event} from "../../../lib/svjs-utils/Event.js"
+import {ChessTools} from "../../../lib/cm-chesstools/ChessTools.js"
 
 export class History extends Component {
 

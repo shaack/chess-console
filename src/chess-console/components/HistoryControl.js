@@ -4,10 +4,10 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Observe} from "../../svjs-observe/Observe.js"
-import {COLOR} from "../../cm-chessboard/Chessboard.js"
-import {Component} from "../../svjs-app/Component.js"
-import {I18n} from "../../svjs-i18n/I18n.js"
+import {Observe} from "../../../lib/svjs-observe/Observe.js"
+import {COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
+import {Component} from "../../../lib/svjs-app/Component.js"
+import {I18n} from "../../../lib/svjs-i18n/I18n.js"
 
 export class HistoryControl extends Component {
     constructor(module) {

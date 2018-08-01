@@ -4,11 +4,11 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {AppModule} from "../svjs-app/AppModule.js"
-import {MessageBroker} from "../svjs-message-broker/MessageBroker.js"
-import {FEN_START_POSITION, COLOR} from "../cm-chessboard/Chessboard.js"
+import {AppModule} from "../../lib/svjs-app/AppModule.js"
+import {MessageBroker} from "../../lib/svjs-message-broker/MessageBroker.js"
+import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
-import {I18n} from "../svjs-i18n/I18n.js"
+import {I18n} from "../../lib/svjs-i18n/I18n.js"
 
 
 export const MESSAGE = {

@@ -3,44 +3,20 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const fs = require("fs")
-const process = require("process")
-const path = require("path")
+const WebModuleLinker = require("web-module-linker")
 
-// link dependencies to use ES6 modules out of node_modules
-process.chdir('./src')
+const linker = new WebModuleLinker(__dirname)
 
-symlinkModule("svjs-app")
-symlinkModule("svjs-utils")
-symlinkModule("svjs-i18n")
-symlinkModule("svjs-message-broker")
-symlinkModule("svjs-svg")
-symlinkModule("svjs-observe")
-symlinkModule("svjs-audio")
+linker.symlinkModuleSrc("svjs-app")
+linker.symlinkModuleSrc("svjs-utils")
+linker.symlinkModuleSrc("svjs-i18n")
+linker.symlinkModuleSrc("svjs-message-broker")
+linker.symlinkModuleSrc("svjs-svg")
+linker.symlinkModuleSrc("svjs-observe")
+linker.symlinkModuleSrc("svjs-audio")
 
-symlinkModule("cm-chessboard")
-symlinkModule("cm-bootstrap-modal")
-symlinkModule("cm-chesstools")
+linker.symlinkModuleSrc("cm-chessboard")
+linker.symlinkModuleSrc("cm-bootstrap-modal")
+linker.symlinkModuleSrc("cm-chesstools")
 
-console.log("Please run 'npm install' after every 'npm update'")
-
-function symlinkModule(moduleName) {
-    try {
-        fs.unlink(moduleName, () => {
-            console.log("Creating link to Module", moduleName, "in /src")
-            fs.symlinkSync(resolveModulePath(moduleName), moduleName, "dir")
-        })
-    } catch (e) {
-        console.log(e.message)
-    }
-}
-
-function resolveModulePath(moduleName) {
-    try {
-        const pathToMainJs = require.resolve(moduleName)
-        return pathToMainJs.substr(0, pathToMainJs.lastIndexOf(moduleName) + moduleName.length)
-    } catch (e) {
-        console.log(e)
-        return null
-    }
-}
+linker.symlinkModuleSrc("bootstrap-show-modal", "bootstrap-show-modal.js")

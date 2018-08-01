@@ -5,7 +5,7 @@
  */
 
 import "../../../../node_modules/bootstrap-show-modal/src/bootstrap-show-modal.js"
-import {COLOR} from "../../../cm-chesstools/ChessTools.js"
+import {COLOR} from "../../../../lib/cm-chesstools/ChessTools.js"
 
 export class NewGameDialog {
 

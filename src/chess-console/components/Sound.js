@@ -4,8 +4,8 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {AudioSprite} from "../../svjs-audio/AudioSprite.js"
-import {Component} from "../../svjs-app/Component.js"
+import {AudioSprite} from "../../../lib/svjs-audio/AudioSprite.js"
+import {Component} from "../../../lib/svjs-app/Component.js"
 import {MESSAGE} from "../ChessConsole.js"
 
 export class Sound extends Component {

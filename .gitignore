@@ -1,6 +1,4 @@
 /node_modules
 /.idea
-/src/**
-!/src/chess-console
-!/src/chess-console/**
+/lib
 screen.css.map
