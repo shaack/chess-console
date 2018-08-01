@@ -9,7 +9,7 @@ import {COLOR} from "../../../cm-chesstools/ChessTools.js"
 
 export class NewGameDialog {
 
-    static show(module, props) {
+    constructor(module, props) {
         const i18n = module.i18n
         i18n.load({
             de: {

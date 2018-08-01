@@ -5,7 +5,6 @@
  */
 
 import {Component} from "../../../svjs-app/Component.js"
-import {I18n} from "../../../svjs-i18n/I18n.js"
 import {NewGameDialog} from "./NewGameDialog.js"
 
 export class GameControl extends Component {
@@ -37,17 +36,19 @@ export class GameControl extends Component {
                 this.module.undoMove()
             })
             this.$btnStartNewGame.click(() => {
-                NewGameDialog.show(module, {
-                    title: i18n.t('start_game')
-                }).then((gamePrefs) => {
-                    console.log("new Game", gamePrefs)
-                })
+                this.showNewGameDialog()
             })
 
             this.module.state.observeChess(() => {
                 this.setButtonStates()
             })
             this.setButtonStates()
+        })
+    }
+
+    showNewGameDialog() {
+        new NewGameDialog(this.module, {
+            title: this.module.i18n.t('start_game')
         })
     }
 
@@ -58,6 +59,5 @@ export class GameControl extends Component {
             this.$btnUndoMove.prop("disabled", false)
         }
     }
-
 
 }
