@@ -4,15 +4,14 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
-import {COLOR, INPUT_EVENT_TYPE} from "../../../lib/cm-chessboard/Chessboard.js"
+import {ChessConsolePlayer} from "../../ChessConsolePlayer.js"
+import {COLOR, INPUT_EVENT_TYPE} from "../../../../lib/cm-chessboard/Chessboard.js"
 import {PromotionDialog} from "./PromotionDialog.js"
 
 export class LocalPlayer extends ChessConsolePlayer {
 
     constructor(name, chessConsole, props) {
         super(name, chessConsole, props)
-        this.promotionDialog = new PromotionDialog()
     }
 
     /**
@@ -31,7 +30,7 @@ export class LocalPlayer extends ChessConsolePlayer {
                 const possibleMoves = tmpChess.moves({square: squareFrom, verbose: true})
                 for (let possibleMove of possibleMoves) {
                     if (possibleMove.to === squareTo && possibleMove.promotion) {
-                        this.promotionDialog.show(tmpChess.turn(), (piece) => {
+                        new PromotionDialog(tmpChess.turn(), (piece) => {
                             move.promotion = piece
                             callback(tmpChess.move(move))
                         })

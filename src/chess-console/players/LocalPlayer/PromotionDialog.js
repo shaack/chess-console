@@ -4,12 +4,12 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {BootstrapModal} from "../../../lib/cm-bootstrap-modal/BootstrapModal.js"
-import {COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
+import "../../../../node_modules/bootstrap-show-modal/src/bootstrap-show-modal.js"
+import {COLOR} from "../../../../lib/cm-chessboard/Chessboard.js"
 
-export class PromotionDialog extends BootstrapModal {
+export class PromotionDialog {
 
-    show(color, callback) {
+    constructor(color, callback) {
         this.piece = null
         this.callback = callback
         let pieceQ = color === COLOR.white ? "wq" : "bq"
@@ -41,16 +41,19 @@ export class PromotionDialog extends BootstrapModal {
                             </div>
                         </div>
                      </div>`
-        return super.show(title, body)
-    }
-
-    postCreate() {
-        $(this.element).on("click", ".piece", (event) => {
-            this.piece = event.target.getAttribute("data-piece")
-            this.hide()
-        })
-        $(this.element).on("hidden.bs.modal", (event) => {
-            this.callback(this.piece)
+        $.showModal({
+            modalClass: "fade",
+            title: title,
+            body: body,
+            onCreate: (modal) => {
+                $(modal.element).on("click", ".piece", (event) => {
+                    modal.piece = event.target.getAttribute("data-piece")
+                    modal.hide()
+                })
+                $(modal.element).on("hidden.bs.modal", (event) => {
+                    this.callback(modal.piece)
+                })
+            }
         })
     }
 
