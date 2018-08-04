@@ -21,4 +21,6 @@ chess computer.
 - **Option 1:** Download from [GitHub](https://github.com/shaack/chess-console) and run `npm install` without parameters, or
 - **Option 2:** Install the [npm package](https://www.npmjs.com/package/chess-console) with `npm install --save chess-console`
 
+## License
 
+The source code is licensed under MIT License. 
