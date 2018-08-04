@@ -4,8 +4,8 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {BootstrapModal} from "../../../../lib/cm-bootstrap-modal/BootstrapModal.js"
-import {COLOR} from "../../../../lib/cm-chessboard/Chessboard.js"
+import {BootstrapModal} from "../../../lib/cm-bootstrap-modal/BootstrapModal.js"
+import {COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
 
 export class PromotionDialog extends BootstrapModal {
 
