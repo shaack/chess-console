@@ -4,9 +4,9 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {ChessConsolePlayer} from "../../ChessConsolePlayer.js"
-import {COLOR, INPUT_EVENT_TYPE} from "../../../../lib/cm-chessboard/Chessboard.js"
-import {PromotionDialog} from "./PromotionDialog.js"
+import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
+import {COLOR, INPUT_EVENT_TYPE} from "../../../lib/cm-chessboard/Chessboard.js"
+import {PromotionDialog} from "../components/Board/PromotionDialog.js"
 
 export class LocalPlayer extends ChessConsolePlayer {
 

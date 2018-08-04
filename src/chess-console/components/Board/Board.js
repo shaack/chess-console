@@ -4,10 +4,10 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../../lib/cm-chessboard/Chessboard.js"
-import {MESSAGE} from "../ChessConsole.js"
-import {Observe} from "../../../lib/svjs-observe/Observe.js"
-import {Component} from "../../../lib/svjs-app/Component.js"
+import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../../../lib/cm-chessboard/Chessboard.js"
+import {MESSAGE} from "../../ChessConsole.js"
+import {Observe} from "../../../../lib/svjs-observe/Observe.js"
+import {Component} from "../../../../lib/svjs-app/Component.js"
 
 export const MARKER_TYPE = {
     lastMove: {class: "last-move", slice: "marker1"},
