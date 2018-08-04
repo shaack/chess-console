@@ -14,7 +14,8 @@ import {I18n} from "../../lib/svjs-i18n/I18n.js"
 export const MESSAGE = {
     gameStarted: function gameStarted() {
     },
-    gameFinished: function gameFinished() {
+    gameOver: function gameOver(wonColor) { // w, b, null for draw
+        this.wonColor = wonColor
     },
     moveRequest: function moveRequest(player) {
         this.player = player
@@ -29,9 +30,6 @@ export const MESSAGE = {
         this.move = move
     },
     moveUndone: function moveUndone() {
-    },
-    plyViewed: function plyViewed(plyCount) { // todo delete
-        this.plyCount = plyCount
     }
 }
 
@@ -117,17 +115,6 @@ export class ChessConsole extends AppModule {
         }
     }
 
-    opponentOf(player) {
-        if (this.player === player) {
-            return this.opponent
-        } else if (this.opponent === player) {
-            return this.player
-        } else {
-            console.error("player not in game", player)
-            return null
-        }
-    }
-
     undoMove() {
         this.state.chess.undo()
         if (this.playerToMove() !== this.player) {
@@ -173,6 +160,12 @@ export class ChessConsole extends AppModule {
         playerToMove.moveDone(move, moveResult)
         if (!this.state.chess.game_over()) {
             this.nextMove()
+        } else {
+            let wonColor = null
+            if(this.state.chess.in_checkmate()) {
+                wonColor = (this.state.chess.turn() === COLOR.white) ? COLOR.black : COLOR.white
+            }
+            this.messageBroker.publish(new MESSAGE.gameOver(wonColor))
         }
     }
 
