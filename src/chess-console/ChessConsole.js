@@ -41,6 +41,7 @@ export class ChessConsole extends AppModule {
             assetsFolder: "/assets"
         }
         Object.assign(this.props, props)
+        this.i18n = new I18n({locale: props.locale})
         this.messageBroker = new MessageBroker()
         this.state = new ChessConsoleState(this.props)
         this.player = new this.props.player.type(this.props.player.name, this, this.props.player.props)
@@ -67,7 +68,6 @@ export class ChessConsole extends AppModule {
             controlButtons: this.container.querySelector(".chess-console-controls .control-buttons"),
             status: this.container.querySelector(".chess-console-status")
         }
-        this.i18n = new I18n({locale: props.locale})
         this.initialisation = this.i18n.load({
             de: {
                 ok: "OK",
@@ -115,6 +115,14 @@ export class ChessConsole extends AppModule {
         }
     }
 
+    playerToNotMove() {
+        if (this.state.chess.turn() === "b") {
+            return this.playerWhite()
+        } else {
+            return this.playerBlack()
+        }
+    }
+
     undoMove() {
         this.state.chess.undo()
         if (this.playerToMove() !== this.player) {
@@ -146,18 +154,18 @@ export class ChessConsole extends AppModule {
      * - requests nextMove
      */
     moveResponse(move) {
+        const playerMoved = this.playerToMove()
         const moveResult = this.state.chess.move(move)
-        const playerToMove = this.playerToMove()
         if (!moveResult) {
-            this.messageBroker.publish(new MESSAGE.illegalMove(playerToMove, move))
+            this.messageBroker.publish(new MESSAGE.illegalMove(playerMoved, move))
             return
         }
         if (this.state.plyViewed === this.state.plyCount - 1) {
             this.state.plyViewed++
         }
         // this.opponentOf(this.playerToMove()).legalMove(this.state.lastMove())
-        this.messageBroker.publish(new MESSAGE.legalMove(playerToMove, move, moveResult))
-        playerToMove.moveDone(move, moveResult)
+        this.messageBroker.publish(new MESSAGE.legalMove(playerMoved, move, moveResult))
+        playerMoved.moveDone(move, moveResult)
         if (!this.state.chess.game_over()) {
             this.nextMove()
         } else {

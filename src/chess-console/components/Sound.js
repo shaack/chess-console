@@ -57,7 +57,6 @@ export class Sound extends Component {
         })
         module.messageBroker.subscribe(MESSAGE.gameOver, (data) => {
             setTimeout(() => {
-                console.log(data.wonColor, this.module.state.playerColor)
                 if(!data.wonColor) {
                     this.play("game_lost")
                 } else {
