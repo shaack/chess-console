@@ -9,8 +9,8 @@ import {NewGameDialog} from "./NewGameDialog.js"
 
 export class GameControl extends Component {
 
-    constructor(module) {
-        super(module)
+    constructor(module, props) {
+        super(module, props)
 
         const i18n = module.i18n
         i18n.load({
