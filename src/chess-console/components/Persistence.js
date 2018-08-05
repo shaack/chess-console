@@ -15,6 +15,7 @@ export class Persistence extends Component {
         this.module.state.observeChess(() => {
             this.save()
         })
+        this.module.persistence = this
     }
 
     load(user) {
