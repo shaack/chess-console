@@ -31,6 +31,8 @@ export const MESSAGE = {
         this.move = move
     },
     moveUndone: function moveUndone() {
+    },
+    load: function load() {
     }
 }
 

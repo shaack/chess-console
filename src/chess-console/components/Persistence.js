@@ -6,6 +6,7 @@
 
 import {Component} from "../../../lib/svjs-app/Component.js"
 import {COLOR} from "../../../lib/cm-chesstools/ChessTools.js"
+import {MESSAGE} from "../ChessConsole.js"
 
 export class Persistence extends Component {
 
@@ -30,6 +31,7 @@ export class Persistence extends Component {
                 this.module.state.chess.load_pgn(localStorage.getItem(this.prefix + "pgn"))
                 this.module.state.plyViewed = this.module.state.plyCount
             }
+            this.module.messageBroker.publish(new MESSAGE.load())
             this.module.nextMove()
         } catch (e) {
             localStorage.clear()
