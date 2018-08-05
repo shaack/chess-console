@@ -12,7 +12,8 @@ import {I18n} from "../../lib/svjs-i18n/I18n.js"
 
 
 export const MESSAGE = {
-    gameStarted: function gameStarted() {
+    gameStarted: function gameStarted(gameProps) {
+        this.gameProps = gameProps
     },
     gameOver: function gameOver(wonColor) { // w, b, null for draw
         this.wonColor = wonColor
@@ -90,12 +91,12 @@ export class ChessConsole extends AppModule {
         })
     }
 
-    startGame(props) {
-        this.state.playerColor = props.playerColor
-        this.state.orientation = props.playerColor
+    startGame(gameProps) {
+        this.state.playerColor = gameProps.playerColor
+        this.state.orientation = gameProps.playerColor
         this.state.chess.reset()
         this.state.plyViewed = 0
-        this.messageBroker.publish(new MESSAGE.gameStarted())
+        this.messageBroker.publish(new MESSAGE.gameStarted(gameProps))
         this.nextMove()
     }
 
@@ -114,7 +115,7 @@ export class ChessConsole extends AppModule {
             return this.playerBlack()
         }
     }
-
+/*
     playerToNotMove() {
         if (this.state.chess.turn() === "b") {
             return this.playerWhite()
@@ -122,7 +123,7 @@ export class ChessConsole extends AppModule {
             return this.playerBlack()
         }
     }
-
+*/
     undoMove() {
         this.state.chess.undo()
         if (this.playerToMove() !== this.player) {
