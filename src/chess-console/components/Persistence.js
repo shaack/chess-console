@@ -18,11 +18,11 @@ export class Persistence extends Component {
         this.module.persistence = this
     }
 
-    load(user) {
-        this.prefix = user + "-"
+    load(saveName) {
+        this.prefix = saveName + "-"
         try {
-            if (localStorage.getItem(this.prefix + "playerColor") !== null) {
-                this.module.state.playerColor = JSON.parse(localStorage.getItem(this.prefix + "playerColor"))
+            if (this.readValue("playerColor") !== null) {
+                this.module.state.playerColor = this.readValue("playerColor")
                 this.module.state.orientation = this.module.state.playerColor
             } else {
                 console.log("starting new game")
@@ -41,8 +41,16 @@ export class Persistence extends Component {
         }
     }
 
+    readValue(valueName) {
+        return JSON.parse(localStorage.getItem(this.prefix + valueName))
+    }
+
     save() {
         localStorage.setItem(this.prefix + "playerColor", JSON.stringify(this.module.state.playerColor))
         localStorage.setItem(this.prefix + "pgn", this.module.state.chess.pgn())
+    }
+
+    saveValue(valueName, value) {
+        localStorage.setItem(this.prefix + valueName, JSON.stringify(value))
     }
 }
