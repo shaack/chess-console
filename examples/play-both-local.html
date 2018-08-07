@@ -22,6 +22,7 @@
     import {ChessConsole} from "../src/chess-console/ChessConsole.js"
     import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.js"
     import {Board} from "../src/chess-console/components/Board/Board.js"
+    import {GameStateOutput} from "../src/chess-console/components/GameStateOutput.js"
     import {History} from "../src/chess-console/components/History.js"
     import {CapturedPieces} from "../src/chess-console/components/CapturedPieces.js"
     import {HistoryControl} from "../src/chess-console/components/HistoryControl.js"
@@ -37,6 +38,7 @@
             opponent: {name: "Local Player 2", type: LocalPlayer}
         })
     chessConsole.addComponent(Board)
+    chessConsole.addComponent(GameStateOutput)
     chessConsole.addComponent(History)
     chessConsole.addComponent(HistoryControl)
     chessConsole.addComponent(CapturedPieces)
