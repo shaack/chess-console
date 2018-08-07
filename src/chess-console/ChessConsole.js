@@ -51,25 +51,26 @@ export class ChessConsole extends AppModule {
         this.opponent = new this.props.opponent.type(this.props.opponent.name, this, this.props.opponent.props)
         const colSets = {
             consoleGame: "col-lg-7 order-lg-2 col-md-8 order-md-1 order-sm-1 col-sm-12 order-sm-1",
-            consoleControls: "col-lg-3 order-lg-3 col-md-4 order-md-2 col-sm-8 order-sm-3",
-            consoleStatus: "col-lg-2 order-lg-1 order-md-3 col-sm-4 order-sm-2"
+            consoleRight: "col-lg-3 order-lg-3 col-md-4 order-md-2 col-sm-8 order-sm-3",
+            consoleLeft: "col-lg-2 order-lg-1 order-md-3 col-sm-4 order-sm-2"
         }
         this.container.innerHTML =
             `<div class="row chess-console">
                 <div class="chess-console-board ${colSets.consoleGame}">
                 </div>
-                <div class="chess-console-controls ${colSets.consoleControls}">
-                    <div class="control-buttons flex-buttons">
-                    </div>
+                <div class="chess-console-right ${colSets.consoleRight}">
+                    <div class="control-buttons flex-buttons"></div>
+                    <div class="chess-console-output"></div>
                 </div>
-                <div class="chess-console-status ${colSets.consoleStatus}">
+                <div class="chess-console-left ${colSets.consoleLeft}">
                 </div>
             </div>`
         this.componentContainers = {
             board: this.container.querySelector(".chess-console-board"),
-            controls: this.container.querySelector(".chess-console-controls"),
-            controlButtons: this.container.querySelector(".chess-console-controls .control-buttons"),
-            status: this.container.querySelector(".chess-console-status")
+            right: this.container.querySelector(".chess-console-right"),
+            controlButtons: this.container.querySelector(".chess-console-right .control-buttons"),
+            left: this.container.querySelector(".chess-console-left"),
+            output: this.container.querySelector(".chess-console-output")
         }
         this.initialisation = this.i18n.load({
             de: {

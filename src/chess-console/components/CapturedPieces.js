@@ -15,7 +15,7 @@ export class CapturedPieces extends Component {
         
         this.element = document.createElement("div")
         this.element.setAttribute("class", "captured-pieces")
-        this.module.componentContainers.status.appendChild(this.element)
+        this.module.componentContainers.left.appendChild(this.element)
 
         this.module.state.observeChess(() => {
             this.redraw()

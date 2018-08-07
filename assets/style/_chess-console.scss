@@ -1,7 +1,7 @@
 @import "../../node_modules/bootstrap/scss/variables";
 
 .chess-console {
-  .chess-console-controls, .chess-console-status {
+  .chess-console-right, .chess-console-left {
     margin-top: 20px;
   }
   .chess-console-board {
@@ -25,7 +25,7 @@
       line-height: 0.99;
     }
   }
-  .chess-console-status {
+  .chess-console-left {
     .history {
       max-height: 284px;
       max-width: 210px;
@@ -48,7 +48,7 @@
       margin-bottom: $spacer;
     }
   }
-  .chess-console-controls {
+  .chess-console-right {
     .flex-buttons {
       .autoplay {
         .fa-play {
