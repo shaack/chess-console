@@ -37,24 +37,24 @@ export class GameStateOutput extends Component {
             this.module.componentContainers.output.appendChild(this.element)
 
             this.module.state.observeChess(() => {
+                let html = ''
                 if (chess.game_over()) {
-                    let html = ''
                     html += `<b>${this.i18n.t("game_over")}</b><br/>`
                     if (chess.in_checkmate()) {
-                        html += `${this.i18n.t("checkmate")}<br/>`
+                        html += `${this.i18n.t("checkmate")}`
                     } else if (chess.in_stalemate()) {
-                        html += `${this.i18n.t("stalemate")}<br/>`
+                        html += `${this.i18n.t("stalemate")}`
                     } else if (chess.in_threefold_repetition()) {
-                        html += `${this.i18n.t("threefold_repetition")}<br/>`
+                        html += `${this.i18n.t("threefold_repetition")}`
                     } else if (chess.in_draw()) {
-                        html += `${this.i18n.t("draw")}<br/>`
+                        html += `${this.i18n.t("draw")}`
                     }
-                    this.element.innerHTML = html
                 } else if (chess.in_check()) {
-                    this.element.innerHTML = `${this.i18n.t("check")}<br/>`
+                    html = `${this.i18n.t("check")}`
                 } else {
-                    this.element.innerHTML = ""
+                    html = ""
                 }
+                this.element.innerHTML = `<p>${html}</p>`
             })
         })
     }
