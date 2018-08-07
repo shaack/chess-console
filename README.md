@@ -1,15 +1,15 @@
-# ChessConsole
+# chess-console
 
-ChessConsole is a **chess game client**, which uses [cm-chessboard](https://github.com/shaack/cm-chessboard) 
+chess-console is a **chess game client**, which uses [cm-chessboard](https://github.com/shaack/cm-chessboard) 
 and [Bootstrap 4](https://getbootstrap.com/) to create a browser based, mobile friendly, responsive 
 chess game gui.
 
 - **[Demo Page](https://shaack.com/projekte/chess-console)**
 - **[Repository on GitHub](https://github.com/shaack/chess-console)**
 
-Bacause if its component architecture ChessConsole is expandable for
+Bacause if its component architecture chess-console is expandable for
 all kind of chess pages. You may check out the [Stockfish Player](https://github.com/shaack/chess-console-stockfish) 
-for ChessConsole, with whom ChessConsole is a fully functional online
+for chess-console, with whom chess-console is a fully functional online
 chess computer.
 
 ## Screenshot
