@@ -19,7 +19,7 @@ export class GameStateOutput extends Component {
                     checkmate: "Schachmatt",
                     draw: "Remis",
                     stalemate: "Patt",
-                    threefold_repetition: "dreifache Wiederholung"
+                    threefold_repetition: "Remis durch dreifache Wiederholung"
                 },
                 en: {
                     game_over: "The Game is over",
@@ -27,7 +27,7 @@ export class GameStateOutput extends Component {
                     checkmate: "Checkmate",
                     draw: "Remis",
                     stalemate: "Stalemate",
-                    threefold_repetition: "threefold repetition"
+                    threefold_repetition: "Remis by threefold repetition"
                 }
             }
         ).then(() => {
@@ -37,24 +37,21 @@ export class GameStateOutput extends Component {
             this.module.componentContainers.output.appendChild(this.element)
 
             this.module.state.observeChess(() => {
-                if(chess.game_over()) {
+                if (chess.game_over()) {
                     let html = ''
                     html += `<b>${this.i18n.t("game_over")}</b><br/>`
-                    if(chess.in_checkmate()) {
+                    if (chess.in_checkmate()) {
                         html += `${this.i18n.t("checkmate")}<br/>`
-                    }
-                    if(chess.in_draw()) {
-                        html += `${this.i18n.t("draw")}<br/>`
-                    }
-                    if(chess.in_stalemate()) {
+                    } else if (chess.in_stalemate()) {
                         html += `${this.i18n.t("stalemate")}<br/>`
-                    }
-                    if(chess.in_threefold_repetition()) {
+                    } else if (chess.in_threefold_repetition()) {
                         html += `${this.i18n.t("threefold_repetition")}<br/>`
+                    } else if (chess.in_draw()) {
+                        html += `${this.i18n.t("draw")}<br/>`
                     }
                     this.element.innerHTML = html
                 } else if (chess.in_check()) {
-                    this.element.innerHTML = `<p>${this.i18n.t("check")}</p>`
+                    this.element.innerHTML = `${this.i18n.t("check")}<br/>`
                 } else {
                     this.element.innerHTML = ""
                 }
