@@ -33,7 +33,7 @@ export class GameStateOutput extends Component {
         )
         const chess = this.module.state.chess
         this.element = document.createElement("div")
-        this.element.setAttribute("class", "gameState text-info")
+        this.element.setAttribute("class", "gameState text-info mb-2")
         this.module.componentContainers.output.appendChild(this.element)
 
         this.module.state.observeChess(() => {
@@ -54,7 +54,7 @@ export class GameStateOutput extends Component {
             } else {
                 html = ""
             }
-            this.element.innerHTML = `<p>${html}</p>`
+            this.element.innerHTML = `${html}`
         })
     }
 
