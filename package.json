@@ -42,6 +42,7 @@
     "svjs-utils": "^1.0.1"
   },
   "devDependencies": {
+    "browser-es-module-loader": "^0.4.1",
     "web-module-linker": "^1.0.5"
   }
 }
