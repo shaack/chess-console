@@ -1,5 +1,20 @@
 @import "../../node_modules/bootstrap/scss/variables";
 
+.flex-buttons {
+  float: left;
+  .text {
+    float: left;
+    padding: 4px 3px;
+  }
+  button {
+    float: left;
+    margin-right: $spacer-small;
+    margin-bottom: $spacer-small;
+    background-color: transparent;
+  }
+  margin-bottom: $spacer-small;
+}
+
 .chess-console {
   .chess-console-right, .chess-console-left {
     margin-top: 20px;
@@ -60,7 +75,7 @@
       }
       .game-control {
         .btn {
-          background-color: rgba(0, 0, 0, 0.04);
+          background-color: rgba(0, 0, 0, 0.05);
         }
       }
     }
@@ -93,20 +108,6 @@
       }
     }
   }
-}
-
-.flex-buttons {
-  float: left;
-  .text {
-    float: left;
-    padding: 4px 3px;
-  }
-  button {
-    float: left;
-    margin-right: $spacer-small;
-    margin-bottom: $spacer-small;
-  }
-  margin-bottom: $spacer-small;
 }
 
 .modal svg.piece {
