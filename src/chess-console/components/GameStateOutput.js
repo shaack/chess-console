@@ -22,7 +22,7 @@ export class GameStateOutput extends Component {
                     threefold_repetition: "Remis durch dreifache Wiederholung"
                 },
                 en: {
-                    game_over: "The Game is over",
+                    game_over: "The game is over",
                     check: "Check",
                     checkmate: "Checkmate",
                     draw: "Remis",
