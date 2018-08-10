@@ -14,13 +14,17 @@ chess computer.
 
 ## Screenshot
 
-![Example chess-console](http://shaack.com/projekte/assets/img/example_chess_console.png)
+![Example chess-console](http://shaack.com/projekte/assets/img/example_chess_console_checkmate.png)
 
 ## Installation
 
 - **Option 1:** Download from [GitHub](https://github.com/shaack/chess-console) and run `npm install` without parameters, or
 - **Option 2:** Install the [npm package](https://www.npmjs.com/package/chess-console) with `npm install --save chess-console`
 
-## License
+## Licenses
 
-The source code is licensed under MIT License. 
+Source code license: <a href="https://github.com/shaack/chess-console/blob/master/LICENSE">MIT</a>,<br/>
+License for the Sounds: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>,<br/>
+License of the SVG pieces <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.
+
+Copyright &copy; 2018 by [shaack.com](https://shaack.com) engineering.
