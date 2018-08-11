@@ -21,8 +21,8 @@ export class Persistence extends Component {
     load(saveName) {
         this.prefix = saveName + "-"
         try {
-            if (this.readValue("playerColor") !== null) {
-                this.module.state.playerColor = this.readValue("playerColor")
+            if (this.loadValue("playerColor") !== null) {
+                this.module.state.playerColor = this.loadValue("playerColor")
                 this.module.state.orientation = this.module.state.playerColor
             } else {
                 console.log("starting new game")
@@ -41,7 +41,7 @@ export class Persistence extends Component {
         }
     }
 
-    readValue(valueName) {
+    loadValue(valueName) {
         return JSON.parse(localStorage.getItem(this.prefix + valueName))
     }
 
