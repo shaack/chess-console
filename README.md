@@ -14,7 +14,7 @@ chess computer.
 
 ## Screenshot
 
-![Example chess-console](http://shaack.com/projekte/assets/img/example_chess_console_checkmate.png)
+![Example chess-console](https://shaack.com/projekte/assets/img/example_chess_console_checkmate.png)
 
 ## Installation
 
