@@ -72,7 +72,7 @@ export class ChessConsole extends AppModule {
             left: this.container.querySelector(".chess-console-left"),
             output: this.container.querySelector(".chess-console-output")
         }
-        this.initialisation = this.i18n.load({
+        this.initialization = this.i18n.load({
             de: {
                 ok: "OK",
                 cancel: "Abbrechen"
@@ -86,10 +86,16 @@ export class ChessConsole extends AppModule {
 
     addComponent(componentType, props = {}) {
         return new Promise((resolve) => {
-            this.initialisation.then(() => {
+            this.initialization.then(() => {
                 const component = new componentType(this, props)
                 this.components.push(component)
-                resolve(component)
+                if(component.initialization) {
+                    component.initialization.then(() => {
+                        resolve(component)
+                    })
+                } else {
+                    resolve(component)
+                }
             })
         })
     }

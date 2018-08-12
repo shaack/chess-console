@@ -25,7 +25,6 @@ export class Persistence extends Component {
                 this.module.state.playerColor = this.loadValue("playerColor")
                 this.module.state.orientation = this.module.state.playerColor
             } else {
-                console.log("starting new game")
                 this.module.startGame({playerColor: COLOR.white})
             }
             if (localStorage.getItem(this.prefix + "pgn") !== null) {

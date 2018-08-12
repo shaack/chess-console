@@ -28,7 +28,9 @@ export class Board extends Component {
                 chessboard: document.createElement("div")
             }
             this.elements.playerTop.setAttribute("class", "player top")
+            this.elements.playerTop.innerHTML = "&nbsp;"
             this.elements.playerBottom.setAttribute("class", "player bottom")
+            this.elements.playerBottom.innerHTML = "&nbsp;"
             this.elements.chessboard.setAttribute("class", "chessboard")
             module.componentContainers.board.appendChild(this.elements.playerTop)
             module.componentContainers.board.appendChild(this.elements.chessboard)

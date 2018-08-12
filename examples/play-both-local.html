@@ -40,15 +40,16 @@
             player: {name: "Local Player 1", type: LocalPlayer},
             opponent: {name: "Local Player 2", type: LocalPlayer}
         })
-    chessConsole.addComponent(Board)
+    chessConsole.addComponent(Board).then(() => {
+        chessConsole.addComponent(Persistence)
+            .then((component) => component.load("local"))
+    })
     chessConsole.addComponent(GameStateOutput)
     chessConsole.addComponent(History)
     chessConsole.addComponent(HistoryControl)
     chessConsole.addComponent(CapturedPieces)
     chessConsole.addComponent(GameControl)
     chessConsole.addComponent(Sound)
-    chessConsole.addComponent(Persistence)
-        .then((component) => component.load("local"))
 
 </script>
 </body>
