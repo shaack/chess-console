@@ -7,7 +7,7 @@ chess game gui.
 - **[Demo Page](https://shaack.com/projekte/chess-console)**
 - **[Repository on GitHub](https://github.com/shaack/chess-console)**
 
-Bacause if its component architecture chess-console is expandable for
+Because if its component architecture chess-console is expandable for
 all kind of chess pages. You may check out the [Stockfish Player](https://github.com/shaack/chess-console-stockfish) 
 for chess-console, with whom chess-console is a fully functional online
 chess computer.
