@@ -25,13 +25,14 @@ export class NewGameDialog {
                 auto: "automatically"
             }
         }).then(() => {
+            const newGameColor = module.persistence.loadValue("newGameColor")
             props.modalClass = "fade"
             props.body = `<div class="form"><div class="form-group row">
                         <div class="col-3"><label for="color" class="col-form-label">${i18n.t("color")}</label></div>
                         <div class="col-9"><select id="color" class="form-control">
                         <option value="auto">${i18n.t("auto")}</option>
-                        <option value="w">${i18n.t("white")}</option>
-                        <option value="b">${i18n.t("black")}</option>
+                        <option value="w" ${newGameColor === "w" ? "selected" : ""}>${i18n.t("white")}</option>
+                        <option value="b" ${newGameColor === "b" ? "selected" : ""}>${i18n.t("black")}</option>
                         </select></div>
                         </div></div>`
             props.footer = `<button type="button" class="btn btn-link" data-dismiss="modal">${i18n.t("cancel")}</button>
@@ -41,6 +42,7 @@ export class NewGameDialog {
                     event.preventDefault()
                     const $form = $(modal.element).find(".form")
                     let color = $form.find("#color").val()
+                    module.persistence.saveValue("newGameColor", color)
                     if (color !== COLOR.white && color !== COLOR.black) {
                         color = (module.state.playerColor === COLOR.white) ? COLOR.black : COLOR.white
                     }
