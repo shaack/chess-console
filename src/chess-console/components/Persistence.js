@@ -41,7 +41,15 @@ export class Persistence extends Component {
     }
 
     loadValue(valueName) {
-        return JSON.parse(localStorage.getItem(this.prefix + valueName))
+        let item
+        try {
+            item = localStorage.getItem(this.prefix + valueName)
+            return JSON.parse(item)
+        } catch (e) {
+            console.error("error loading ", this.prefix + valueName)
+            console.error("item:" + item)
+            console.error(e)
+        }
     }
 
     save() {

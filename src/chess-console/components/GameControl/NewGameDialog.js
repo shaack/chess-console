@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import "../../../../node_modules/bootstrap-show-modal/src/bootstrap-show-modal.js"
+import "../../../../lib/bootstrap-show-modal.js"
 import {COLOR} from "../../../../lib/cm-chesstools/ChessTools.js"
 
 export class NewGameDialog {
@@ -26,20 +26,20 @@ export class NewGameDialog {
             }
         }).then(() => {
             props.modalClass = "fade"
-            props.body = `<div class="form-group row">
+            props.body = `<div class="form"><div class="form-group row">
                         <div class="col-3"><label for="color" class="col-form-label">${i18n.t("color")}</label></div>
                         <div class="col-9"><select id="color" class="form-control">
                         <option value="auto">${i18n.t("auto")}</option>
                         <option value="w">${i18n.t("white")}</option>
                         <option value="b">${i18n.t("black")}</option>
                         </select></div>
-                        </div>`
+                        </div></div>`
             props.footer = `<button type="button" class="btn btn-link" data-dismiss="modal">${i18n.t("cancel")}</button>
             <button type="submit" class="btn btn-primary">${i18n.t("ok")}</button>`
             props.onCreate = (modal) => {
-                $(modal.element).on("submit", "form", function (event) {
+                $(modal.element).on("click", "button[type='submit']", function (event) {
                     event.preventDefault()
-                    const $form = $(modal.element).find("form")
+                    const $form = $(modal.element).find(".form")
                     let color = $form.find("#color").val()
                     if (color !== COLOR.white && color !== COLOR.black) {
                         color = (module.state.playerColor === COLOR.white) ? COLOR.black : COLOR.white
