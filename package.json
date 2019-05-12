@@ -26,21 +26,21 @@
   },
   "homepage": "https://github.com/shaack/chess-console#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.7.2",
+    "@fortawesome/fontawesome-free": "^5.8.2",
     "bootstrap": "^4.3.1",
-    "bootstrap-show-modal": "^1.1.16",
+    "bootstrap-show-modal": "^1.1.17",
     "chess.js": "^0.10.2",
     "cm-chessboard": "^2.13.6",
     "cm-chesstools": "^1.0.4",
-    "jquery": "^3.3.1",
-    "popper.js": "^1.14.7",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
     "svjs-app": "^1.2.6",
     "svjs-audio": "^1.1.6",
     "svjs-i18n": "^1.1.2",
-    "svjs-message-broker": "^1.1.4",
+    "svjs-message-broker": "^1.1.5",
     "svjs-observe": "^1.3.2",
     "svjs-utils": "^1.0.1",
-    "web-module-curator": "^1.1.3"
+    "web-module-curator": "^1.1.4"
   },
   "devDependencies": {
     "browser-es-module-loader": "^0.4.1"
