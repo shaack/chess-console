@@ -20,6 +20,9 @@ export class Board extends Component {
 
     constructor(module, props) {
         super(module, props)
+        if(!module.props.chessboardSpriteFile) {
+            module.props.chessboardSpriteFile = "/images/chessboard-sprite.svg"
+        }
         this.initialization = new Promise((resolve) => {
             module.board = this
             this.elements = {
@@ -53,7 +56,7 @@ export class Board extends Component {
                 position: "empty",
                 moveInputMode: MOVE_INPUT_MODE.dragPiece,
                 sprite: {
-                    url: module.props.assetsFolder + "/img/chessboard-sprite.svg", // pieces and markers
+                    url: module.props.assetsFolder + module.props.chessboardSpriteFile, // pieces and markers
                 }
             })
             Observe.property(module.state, ["orientation", "playerColor"], () => {
@@ -101,9 +104,7 @@ export class Board extends Component {
     setPositionOfPlyViewed(animated = true) {
         clearTimeout(this.setPositionOfPlyViewedDebounced)
         this.setPositionOfPlyViewedDebounced = setTimeout(() => {
-            const from = this.chessboard.getPosition()
             const to = this.module.state.fenOfPly(this.module.state.plyViewed)
-            // console.log("setPosition", from, "=>", to)
             this.chessboard.setPosition(to, animated)
         })
     }

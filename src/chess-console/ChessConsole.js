@@ -89,7 +89,7 @@ export class ChessConsole extends AppModule {
             this.initialization.then(() => {
                 const component = new componentType(this, props)
                 this.components.push(component)
-                if(component.initialization) {
+                if (component.initialization) {
                     component.initialization.then(() => {
                         resolve(component)
                     })
@@ -124,15 +124,7 @@ export class ChessConsole extends AppModule {
             return this.playerBlack()
         }
     }
-/*
-    playerToNotMove() {
-        if (this.state.chess.turn() === "b") {
-            return this.playerWhite()
-        } else {
-            return this.playerBlack()
-        }
-    }
-*/
+
     undoMove() {
         this.state.chess.undo()
         if (this.playerToMove() !== this.player) {
@@ -180,7 +172,7 @@ export class ChessConsole extends AppModule {
             this.nextMove()
         } else {
             let wonColor = null
-            if(this.state.chess.in_checkmate()) {
+            if (this.state.chess.in_checkmate()) {
                 wonColor = (this.state.chess.turn() === COLOR.white) ? COLOR.black : COLOR.white
             }
             this.messageBroker.publish(new MESSAGE.gameOver(wonColor))

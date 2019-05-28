@@ -12,7 +12,10 @@ export class Sound extends Component {
 
     constructor(module) {
         super(module)
-        this.audioSprite = new AudioSprite(module.props.assetsFolder + "/sound/chess_console_sounds.mp3",
+        if(!module.props.soundSpriteFile) {
+            module.props.soundSpriteFile = "/sounds/chess_console_sounds.mp3"
+        }
+        this.audioSprite = new AudioSprite(module.props.assetsFolder + module.props.soundSpriteFile,
             {
                 gain: 1,
                 slices: {
