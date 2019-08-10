@@ -180,4 +180,10 @@ export class ChessConsole extends App {
         }
     }
 
+    loadPgn(pgn) {
+        this.state.chess.load_pgn(pgn, {sloppy: true})
+        this.state.plyViewed = this.state.plyCount
+        this.nextMove()
+    }
+
 }
