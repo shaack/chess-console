@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Component} from "../../lib/cm-web-modules/app/Component.js"
+import {App} from "../../lib/cm-web-modules/app/App.js"
 import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
 import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
@@ -36,7 +36,7 @@ export const MESSAGE = {
     }
 }
 
-export class ChessConsole extends Component {
+export class ChessConsole extends App {
 
     constructor(props = {}) {
         super(props)
