@@ -56,6 +56,7 @@ export class Board extends Component {
                 responsive: true,
                 position: "empty",
                 moveInputMode: MOVE_INPUT_MODE.dragPiece,
+                orientation: console.state.orientation,
                 sprite: {
                     url: console.props.chessboardSpriteFile, // pieces and markers
                 }

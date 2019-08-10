@@ -11,8 +11,8 @@ export class ChessConsoleState {
 
     constructor(props) {
         this.chess = new Chess()
-        this.playerColor = COLOR.white
-        this.orientation = COLOR.white
+        this.playerColor = props.playerColor || COLOR.white
+        this.orientation = props.playerColor || COLOR.white
         this.plyViewed = 0
         this.plyCount = 0
         this.lastError = null

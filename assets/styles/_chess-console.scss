@@ -78,6 +78,9 @@
           background-color: rgba(0, 0, 0, 0.05);
         }
       }
+      .btn-active {
+        color: $green;
+      }
     }
     .game-status {
       font-weight: bold;

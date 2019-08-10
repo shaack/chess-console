@@ -9074,47 +9074,51 @@ a.text-dark:hover, a.text-dark:focus {
 .chess-console .chess-console-right .flex-buttons .game-control .btn {
   background-color: rgba(0, 0, 0, 0.05); }
 
-/* line 82, _chess-console.scss */
+/* line 81, _chess-console.scss */
+.chess-console .chess-console-right .flex-buttons .btn-active {
+  color: #28a745; }
+
+/* line 85, _chess-console.scss */
 .chess-console .chess-console-right .game-status {
   font-weight: bold;
   margin-bottom: 1rem; }
 
-/* line 86, _chess-console.scss */
+/* line 89, _chess-console.scss */
 .chess-console .chess-console-right .last-error {
   color: #dc3545;
   margin-bottom: 1rem; }
 
-/* line 90, _chess-console.scss */
+/* line 93, _chess-console.scss */
 .chess-console .chess-console-right .move-input {
   margin-bottom: 1rem; }
-  /* line 92, _chess-console.scss */
+  /* line 95, _chess-console.scss */
   .chess-console .chess-console-right .move-input .first-move {
     color: #343a40;
     font-size: 280%;
     width: 100%;
     overflow: hidden; }
-  /* line 98, _chess-console.scss */
+  /* line 101, _chess-console.scss */
   .chess-console .chess-console-right .move-input .conditional-moves {
     margin-bottom: 0.5rem; }
-  /* line 101, _chess-console.scss */
+  /* line 104, _chess-console.scss */
   .chess-console .chess-console-right .move-input .move-input-controls {
     width: 100%; }
-    /* line 103, _chess-console.scss */
+    /* line 106, _chess-console.scss */
     .chess-console .chess-console-right .move-input .move-input-controls button {
       float: left;
       margin-right: 0.5rem;
       margin-bottom: 0.5rem; }
 
-/* line 113, _chess-console.scss */
+/* line 116, _chess-console.scss */
 .modal svg.piece {
   width: 40px;
   height: 40px;
   cursor: pointer; }
-  /* line 117, _chess-console.scss */
+  /* line 120, _chess-console.scss */
   .modal svg.piece:hover {
     background-color: #ccc; }
 
-/* line 122, _chess-console.scss */
+/* line 125, _chess-console.scss */
 button.close {
   cursor: pointer; }
 
