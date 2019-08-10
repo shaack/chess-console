@@ -21,7 +21,6 @@
 <script src="../node_modules/chess.js/chess.min.js"></script>
 <script type="module">
 
-    import {App} from "../lib/cm-web-modules/app/App.js"
     import {ChessConsole} from "../src/chess-console/ChessConsole.js"
     import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.js"
     import {Board} from "../src/chess-console/components/Board/Board.js"
@@ -33,13 +32,15 @@
     import {Persistence} from "../src/chess-console/components/Persistence.js"
     import {Sound} from "../src/chess-console/components/Sound.js"
 
-    const app = App.create()
-    const chessConsole = app.addModule(ChessConsole,
-        document.getElementById("console-container"), {
-            assetsFolder: "../assets",
-            player: {name: "Local Player 1", type: LocalPlayer},
+    const chessConsole = new ChessConsole(
+        {
+            container: document.getElementById("console-container"),
+            soundSpriteFile: "../assets/sounds/chess_console_sounds.mp3",
+            chessboardSpriteFile: "../assets/images/chessboard-sprite.svg",
+            player: {name: "Local Player", type: LocalPlayer},
             opponent: {name: "Local Player 2", type: LocalPlayer}
-        })
+        }
+    )
     chessConsole.addComponent(Board).then(() => {
         chessConsole.addComponent(Persistence)
             .then((component) => component.load("local"))

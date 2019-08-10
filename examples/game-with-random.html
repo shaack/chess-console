@@ -44,14 +44,6 @@
             opponent: {name: "Random Player", type: RandomPlayer}
         }
     )
-/*
-    const chessConsole = app.addModule(ChessConsole,
-        document.getElementById("console-container"), {
-            assetsFolder: "../assets",
-            player: {name: "Local Player", type: LocalPlayer},
-            opponent: {name: "Random Player", type: RandomPlayer}
-        })
- */
     chessConsole.addComponent(Board).then(() => {
         chessConsole.addComponent(Persistence)
             .then((component) => component.load("random"))
