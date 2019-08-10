@@ -3,14 +3,15 @@
  * Repository: https://github.com/shaack/chess-console
  * License: MIT, see file 'LICENSE'
  */
-import {Component} from "../../../lib/svjs-app/Component.js"
+import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class GameStateOutput extends Component {
 
-    constructor(module) {
-        super(module)
+    constructor(console) {
+        super(console)
 
-        this.i18n = module.i18n
+        this.console = console
+        this.i18n = console.i18n
         this.i18n.load(
             {
                 de: {
@@ -31,12 +32,12 @@ export class GameStateOutput extends Component {
                 }
             }
         )
-        const chess = this.module.state.chess
+        const chess = this.console.state.chess
         this.element = document.createElement("div")
         this.element.setAttribute("class", "gameState text-info mb-2")
-        this.module.componentContainers.output.appendChild(this.element)
+        this.console.componentContainers.output.appendChild(this.element)
 
-        this.module.state.observeChess(() => {
+        this.console.state.observeChess(() => {
             let html = ''
             if (chess.game_over()) {
                 html += `<b>${this.i18n.t("game_over")}</b><br/>`

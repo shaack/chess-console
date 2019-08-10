@@ -4,39 +4,40 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Component} from "../../../lib/svjs-app/Component.js"
+import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 import {COLOR} from "../../../lib/cm-chesstools/ChessTools.js"
 import {MESSAGE} from "../ChessConsole.js"
 
 export class Persistence extends Component {
 
-    constructor(module) {
-        super(module)
-        this.module.state.observeChess(() => {
+    constructor(console) {
+        super(console)
+        this.console = console
+        this.console.state.observeChess(() => {
             this.save()
         })
-        this.module.persistence = this
+        this.console.persistence = this
     }
 
     load(saveName) {
         this.prefix = saveName + "-"
         try {
             if (this.loadValue("playerColor") !== null) {
-                this.module.state.playerColor = this.loadValue("playerColor")
-                this.module.state.orientation = this.module.state.playerColor
+                this.console.state.playerColor = this.loadValue("playerColor")
+                this.console.state.orientation = this.console.state.playerColor
             } else {
-                this.module.startGame({playerColor: COLOR.white})
+                this.console.startGame({playerColor: COLOR.white})
             }
             if (localStorage.getItem(this.prefix + "pgn") !== null) {
-                this.module.state.chess.load_pgn(localStorage.getItem(this.prefix + "pgn"))
-                this.module.state.plyViewed = this.module.state.plyCount
+                this.console.state.chess.load_pgn(localStorage.getItem(this.prefix + "pgn"))
+                this.console.state.plyViewed = this.console.state.plyCount
             }
-            this.module.messageBroker.publish(new MESSAGE.load())
-            this.module.nextMove()
+            this.console.messageBroker.publish(new MESSAGE.load())
+            this.console.nextMove()
         } catch (e) {
             localStorage.clear()
             console.warn(e)
-            this.module.startGame({playerColor: COLOR.white})
+            this.console.startGame({playerColor: COLOR.white})
         }
     }
 
@@ -53,8 +54,8 @@ export class Persistence extends Component {
     }
 
     save() {
-        localStorage.setItem(this.prefix + "playerColor", JSON.stringify(this.module.state.playerColor))
-        localStorage.setItem(this.prefix + "pgn", this.module.state.chess.pgn())
+        localStorage.setItem(this.prefix + "playerColor", JSON.stringify(this.console.state.playerColor))
+        localStorage.setItem(this.prefix + "pgn", this.console.state.chess.pgn())
     }
 
     saveValue(valueName, value) {

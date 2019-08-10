@@ -4,18 +4,19 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {AudioSprite} from "../../../lib/svjs-audio/AudioSprite.js"
-import {Component} from "../../../lib/svjs-app/Component.js"
+import {AudioSprite} from "../../../lib/cm-web-modules/audio/AudioSprite.js"
+import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 import {MESSAGE} from "../ChessConsole.js"
 
 export class Sound extends Component {
 
-    constructor(module) {
-        super(module)
-        if(!module.props.soundSpriteFile) {
-            module.props.soundSpriteFile = "/sounds/chess_console_sounds.mp3"
+    constructor(console) {
+        super(console)
+        this.console = console
+        if(!console.props.soundSpriteFile) {
+            console.props.soundSpriteFile = "/assets/sounds/chess_console_sounds.mp3"
         }
-        this.audioSprite = new AudioSprite(module.props.assetsFolder + module.props.soundSpriteFile,
+        this.audioSprite = new AudioSprite(console.props.soundSpriteFile,
             {
                 gain: 1,
                 slices: {
@@ -33,11 +34,11 @@ export class Sound extends Component {
                     "dialog": {offset: 10.8, duration: 0.45}
                 }
             })
-        module.messageBroker.subscribe(MESSAGE.gameStarted, () => {
+        console.messageBroker.subscribe(MESSAGE.gameStarted, () => {
             this.play("game_start")
         })
-        module.messageBroker.subscribe(MESSAGE.legalMove, (data) => {
-            const chess = this.module.state.chess
+        console.messageBroker.subscribe(MESSAGE.legalMove, (data) => {
+            const chess = this.console.state.chess
             const flags = data.moveResult.flags
             if (flags.indexOf("p") !== -1) {
                 this.play("promotion") // todo create promotion sound
@@ -52,18 +53,18 @@ export class Sound extends Component {
                 this.play("check")
             }
         })
-        module.messageBroker.subscribe(MESSAGE.illegalMove, () => {
+        console.messageBroker.subscribe(MESSAGE.illegalMove, () => {
             this.play("wrong_move")
         })
-        module.messageBroker.subscribe(MESSAGE.moveUndone, () => {
+        console.messageBroker.subscribe(MESSAGE.moveUndone, () => {
             this.play("take_back")
         })
-        module.messageBroker.subscribe(MESSAGE.gameOver, (data) => {
+        console.messageBroker.subscribe(MESSAGE.gameOver, (data) => {
             setTimeout(() => {
                 if(!data.wonColor) {
                     this.play("game_lost")
                 } else {
-                    if(data.wonColor === this.module.state.playerColor) {
+                    if(data.wonColor === this.console.state.playerColor) {
                         this.play("game_won")
                     } else {
                         this.play("game_lost")
@@ -71,7 +72,7 @@ export class Sound extends Component {
                 }
             }, 500)
         })
-        module.sound = this
+        console.sound = this
     }
 
     play(soundName) {

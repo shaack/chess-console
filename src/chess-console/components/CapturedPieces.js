@@ -5,22 +5,23 @@
  */
 
 import {PIECES} from "../../../lib/cm-chesstools/ChessTools.js"
-import {Observe} from "../../../lib/svjs-observe/Observe.js"
-import {Component} from "../../../lib/svjs-app/Component.js"
+import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
+import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class CapturedPieces extends Component {
 
-    constructor(module) {
-        super(module)
-        
+    constructor(console) {
+        super(console)
+
+        this.console = console
         this.element = document.createElement("div")
         this.element.setAttribute("class", "captured-pieces")
-        this.module.componentContainers.left.appendChild(this.element)
+        this.console.componentContainers.left.appendChild(this.element)
 
-        this.module.state.observeChess(() => {
+        this.console.state.observeChess(() => {
             this.redraw()
         })
-        Observe.property(this.module.state, "plyViewed", () => {
+        Observe.property(this.console.state, "plyViewed", () => {
             this.redraw()
         })
         this.redraw()
@@ -36,12 +37,12 @@ export class CapturedPieces extends Component {
             const capturedPiecesBlackAfterPlyViewed = []
             const capturedPiecesBlackConditionalMoves = []
 
-            const history = this.module.state.chess.history({verbose: true})
+            const history = this.console.state.chess.history({verbose: true})
             $.each(history, (index, move) => {
                 if (move.flags === "c" || move.flags === "e") {
                     if (move.color === "b") {
-                        if (index < this.module.state.plyViewed) {
-                            if (this.module.state.analyseStartIndex && index > this.module.state.analyseStartIndex) {
+                        if (index < this.console.state.plyViewed) {
+                            if (this.console.state.analyseStartIndex && index > this.console.state.analyseStartIndex) {
                                 capturedPiecesWhiteConditionalMoves.push(PIECES[move.captured + "w"])
                             } else {
                                 capturedPiecesWhite.push(PIECES[move.captured + "w"])
@@ -50,8 +51,8 @@ export class CapturedPieces extends Component {
                             capturedPiecesWhiteAfterPlyViewed.push(PIECES[move.captured + "w"])
                         }
                     } else if (move.color === "w") {
-                        if (index < this.module.state.plyViewed) {
-                            if (this.module.state.analyseStartIndex && index > this.module.state.analyseStartIndex) {
+                        if (index < this.console.state.plyViewed) {
+                            if (this.console.state.analyseStartIndex && index > this.console.state.analyseStartIndex) {
                                 capturedPiecesBlackConditionalMoves.push(PIECES[move.captured + "b"])
                             } else {
                                 capturedPiecesBlack.push(PIECES[move.captured + "b"])

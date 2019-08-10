@@ -4,11 +4,11 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {AppModule} from "../../lib/svjs-app/AppModule.js"
-import {MessageBroker} from "../../lib/svjs-message-broker/MessageBroker.js"
+import {Component} from "../../lib/cm-web-modules/app/Component.js"
+import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
 import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
-import {I18n} from "../../lib/svjs-i18n/I18n.js"
+import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 
 
 export const MESSAGE = {
@@ -36,14 +36,15 @@ export const MESSAGE = {
     }
 }
 
-export class ChessConsole extends AppModule {
+export class ChessConsole extends Component {
 
-    constructor(app, container, props = {}) {
-        super(app, container, props)
+    constructor(props = {}) {
+        super(props)
         this.props = {
             assetsFolder: "/assets"
         }
         Object.assign(this.props, props)
+        this.container = props.container
         this.i18n = new I18n({locale: props.locale})
         this.messageBroker = new MessageBroker()
         this.state = new ChessConsoleState(this.props)
@@ -160,14 +161,14 @@ export class ChessConsole extends AppModule {
         const moveResult = this.state.chess.move(move)
         if (!moveResult) {
             this.messageBroker.publish(new MESSAGE.illegalMove(playerMoved, move))
+            playerMoved.moveResult(move, moveResult)
             return
         }
         if (this.state.plyViewed === this.state.plyCount - 1) {
             this.state.plyViewed++
         }
-        // this.opponentOf(this.playerToMove()).legalMove(this.state.lastMove())
         this.messageBroker.publish(new MESSAGE.legalMove(playerMoved, move, moveResult))
-        playerMoved.moveDone(move, moveResult)
+        playerMoved.moveResult(move, moveResult)
         if (!this.state.chess.game_over()) {
             this.nextMove()
         } else {

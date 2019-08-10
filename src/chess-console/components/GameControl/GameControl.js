@@ -4,15 +4,16 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Component} from "../../../../lib/svjs-app/Component.js"
+import {Component} from "../../../../lib/cm-web-modules/app/Component.js"
 import {NewGameDialog} from "./NewGameDialog.js"
 
 export class GameControl extends Component {
 
-    constructor(module, props) {
-        super(module, props)
+    constructor(console, props) {
+        super(console, props)
 
-        const i18n = module.i18n
+        this.console = console
+        const i18n = console.i18n
         i18n.load({
             de: {
                 "start_game": "Ein neues Spiel starten",
@@ -25,7 +26,7 @@ export class GameControl extends Component {
         }).then(() => {
             this.element = document.createElement("span")
             this.element.setAttribute("class", "game-control")
-            module.componentContainers.controlButtons.appendChild(this.element)
+            console.componentContainers.controlButtons.appendChild(this.element)
             const $element = $(this.element)
             $element.html(`<button type="button" title="${i18n.t('undo_move')}" class="btn btn-icon undoMove"><i class="fa fa-fw fa-undo" aria-hidden="true"></i></button>
                 <button type="button" title="${i18n.t('start_game')}" class="btn btn-icon startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>`)
@@ -33,13 +34,13 @@ export class GameControl extends Component {
             this.$btnStartNewGame = $element.find(".startNewGame")
 
             this.$btnUndoMove.click(() => {
-                this.module.undoMove()
+                this.console.undoMove()
             })
             this.$btnStartNewGame.click(() => {
                 this.showNewGameDialog()
             })
 
-            this.module.state.observeChess(() => {
+            this.console.state.observeChess(() => {
                 this.setButtonStates()
             })
             this.setButtonStates()
@@ -47,13 +48,13 @@ export class GameControl extends Component {
     }
 
     showNewGameDialog() {
-        new NewGameDialog(this.module, {
-            title: this.module.i18n.t('start_game')
+        new NewGameDialog(this.console, {
+            title: this.console.i18n.t('start_game')
         })
     }
 
     setButtonStates() {
-        if (this.module.state.plyCount < 2) {
+        if (this.console.state.plyCount < 2) {
             this.$btnUndoMove.prop("disabled", true)
         } else {
             this.$btnUndoMove.prop("disabled", false)

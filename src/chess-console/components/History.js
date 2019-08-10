@@ -4,28 +4,29 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Observe} from "../../../lib/svjs-observe/Observe.js"
-import {Component} from "../../../lib/svjs-app/Component.js"
-import {Event} from "../../../lib/svjs-utils/Event.js"
+import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
+import {Component} from "../../../lib/cm-web-modules/app/Component.js"
+import {EventUtils} from "../../../lib/cm-web-modules/utils/EventUtils.js"
 import {ChessTools} from "../../../lib/cm-chesstools/ChessTools.js"
 
 export class History extends Component {
 
-    constructor(module) {
-        super(module)
+    constructor(console) {
+        super(console)
 
+        this.console = console
         this.element = document.createElement("div")
         this.element.setAttribute("class", "history")
-        this.module.componentContainers.left.appendChild(this.element)
+        this.console.componentContainers.left.appendChild(this.element)
 
-        this.state = module.state
+        this.state = console.state
         this.state.observeChess(() => {
             this.redraw()
         })
-        Observe.property(module.state, "plyViewed", () => {
+        Observe.property(console.state, "plyViewed", () => {
             this.redraw()
         })
-        Event.delegate(this.element, "click", ".ply", (event) => {
+        EventUtils.delegate(this.element, "click", ".ply", (event) => {
             this.state.plyViewed = parseInt(event.target.getAttribute("data-ply"), 10)
         })
         this.redraw()
