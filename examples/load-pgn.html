@@ -32,7 +32,6 @@
     import {CapturedPieces} from "../src/chess-console/components/CapturedPieces.js"
     import {HistoryControl} from "../src/chess-console/components/HistoryControl.js"
     import {GameControl} from "../src/chess-console/components/GameControl/GameControl.js"
-    import {Persistence} from "../src/chess-console/components/Persistence.js"
     import {Sound} from "../src/chess-console/components/Sound.js"
 
     const pgn = [
@@ -48,20 +47,21 @@
         {name: "Opponent", type: RandomPlayer},
         {
             soundSpriteFile: "../assets/sounds/chess_console_sounds.mp3",
-            chessboardSpriteFile: "../assets/images/chessboard-sprite.svg",
-            playerColor: "b",
-            history: pgn.join('\n')
+            chessboardSpriteFile: "../assets/images/chessboard-sprite.svg"
         }
     )
-    chessConsole.addComponent(Board)
+    chessConsole.addComponent(Board).then(() => {
+        chessConsole.newGame({
+            playerColor: "b",
+            history: pgn.join('\n')
+        })
+    })
     chessConsole.addComponent(GameStateOutput)
     chessConsole.addComponent(History)
     chessConsole.addComponent(HistoryControl)
     chessConsole.addComponent(CapturedPieces)
     chessConsole.addComponent(GameControl)
     chessConsole.addComponent(Sound)
-
-
 </script>
 </body>
 </html>

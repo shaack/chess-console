@@ -40,9 +40,7 @@ export class ChessConsole extends App {
 
     constructor(container, player, opponent, props = {}) {
         super(props)
-        this.props = {
-            // playerColor: COLOR.white
-        }
+        this.props = {}
         Object.assign(this.props, props)
         this.container = container
         this.i18n = new I18n({locale: props.locale})
@@ -108,6 +106,7 @@ export class ChessConsole extends App {
     }
 
     newGame(props = {}) {
+        console.log("newGame", props)
         Object.assign(this.props, props)
         if(!this.props.playerColor) {
             this.props.playerColor = COLOR.white
@@ -123,12 +122,7 @@ export class ChessConsole extends App {
         this.messageBroker.publish(new MESSAGE.newGame(props))
         this.nextMove()
     }
-/*
-    loadPgn(pgn) {
-        this.state.chess.load_pgn(pgn, {sloppy: true})
-        this.state.plyViewed = this.state.plyCount
-    }
-*/
+
     playerWhite() {
         return this.props.playerColor === COLOR.white ? this.player : this.opponent
     }
