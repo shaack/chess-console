@@ -43,18 +43,17 @@
         '23.Bd7+']
 
     const chessConsole = new ChessConsole(
+        document.getElementById("console-container"),
+        {name: "Player", type: LocalPlayer},
+        {name: "Opponent", type: RandomPlayer},
         {
-            container: document.getElementById("console-container"),
             soundSpriteFile: "../assets/sounds/chess_console_sounds.mp3",
             chessboardSpriteFile: "../assets/images/chessboard-sprite.svg",
-            player: {name: "Player", type: LocalPlayer},
-            opponent: {name: "Opponent", type: RandomPlayer},
-            playerColor: "b"
+            playerColor: "b",
+            history: pgn.join('\n')
         }
     )
-    chessConsole.addComponent(Board).then(() => {
-        chessConsole.loadPgn(pgn.join('\n'))
-    })
+    chessConsole.addComponent(Board)
     chessConsole.addComponent(GameStateOutput)
     chessConsole.addComponent(History)
     chessConsole.addComponent(HistoryControl)

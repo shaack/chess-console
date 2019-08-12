@@ -12,8 +12,8 @@ import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 
 
 export const MESSAGE = {
-    gameStarted: function gameStarted(gameProps) {
-        this.gameProps = gameProps
+    newGame: function newGame(props) {
+        this.props = props
     },
     gameOver: function gameOver(wonColor) { // w, b, null for draw
         this.wonColor = wonColor
@@ -38,13 +38,13 @@ export const MESSAGE = {
 
 export class ChessConsole extends App {
 
-    constructor(props = {}) {
+    constructor(container, player, opponent, props = {}) {
         super(props)
         this.props = {
-            assetsFolder: "/assets"
+            playerColor: COLOR.white
         }
         Object.assign(this.props, props)
-        this.container = props.container
+        this.container = container
         this.i18n = new I18n({locale: props.locale})
         this.messageBroker = new MessageBroker()
         this.state = new ChessConsoleState(this.props)
@@ -59,21 +59,25 @@ export class ChessConsole extends App {
                 </div>
                 <div class="chess-console-right ${colSets.consoleRight}">
                     <div class="control-buttons flex-buttons"></div>
-                    <div class="chess-console-output"></div>
+                    <div class="chess-console-notifications"></div>
                 </div>
                 <div class="chess-console-left ${colSets.consoleLeft}">
                 </div>
             </div>`
         this.componentContainers = {
             board: this.container.querySelector(".chess-console-board"),
+            left: this.container.querySelector(".chess-console-left"),
             right: this.container.querySelector(".chess-console-right"),
             controlButtons: this.container.querySelector(".chess-console-right .control-buttons"),
-            left: this.container.querySelector(".chess-console-left"),
-            output: this.container.querySelector(".chess-console-output")
+            notifications: this.container.querySelector(".chess-console-notifications")
         }
 
-        this.player = new this.props.player.type(this.props.player.name, this, this.props.player.props)
-        this.opponent = new this.props.opponent.type(this.props.opponent.name, this, this.props.opponent.props)
+        this.player = new player.type(this, player.name, player.props)
+        this.opponent = new opponent.type(this, opponent.name, opponent.props)
+
+        if (props.history) {
+            this.loadPgn(props.history)
+        }
 
         this.initialization = this.i18n.load({
             de: {
@@ -103,41 +107,42 @@ export class ChessConsole extends App {
         })
     }
 
-    startGame(gameProps) {
-        this.state.playerColor = gameProps.playerColor
-        this.state.orientation = gameProps.playerColor
-        this.state.chess.reset()
-        this.state.plyViewed = 0
-        this.messageBroker.publish(new MESSAGE.gameStarted(gameProps))
+    newGame(props) {
+        this.state.orientation = props.playerColor
+        if(props.history) {
+            this.state.chess.load_pgn(props.history, {sloppy: true})
+            this.state.plyViewed = this.state.plyCount
+        } else {
+            this.state.chess.reset()
+            this.state.plyViewed = 0
+        }
+        this.messageBroker.publish(new MESSAGE.newGame(props))
         this.nextMove()
     }
-
+/*
+    loadPgn(pgn) {
+        this.state.chess.load_pgn(pgn, {sloppy: true})
+        this.state.plyViewed = this.state.plyCount
+    }
+*/
     playerWhite() {
-        return this.state.playerColor === COLOR.white ? this.player : this.opponent
+        return this.props.playerColor === COLOR.white ? this.player : this.opponent
     }
 
     playerBlack() {
-        return this.state.playerColor === COLOR.white ? this.opponent : this.player
+        return this.props.playerColor === COLOR.white ? this.opponent : this.player
     }
 
     playerToMove() {
-        if (this.state.chess.turn() === "w") {
-            return this.playerWhite()
+        if (this.state.chess.game_over()) {
+            return null
         } else {
-            return this.playerBlack()
+            if (this.state.chess.turn() === "w") {
+                return this.playerWhite()
+            } else {
+                return this.playerBlack()
+            }
         }
-    }
-
-    undoMove() {
-        this.state.chess.undo()
-        if (this.playerToMove() !== this.player) {
-            this.state.chess.undo()
-        }
-        if (this.state.plyViewed > this.state.plyCount) {
-            this.state.plyViewed = this.state.plyCount
-        }
-        this.messageBroker.publish(new MESSAGE.moveUndone())
-        this.nextMove()
     }
 
     /*
@@ -182,9 +187,15 @@ export class ChessConsole extends App {
         }
     }
 
-    loadPgn(pgn) {
-        this.state.chess.load_pgn(pgn, {sloppy: true})
-        this.state.plyViewed = this.state.plyCount
+    undoMove() {
+        this.state.chess.undo()
+        if (this.playerToMove() !== this.player) {
+            this.state.chess.undo()
+        }
+        if (this.state.plyViewed > this.state.plyCount) {
+            this.state.plyViewed = this.state.plyCount
+        }
+        this.messageBroker.publish(new MESSAGE.moveUndone())
         this.nextMove()
     }
 

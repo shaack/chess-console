@@ -13,12 +13,14 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h1><a href="../">chess-console</a> <small>both players local</small></h1>
+    <h1><a href="../">chess-console</a>
+        <small>both players local</small>
+    </h1>
     <div id="console-container"></div>
 </div>
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
-<script src="../node_modules/chess.js/chess.min.js"></script>
+<script src="../node_modules/chess.js/chess.js"></script>
 <script type="module">
 
     import {ChessConsole} from "../src/chess-console/ChessConsole.js"
@@ -33,12 +35,12 @@
     import {Sound} from "../src/chess-console/components/Sound.js"
 
     const chessConsole = new ChessConsole(
+        document.getElementById("console-container"),
+        {name: "Local Player 1", type: LocalPlayer},
+        {name: "Local Player 2", type: LocalPlayer},
         {
-            container: document.getElementById("console-container"),
             soundSpriteFile: "../assets/sounds/chess_console_sounds.mp3",
             chessboardSpriteFile: "../assets/images/chessboard-sprite.svg",
-            player: {name: "Local Player", type: LocalPlayer},
-            opponent: {name: "Local Player 2", type: LocalPlayer}
         }
     )
     chessConsole.addComponent(Board).then(() => {

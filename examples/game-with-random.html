@@ -36,12 +36,12 @@
     import {Sound} from "../src/chess-console/components/Sound.js"
 
     const chessConsole = new ChessConsole(
+        document.getElementById("console-container"),
+        {name: "Local Player", type: LocalPlayer},
+        {name: "Random Player", type: RandomPlayer},
         {
-            container: document.getElementById("console-container"),
             soundSpriteFile: "../assets/sounds/chess_console_sounds.mp3",
             chessboardSpriteFile: "../assets/images/chessboard-sprite.svg",
-            player: {name: "Local Player", type: LocalPlayer},
-            opponent: {name: "Random Player", type: RandomPlayer}
         }
     )
     chessConsole.addComponent(Board).then(() => {

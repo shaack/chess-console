@@ -85,7 +85,6 @@ export class LocalPlayer extends ChessConsolePlayer {
     }
 
     moveResult(move, result) {
-        console.log(move, result)
         if(result) {
             this.chessConsole.board.chessboard.disableMoveInput()
         }

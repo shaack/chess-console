@@ -34,7 +34,7 @@ export class Sound extends Component {
                     "dialog": {offset: 10.8, duration: 0.45}
                 }
             })
-        console.messageBroker.subscribe(MESSAGE.gameStarted, () => {
+        console.messageBroker.subscribe(MESSAGE.newGame, () => {
             this.play("game_start")
         })
         console.messageBroker.subscribe(MESSAGE.legalMove, (data) => {
@@ -64,7 +64,7 @@ export class Sound extends Component {
                 if(!data.wonColor) {
                     this.play("game_lost")
                 } else {
-                    if(data.wonColor === this.console.state.playerColor) {
+                    if(data.wonColor === this.console.props.playerColor) {
                         this.play("game_won")
                     } else {
                         this.play("game_lost")

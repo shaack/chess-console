@@ -58,7 +58,7 @@ export class HistoryControl extends Component {
                 this.setButtonStates()
             })
             Observe.property(this.console.state, "orientation", () => {
-                if (this.console.state.orientation !== this.console.state.playerColor) {
+                if (this.console.state.orientation !== this.console.props.playerColor) {
                     this.$btnOrientation.addClass("btn-active") // todo
                 } else {
                     this.$btnOrientation.removeClass("btn-active") // todo

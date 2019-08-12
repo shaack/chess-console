@@ -35,7 +35,7 @@ export class GameStateOutput extends Component {
         const chess = this.console.state.chess
         this.element = document.createElement("div")
         this.element.setAttribute("class", "gameState text-info mb-2")
-        this.console.componentContainers.output.appendChild(this.element)
+        this.console.componentContainers.notifications.appendChild(this.element)
 
         this.console.state.observeChess(() => {
             let html = ''

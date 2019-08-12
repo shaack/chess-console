@@ -61,7 +61,7 @@ export class Board extends Component {
                     url: console.props.chessboardSpriteFile, // pieces and markers
                 }
             })
-            Observe.property(console.state, ["orientation", "playerColor"], () => {
+            Observe.property(console.state, ["orientation"], () => {
                 this.setPlayerNames()
                 this.chessboard.setOrientation(console.state.orientation)
                 this.markPlayerToMove()
@@ -133,7 +133,7 @@ export class Board extends Component {
     setPlayerNames() {
         window.clearTimeout(this.setPlayerNamesDebounce)
         this.setPlayerNamesDebounce = setTimeout(() => {
-            if (this.console.state.playerColor === this.console.state.orientation) {
+            if (this.console.props.playerColor === this.console.state.orientation) {
                 this.elements.playerBottom.innerHTML = this.console.player.name
                 this.elements.playerTop.innerHTML = this.console.opponent.name
             } else {

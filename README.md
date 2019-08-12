@@ -21,10 +21,89 @@ chess computer.
 - **Option 1:** Download from [GitHub](https://github.com/shaack/chess-console) and run `npm install` without parameters, or
 - **Option 2:** Install the [npm package](https://www.npmjs.com/package/chess-console) with `npm install --save chess-console`
 
+## Documentation
+
+### Constructor
+`ChessConsole(container, player, opponent, props)`
+- container: DOM parent element
+- player: {name: playerName, type: Class of player, props: {}}
+- opponent: {name: opponentName, type: Class of opponent, props: {}}
+- props: Properties
+
+#### props
+{
+    soundSpriteFile: "/assets/sounds/chess_console_sounds.mp3",
+    chessboardSpriteFile: "/assets/images/chessboard-sprite.svg",
+    playerColor: "w"|"b",
+    history: [PGN notation], // initial history
+}
+
+### state
+`chessConsole.state`
+
+{
+    this.chess = new Chess()
+    this.playerColor = props.playerColor || COLOR.white
+    this.orientation = props.playerColor || COLOR.white
+    this.plyViewed = 0
+    this.plyCount = 0
+}
+
+### Methods
+
+#### playerWhite()
+returns the white player
+
+#### playerBlack()
+return the black player
+
+#### playerToMove()
+return the player who can make a move, null if game_over
+
+#### loalPgn(pgn)
+Loads the history part of a PGN, the metadata is ignored
+
+#### nextMove() 
+Request the nextMove from `playerToMove()`
+
+#### undoMove()
+Take back the last move 
+
+### Messaging
+
+`chessConsole.messageBroker`
+
+Messages:
+
+``` javascript
+gameStarted: function gameStarted(gameProps) {
+    this.gameProps = gameProps
+},
+gameOver: function gameOver(wonColor) { // w, b, null for draw
+    this.wonColor = wonColor
+},
+moveRequest: function moveRequest(player) {
+    this.player = player
+},
+legalMove: function legalMove(player, move, moveResult) {
+    this.player = player
+    this.move = move
+    this.moveResult = moveResult
+},
+illegalMove: function illegalMove(player, move) {
+    this.player = player
+    this.move = move
+},
+moveUndone: function moveUndone() {
+},
+load: function load() { // called after loading a game
+}
+```
+
 ## Licenses
 
 Source code license: <a href="https://github.com/shaack/chess-console/blob/master/LICENSE">MIT</a>,<br/>
 License for the Sounds: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>,<br/>
 License of the SVG pieces <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.
 
-Copyright &copy; 2018 by [shaack.com](https://shaack.com) engineering.
+Copyright &copy; [shaack.com](https://shaack.com) engineering.

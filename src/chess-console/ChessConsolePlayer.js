@@ -6,9 +6,9 @@
 
 export class ChessConsolePlayer {
 
-    constructor(name, chessConsole, props) {
-        this.name = name
+    constructor(chessConsole, name, props) {
         this.chessConsole = chessConsole
+        this.name = name
         this.props = props
     }
 
@@ -24,7 +24,7 @@ export class ChessConsolePlayer {
 
     /**
      * Called after valuating the move, if `moveResult` is null, the
-     * move is illegal and therefor ignored.
+     * move is illegal and not executed.
      * @param move
      * @param moveResult
      */

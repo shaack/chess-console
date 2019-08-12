@@ -44,10 +44,10 @@ export class NewGameDialog {
                     let color = $form.find("#color").val()
                     module.persistence.saveValue("newGameColor", color)
                     if (color !== COLOR.white && color !== COLOR.black) {
-                        color = (module.state.playerColor === COLOR.white) ? COLOR.black : COLOR.white
+                        color = (module.props.playerColor === COLOR.white) ? COLOR.black : COLOR.white
                     }
                     modal.hide()
-                    module.startGame({playerColor: color})
+                    module.newGame({playerColor: color})
                 })
             }
             $.showModal(props)

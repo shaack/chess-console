@@ -21,23 +21,22 @@ export class Persistence extends Component {
 
     load(saveName) {
         this.prefix = saveName + "-"
+        const props = {}
         try {
             if (this.loadValue("playerColor") !== null) {
-                this.console.state.playerColor = this.loadValue("playerColor")
-                this.console.state.orientation = this.console.state.playerColor
+                props.playerColor = this.loadValue("playerColor")
             } else {
-                this.console.startGame({playerColor: COLOR.white})
+                props.playerColor = COLOR.white
             }
-            if (localStorage.getItem(this.prefix + "pgn") !== null) {
-                this.console.state.chess.load_pgn(localStorage.getItem(this.prefix + "pgn"))
-                this.console.state.plyViewed = this.console.state.plyCount
+            if (localStorage.getItem(this.prefix + "history") !== null) {
+                props.history = localStorage.getItem(this.prefix + "history")
             }
             this.console.messageBroker.publish(new MESSAGE.load())
-            this.console.nextMove()
+            this.console.newGame(props)
         } catch (e) {
             localStorage.clear()
             console.warn(e)
-            this.console.startGame({playerColor: COLOR.white})
+            this.console.newGame({playerColor: COLOR.white})
         }
     }
 
@@ -54,8 +53,8 @@ export class Persistence extends Component {
     }
 
     save() {
-        localStorage.setItem(this.prefix + "playerColor", JSON.stringify(this.console.state.playerColor))
-        localStorage.setItem(this.prefix + "pgn", this.console.state.chess.pgn())
+        localStorage.setItem(this.prefix + "playerColor", JSON.stringify(this.console.props.playerColor))
+        localStorage.setItem(this.prefix + "history", this.console.state.chess.pgn())
     }
 
     saveValue(valueName, value) {

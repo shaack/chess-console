@@ -10,12 +10,11 @@ import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 export class ChessConsoleState {
 
     constructor(props) {
-        this.chess = new Chess()
-        this.playerColor = props.playerColor || COLOR.white
+        this.chess = new Chess() // used to validate moves and keep the history
+        // this.playerColor = props.playerColor || COLOR.white
         this.orientation = props.playerColor || COLOR.white
-        this.plyViewed = 0
-        this.plyCount = 0
-        this.lastError = null
+        this.plyViewed = 0 // the play viewed on the board
+        this.plyCount = 0 // cache for this.chess.history().length, read only
     }
 
     pieces(type = null, color = null) {
