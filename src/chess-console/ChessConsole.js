@@ -106,7 +106,6 @@ export class ChessConsole extends App {
     }
 
     newGame(props = {}) {
-        console.log("newGame", props)
         Object.assign(this.props, props)
         if(!this.props.playerColor) {
             this.props.playerColor = COLOR.white
