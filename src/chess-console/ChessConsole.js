@@ -41,7 +41,7 @@ export class ChessConsole extends App {
     constructor(container, player, opponent, props = {}) {
         super(props)
         this.props = {
-            playerColor: COLOR.white
+            // playerColor: COLOR.white
         }
         Object.assign(this.props, props)
         this.container = container
@@ -74,11 +74,11 @@ export class ChessConsole extends App {
 
         this.player = new player.type(this, player.name, player.props)
         this.opponent = new opponent.type(this, opponent.name, opponent.props)
-
+/*
         if (props.history) {
             this.loadPgn(props.history)
         }
-
+*/
         this.initialization = this.i18n.load({
             de: {
                 ok: "OK",
@@ -107,8 +107,12 @@ export class ChessConsole extends App {
         })
     }
 
-    newGame(props) {
-        this.state.orientation = props.playerColor
+    newGame(props = {}) {
+        Object.assign(this.props, props)
+        if(!this.props.playerColor) {
+            this.props.playerColor = COLOR.white
+        }
+        this.state.orientation = this.props.playerColor
         if(props.history) {
             this.state.chess.load_pgn(props.history, {sloppy: true})
             this.state.plyViewed = this.state.plyCount
