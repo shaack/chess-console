@@ -69,6 +69,12 @@ Request the nextMove from `playerToMove()`
 #### undoMove()
 Take back the last move 
 
+#### initGame(props)
+Set a position and player color
+
+#### newGame(props)
+Like `initGame(props)`, but sents `newGame` event via messageBroker.
+
 ### Messaging
 
 `chessConsole.messageBroker`
@@ -76,27 +82,32 @@ Take back the last move
 Messages:
 
 ``` javascript
-gameStarted: function gameStarted(gameProps) {
-    this.gameProps = gameProps
-},
-gameOver: function gameOver(wonColor) { // w, b, null for draw
-    this.wonColor = wonColor
-},
-moveRequest: function moveRequest(player) {
-    this.player = player
-},
-legalMove: function legalMove(player, move, moveResult) {
-    this.player = player
-    this.move = move
-    this.moveResult = moveResult
-},
-illegalMove: function illegalMove(player, move) {
-    this.player = player
-    this.move = move
-},
-moveUndone: function moveUndone() {
-},
-load: function load() { // called after loading a game
+export const MESSAGE = {
+    newGame: function newGame(props) { // A new game was started
+        this.props = props
+    },
+    initGame: function initGame(props) { // The game was initialized
+        this.props = props
+    },
+    gameOver: function gameOver(wonColor) { // w, b, null for draw
+        this.wonColor = wonColor
+    },
+    moveRequest: function moveRequest(player) {
+        this.player = player
+    },
+    legalMove: function legalMove(player, move, moveResult) {
+        this.player = player
+        this.move = move
+        this.moveResult = moveResult
+    },
+    illegalMove: function illegalMove(player, move) {
+        this.player = player
+        this.move = move
+    },
+    moveUndone: function moveUndone() {
+    },
+    load: function load() {
+    }
 }
 ```
 

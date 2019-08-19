@@ -12,7 +12,10 @@ import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 
 
 export const MESSAGE = {
-    newGame: function newGame(props) {
+    newGame: function newGame(props) { // A new game was started
+        this.props = props
+    },
+    initGame: function initGame(props) { // The game was initialized
         this.props = props
     },
     gameOver: function gameOver(wonColor) { // w, b, null for draw
@@ -72,11 +75,7 @@ export class ChessConsole extends App {
 
         this.player = new player.type(this, player.name, player.props)
         this.opponent = new opponent.type(this, opponent.name, opponent.props)
-/*
-        if (props.history) {
-            this.loadPgn(props.history)
-        }
-*/
+
         this.initialization = this.i18n.load({
             de: {
                 ok: "OK",
@@ -106,6 +105,11 @@ export class ChessConsole extends App {
     }
 
     newGame(props = {}) {
+        this.initGame(props)
+        this.messageBroker.publish(new MESSAGE.newGame(props))
+    }
+
+    initGame(props = {}) {
         Object.assign(this.props, props)
         if(!this.props.playerColor) {
             this.props.playerColor = COLOR.white
@@ -118,7 +122,7 @@ export class ChessConsole extends App {
             this.state.chess.reset()
             this.state.plyViewed = 0
         }
-        this.messageBroker.publish(new MESSAGE.newGame(props))
+        this.messageBroker.publish(new MESSAGE.initGame(props))
         this.nextMove()
     }
 

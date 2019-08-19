@@ -51,7 +51,7 @@
         }
     )
     chessConsole.addComponent(Board).then(() => {
-        chessConsole.newGame({
+        chessConsole.initGame({
             playerColor: "b",
             history: pgn.join('\n')
         })

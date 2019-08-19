@@ -32,11 +32,11 @@ export class Persistence extends Component {
                 props.history = localStorage.getItem(this.prefix + "history")
             }
             this.console.messageBroker.publish(new MESSAGE.load())
-            this.console.newGame(props)
+            this.console.initGame(props)
         } catch (e) {
             localStorage.clear()
             console.warn(e)
-            this.console.newGame({playerColor: COLOR.white})
+            this.console.initGame({playerColor: COLOR.white})
         }
     }
 
