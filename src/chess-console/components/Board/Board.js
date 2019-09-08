@@ -5,7 +5,7 @@
  */
 
 import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../../../lib/cm-chessboard/Chessboard.js"
-import {MESSAGE} from "../../ChessConsole.js"
+import {messageBrokerTopics} from "../../ChessConsole.js"
 import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../../lib/cm-web-modules/app/Component.js"
 
@@ -72,11 +72,11 @@ export class Board extends Component {
             Observe.property(console.opponent, "name", () => {
                 this.setPlayerNames()
             })
-            console.messageBroker.subscribe(MESSAGE.moveRequest, () => {
+            console.messageBroker.subscribe(messageBrokerTopics.moveRequest, () => {
                 this.markPlayerToMove()
             })
             this.chessboard.initialization.then(() => {
-                this.console.messageBroker.subscribe(MESSAGE.illegalMove, (message) => {
+                this.console.messageBroker.subscribe(messageBrokerTopics.illegalMove, (message) => {
                     for (let i = 0; i < 3; i++) {
                         setTimeout(() => {
                             this.chessboard.addMarker(message.move.from, MARKER_TYPE.wrongMove)

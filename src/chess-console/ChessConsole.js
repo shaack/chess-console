@@ -11,32 +11,15 @@ import {ChessConsoleState} from "./ChessConsoleState.js"
 import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 
 
-export const MESSAGE = {
-    newGame: function newGame(props) { // A new game was started
-        this.props = props
-    },
-    initGame: function initGame(props) { // The game was initialized
-        this.props = props
-    },
-    gameOver: function gameOver(wonColor) { // w, b, null for draw
-        this.wonColor = wonColor
-    },
-    moveRequest: function moveRequest(player) {
-        this.player = player
-    },
-    legalMove: function legalMove(player, move, moveResult) {
-        this.player = player
-        this.move = move
-        this.moveResult = moveResult
-    },
-    illegalMove: function illegalMove(player, move) {
-        this.player = player
-        this.move = move
-    },
-    moveUndone: function moveUndone() {
-    },
-    load: function load() {
-    }
+export const messageBrokerTopics = {
+    newGame: "game/new",
+    initGame: "game/init",
+    gameOver: "game/over",
+    moveRequest: "game/moveRequest",
+    legalMove: "game/move/legal",
+    illegalMove: "game/move/illegal",
+    moveUndone: "game/move/undone",
+    load: "game/load"
 }
 
 export class ChessConsole extends App {
@@ -106,23 +89,23 @@ export class ChessConsole extends App {
 
     newGame(props = {}) {
         this.initGame(props)
-        this.messageBroker.publish(new MESSAGE.newGame(props))
+        this.messageBroker.publish(messageBrokerTopics.newGame, {props: props})
     }
 
     initGame(props = {}) {
         Object.assign(this.props, props)
-        if(!this.props.playerColor) {
+        if (!this.props.playerColor) {
             this.props.playerColor = COLOR.white
         }
         this.state.orientation = this.props.playerColor
-        if(props.history) {
+        if (props.history) {
             this.state.chess.load_pgn(props.history, {sloppy: true})
             this.state.plyViewed = this.state.plyCount
         } else {
             this.state.chess.reset()
             this.state.plyViewed = 0
         }
-        this.messageBroker.publish(new MESSAGE.initGame(props))
+        this.messageBroker.publish(messageBrokerTopics.initGame, {props: props})
         this.nextMove()
     }
 
@@ -151,7 +134,7 @@ export class ChessConsole extends App {
      */
     nextMove() {
         const playerToMove = this.playerToMove()
-        this.messageBroker.publish(new MESSAGE.moveRequest(playerToMove))
+        this.messageBroker.publish(messageBrokerTopics.moveRequest, {playerToMove: playerToMove})
         setTimeout(() => {
             playerToMove.moveRequest(this.state.chess.fen(), (san) => {
                 this.moveResponse(san)
@@ -168,14 +151,21 @@ export class ChessConsole extends App {
         const playerMoved = this.playerToMove()
         const moveResult = this.state.chess.move(move)
         if (!moveResult) {
-            this.messageBroker.publish(new MESSAGE.illegalMove(playerMoved, move))
+            this.messageBroker.publish(messageBrokerTopics.illegalMove, {
+                playerMoved: playerMoved,
+                move: move
+            })
             playerMoved.moveResult(move, moveResult)
             return
         }
         if (this.state.plyViewed === this.state.plyCount - 1) {
             this.state.plyViewed++
         }
-        this.messageBroker.publish(new MESSAGE.legalMove(playerMoved, move, moveResult))
+        this.messageBroker.publish(messageBrokerTopics.legalMove, {
+            playerMoved: playerMoved,
+            move: move,
+            moveResult: moveResult
+        })
         playerMoved.moveResult(move, moveResult)
         if (!this.state.chess.game_over()) {
             this.nextMove()
@@ -184,7 +174,7 @@ export class ChessConsole extends App {
             if (this.state.chess.in_checkmate()) {
                 wonColor = (this.state.chess.turn() === COLOR.white) ? COLOR.black : COLOR.white
             }
-            this.messageBroker.publish(new MESSAGE.gameOver(wonColor))
+            this.messageBroker.publish(messageBrokerTopics.gameOver, {wonColor: wonColor})
         }
     }
 
@@ -196,7 +186,7 @@ export class ChessConsole extends App {
         if (this.state.plyViewed > this.state.plyCount) {
             this.state.plyViewed = this.state.plyCount
         }
-        this.messageBroker.publish(new MESSAGE.moveUndone())
+        this.messageBroker.publish(messageBrokerTopics.moveUndone)
         this.nextMove()
     }
 

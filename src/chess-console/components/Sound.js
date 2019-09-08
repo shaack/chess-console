@@ -6,7 +6,7 @@
 
 import {AudioSprite} from "../../../lib/cm-web-modules/audio/AudioSprite.js"
 import {Component} from "../../../lib/cm-web-modules/app/Component.js"
-import {MESSAGE} from "../ChessConsole.js"
+import {messageBrokerTopics} from "../ChessConsole.js"
 
 export class Sound extends Component {
 
@@ -34,10 +34,10 @@ export class Sound extends Component {
                     "dialog": {offset: 10.8, duration: 0.45}
                 }
             })
-        console.messageBroker.subscribe(MESSAGE.newGame, () => {
+        console.messageBroker.subscribe(messageBrokerTopics.newGame, () => {
             this.play("game_start")
         })
-        console.messageBroker.subscribe(MESSAGE.legalMove, (data) => {
+        console.messageBroker.subscribe(messageBrokerTopics.legalMove, (data) => {
             const chess = this.console.state.chess
             const flags = data.moveResult.flags
             if (flags.indexOf("p") !== -1) {
@@ -53,13 +53,13 @@ export class Sound extends Component {
                 this.play("check")
             }
         })
-        console.messageBroker.subscribe(MESSAGE.illegalMove, () => {
+        console.messageBroker.subscribe(messageBrokerTopics.illegalMove, () => {
             this.play("wrong_move")
         })
-        console.messageBroker.subscribe(MESSAGE.moveUndone, () => {
+        console.messageBroker.subscribe(messageBrokerTopics.moveUndone, () => {
             this.play("take_back")
         })
-        console.messageBroker.subscribe(MESSAGE.gameOver, (data) => {
+        console.messageBroker.subscribe(messageBrokerTopics.gameOver, (data) => {
             setTimeout(() => {
                 if(!data.wonColor) {
                     this.play("game_lost")
