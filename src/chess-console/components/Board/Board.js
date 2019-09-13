@@ -52,7 +52,7 @@ export class Board extends Component {
                 this.setPositionOfPlyViewed()
                 this.markLastMove()
             })
-            this.chessboard = new Chessboard(this.elements.chessboard, {
+            const props = {
                 responsive: true,
                 position: "empty",
                 moveInputMode: MOVE_INPUT_MODE.dragPiece,
@@ -60,7 +60,11 @@ export class Board extends Component {
                 sprite: {
                     url: console.props.chessboardSpriteFile, // pieces and markers
                 }
-            })
+            }
+            if(console.props.chessboardStyle) {
+                props.style = console.props.chessboardStyle
+            }
+            this.chessboard = new Chessboard(this.elements.chessboard, props)
             Observe.property(console.state, ["orientation"], () => {
                 this.setPlayerNames()
                 this.chessboard.setOrientation(console.state.orientation)
