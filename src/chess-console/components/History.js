@@ -47,11 +47,11 @@ export class History extends Component {
                 sanWhite = history[i]
                 // console.log(sanWhite);
                 if (sanWhite) {
-                    sanWhite = ChessTools.renderSan(sanWhite, 1)
+                    sanWhite = ChessTools.renderSan(sanWhite, 1, this.console.props.piecesAside)
                 }
                 sanBlack = history[i + 1]
                 if (sanBlack) {
-                    sanBlack = ChessTools.renderSan(sanBlack, 0)
+                    sanBlack = ChessTools.renderSan(sanBlack, 0, this.console.props.piecesAside)
                 } else {
                     sanBlack = ""
                 }

@@ -43,22 +43,22 @@ export class CapturedPieces extends Component {
                     if (move.color === "b") {
                         if (index < this.console.state.plyViewed) {
                             if (this.console.state.analyseStartIndex && index > this.console.state.analyseStartIndex) {
-                                capturedPiecesWhiteConditionalMoves.push(PIECES[move.captured + "w"])
+                                capturedPiecesWhiteConditionalMoves.push(this.console.props.piecesAside[move.captured + "w"])
                             } else {
-                                capturedPiecesWhite.push(PIECES[move.captured + "w"])
+                                capturedPiecesWhite.push(this.console.props.piecesAside[move.captured + "w"])
                             }
                         } else {
-                            capturedPiecesWhiteAfterPlyViewed.push(PIECES[move.captured + "w"])
+                            capturedPiecesWhiteAfterPlyViewed.push(this.console.props.piecesAside[move.captured + "w"])
                         }
                     } else if (move.color === "w") {
                         if (index < this.console.state.plyViewed) {
                             if (this.console.state.analyseStartIndex && index > this.console.state.analyseStartIndex) {
-                                capturedPiecesBlackConditionalMoves.push(PIECES[move.captured + "b"])
+                                capturedPiecesBlackConditionalMoves.push(this.console.props.piecesAside[move.captured + "b"])
                             } else {
-                                capturedPiecesBlack.push(PIECES[move.captured + "b"])
+                                capturedPiecesBlack.push(this.console.props.piecesAside[move.captured + "b"])
                             }
                         } else {
-                            capturedPiecesBlackAfterPlyViewed.push(PIECES[move.captured + "b"])
+                            capturedPiecesBlackAfterPlyViewed.push(this.console.props.piecesAside[move.captured + "b"])
                         }
                     }
                 }

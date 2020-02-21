@@ -35,6 +35,7 @@
     import {Persistence} from "../src/chess-console/components/Persistence.js"
     import {Sound} from "../src/chess-console/components/Sound.js"
 
+    const whitePiecesStyle = 'font-size: 90%; color: white; text-shadow:  1px  1px 1px black, 1px -1px 1px black, -1px  1px 1px black, -1px -1px 1px black;'
     const chessConsole = new ChessConsole(
         document.getElementById("console-container"),
         {name: "Local Player", type: LocalPlayer},
@@ -46,6 +47,20 @@
                 cssClass: "green",
                 showBorder: true,
                 showCoordinates: true,
+            },
+            piecesAside: {
+                rw: '<i class="fas fa-fw fa-chess-rook" style="' + whitePiecesStyle + '"></i>',
+                nw: '<i class="fas fa-fw fa-chess-knight" style="' + whitePiecesStyle + '"></i>',
+                bw: '<i class="fas fa-fw fa-chess-bishop" style="' + whitePiecesStyle + '"></i>',
+                qw: '<i class="fas fa-fw fa-chess-queen" style="' + whitePiecesStyle + '"></i>',
+                kw: '<i class="fas fa-fw fa-chess-king" style="' + whitePiecesStyle + '"></i>',
+                pw: '<i class="fas fa-fw fa-chess-pawn" style="' + whitePiecesStyle + '"></i>',
+                rb: '<i class="fas fa-fw fa-chess-rook"></i>',
+                nb: '<i class="fas fa-fw fa-chess-knight"></i>',
+                bb: '<i class="fas fa-fw fa-chess-bishop"></i>',
+                qb: '<i class="fas fa-fw fa-chess-queen"></i>',
+                kb: '<i class="fas fa-fw fa-chess-king"></i>',
+                pb: '<i class="fas fa-fw fa-chess-pawn"></i>'
             }
         }
     )
