@@ -38,7 +38,7 @@ export class HistoryControl extends Component {
             this.$btnForward = $(`<button type="button" title="${i18n.t('one_move_forward')}" class="btn btn-icon forward"><i class="fa fa-fw fa-step-forward" aria-hidden="true"></i></button>`)
             this.$btnLast = $(`<button type="button" title="${i18n.t('to_last_move')}" class="btn btn-icon last"><i class="fa fa-fw fa-fast-forward" aria-hidden="true"></i></button>`)
             this.$btnAutoplay = $(`<button type="button" title="${i18n.t('auto_run')}" class="btn btn-icon autoplay"><i class="fa fa-fw fa-play" aria-hidden="true"></i><i class="fa fa-fw fa-stop" aria-hidden="true"></i></button>`)
-            this.$btnOrientation = $(`<button type="button" title="${i18n.t('turn_board')}" class="btn btn-icon orientation"><i class="fa fa-fw fa-exchange-alt fa-rotate-90" aria-hidden="true"></i></button>\`)`)
+            this.$btnOrientation = $(`<button type="button" title="${i18n.t('turn_board')}" class="btn btn-icon orientation"><i class="fa fa-fw fa-exchange-alt fa-rotate-90" aria-hidden="true"></i></button>`)
 
             console.componentContainers.controlButtons.appendChild(this.$btnFirst[0])
             console.componentContainers.controlButtons.appendChild(this.$btnBack[0])
@@ -135,15 +135,6 @@ export class HistoryControl extends Component {
                 this.$btnForward.prop('disabled', true)
                 this.$btnAutoplay.prop('disabled', true)
             }
-            /*
-            if(this.module.state.gameStarted()) {
-                this.$btnAutoplay.prop('disabled', false)
-                this.$btnOrientation.prop('disabled', false)
-            } else {
-                this.$btnAutoplay.prop('disabled', true)
-                this.$btnOrientation.prop('disabled', true)
-            }
-            */
         })
         this.updatePlayIcon()
     }
