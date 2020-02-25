@@ -7,7 +7,6 @@
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
 import {Component} from "../../../lib/cm-web-modules/app/Component.js"
-import {I18n} from "../../../lib/cm-web-modules/i18n/I18n.js"
 
 export class HistoryControl extends Component {
     constructor(console) {
@@ -33,22 +32,20 @@ export class HistoryControl extends Component {
                 "turn_board": "Turn board"
             }
         }).then(() => {
-            this.element = document.createElement("span")
-            this.element.setAttribute("class", "history-control")
-            console.componentContainers.controlButtons.appendChild(this.element)
-            const $element = $(this.element)
-            $element.html(`<button type="button" title="${i18n.t('to_game_start')}" class="btn btn-icon first"><i class="fa fa-fw fa-fast-backward" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('one_move_back')}" class="btn btn-icon back"><i class="fa fa-fw fa-step-backward" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('one_move_forward')}" class="btn btn-icon forward"><i class="fa fa-fw fa-step-forward" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('to_last_move')}" class="btn btn-icon last"><i class="fa fa-fw fa-fast-forward" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('auto_run')}" class="btn btn-icon autoplay"><i class="fa fa-fw fa-play" aria-hidden="true"></i><i class="fa fa-fw fa-stop" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('turn_board')}" class="btn btn-icon orientation"><i class="fa fa-fw fa-exchange-alt fa-rotate-90" aria-hidden="true"></i></button>`)
-            this.$btnFirst = $element.find(".first")
-            this.$btnBack = $element.find(".back")
-            this.$btnForward = $element.find(".forward")
-            this.$btnLast = $element.find(".last")
-            this.$btnAutoplay = $element.find(".autoplay")
-            this.$btnOrientation = $element.find(".orientation")
+
+            this.$btnFirst = $(`<button type="button" title="${i18n.t('to_game_start')}" class="btn btn-icon first"><i class="fa fa-fw fa-fast-backward" aria-hidden="true"></i></button>`)
+            this.$btnBack = $(`<button type="button" title="${i18n.t('one_move_back')}" class="btn btn-icon back"><i class="fa fa-fw fa-step-backward" aria-hidden="true"></i></button>`)
+            this.$btnForward = $(`<button type="button" title="${i18n.t('one_move_forward')}" class="btn btn-icon forward"><i class="fa fa-fw fa-step-forward" aria-hidden="true"></i></button>`)
+            this.$btnLast = $(`<button type="button" title="${i18n.t('to_last_move')}" class="btn btn-icon last"><i class="fa fa-fw fa-fast-forward" aria-hidden="true"></i></button>`)
+            this.$btnAutoplay = $(`<button type="button" title="${i18n.t('auto_run')}" class="btn btn-icon autoplay"><i class="fa fa-fw fa-play" aria-hidden="true"></i><i class="fa fa-fw fa-stop" aria-hidden="true"></i></button>`)
+            this.$btnOrientation = $(`<button type="button" title="${i18n.t('turn_board')}" class="btn btn-icon orientation"><i class="fa fa-fw fa-exchange-alt fa-rotate-90" aria-hidden="true"></i></button>\`)`)
+
+            console.componentContainers.controlButtons.appendChild(this.$btnFirst[0])
+            console.componentContainers.controlButtons.appendChild(this.$btnBack[0])
+            console.componentContainers.controlButtons.appendChild(this.$btnForward[0])
+            console.componentContainers.controlButtons.appendChild(this.$btnLast[0])
+            console.componentContainers.controlButtons.appendChild(this.$btnAutoplay[0])
+            console.componentContainers.controlButtons.appendChild(this.$btnOrientation[0])
 
             this.console.state.observeChess(() => {
                 this.setButtonStates()

@@ -7,16 +7,16 @@ import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class GameStateOutput extends Component {
 
-    constructor(console) {
-        super(console)
+    constructor(chessConsole) {
+        super(chessConsole)
 
-        this.console = console
-        this.i18n = console.i18n
+        this.console = chessConsole
+        this.i18n = chessConsole.i18n
         this.i18n.load(
             {
                 de: {
                     game_over: "Das Spiel ist beendet",
-                    check: "Schach",
+                    check: "Schach!",
                     checkmate: "Schachmatt",
                     draw: "Remis",
                     stalemate: "Patt",
@@ -24,7 +24,7 @@ export class GameStateOutput extends Component {
                 },
                 en: {
                     game_over: "The game is over",
-                    check: "Check",
+                    check: "Check!",
                     checkmate: "Checkmate",
                     draw: "Remis",
                     stalemate: "Stalemate",
@@ -34,7 +34,7 @@ export class GameStateOutput extends Component {
         )
         const chess = this.console.state.chess
         this.element = document.createElement("div")
-        this.element.setAttribute("class", "gameState text-info mb-2")
+        this.element.setAttribute("class", "gameState alert alert-primary mb-2")
         this.console.componentContainers.notifications.appendChild(this.element)
 
         this.console.state.observeChess(() => {
@@ -55,7 +55,12 @@ export class GameStateOutput extends Component {
             } else {
                 html = ""
             }
-            this.element.innerHTML = `${html}`
+            if(html) {
+                this.console.componentContainers.notifications.style.display = "block"
+                this.element.innerHTML = `${html}`
+            } else {
+                this.console.componentContainers.notifications.style.display = "none"
+            }
         })
     }
 

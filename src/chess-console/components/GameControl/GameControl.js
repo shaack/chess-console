@@ -24,14 +24,12 @@ export class GameControl extends Component {
                 "undo_move": "Undo move"
             }
         }).then(() => {
-            this.element = document.createElement("span")
-            this.element.setAttribute("class", "game-control")
-            console.componentContainers.controlButtons.appendChild(this.element)
-            const $element = $(this.element)
-            $element.html(`<button type="button" title="${i18n.t('undo_move')}" class="btn btn-icon undoMove"><i class="fa fa-fw fa-undo" aria-hidden="true"></i></button>
-                <button type="button" title="${i18n.t('start_game')}" class="btn btn-icon startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>`)
-            this.$btnUndoMove = $element.find(".undoMove")
-            this.$btnStartNewGame = $element.find(".startNewGame")
+
+            this.$btnUndoMove = $(`<button type="button" title="${i18n.t('undo_move')}" class="btn btn-icon btn-light undoMove"><i class="fa fa-fw fa-undo" aria-hidden="true"></i></button>`)
+            this.$btnStartNewGame = $(`<button type="button" title="${i18n.t('start_game')}" class="btn btn-icon btn-light startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>\`)`)
+
+            console.componentContainers.controlButtons.appendChild(this.$btnUndoMove[0])
+            console.componentContainers.controlButtons.appendChild(this.$btnStartNewGame[0])
 
             this.$btnUndoMove.click(() => {
                 this.console.undoMove()

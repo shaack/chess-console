@@ -1,18 +1,17 @@
 @import "../../node_modules/bootstrap/scss/variables";
 
 .flex-buttons {
-  float: left;
-  .text {
-    float: left;
-    padding: 4px 3px;
-  }
+  display: flex;
+  flex-wrap: wrap;
   button {
-    float: left;
-    margin-right: $spacer-small;
-    margin-bottom: $spacer-small;
+    margin-right: $spacer / 2;
+    margin-bottom: $spacer / 2;
     background-color: transparent;
+    &:disabled {
+      color: rgba(0,0,0,0.5);
+    }
   }
-  margin-bottom: $spacer-small;
+  margin-bottom: $spacer / 2;
 }
 
 .chess-console {
@@ -73,10 +72,8 @@
           color: $orange;
         }
       }
-      .game-control {
-        .btn {
-          background-color: rgba(0, 0, 0, 0.05);
-        }
+      .btn-light {
+        background-color: rgba(0, 0, 0, 0.05);
       }
       .btn-active {
         color: $green;
