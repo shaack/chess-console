@@ -9,8 +9,6 @@ import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBrok
 import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
 import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
-import {PIECES} from "../../lib/cm-chesstools/ChessTools.js"
-
 
 export const messageBrokerTopics = {
     newGame: "game/new",
@@ -153,12 +151,14 @@ export class ChessConsole extends App {
      */
     nextMove() {
         const playerToMove = this.playerToMove()
-        this.messageBroker.publish(messageBrokerTopics.moveRequest, {playerToMove: playerToMove})
-        setTimeout(() => {
-            playerToMove.moveRequest(this.state.chess.fen(), (san) => {
-                this.moveResponse(san)
+        if(playerToMove) {
+            this.messageBroker.publish(messageBrokerTopics.moveRequest, {playerToMove: playerToMove})
+            setTimeout(() => {
+                playerToMove.moveRequest(this.state.chess.fen(), (san) => {
+                    this.moveResponse(san)
+                })
             })
-        })
+        }
     }
 
     /*
