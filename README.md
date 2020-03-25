@@ -4,13 +4,15 @@ chess-console is a **chess game client framework**, which uses [cm-chessboard](h
 and [Bootstrap 4](https://getbootstrap.com/) to create a browser based, mobile friendly, responsive 
 chess game gui.
 
-- **[Demo Page](https://shaack.com/projekte/chess-console)**
 - **[Repository on GitHub](https://github.com/shaack/chess-console)**
+- **[Demo pages](https://shaack.com/projekte/chess-console)**
 
 Because if its component architecture chess-console is expandable for
 all kind of chess pages. You may check out the [Stockfish Player](https://github.com/shaack/chess-console-stockfish) 
 for chess-console, with whom chess-console is a fully functional online
 chess computer.
+
+- **[chess-console is used in the chess server "chessmail"](https://www.chessmail.eu/pages/chess-computer.html)**
 
 ## Screenshot
 
@@ -31,16 +33,17 @@ chess computer.
 - props: Properties
 
 #### props
+```
 {
     soundSpriteFile: "/assets/sounds/chess_console_sounds.mp3",
     chessboardSpriteFile: "/assets/images/chessboard-sprite.svg",
     playerColor: "w"|"b",
     history: [PGN notation], // initial history
 }
-
+```
 ### state
 `chessConsole.state`
-
+```
 {
     this.chess = new Chess()
     this.playerColor = props.playerColor || COLOR.white
@@ -48,7 +51,7 @@ chess computer.
     this.plyViewed = 0
     this.plyCount = 0
 }
-
+```
 ### Methods
 
 #### playerWhite()
