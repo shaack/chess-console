@@ -44,27 +44,30 @@ export class ChessConsole extends App {
                 pb: '<i class="fas fa-fw fa-chess-pawn" style="' + blackPiecesStyle + '"></i>'
             }
         }
-        Object.assign(this.props, props)
-        this.container = container
-        this.i18n = new I18n({locale: props.locale})
-        this.messageBroker = new MessageBroker()
-        this.state = new ChessConsoleState(this.props)
         const colSets = {
             consoleGame: "col-lg-7 order-lg-2 col-md-8 order-md-1 order-sm-1 col-sm-12 order-sm-1",
             consoleRight: "col-lg-3 order-lg-3 col-md-4 order-md-2 col-sm-8 order-sm-3",
             consoleLeft: "col-lg-2 order-lg-1 order-md-3 col-sm-4 order-sm-2"
         }
-        this.container.innerHTML =
-            `<div class="row chess-console">
-                <div class="chess-console-board ${colSets.consoleGame}">
-                </div>
-                <div class="chess-console-right ${colSets.consoleRight}">
-                    <div class="control-buttons flex-buttons"></div>
-                    <div class="chess-console-notifications"></div>
-                </div>
-                <div class="chess-console-left ${colSets.consoleLeft}">
-                </div>
-            </div>`
+        if (!this.props.template) {
+            this.props.template =
+                `<div class="row chess-console">
+                    <div class="chess-console-board ${colSets.consoleGame}">
+                    </div>
+                    <div class="chess-console-right ${colSets.consoleRight}">
+                        <div class="control-buttons flex-buttons"></div>
+                        <div class="chess-console-notifications"></div>
+                    </div>
+                    <div class="chess-console-left ${colSets.consoleLeft}">
+                    </div>
+                </div>`
+        }
+        Object.assign(this.props, props)
+        this.container = container
+        this.i18n = new I18n({locale: props.locale})
+        this.messageBroker = new MessageBroker()
+        this.state = new ChessConsoleState(this.props)
+        this.container.innerHTML = this.props.template
         this.componentContainers = {
             board: this.container.querySelector(".chess-console-board"),
             left: this.container.querySelector(".chess-console-left"),
@@ -151,7 +154,7 @@ export class ChessConsole extends App {
      */
     nextMove() {
         const playerToMove = this.playerToMove()
-        if(playerToMove) {
+        if (playerToMove) {
             this.messageBroker.publish(messageBrokerTopics.moveRequest, {playerToMove: playerToMove})
             setTimeout(() => {
                 playerToMove.moveRequest(this.state.chess.fen(), (san) => {
