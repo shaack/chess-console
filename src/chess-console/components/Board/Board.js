@@ -20,7 +20,7 @@ export class Board extends Component {
 
     constructor(console, props) {
         super(console, props)
-        if(!console.props.chessboardSpriteFile) {
+        if (!console.props.chessboardSpriteFile) {
             console.props.chessboardSpriteFile = "/assets/images/chessboard-sprite.svg"
         }
         this.initialization = new Promise((resolve) => {
@@ -61,7 +61,7 @@ export class Board extends Component {
                     url: console.props.chessboardSpriteFile, // pieces and markers
                 }
             }
-            if(console.props.chessboardStyle) {
+            if (console.props.chessboardStyle) {
                 props.style = console.props.chessboardStyle
             }
             this.chessboard = new Chessboard(this.elements.chessboard, props)
@@ -81,15 +81,11 @@ export class Board extends Component {
             })
             this.chessboard.initialization.then(() => {
                 this.console.messageBroker.subscribe(messageBrokerTopics.illegalMove, (message) => {
-                    for (let i = 0; i < 3; i++) {
-                        setTimeout(() => {
-                            this.chessboard.addMarker(message.move.from, MARKER_TYPE.wrongMove)
-                            this.chessboard.addMarker(message.move.to, MARKER_TYPE.wrongMove)
-                        }, i * 400)
-                        setTimeout(() => {
-                            this.chessboard.removeMarkers(null, MARKER_TYPE.wrongMove)
-                        }, i * 400 + 200)
-                    }
+                    this.chessboard.addMarker(message.move.from, MARKER_TYPE.wrongMove)
+                    this.chessboard.addMarker(message.move.to, MARKER_TYPE.wrongMove)
+                    setTimeout(() => {
+                        this.chessboard.removeMarkers(null, MARKER_TYPE.wrongMove)
+                    }, 500)
                 })
                 this.setPositionOfPlyViewed(false)
                 window.addEventListener("resize", () => {
