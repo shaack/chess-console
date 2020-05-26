@@ -72,7 +72,7 @@ export class ChessConsole extends App {
             board: this.container.querySelector(".chess-console-board"),
             left: this.container.querySelector(".chess-console-left"),
             right: this.container.querySelector(".chess-console-right"),
-            controlButtons: this.container.querySelector(".chess-console-right .control-buttons"),
+            controlButtons: this.container.querySelector(".control-buttons"),
             notifications: this.container.querySelector(".chess-console-notifications")
         }
 
