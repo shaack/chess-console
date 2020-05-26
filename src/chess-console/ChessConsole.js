@@ -52,7 +52,8 @@ export class ChessConsole extends App {
         if (!this.props.template) {
             this.props.template =
                 `<div class="row chess-console">
-                    <div class="chess-console-board ${colSets.consoleGame}">
+                    <div class="chess-console-center ${colSets.consoleGame}">
+                        <div class="chess-console-board"></div>
                     </div>
                     <div class="chess-console-right ${colSets.consoleRight}">
                         <div class="control-buttons flex-buttons"></div>
@@ -69,9 +70,10 @@ export class ChessConsole extends App {
         this.state = new ChessConsoleState(this.props)
         this.container.innerHTML = this.props.template
         this.componentContainers = {
-            board: this.container.querySelector(".chess-console-board"),
+            center: this.container.querySelector(".chess-console-center"),
             left: this.container.querySelector(".chess-console-left"),
             right: this.container.querySelector(".chess-console-right"),
+            board: this.container.querySelector(".chess-console-board"), // TODO put selector inside the components
             controlButtons: this.container.querySelector(".control-buttons"),
             notifications: this.container.querySelector(".chess-console-notifications")
         }
