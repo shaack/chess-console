@@ -9,11 +9,11 @@ import {COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
 import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class HistoryControl extends Component {
-    constructor(console) {
-        super(console)
+    constructor(chessConsole) {
+        super(chessConsole)
 
-        this.console = console
-        const i18n = console.i18n
+        this.chessConsole = chessConsole
+        const i18n = chessConsole.i18n
         i18n.load({
             de: {
                 "to_game_start": "Zum Spielstart",
@@ -40,41 +40,41 @@ export class HistoryControl extends Component {
             this.$btnAutoplay = $(`<button type="button" title="${i18n.t('auto_run')}" class="btn btn-icon autoplay"><i class="fa fa-fw fa-play" aria-hidden="true"></i><i class="fa fa-fw fa-stop" aria-hidden="true"></i></button>`)
             this.$btnOrientation = $(`<button type="button" title="${i18n.t('turn_board')}" class="btn btn-icon orientation"><i class="fa fa-fw fa-exchange-alt fa-rotate-90" aria-hidden="true"></i></button>`)
 
-            console.componentContainers.controlButtons.appendChild(this.$btnFirst[0])
-            console.componentContainers.controlButtons.appendChild(this.$btnBack[0])
-            console.componentContainers.controlButtons.appendChild(this.$btnForward[0])
-            console.componentContainers.controlButtons.appendChild(this.$btnLast[0])
-            console.componentContainers.controlButtons.appendChild(this.$btnAutoplay[0])
-            console.componentContainers.controlButtons.appendChild(this.$btnOrientation[0])
+            chessConsole.componentContainers.controlButtons.appendChild(this.$btnFirst[0])
+            chessConsole.componentContainers.controlButtons.appendChild(this.$btnBack[0])
+            chessConsole.componentContainers.controlButtons.appendChild(this.$btnForward[0])
+            chessConsole.componentContainers.controlButtons.appendChild(this.$btnLast[0])
+            chessConsole.componentContainers.controlButtons.appendChild(this.$btnAutoplay[0])
+            chessConsole.componentContainers.controlButtons.appendChild(this.$btnOrientation[0])
 
-            this.console.state.observeChess(() => {
+            this.chessConsole.state.observeChess(() => {
                 this.setButtonStates()
             })
 
-            Observe.property(this.console.state, "plyViewed", () => {
+            Observe.property(this.chessConsole.state, "plyViewed", () => {
                 this.setButtonStates()
             })
-            Observe.property(this.console.state, "orientation", () => {
-                if (this.console.state.orientation !== this.console.props.playerColor) {
+            Observe.property(this.chessConsole.state, "orientation", () => {
+                if (this.chessConsole.state.orientation !== this.chessConsole.props.playerColor) {
                     this.$btnOrientation.addClass("btn-active") // todo
                 } else {
                     this.$btnOrientation.removeClass("btn-active") // todo
                 }
             })
             this.$btnFirst.click(() => {
-                this.console.state.plyViewed = 0
+                this.chessConsole.state.plyViewed = 0
             })
             this.$btnBack.click(() => {
-                this.console.state.plyViewed--
+                this.chessConsole.state.plyViewed--
             })
             this.$btnForward.click(() => {
-                this.console.state.plyViewed++
+                this.chessConsole.state.plyViewed++
             })
             this.$btnLast.click(() => {
-                this.console.state.plyViewed = this.console.state.plyCount
+                this.chessConsole.state.plyViewed = this.chessConsole.state.plyCount
             })
             this.$btnOrientation.click(() => {
-                this.console.state.orientation = this.console.state.orientation === COLOR.white ? COLOR.black : COLOR.white
+                this.chessConsole.state.orientation = this.chessConsole.state.orientation === COLOR.white ? COLOR.black : COLOR.white
             })
             this.$btnAutoplay.click(() => {
                 if (this.autoplay) {
@@ -82,15 +82,15 @@ export class HistoryControl extends Component {
                     this.autoplay = null
 
                 } else {
-                    this.console.state.plyViewed++
+                    this.chessConsole.state.plyViewed++
                     this.autoplay = setInterval(() => {
-                        if (this.console.state.plyViewed >= this.console.state.plyCount) {
+                        if (this.chessConsole.state.plyViewed >= this.chessConsole.state.plyCount) {
                             clearInterval(this.autoplay)
                             this.autoplay = null
                             this.updatePlayIcon()
                         } else {
-                            this.console.state.plyViewed++
-                            if (this.console.state.plyViewed >= this.console.state.plyCount) {
+                            this.chessConsole.state.plyViewed++
+                            if (this.chessConsole.state.plyViewed >= this.chessConsole.state.plyCount) {
                                 clearInterval(this.autoplay)
                                 this.autoplay = null
                                 this.updatePlayIcon()
@@ -119,14 +119,14 @@ export class HistoryControl extends Component {
     setButtonStates() {
         window.clearTimeout(this.redrawDebounce)
         this.redrawDebounce = setTimeout(() => {
-            if (this.console.state.plyViewed > 0) {
+            if (this.chessConsole.state.plyViewed > 0) {
                 this.$btnFirst.prop('disabled', false)
                 this.$btnBack.prop('disabled', false)
             } else {
                 this.$btnFirst.prop('disabled', true)
                 this.$btnBack.prop('disabled', true)
             }
-            if (this.console.state.plyViewed < this.console.state.plyCount) {
+            if (this.chessConsole.state.plyViewed < this.chessConsole.state.plyCount) {
                 this.$btnLast.prop('disabled', false)
                 this.$btnForward.prop('disabled', false)
                 this.$btnAutoplay.prop('disabled', false)

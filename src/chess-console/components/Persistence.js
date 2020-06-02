@@ -10,13 +10,13 @@ import {messageBrokerTopics} from "../ChessConsole.js"
 
 export class Persistence extends Component {
 
-    constructor(console) {
-        super(console)
-        this.console = console
-        this.console.state.observeChess(() => {
+    constructor(chessConsole) {
+        super(chessConsole)
+        this.chessConsole = chessConsole
+        this.chessConsole.state.observeChess(() => {
             this.save()
         })
-        this.console.persistence = this
+        this.chessConsole.persistence = this
     }
 
     load(saveName) {
@@ -31,17 +31,17 @@ export class Persistence extends Component {
             if (localStorage.getItem(this.prefix + "history") !== null) {
                 props.history = localStorage.getItem(this.prefix + "history")
             }
-            this.console.messageBroker.publish(messageBrokerTopics.load)
-            this.console.initGame(props)
+            this.chessConsole.messageBroker.publish(messageBrokerTopics.load)
+            this.chessConsole.initGame(props)
         } catch (e) {
             localStorage.clear()
             console.warn(e)
-            this.console.initGame({playerColor: COLOR.white})
+            this.chessConsole.initGame({playerColor: COLOR.white})
         }
     }
 
     loadValue(valueName) {
-        let item
+        let item = null
         try {
             item = localStorage.getItem(this.prefix + valueName)
             return JSON.parse(item)
@@ -53,8 +53,8 @@ export class Persistence extends Component {
     }
 
     save() {
-        localStorage.setItem(this.prefix + "playerColor", JSON.stringify(this.console.props.playerColor))
-        localStorage.setItem(this.prefix + "history", this.console.state.chess.pgn())
+        localStorage.setItem(this.prefix + "playerColor", JSON.stringify(this.chessConsole.props.playerColor))
+        localStorage.setItem(this.prefix + "history", this.chessConsole.state.chess.pgn())
     }
 
     saveValue(valueName, value) {

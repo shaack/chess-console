@@ -18,14 +18,14 @@ export const MARKER_TYPE = {
 
 export class Board extends Component {
 
-    constructor(console, props) {
-        super(console, props)
-        if (!console.props.chessboardSpriteFile) {
-            console.props.chessboardSpriteFile = "/assets/images/chessboard-sprite.svg"
+    constructor(chessConsole, props) {
+        super(chessConsole, props)
+        if (!chessConsole.props.chessboardSpriteFile) {
+            chessConsole.props.chessboardSpriteFile = "/assets/images/chessboard-sprite.svg"
         }
         this.initialization = new Promise((resolve) => {
-            console.board = this
-            this.console = console
+            chessConsole.board = this
+            this.chessConsole = chessConsole
             this.elements = {
                 playerTop: document.createElement("div"),
                 playerBottom: document.createElement("div"),
@@ -36,11 +36,11 @@ export class Board extends Component {
             this.elements.playerBottom.setAttribute("class", "player bottom")
             this.elements.playerBottom.innerHTML = "&nbsp;"
             this.elements.chessboard.setAttribute("class", "chessboard")
-            console.componentContainers.board.appendChild(this.elements.playerTop)
-            console.componentContainers.board.appendChild(this.elements.chessboard)
-            console.componentContainers.board.appendChild(this.elements.playerBottom)
+            chessConsole.componentContainers.board.appendChild(this.elements.playerTop)
+            chessConsole.componentContainers.board.appendChild(this.elements.chessboard)
+            chessConsole.componentContainers.board.appendChild(this.elements.playerBottom)
             this.resize()
-            this.console.state.observeChess((params) => {
+            this.chessConsole.state.observeChess((params) => {
                 let animated = true
                 if (params.functionName === "load_pgn") {
                     animated = false
@@ -48,7 +48,7 @@ export class Board extends Component {
                 this.setPositionOfPlyViewed(animated)
                 this.markLastMove()
             })
-            Observe.property(this.console.state, "plyViewed", () => {
+            Observe.property(this.chessConsole.state, "plyViewed", () => {
                 this.setPositionOfPlyViewed()
                 this.markLastMove()
             })
@@ -56,31 +56,31 @@ export class Board extends Component {
                 responsive: true,
                 position: "empty",
                 moveInputMode: MOVE_INPUT_MODE.dragPiece,
-                orientation: console.state.orientation,
+                orientation: chessConsole.state.orientation,
                 sprite: {
-                    url: console.props.chessboardSpriteFile, // pieces and markers
+                    url: chessConsole.props.chessboardSpriteFile, // pieces and markers
                 }
             }
-            if (console.props.chessboardStyle) {
-                props.style = console.props.chessboardStyle
+            if (chessConsole.props.chessboardStyle) {
+                props.style = chessConsole.props.chessboardStyle
             }
             this.chessboard = new Chessboard(this.elements.chessboard, props)
-            Observe.property(console.state, ["orientation"], () => {
+            Observe.property(chessConsole.state, ["orientation"], () => {
                 this.setPlayerNames()
-                this.chessboard.setOrientation(console.state.orientation)
+                this.chessboard.setOrientation(chessConsole.state.orientation)
                 this.markPlayerToMove()
             })
-            Observe.property(console.player, "name", () => {
+            Observe.property(chessConsole.player, "name", () => {
                 this.setPlayerNames()
             })
-            Observe.property(console.opponent, "name", () => {
+            Observe.property(chessConsole.opponent, "name", () => {
                 this.setPlayerNames()
             })
-            console.messageBroker.subscribe(messageBrokerTopics.moveRequest, () => {
+            chessConsole.messageBroker.subscribe(messageBrokerTopics.moveRequest, () => {
                 this.markPlayerToMove()
             })
             this.chessboard.initialization.then(() => {
-                this.console.messageBroker.subscribe(messageBrokerTopics.illegalMove, (message) => {
+                this.chessConsole.messageBroker.subscribe(messageBrokerTopics.illegalMove, (message) => {
                     this.chessboard.addMarker(message.move.from, MARKER_TYPE.wrongMove)
                     this.chessboard.addMarker(message.move.to, MARKER_TYPE.wrongMove)
                     setTimeout(() => {
@@ -106,7 +106,7 @@ export class Board extends Component {
     setPositionOfPlyViewed(animated = true) {
         clearTimeout(this.setPositionOfPlyViewedDebounced)
         this.setPositionOfPlyViewedDebounced = setTimeout(() => {
-            const to = this.console.state.fenOfPly(this.console.state.plyViewed)
+            const to = this.chessConsole.state.fenOfPly(this.chessConsole.state.plyViewed)
             this.chessboard.setPosition(to, animated)
         })
     }
@@ -116,14 +116,14 @@ export class Board extends Component {
         this.markLastMoveDebounce = setTimeout(() => {
             this.chessboard.removeMarkers(null, MARKER_TYPE.lastMove)
             this.chessboard.removeMarkers(null, MARKER_TYPE.check)
-            if (this.console.state.plyViewed === this.console.state.plyCount) {
-                const lastMove = this.console.state.lastMove()
+            if (this.chessConsole.state.plyViewed === this.chessConsole.state.plyCount) {
+                const lastMove = this.chessConsole.state.lastMove()
                 if (lastMove) {
                     this.chessboard.addMarker(lastMove.from, MARKER_TYPE.lastMove)
                     this.chessboard.addMarker(lastMove.to, MARKER_TYPE.lastMove)
                 }
-                if (this.console.state.chess.in_check() || this.console.state.chess.in_checkmate()) {
-                    const kingSquare = this.console.state.pieces("k", this.console.state.chess.turn())[0]
+                if (this.chessConsole.state.chess.in_check() || this.chessConsole.state.chess.in_checkmate()) {
+                    const kingSquare = this.chessConsole.state.pieces("k", this.chessConsole.state.chess.turn())[0]
                     this.chessboard.addMarker(kingSquare.square, MARKER_TYPE.check)
                 }
             }
@@ -133,12 +133,12 @@ export class Board extends Component {
     setPlayerNames() {
         window.clearTimeout(this.setPlayerNamesDebounce)
         this.setPlayerNamesDebounce = setTimeout(() => {
-            if (this.console.props.playerColor === this.console.state.orientation) {
-                this.elements.playerBottom.innerHTML = this.console.player.name
-                this.elements.playerTop.innerHTML = this.console.opponent.name
+            if (this.chessConsole.props.playerColor === this.chessConsole.state.orientation) {
+                this.elements.playerBottom.innerHTML = this.chessConsole.player.name
+                this.elements.playerTop.innerHTML = this.chessConsole.opponent.name
             } else {
-                this.elements.playerBottom.innerHTML = this.console.opponent.name
-                this.elements.playerTop.innerHTML = this.console.player.name
+                this.elements.playerBottom.innerHTML = this.chessConsole.opponent.name
+                this.elements.playerTop.innerHTML = this.chessConsole.player.name
             }
         })
     }
@@ -148,12 +148,12 @@ export class Board extends Component {
         this.markPlayerToMoveDebounce = setTimeout(() => {
             this.elements.playerTop.classList.remove("to-move")
             this.elements.playerBottom.classList.remove("to-move")
-            const playerMove = this.console.playerToMove()
+            const playerMove = this.chessConsole.playerToMove()
             if (
-                this.console.state.orientation === COLOR.white &&
-                playerMove === this.console.playerWhite() ||
-                this.console.state.orientation === COLOR.black &&
-                playerMove === this.console.playerBlack()) {
+                this.chessConsole.state.orientation === COLOR.white &&
+                playerMove === this.chessConsole.playerWhite() ||
+                this.chessConsole.state.orientation === COLOR.black &&
+                playerMove === this.chessConsole.playerBlack()) {
                 this.elements.playerBottom.classList.add("to-move")
             } else {
                 this.elements.playerTop.classList.add("to-move")

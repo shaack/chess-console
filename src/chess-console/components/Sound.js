@@ -10,13 +10,13 @@ import {messageBrokerTopics} from "../ChessConsole.js"
 
 export class Sound extends Component {
 
-    constructor(console) {
-        super(console)
-        this.console = console
-        if(!console.props.soundSpriteFile) {
-            console.props.soundSpriteFile = "/assets/sounds/chess_console_sounds.mp3"
+    constructor(chessConsole) {
+        super(chessConsole)
+        this.chessConsole = chessConsole
+        if(!chessConsole.props.soundSpriteFile) {
+            chessConsole.props.soundSpriteFile = "/assets/sounds/chess_console_sounds.mp3"
         }
-        this.audioSprite = new AudioSprite(console.props.soundSpriteFile,
+        this.audioSprite = new AudioSprite(chessConsole.props.soundSpriteFile,
             {
                 gain: 1,
                 slices: {
@@ -34,11 +34,11 @@ export class Sound extends Component {
                     "dialog": {offset: 10.8, duration: 0.45}
                 }
             })
-        console.messageBroker.subscribe(messageBrokerTopics.newGame, () => {
+        chessConsole.messageBroker.subscribe(messageBrokerTopics.newGame, () => {
             this.play("game_start")
         })
-        console.messageBroker.subscribe(messageBrokerTopics.legalMove, (data) => {
-            const chess = this.console.state.chess
+        chessConsole.messageBroker.subscribe(messageBrokerTopics.legalMove, (data) => {
+            const chess = this.chessConsole.state.chess
             const flags = data.moveResult.flags
             if (flags.indexOf("p") !== -1) {
                 this.play("promotion") // todo create promotion sound
@@ -53,18 +53,18 @@ export class Sound extends Component {
                 this.play("check")
             }
         })
-        console.messageBroker.subscribe(messageBrokerTopics.illegalMove, () => {
+        chessConsole.messageBroker.subscribe(messageBrokerTopics.illegalMove, () => {
             this.play("wrong_move")
         })
-        console.messageBroker.subscribe(messageBrokerTopics.moveUndone, () => {
+        chessConsole.messageBroker.subscribe(messageBrokerTopics.moveUndone, () => {
             this.play("take_back")
         })
-        console.messageBroker.subscribe(messageBrokerTopics.gameOver, (data) => {
+        chessConsole.messageBroker.subscribe(messageBrokerTopics.gameOver, (data) => {
             setTimeout(() => {
                 if(!data.wonColor) {
                     this.play("game_lost")
                 } else {
-                    if(data.wonColor === this.console.props.playerColor) {
+                    if(data.wonColor === this.chessConsole.props.playerColor) {
                         this.play("game_won")
                     } else {
                         this.play("game_lost")
@@ -72,7 +72,7 @@ export class Sound extends Component {
                 }
             }, 500)
         })
-        console.sound = this
+        chessConsole.sound = this
     }
 
     play(soundName) {

@@ -9,11 +9,11 @@ import {NewGameDialog} from "./NewGameDialog.js"
 
 export class GameControl extends Component {
 
-    constructor(console, props) {
-        super(console, props)
+    constructor(chessConsole, props) {
+        super(chessConsole, props)
 
-        this.console = console
-        const i18n = console.i18n
+        this.chessConsole = chessConsole
+        const i18n = chessConsole.i18n
         i18n.load({
             de: {
                 "start_game": "Ein neues Spiel starten",
@@ -28,17 +28,17 @@ export class GameControl extends Component {
             this.$btnUndoMove = $(`<button type="button" title="${i18n.t('undo_move')}" class="btn btn-icon btn-light undoMove"><i class="fa fa-fw fa-undo" aria-hidden="true"></i></button>`)
             this.$btnStartNewGame = $(`<button type="button" title="${i18n.t('start_game')}" class="btn btn-icon btn-light startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>\`)`)
 
-            console.componentContainers.controlButtons.appendChild(this.$btnUndoMove[0])
-            console.componentContainers.controlButtons.appendChild(this.$btnStartNewGame[0])
+            chessConsole.componentContainers.controlButtons.appendChild(this.$btnUndoMove[0])
+            chessConsole.componentContainers.controlButtons.appendChild(this.$btnStartNewGame[0])
 
             this.$btnUndoMove.click(() => {
-                this.console.undoMove()
+                this.chessConsole.undoMove()
             })
             this.$btnStartNewGame.click(() => {
                 this.showNewGameDialog()
             })
 
-            this.console.state.observeChess(() => {
+            this.chessConsole.state.observeChess(() => {
                 this.setButtonStates()
             })
             this.setButtonStates()
@@ -46,13 +46,13 @@ export class GameControl extends Component {
     }
 
     showNewGameDialog() {
-        new NewGameDialog(this.console, {
-            title: this.console.i18n.t('start_game')
+        new NewGameDialog(this.chessConsole, {
+            title: this.chessConsole.i18n.t('start_game')
         })
     }
 
     setButtonStates() {
-        if (this.console.state.plyCount < 2) {
+        if (this.chessConsole.state.plyCount < 2) {
             this.$btnUndoMove.prop("disabled", true)
         } else {
             this.$btnUndoMove.prop("disabled", false)

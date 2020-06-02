@@ -11,19 +11,19 @@ import {ChessTools} from "../../../lib/cm-chesstools/ChessTools.js"
 
 export class History extends Component {
 
-    constructor(console) {
-        super(console)
+    constructor(chessConsole) {
+        super(chessConsole)
 
-        this.console = console
+        this.chessConsole = chessConsole
         this.element = document.createElement("div")
         this.element.setAttribute("class", "history")
-        this.console.componentContainers.left.appendChild(this.element)
+        this.chessConsole.componentContainers.left.appendChild(this.element)
 
-        this.state = console.state
+        this.state = chessConsole.state
         this.state.observeChess(() => {
             this.redraw()
         })
-        Observe.property(console.state, "plyViewed", () => {
+        Observe.property(chessConsole.state, "plyViewed", () => {
             this.redraw()
         })
         EventUtils.delegate(this.element, "click", ".ply", (event) => {
@@ -47,11 +47,11 @@ export class History extends Component {
                 sanWhite = history[i]
                 // console.log(sanWhite);
                 if (sanWhite) {
-                    sanWhite = ChessTools.renderSan(sanWhite, 1, this.console.props.piecesAside)
+                    sanWhite = ChessTools.renderSan(sanWhite, 1, this.chessConsole.props.piecesAside)
                 }
                 sanBlack = history[i + 1]
                 if (sanBlack) {
-                    sanBlack = ChessTools.renderSan(sanBlack, 0, this.console.props.piecesAside)
+                    sanBlack = ChessTools.renderSan(sanBlack, 0, this.chessConsole.props.piecesAside)
                 } else {
                     sanBlack = ""
                 }
