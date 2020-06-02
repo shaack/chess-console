@@ -32,6 +32,7 @@
     "chess.js": "^0.10.3",
     "cm-chessboard": "github:shaack/cm-chessboard",
     "cm-chesstools": "github:shaack/cm-chesstools",
+    "cm-pgn": "^1.3.3",
     "cm-web-modules": "github:shaack/cm-web-modules",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1"
