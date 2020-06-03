@@ -25,11 +25,14 @@ export class ChessConsole extends App {
 
     constructor(container, player, opponent, props = {}) {
         super(props)
-        this.props = {}
-        if (!this.props.piecesAside) {
+        this.props = {
+            notationType: "figures", // Notation of the history as "figures" or "text"
+            locale: navigator.language
+        }
+        if (!this.props.figures) {
             const whitePiecesStyle = 'color: white; text-shadow: 1px  1px 1px black, 1px -1px 1px black, -1px  1px 1px black, -1px -1px 1px black;'
             const blackPiecesStyle = 'color: black; text-shadow: 1px  1px 1px white, 1px -1px 1px white, -1px  1px 1px white, -1px -1px 1px white;'
-            this.props.piecesAside = {
+            this.props.figures = {
                 rw: '<i class="fas fa-fw fa-chess-rook" style="' + whitePiecesStyle + '"></i>',
                 nw: '<i class="fas fa-fw fa-chess-knight" style="' + whitePiecesStyle + '"></i>',
                 bw: '<i class="fas fa-fw fa-chess-bishop" style="' + whitePiecesStyle + '"></i>',

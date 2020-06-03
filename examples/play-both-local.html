@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <title>Chess Console</title>
     <meta charset="UTF-8"/>
@@ -14,7 +14,7 @@
 <body>
 <div class="container-fluid">
     <h1><a href="../">chess-console</a>
-        <small>both players local</small>
+        <small>both players local, text notation (de)</small>
     </h1>
     <div id="console-container"></div>
 </div>
@@ -39,6 +39,7 @@
         {name: "Local Player 1", type: LocalPlayer},
         {name: "Local Player 2", type: LocalPlayer},
         {
+            notationType: "text",
             soundSpriteFile: "../assets/sounds/chess_console_sounds.mp3",
             chessboardSpriteFile: "../assets/images/chessboard-sprite.svg",
         }

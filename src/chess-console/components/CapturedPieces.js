@@ -42,22 +42,22 @@ export class CapturedPieces extends Component {
                     if (move.color === "b") {
                         if (index < this.chessConsole.state.plyViewed) {
                             if (this.chessConsole.state.analyseStartIndex && index > this.chessConsole.state.analyseStartIndex) {
-                                capturedPiecesWhiteConditionalMoves.push(this.chessConsole.props.piecesAside[move.captured + "w"])
+                                capturedPiecesWhiteConditionalMoves.push(this.chessConsole.props.figures[move.captured + "w"])
                             } else {
-                                capturedPiecesWhite.push(this.chessConsole.props.piecesAside[move.captured + "w"])
+                                capturedPiecesWhite.push(this.chessConsole.props.figures[move.captured + "w"])
                             }
                         } else {
-                            capturedPiecesWhiteAfterPlyViewed.push(this.chessConsole.props.piecesAside[move.captured + "w"])
+                            capturedPiecesWhiteAfterPlyViewed.push(this.chessConsole.props.figures[move.captured + "w"])
                         }
                     } else if (move.color === "w") {
                         if (index < this.chessConsole.state.plyViewed) {
                             if (this.chessConsole.state.analyseStartIndex && index > this.chessConsole.state.analyseStartIndex) {
-                                capturedPiecesBlackConditionalMoves.push(this.chessConsole.props.piecesAside[move.captured + "b"])
+                                capturedPiecesBlackConditionalMoves.push(this.chessConsole.props.figures[move.captured + "b"])
                             } else {
-                                capturedPiecesBlack.push(this.chessConsole.props.piecesAside[move.captured + "b"])
+                                capturedPiecesBlack.push(this.chessConsole.props.figures[move.captured + "b"])
                             }
                         } else {
-                            capturedPiecesBlackAfterPlyViewed.push(this.chessConsole.props.piecesAside[move.captured + "b"])
+                            capturedPiecesBlackAfterPlyViewed.push(this.chessConsole.props.figures[move.captured + "b"])
                         }
                     }
                 }

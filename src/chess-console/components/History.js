@@ -7,7 +7,7 @@
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 import {EventUtils} from "../../../lib/cm-web-modules/utils/EventUtils.js"
-import {ChessTools} from "../../../lib/cm-chesstools/ChessTools.js"
+import {ChessTools, COLOR} from "../../../lib/cm-chesstools/ChessTools.js"
 
 export class History extends Component {
 
@@ -36,6 +36,7 @@ export class History extends Component {
         window.clearTimeout(this.redrawDebounce)
         this.redrawDebounce = setTimeout(() => {
             const history = this.state.chess.history()
+            console.log(this.chessConsole.i18n.lang, navigator.language)
             let sanWhite
             let sanBlack
             let output = ""
@@ -47,11 +48,11 @@ export class History extends Component {
                 sanWhite = history[i]
                 // console.log(sanWhite);
                 if (sanWhite) {
-                    sanWhite = ChessTools.renderSan(sanWhite, 1, this.chessConsole.props.piecesAside)
+                    sanWhite = ChessTools.renderSan(sanWhite, COLOR.white,this.chessConsole.i18n.lang, this.chessConsole.props.notationType, this.chessConsole.props.figures)
                 }
                 sanBlack = history[i + 1]
                 if (sanBlack) {
-                    sanBlack = ChessTools.renderSan(sanBlack, 0, this.chessConsole.props.piecesAside)
+                    sanBlack = ChessTools.renderSan(sanBlack, COLOR.black, this.chessConsole.i18n.lang, this.chessConsole.props.notationType, this.chessConsole.props.figures)
                 } else {
                     sanBlack = ""
                 }
