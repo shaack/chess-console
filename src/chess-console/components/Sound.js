@@ -41,7 +41,7 @@ export class Sound extends Component {
             const chess = this.chessConsole.state.chess
             const flags = data.moveResult.flags
             if (flags.indexOf("p") !== -1) {
-                this.play("promotion") // todo create promotion sound
+                this.play("promotion")
             } else if (flags.indexOf("c") !== -1) {
                 this.play("capture")
             } else if (flags.indexOf("k") !== -1 || flags.indexOf("q") !== -1) {
@@ -49,7 +49,7 @@ export class Sound extends Component {
             } else {
                 this.play("move")
             }
-            if (chess.in_check() || chess.in_checkmate()) {
+            if (chess.inCheck() || chess.inCheckmate()) {
                 this.play("check")
             }
         })

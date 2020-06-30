@@ -9,6 +9,7 @@ import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBrok
 import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
 import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
+import {FEN} from "../../lib/cm-chess/Chess.js"
 
 export const messageBrokerTopics = {
     newGame: "game/new",
@@ -33,18 +34,18 @@ export class ChessConsole extends App {
             const whitePiecesStyle = 'color: white; text-shadow: 1px  1px 1px black, 1px -1px 1px black, -1px  1px 1px black, -1px -1px 1px black;'
             const blackPiecesStyle = 'color: black; text-shadow: 1px  1px 1px white, 1px -1px 1px white, -1px  1px 1px white, -1px -1px 1px white;'
             this.props.figures = {
-                rw: '<i class="fas fa-fw fa-chess-rook" style="' + whitePiecesStyle + '"></i>',
-                nw: '<i class="fas fa-fw fa-chess-knight" style="' + whitePiecesStyle + '"></i>',
-                bw: '<i class="fas fa-fw fa-chess-bishop" style="' + whitePiecesStyle + '"></i>',
-                qw: '<i class="fas fa-fw fa-chess-queen" style="' + whitePiecesStyle + '"></i>',
-                kw: '<i class="fas fa-fw fa-chess-king" style="' + whitePiecesStyle + '"></i>',
-                pw: '<i class="fas fa-fw fa-chess-pawn" style="' + whitePiecesStyle + '"></i>',
-                rb: '<i class="fas fa-fw fa-chess-rook" style="' + blackPiecesStyle + '"></i>',
-                nb: '<i class="fas fa-fw fa-chess-knight" style="' + blackPiecesStyle + '"></i>',
-                bb: '<i class="fas fa-fw fa-chess-bishop" style="' + blackPiecesStyle + '"></i>',
-                qb: '<i class="fas fa-fw fa-chess-queen" style="' + blackPiecesStyle + '"></i>',
-                kb: '<i class="fas fa-fw fa-chess-king" style="' + blackPiecesStyle + '"></i>',
-                pb: '<i class="fas fa-fw fa-chess-pawn" style="' + blackPiecesStyle + '"></i>'
+                Rw: '<i class="fas fa-fw fa-chess-rook" style="' + whitePiecesStyle + '"></i>',
+                Nw: '<i class="fas fa-fw fa-chess-knight" style="' + whitePiecesStyle + '"></i>',
+                Bw: '<i class="fas fa-fw fa-chess-bishop" style="' + whitePiecesStyle + '"></i>',
+                Qw: '<i class="fas fa-fw fa-chess-queen" style="' + whitePiecesStyle + '"></i>',
+                Kw: '<i class="fas fa-fw fa-chess-king" style="' + whitePiecesStyle + '"></i>',
+                Pw: '<i class="fas fa-fw fa-chess-pawn" style="' + whitePiecesStyle + '"></i>',
+                Rb: '<i class="fas fa-fw fa-chess-rook" style="' + blackPiecesStyle + '"></i>',
+                Nb: '<i class="fas fa-fw fa-chess-knight" style="' + blackPiecesStyle + '"></i>',
+                Bb: '<i class="fas fa-fw fa-chess-bishop" style="' + blackPiecesStyle + '"></i>',
+                Qb: '<i class="fas fa-fw fa-chess-queen" style="' + blackPiecesStyle + '"></i>',
+                Kb: '<i class="fas fa-fw fa-chess-king" style="' + blackPiecesStyle + '"></i>',
+                Pb: '<i class="fas fa-fw fa-chess-pawn" style="' + blackPiecesStyle + '"></i>'
             }
         }
         const colSets = {
@@ -126,10 +127,10 @@ export class ChessConsole extends App {
         }
         this.state.orientation = this.props.playerColor
         if (props.history) {
-            this.state.chess.load_pgn(props.history, {sloppy: true})
+            this.state.chess.loadPgn(props.history, {sloppy: true})
             this.state.plyViewed = this.state.plyCount
         } else {
-            this.state.chess.reset()
+            this.state.chess.load(FEN.start)
             this.state.plyViewed = 0
         }
         this.messageBroker.publish(messageBrokerTopics.initGame, {props: props})
@@ -145,7 +146,7 @@ export class ChessConsole extends App {
     }
 
     playerToMove() {
-        if (this.state.chess.game_over()) {
+        if (this.state.chess.gameOver()) {
             return null
         } else {
             if (this.state.chess.turn() === "w") {
@@ -196,11 +197,11 @@ export class ChessConsole extends App {
             moveResult: moveResult
         })
         playerMoved.moveResult(move, moveResult)
-        if (!this.state.chess.game_over()) {
+        if (!this.state.chess.gameOver()) {
             this.nextMove()
         } else {
             let wonColor = null
-            if (this.state.chess.in_checkmate()) {
+            if (this.state.chess.inCheckmate()) {
                 wonColor = (this.state.chess.turn() === COLOR.white) ? COLOR.black : COLOR.white
             }
             this.messageBroker.publish(messageBrokerTopics.gameOver, {wonColor: wonColor})

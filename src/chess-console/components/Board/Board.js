@@ -122,8 +122,8 @@ export class Board extends Component {
                     this.chessboard.addMarker(lastMove.from, MARKER_TYPE.lastMove)
                     this.chessboard.addMarker(lastMove.to, MARKER_TYPE.lastMove)
                 }
-                if (this.chessConsole.state.chess.in_check() || this.chessConsole.state.chess.in_checkmate()) {
-                    const kingSquare = this.chessConsole.state.pieces("k", this.chessConsole.state.chess.turn())[0]
+                if (this.chessConsole.state.chess.inCheck() || this.chessConsole.state.chess.inCheckmate()) {
+                    const kingSquare = this.chessConsole.state.chess.pieces("k", this.chessConsole.state.chess.turn())[0]
                     this.chessboard.addMarker(kingSquare.square, MARKER_TYPE.check)
                 }
             }

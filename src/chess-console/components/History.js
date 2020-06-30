@@ -7,7 +7,8 @@
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 import {EventUtils} from "../../../lib/cm-web-modules/utils/EventUtils.js"
-import {ChessTools, COLOR} from "../../../lib/cm-chesstools/ChessTools.js"
+import {ChessRender} from "../../../lib/cm-chess/ChessRender.js"
+import {COLOR} from "../../../lib/cm-chess/Chess.js"
 
 export class History extends Component {
 
@@ -36,7 +37,6 @@ export class History extends Component {
         window.clearTimeout(this.redrawDebounce)
         this.redrawDebounce = setTimeout(() => {
             const history = this.state.chess.history()
-            console.log(this.chessConsole.i18n.lang, navigator.language)
             let sanWhite
             let sanBlack
             let output = ""
@@ -45,14 +45,13 @@ export class History extends Component {
             let whiteClass = ""
             let blackClass = ""
             for (i = 0; i < history.length; i += 2) {
-                sanWhite = history[i]
-                // console.log(sanWhite);
-                if (sanWhite) {
-                    sanWhite = ChessTools.renderSan(sanWhite, COLOR.white,this.chessConsole.i18n.lang, this.chessConsole.props.notationType, this.chessConsole.props.figures)
+                const moveWhite = history[i]
+                if (moveWhite) {
+                    sanWhite = ChessRender.san(moveWhite.san, COLOR.white, this.chessConsole.i18n.lang, this.chessConsole.props.notationType, this.chessConsole.props.figures)
                 }
-                sanBlack = history[i + 1]
-                if (sanBlack) {
-                    sanBlack = ChessTools.renderSan(sanBlack, COLOR.black, this.chessConsole.i18n.lang, this.chessConsole.props.notationType, this.chessConsole.props.figures)
+                const moveBlack = history[i + 1]
+                if (moveBlack) {
+                    sanBlack = ChessRender.san(moveBlack.san, COLOR.black, this.chessConsole.i18n.lang, this.chessConsole.props.notationType, this.chessConsole.props.figures)
                 } else {
                     sanBlack = ""
                 }

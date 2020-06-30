@@ -39,25 +39,26 @@ export class CapturedPieces extends Component {
             const history = this.chessConsole.state.chess.history({verbose: true})
             $.each(history, (index, move) => {
                 if (move.flags === "c" || move.flags === "e") {
+                    const pieceCaptured = move.captured.toUpperCase()
                     if (move.color === "b") {
                         if (index < this.chessConsole.state.plyViewed) {
                             if (this.chessConsole.state.analyseStartIndex && index > this.chessConsole.state.analyseStartIndex) {
-                                capturedPiecesWhiteConditionalMoves.push(this.chessConsole.props.figures[move.captured + "w"])
+                                capturedPiecesWhiteConditionalMoves.push(this.chessConsole.props.figures[pieceCaptured + "w"])
                             } else {
-                                capturedPiecesWhite.push(this.chessConsole.props.figures[move.captured + "w"])
+                                capturedPiecesWhite.push(this.chessConsole.props.figures[pieceCaptured + "w"])
                             }
                         } else {
-                            capturedPiecesWhiteAfterPlyViewed.push(this.chessConsole.props.figures[move.captured + "w"])
+                            capturedPiecesWhiteAfterPlyViewed.push(this.chessConsole.props.figures[pieceCaptured + "w"])
                         }
                     } else if (move.color === "w") {
                         if (index < this.chessConsole.state.plyViewed) {
                             if (this.chessConsole.state.analyseStartIndex && index > this.chessConsole.state.analyseStartIndex) {
-                                capturedPiecesBlackConditionalMoves.push(this.chessConsole.props.figures[move.captured + "b"])
+                                capturedPiecesBlackConditionalMoves.push(this.chessConsole.props.figures[pieceCaptured + "b"])
                             } else {
-                                capturedPiecesBlack.push(this.chessConsole.props.figures[move.captured + "b"])
+                                capturedPiecesBlack.push(this.chessConsole.props.figures[pieceCaptured + "b"])
                             }
                         } else {
-                            capturedPiecesBlackAfterPlyViewed.push(this.chessConsole.props.figures[move.captured + "b"])
+                            capturedPiecesBlackAfterPlyViewed.push(this.chessConsole.props.figures[pieceCaptured + "b"])
                         }
                     }
                 }

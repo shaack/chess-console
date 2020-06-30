@@ -45,18 +45,18 @@ export class GameStateOutput extends Component {
     update() {
         const chess = this.chessConsole.state.chess
         let html = ''
-        if (chess.game_over()) {
+        if (chess.gameOver()) {
             html += `<b>${this.i18n.t("game_over")}</b><br/>`
-            if (chess.in_checkmate()) {
+            if (chess.inCheckmate()) {
                 html += `${this.i18n.t("checkmate")}`
-            } else if (chess.in_stalemate()) {
+            } else if (chess.inStalemate()) {
                 html += `${this.i18n.t("stalemate")}`
-            } else if (chess.in_threefold_repetition()) {
+            } else if (chess.inThreefoldRepetition()) {
                 html += `${this.i18n.t("threefold_repetition")}`
-            } else if (chess.in_draw()) {
+            } else if (chess.inDraw()) {
                 html += `${this.i18n.t("draw")}`
             }
-        } else if (chess.in_check()) {
+        } else if (chess.inCheck()) {
             html = `${this.i18n.t("check")}`
         } else {
             html = ""

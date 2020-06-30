@@ -5,8 +5,8 @@
  */
 
 import {Component} from "../../../lib/cm-web-modules/app/Component.js"
-import {COLOR} from "../../../lib/cm-chesstools/ChessTools.js"
 import {messageBrokerTopics} from "../ChessConsole.js"
+import {COLOR} from "../../../lib/cm-chess/Chess.js"
 
 export class Persistence extends Component {
 

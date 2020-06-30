@@ -75,7 +75,7 @@ export class LocalPlayer extends ChessConsolePlayer {
 
     moveRequest(fen, moveResponse) {
         const color = this.chessConsole.state.chess.turn() === 'w' ? COLOR.white : COLOR.black
-        if (!this.chessConsole.state.chess.game_over()) {
+        if (!this.chessConsole.state.chess.gameOver()) {
             this.chessConsole.board.chessboard.enableMoveInput(
                 (event) => {
                     return this.moveInputCallback(event, fen, moveResponse)

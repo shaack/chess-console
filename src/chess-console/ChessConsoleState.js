@@ -7,6 +7,7 @@
 import {Observe} from "../../lib/cm-web-modules/observe/Observe.js"
 import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {Chess} from "../../lib/cm-chess/Chess.js"
+// import {ChessJs} from "../../lib/cm-chess/ChessJs.js"
 
 export class ChessConsoleState {
 
@@ -15,27 +16,6 @@ export class ChessConsoleState {
         this.orientation = props.playerColor || COLOR.white
         this.plyViewed = 0 // the play viewed on the board
         this.plyCount = 0 // cache for this.chess.history().length, read only
-    }
-
-    pieces(type = null, color = null) {
-        let result = []
-        for (let i = 0; i < 64; i++) {
-            const square = this.chess.SQUARES[i]
-            const piece = this.chess.get(square)
-            if (piece !== null) {
-                piece.square = square
-            }
-            if (type === null) {
-                if (color === null && piece !== null) {
-                    result.push(piece)
-                }
-            } else if (color === null && piece !== null && piece.type === type) {
-                result.push(piece)
-            } else if (piece !== null && piece.color === color && piece.type === type) {
-                result.push(piece)
-            }
-        }
-        return result
     }
 
     lastMove() {
@@ -61,7 +41,7 @@ export class ChessConsoleState {
 
     observeChess(callback) {
         const chessManipulationMethods = [
-            'move', 'clear', 'load', 'load_pgn', 'put', 'remove', 'reset', 'undo'
+            'move', 'clear', 'load', 'loadPgn', 'put', 'remove', 'reset', 'undo'
         ]
         chessManipulationMethods.forEach((methodName) => {
             Observe.postFunction(this.chess, methodName, (params) => {
