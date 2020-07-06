@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import "../../../../node_modules/bootstrap-show-modal/src/bootstrap-show-modal.js"
+import "../../../../lib/bootstrap-show-modal.js"
 import {COLOR} from "../../../../lib/cm-chessboard/Chessboard.js"
 
 export class PromotionDialog {
