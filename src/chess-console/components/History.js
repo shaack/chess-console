@@ -62,14 +62,6 @@ export class History extends Component {
                 if (this.state.plyViewed < i + 2) {
                     blackClass = "text-muted"
                 }
-                if (this.state.analyseStartIndex) {
-                    if (this.state.analyseStartIndex < i + 1) {
-                        whiteClass += " text-primary"
-                    }
-                    if (this.state.analyseStartIndex < i + 2) {
-                        blackClass += " text-primary"
-                    }
-                }
                 output += "<tr><td class='num " + rowClass + "'>" + (i / 2 + 1) + ".</td><td data-ply='" + (i + 1) + "' class='ply " + whiteClass + " ply" + (i + 1) + "'>" + sanWhite + "</td><td data-ply='" + (i + 2) + "' class='ply " + blackClass + " ply" + (i + 2) + "'>" + sanBlack + "</td></tr>"
             }
             this.element.innerHTML = "<table>" + output + "</table>"

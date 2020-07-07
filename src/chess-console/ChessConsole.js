@@ -85,8 +85,6 @@ export class ChessConsole extends App {
         this.player = new player.type(this, player.name, player.props)
         this.opponent = new opponent.type(this, opponent.name, opponent.props)
 
-        this.analyseStartIndex = null
-
         this.initialization = this.i18n.load({
             de: {
                 ok: "OK",
