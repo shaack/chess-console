@@ -5,7 +5,7 @@
  */
 
 import {Component} from "../../../lib/cm-web-modules/app/Component.js"
-import {messageBrokerTopics} from "../ChessConsole.js"
+import {consoleMessageTopics} from "../ChessConsole.js"
 import {COLOR} from "../../../lib/cm-chess/Chess.js"
 
 export class Persistence extends Component {
@@ -31,7 +31,7 @@ export class Persistence extends Component {
             if (localStorage.getItem(this.prefix + "history") !== null) {
                 props.history = localStorage.getItem(this.prefix + "history")
             }
-            this.chessConsole.messageBroker.publish(messageBrokerTopics.load)
+            this.chessConsole.messageBroker.publish(consoleMessageTopics.load)
             this.chessConsole.initGame(props)
         } catch (e) {
             localStorage.clear()

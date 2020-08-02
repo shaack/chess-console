@@ -7,12 +7,16 @@ chess game gui.
 - **[Repository on GitHub](https://github.com/shaack/chess-console)**
 - **[Demo pages](https://shaack.com/projekte/chess-console)**
 
+### chess-console is used in Production
+
+**[Used by chessmail as a framework for an online chess computer.](https://www.chessmail.eu/pages/chess-computer.html)**
+
+## Component structure
+
 Because if its component architecture chess-console is expandable for
 all kind of chess pages. You may check out the [Stockfish Player](https://github.com/shaack/chess-console-stockfish) 
 for chess-console, with whom chess-console is a fully functional online
 chess computer.
-
-- **[chess-console is used in the chess server "chessmail"](https://www.chessmail.eu/pages/chess-computer.html)**
 
 ## Screenshot
 

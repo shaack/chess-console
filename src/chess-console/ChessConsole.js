@@ -11,7 +11,7 @@ import {ChessConsoleState} from "./ChessConsoleState.js"
 import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 import {FEN} from "../../lib/cm-chess/Chess.js"
 
-export const messageBrokerTopics = {
+export const consoleMessageTopics = {
     newGame: "game/new",
     initGame: "game/init",
     gameOver: "game/over",
@@ -21,6 +21,8 @@ export const messageBrokerTopics = {
     moveUndone: "game/move/undone",
     load: "game/load"
 }
+// @deprecated, may be deleted in future versions, use `consoleMessageTopics`
+export const messageBrokerTopics = consoleMessageTopics
 
 export class ChessConsole extends App {
 
@@ -115,7 +117,7 @@ export class ChessConsole extends App {
 
     newGame(props = {}) {
         this.initGame(props)
-        this.messageBroker.publish(messageBrokerTopics.newGame, {props: props})
+        this.messageBroker.publish(consoleMessageTopics.newGame, {props: props})
     }
 
     initGame(props = {}) {
@@ -131,7 +133,7 @@ export class ChessConsole extends App {
             this.state.chess.load(FEN.start)
             this.state.plyViewed = 0
         }
-        this.messageBroker.publish(messageBrokerTopics.initGame, {props: props})
+        this.messageBroker.publish(consoleMessageTopics.initGame, {props: props})
         this.nextMove()
     }
 
@@ -161,7 +163,7 @@ export class ChessConsole extends App {
     nextMove() {
         const playerToMove = this.playerToMove()
         if (playerToMove) {
-            this.messageBroker.publish(messageBrokerTopics.moveRequest, {playerToMove: playerToMove})
+            this.messageBroker.publish(consoleMessageTopics.moveRequest, {playerToMove: playerToMove})
             setTimeout(() => {
                 playerToMove.moveRequest(this.state.chess.fen(), (san) => {
                     this.moveResponse(san)
@@ -179,7 +181,7 @@ export class ChessConsole extends App {
         const playerMoved = this.playerToMove()
         const moveResult = this.state.chess.move(move)
         if (!moveResult) {
-            this.messageBroker.publish(messageBrokerTopics.illegalMove, {
+            this.messageBroker.publish(consoleMessageTopics.illegalMove, {
                 playerMoved: playerMoved,
                 move: move
             })
@@ -189,7 +191,7 @@ export class ChessConsole extends App {
         if (this.state.plyViewed === this.state.plyCount - 1) {
             this.state.plyViewed++
         }
-        this.messageBroker.publish(messageBrokerTopics.legalMove, {
+        this.messageBroker.publish(consoleMessageTopics.legalMove, {
             playerMoved: playerMoved,
             move: move,
             moveResult: moveResult
@@ -202,7 +204,7 @@ export class ChessConsole extends App {
             if (this.state.chess.inCheckmate()) {
                 wonColor = (this.state.chess.turn() === COLOR.white) ? COLOR.black : COLOR.white
             }
-            this.messageBroker.publish(messageBrokerTopics.gameOver, {wonColor: wonColor})
+            this.messageBroker.publish(consoleMessageTopics.gameOver, {wonColor: wonColor})
         }
     }
 
@@ -214,7 +216,7 @@ export class ChessConsole extends App {
         if (this.state.plyViewed > this.state.plyCount) {
             this.state.plyViewed = this.state.plyCount
         }
-        this.messageBroker.publish(messageBrokerTopics.moveUndone)
+        this.messageBroker.publish(consoleMessageTopics.moveUndone)
         this.nextMove()
     }
 
