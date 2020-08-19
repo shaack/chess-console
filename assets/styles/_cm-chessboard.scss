@@ -93,22 +93,27 @@ $light-blue: #d7e3fc;
     .marker {
       &.move {
         stroke: black;
+        stroke-width: 2px;
         opacity: 0.7;
       }
       &.emphasize {
         stroke: blue;
+        stroke-width: 4px;
         opacity: 0.5;
       }
       &.last-move {
         stroke: black;
+        stroke-width: 2px;
         opacity: 0.4;
       }
       &.wrong-move {
         stroke: $danger;
+        stroke-width: 2px;
         opacity: 0.5;
       }
       &.check {
         stroke: $danger;
+        stroke-width: 3px;
         opacity: 0.5;
       }
     }
