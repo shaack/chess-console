@@ -30,7 +30,10 @@ export class LocalPlayer extends ChessConsolePlayer {
                 const possibleMoves = tmpChess.moves({square: squareFrom, verbose: true})
                 for (let possibleMove of possibleMoves) {
                     if (possibleMove.to === squareTo && possibleMove.promotion) {
-                        new PromotionDialog(tmpChess.turn(), (piece) => {
+                        new PromotionDialog({
+                            color: tmpChess.turn(),
+                            spriteUrl: this.chessConsole.props.chessboardSpriteFile
+                        }, (piece) => {
                             move.promotion = piece
                             callback(tmpChess.move(move))
                         })

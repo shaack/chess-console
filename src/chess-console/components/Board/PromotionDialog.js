@@ -9,34 +9,34 @@ import {COLOR} from "../../../../lib/cm-chessboard/Chessboard.js"
 
 export class PromotionDialog {
 
-    constructor(color, callback) {
+    constructor(props, callback) {
         this.piece = null
         this.callback = callback
-        let pieceQ = color === COLOR.white ? "wq" : "bq"
-        let pieceR = color === COLOR.white ? "wr" : "br"
-        let pieceN = color === COLOR.white ? "wn" : "bn"
-        let pieceB = color === COLOR.white ? "wb" : "bb"
+        let pieceQ = props.color === COLOR.white ? "wq" : "bq"
+        let pieceR = props.color === COLOR.white ? "wr" : "br"
+        let pieceN = props.color === COLOR.white ? "wn" : "bn"
+        let pieceB = props.color === COLOR.white ? "wb" : "bb"
         const title = "Promotion"
         const body = `<div class="container-fluid">
                         <div class="row">
                             <div class="col text-center">
                                 <svg class="piece" data-piece="q">
-                                    <use data-piece="q" xlink:href="#${pieceQ}"></use>
+                                    <use data-piece="q" xlink:href="${props.spriteUrl}#${pieceQ}"></use>
                                 </svg>
                             </div>
                             <div class="col text-center">
                                 <svg class="piece" data-piece="r">
-                                    <use data-piece="r" xlink:href="#${pieceR}"></use>
+                                    <use data-piece="r" xlink:href="${props.spriteUrl}#${pieceR}"></use>
                                 </svg>
                             </div>
                             <div class="col text-center">
-                                <svg class="piece" data-piece="n">
-                                    <use data-piece="n" xlink:href="#${pieceN}"></use>
+                                <svg class="piece" data-piece="n"> 
+                                    <use data-piece="n" xlink:href="${props.spriteUrl}#${pieceN}"></use>
                                 </svg>
                             </div>
                             <div class="col text-center">
                                 <svg class="piece" data-piece="b">
-                                    <use data-piece="b" xlink:href="#${pieceB}"></use>
+                                    <use data-piece="b" xlink:href="${props.spriteUrl}#${pieceB}"></use>
                                 </svg>
                             </div>
                         </div>
