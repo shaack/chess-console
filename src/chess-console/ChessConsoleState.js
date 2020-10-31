@@ -7,7 +7,6 @@
 import {Observe} from "../../lib/cm-web-modules/observe/Observe.js"
 import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {Chess} from "../../lib/cm-chess/Chess.js"
-import {FEN} from "../../lib/cm-chess/Chess.js"
 
 export class ChessConsoleState {
 
@@ -29,10 +28,9 @@ export class ChessConsoleState {
 
     fenOfPly(plyCount) {
         if(plyCount > 0) {
-            let history = this.chess.history()
-            return history[plyCount - 1].fen
+            return this.chess.history()[plyCount - 1].fen
         } else {
-            return FEN.start // todo return setup, implement this in cm-chess
+            return this.chess.setUpFen()
         }
     }
 

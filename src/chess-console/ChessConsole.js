@@ -126,7 +126,10 @@ export class ChessConsole extends App {
             this.props.playerColor = COLOR.white
         }
         this.state.orientation = this.props.playerColor
-        if (props.history) {
+        if(props.pgn) {
+            this.state.chess.loadPgn(props.pgn, {sloppy: true})
+            this.state.plyViewed = this.state.plyCount
+        } else if (props.history) {
             this.state.chess.loadPgn(props.history, {sloppy: true})
             this.state.plyViewed = this.state.plyCount
         } else {
