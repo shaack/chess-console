@@ -39,7 +39,6 @@ export class Board extends Component {
             chessConsole.componentContainers.board.appendChild(this.elements.playerTop)
             chessConsole.componentContainers.board.appendChild(this.elements.chessboard)
             chessConsole.componentContainers.board.appendChild(this.elements.playerBottom)
-            this.resize()
             this.chessConsole.state.observeChess((params) => {
                 let animated = true
                 if (params.functionName === "load_pgn") {
@@ -57,12 +56,15 @@ export class Board extends Component {
                 position: "empty",
                 moveInputMode: MOVE_INPUT_MODE.dragPiece,
                 orientation: chessConsole.state.orientation,
+                style: {
+                    aspectRatio: 0.94
+                },
                 sprite: {
                     url: chessConsole.props.chessboardSpriteFile, // pieces and markers
                 }
             }
             if (chessConsole.props.chessboardStyle) {
-                props.style = chessConsole.props.chessboardStyle
+                Object.assign(props.style, chessConsole.props.chessboardStyle)
             }
             this.chessboard = new Chessboard(this.elements.chessboard, props)
             Observe.property(chessConsole.state, ["orientation"], () => {
@@ -88,19 +90,11 @@ export class Board extends Component {
                     }, 500)
                 })
                 this.setPositionOfPlyViewed(false)
-                window.addEventListener("resize", () => {
-                    this.resize()
-                })
                 this.setPlayerNames()
                 this.markPlayerToMove()
                 resolve()
             })
         })
-    }
-
-    resize() {
-        const width = this.elements.chessboard.offsetWidth
-        this.elements.chessboard.style.height = (width * 0.94) + "px"
     }
 
     setPositionOfPlyViewed(animated = true) {
