@@ -165,7 +165,6 @@ export class ChessConsole extends App {
      */
     nextMove() {
         const playerToMove = this.playerToMove()
-        console.log("nectMove, playerToMove", playerToMove)
         if (playerToMove) {
             this.messageBroker.publish(consoleMessageTopics.moveRequest, {playerToMove: playerToMove})
             setTimeout(() => {
