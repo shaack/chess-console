@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {App} from "../../lib/cm-web-modules/app/App.js"
+import {App} from "../../lib/cm-web-modules/app-deprecated/App.js"
 import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
 import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"

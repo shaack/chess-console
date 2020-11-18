@@ -5,7 +5,7 @@
  */
 
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
-import {Component} from "../../../lib/cm-web-modules/app/Component.js"
+import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
 import {EventUtils} from "../../../lib/cm-web-modules/utils/EventUtils.js"
 import {ChessRender} from "../../../lib/cm-chess/ChessRender.js"
 import {COLOR} from "../../../lib/cm-chess/Chess.js"

@@ -5,7 +5,7 @@
  */
 
 import {AudioSprite} from "../../../lib/cm-web-modules/audio/AudioSprite.js"
-import {Component} from "../../../lib/cm-web-modules/app/Component.js"
+import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
 import {consoleMessageTopics} from "../ChessConsole.js"
 
 export class Sound extends Component {

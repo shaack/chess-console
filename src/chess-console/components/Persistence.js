@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Component} from "../../../lib/cm-web-modules/app/Component.js"
+import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
 import {consoleMessageTopics} from "../ChessConsole.js"
 import {COLOR} from "../../../lib/cm-chess/Chess.js"
 

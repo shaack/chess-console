@@ -7,7 +7,7 @@
 import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../../../lib/cm-chessboard/Chessboard.js"
 import {consoleMessageTopics} from "../../ChessConsole.js"
 import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
-import {Component} from "../../../../lib/cm-web-modules/app/Component.js"
+import {Component} from "../../../../lib/cm-web-modules/app-deprecated/Component.js"
 
 export const MARKER_TYPE = {
     lastMove: {class: "last-move", slice: "marker1"},
