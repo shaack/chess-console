@@ -16,6 +16,9 @@ export class History extends Component {
         super(chessConsole)
 
         this.chessConsole = chessConsole
+        if(!this.chessConsole.props.notationType) {
+            this.chessConsole.props.notationType = "figures"
+        }
         this.element = document.createElement("div")
         this.element.setAttribute("class", "history")
         this.chessConsole.componentContainers.left.appendChild(this.element)

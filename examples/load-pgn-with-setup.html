@@ -52,12 +52,10 @@
             chessboardSpriteFile: "../assets/images/chessboard-sprite.svg"
         }
     )
-    chessConsole.addComponent(Persistence).then(() => {
-        chessConsole.addComponent(Board).then(() => {
-            chessConsole.initGame({
-                playerColor: "b",
-                pgn: pgn
-            })
+    chessConsole.addComponent(Board).then(() => {
+        chessConsole.initGame({
+            playerColor: "b",
+            pgn: pgn
         })
     })
     chessConsole.addComponent(GameStateOutput)

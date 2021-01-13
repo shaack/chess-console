@@ -13,23 +13,26 @@ export class Persistence extends Component {
     constructor(chessConsole) {
         super(chessConsole)
         this.chessConsole = chessConsole
+        if(!this.chessConsole.props.savePrefix) {
+            this.chessConsole.props.savePrefix = "ChessConsole"
+        }
         this.chessConsole.state.observeChess(() => {
-            this.save()
+            this.save(chessConsole.props.savePrefix)
         })
         this.chessConsole.persistence = this
     }
 
-    load(saveName) {
-        this.prefix = saveName + "-"
+    load() {
+        const prefix = this.chessConsole.props.savePrefix
         const props = {}
         try {
-            if (this.loadValue("playerColor") !== null) {
-                props.playerColor = this.loadValue("playerColor")
+            if (this.loadValue("PlayerColor") !== null) {
+                props.playerColor = this.loadValue("PlayerColor")
             } else {
                 props.playerColor = COLOR.white
             }
-            if (localStorage.getItem(this.prefix + "history") !== null) {
-                props.history = localStorage.getItem(this.prefix + "history")
+            if (localStorage.getItem(prefix + "Pgn") !== null) {
+                props.pgn = localStorage.getItem(prefix + "Pgn")
             }
             this.chessConsole.messageBroker.publish(consoleMessageTopics.load)
             this.chessConsole.initGame(props)
@@ -43,21 +46,21 @@ export class Persistence extends Component {
     loadValue(valueName) {
         let item = null
         try {
-            item = localStorage.getItem(this.prefix + valueName)
+            item = localStorage.getItem(this.chessConsole.props.savePrefix + valueName)
             return JSON.parse(item)
         } catch (e) {
-            console.error("error loading ", this.prefix + valueName)
+            console.error("error loading ", this.chessConsole.props.savePrefix + valueName)
             console.error("item:" + item)
             console.error(e)
         }
     }
 
     save() {
-        localStorage.setItem(this.prefix + "playerColor", JSON.stringify(this.chessConsole.props.playerColor))
-        localStorage.setItem(this.prefix + "history", this.chessConsole.state.chess.pgn())
+        localStorage.setItem(this.chessConsole.props.savePrefix + "PlayerColor", JSON.stringify(this.chessConsole.props.playerColor))
+        localStorage.setItem(this.chessConsole.props.savePrefix + "Pgn", this.chessConsole.state.chess.pgn())
     }
 
     saveValue(valueName, value) {
-        localStorage.setItem(this.prefix + valueName, JSON.stringify(value))
+        localStorage.setItem(this.chessConsole.props.savePrefix + valueName, JSON.stringify(value))
     }
 }

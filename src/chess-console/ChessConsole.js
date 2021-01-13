@@ -29,8 +29,9 @@ export class ChessConsole extends App {
     constructor(container, player, opponent, props = {}) {
         super(props)
         this.props = {
-            notationType: "figures", // Notation of the history as "figures" or "text"
-            locale: navigator.language
+            locale: navigator.language, // locale for i18n
+            playerColor: COLOR.white, // the players color (color at bottom)
+            pgn: undefined // initial pgn, can contain header and history
         }
         if (!this.props.figures) {
             const whitePiecesStyle = 'color: white; text-shadow: 1px  1px 1px black, 1px -1px 1px black, -1px  1px 1px black, -1px -1px 1px black;'
@@ -122,9 +123,6 @@ export class ChessConsole extends App {
 
     initGame(props = {}) {
         Object.assign(this.props, props)
-        if (!this.props.playerColor) {
-            this.props.playerColor = COLOR.white
-        }
         this.state.orientation = this.props.playerColor
         if(props.pgn) {
             this.state.chess.loadPgn(props.pgn, {sloppy: true})

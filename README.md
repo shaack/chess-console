@@ -39,10 +39,16 @@ chess computer.
 #### props
 ```
 {
+    // chess console
+    locale: navigator.language, // locale for i18n
+    playerColor: COLOR.white, // the players color (color at bottom)
+    pgn: undefined // initial pgn, can contain header and history
+    // Sound
     soundSpriteFile: "/assets/sounds/chess_console_sounds.mp3",
+    // Board
     chessboardSpriteFile: "/assets/images/chessboard-sprite.svg",
-    playerColor: "w"|"b",
-    history: [PGN notation], // initial history
+    // Persistence
+    savePrefix: "ChessConsole" // the name in LocalStorage
 }
 ```
 ### state

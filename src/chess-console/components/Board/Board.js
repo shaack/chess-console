@@ -15,7 +15,6 @@ export const MARKER_TYPE = {
     wrongMove: {class: "wrong-move", slice: "marker1"}
 }
 
-
 export class Board extends Component {
 
     constructor(chessConsole, props) {
