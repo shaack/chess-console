@@ -52,7 +52,7 @@
     )
     chessConsole.addComponent(Board).then(() => {
         chessConsole.addComponent(Persistence)
-            .then((component) => component.load("random"))
+            .then((component) => component.load())
     })
     chessConsole.addComponent(GameStateOutput)
     chessConsole.addComponent(History)

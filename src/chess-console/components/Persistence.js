@@ -22,8 +22,7 @@ export class Persistence extends Component {
         this.chessConsole.persistence = this
     }
 
-    load() {
-        const prefix = this.chessConsole.props.savePrefix
+    load(prefix = this.chessConsole.props.savePrefix) {
         const props = {}
         try {
             if (this.loadValue("PlayerColor") !== null) {
@@ -43,24 +42,24 @@ export class Persistence extends Component {
         }
     }
 
-    loadValue(valueName) {
+    loadValue(valueName, prefix = this.chessConsole.props.savePrefix) {
         let item = null
         try {
-            item = localStorage.getItem(this.chessConsole.props.savePrefix + valueName)
+            item = localStorage.getItem(prefix + valueName)
             return JSON.parse(item)
         } catch (e) {
-            console.error("error loading ", this.chessConsole.props.savePrefix + valueName)
+            console.error("error loading ", prefix + valueName)
             console.error("item:" + item)
             console.error(e)
         }
     }
 
-    save() {
-        localStorage.setItem(this.chessConsole.props.savePrefix + "PlayerColor", JSON.stringify(this.chessConsole.props.playerColor))
-        localStorage.setItem(this.chessConsole.props.savePrefix + "Pgn", this.chessConsole.state.chess.pgn())
+    save(prefix = this.chessConsole.props.savePrefix) {
+        localStorage.setItem(prefix + "PlayerColor", JSON.stringify(this.chessConsole.props.playerColor))
+        localStorage.setItem(prefix + "Pgn", this.chessConsole.state.chess.pgn())
     }
 
-    saveValue(valueName, value) {
-        localStorage.setItem(this.chessConsole.props.savePrefix + valueName, JSON.stringify(value))
+    saveValue(valueName, value, prefix = this.chessConsole.props.savePrefix) {
+        localStorage.setItem(prefix + valueName, JSON.stringify(value))
     }
 }
