@@ -12,6 +12,7 @@ import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 import {FEN} from "../../lib/cm-chess/Chess.js"
 
 export const consoleMessageTopics = {
+    /** @deprecated */
     newGame: "game/new",
     initGame: "game/init",
     gameOver: "game/over",
@@ -116,7 +117,9 @@ export class ChessConsole extends App {
         })
     }
 
+    /** @deprecated use initGame */
     newGame(props = {}) {
+        console.warn("newGame is deprecated, use initGame")
         this.initGame(props)
         this.messageBroker.publish(consoleMessageTopics.newGame, {props: props})
     }
