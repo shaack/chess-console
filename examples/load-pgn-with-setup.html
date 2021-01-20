@@ -35,13 +35,10 @@
     import {HistoryControl} from "../src/chess-console/components/HistoryControl.js"
     import {GameControl} from "../src/chess-console/components/GameControl/GameControl.js"
     import {Sound} from "../src/chess-console/components/Sound.js"
-    import {Persistence} from "../src/chess-console/components/Persistence.js"
 
     const pgn =
         `[SetUp "1"]
-[FEN "4k3/pppppppp/8/8/8/8/PPPPPPPP/4K3 b - - 0 1"]
-
-1. e5 e4 2. a6`
+[FEN "ppppkppp/pppppppp/pppppppp/pppppppp/8/8/8/RNBQKBNR b KQ - 0 1"]`
 
     const chessConsole = new ChessConsole(
         document.getElementById("console-container"),
@@ -54,7 +51,7 @@
     )
     chessConsole.addComponent(Board).then(() => {
         chessConsole.initGame({
-            playerColor: "b",
+            playerColor: "w",
             pgn: pgn
         })
     })
