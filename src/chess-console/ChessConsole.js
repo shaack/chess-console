@@ -117,7 +117,7 @@ export class ChessConsole extends App {
         })
     }
 
-    /** @deprecated use initGame */
+    /** @deprecated use initGame() */
     newGame(props = {}) {
         console.warn("newGame is deprecated, use initGame")
         this.initGame(props)
@@ -185,6 +185,9 @@ export class ChessConsole extends App {
         const playerMoved = this.playerToMove()
         const moveResult = this.state.chess.move(move)
         if (!moveResult) {
+            if(this.props.debug) {
+                console.warn("illegalMove", this.state.chess, move)
+            }
             this.messageBroker.publish(consoleMessageTopics.illegalMove, {
                 playerMoved: playerMoved,
                 move: move
