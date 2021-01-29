@@ -6,6 +6,7 @@
 
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
+import {PIECES_VALUES} from "../../../lib/cm-chess/Chess.js"
 
 export class CapturedPieces extends Component {
 
@@ -35,6 +36,8 @@ export class CapturedPieces extends Component {
             const capturedPiecesBlackAfterPlyViewed = []
 
             const history = this.chessConsole.state.chess.history({verbose: true})
+            let pointsWhite = 0
+            let pointsBlack = 0
             $.each(history, (index, move) => {
                 if (move.flags === "c" || move.flags === "e") {
                     const pieceCaptured = move.captured.toUpperCase()
@@ -44,16 +47,23 @@ export class CapturedPieces extends Component {
                         } else {
                             capturedPiecesWhiteAfterPlyViewed.push(this.chessConsole.props.figures[pieceCaptured + "w"])
                         }
+                        pointsWhite += PIECES_VALUES[pieceCaptured]
                     } else if (move.color === "w") {
                         if (index < this.chessConsole.state.plyViewed) {
                             capturedPiecesBlack.push(this.chessConsole.props.figures[pieceCaptured + "b"])
                         } else {
                             capturedPiecesBlackAfterPlyViewed.push(this.chessConsole.props.figures[pieceCaptured + "b"])
                         }
+                        pointsBlack += PIECES_VALUES[pieceCaptured]
                     }
                 }
             })
-
+            if(pointsWhite === 0) {
+                pointsWhite = ""
+            }
+            if(pointsBlack === 0) {
+                pointsBlack = ""
+            }
             const zeroWithSpace = "&#8203;"
             let output = "<div>"
             if (capturedPiecesWhite.length > 0) {
@@ -62,14 +72,14 @@ export class CapturedPieces extends Component {
             if (capturedPiecesWhiteAfterPlyViewed.length > 0) {
                 output += "<span class='text-muted'>" + capturedPiecesWhiteAfterPlyViewed.join(zeroWithSpace) + "</span>"
             }
-            output += "</div><div>"
+            output += "<small> " + pointsWhite + "</small></div><div>"
             if (capturedPiecesBlack.length > 0) {
                 output += capturedPiecesBlack.join("&#8203;")
             }
             if (capturedPiecesBlackAfterPlyViewed.length > 0) {
                 output += "<span class='text-muted'>" + capturedPiecesBlackAfterPlyViewed.join(zeroWithSpace) + "</span>"
             }
-            output += "</div>"
+            output += "<small> " + pointsBlack + "</small></div>"
             this.element.innerHTML = output
         })
     }
