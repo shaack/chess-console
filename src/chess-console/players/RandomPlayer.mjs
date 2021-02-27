@@ -4,7 +4,8 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
+import {ChessConsolePlayer} from "../ChessConsolePlayer.mjs"
+import {Chess} from "../../../lib/chess.mjs/Chess.mjs"
 
 export class RandomPlayer extends ChessConsolePlayer {
 

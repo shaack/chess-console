@@ -5,7 +5,7 @@
  */
 
 import {Component} from "../../../../lib/cm-web-modules/app-deprecated/Component.js"
-import {NewGameDialog} from "./NewGameDialog.js"
+import {NewGameDialog} from "./NewGameDialog.mjs"
 
 export class GameControl extends Component {
 

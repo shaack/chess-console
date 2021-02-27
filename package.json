@@ -29,7 +29,7 @@
     "@fortawesome/fontawesome-free": "^5.15.2",
     "bootstrap": "^4.6.0",
     "bootstrap-show-modal": "^1.4.2",
-    "chess.js": "^0.10.3",
+    "chess.mjs": "^1.1.1",
     "cm-chess": "^1.3.17",
     "cm-chessboard": "^3.3.8",
     "cm-pgn": "^1.7.5",

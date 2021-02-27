@@ -4,11 +4,11 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
+import {Observe} from "../../../lib/cm-web-modules/observe/Observe.mjs"
 import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
-import {EventUtils} from "../../../lib/cm-web-modules/utils/EventUtils.js"
-import {ChessRender} from "../../../lib/cm-chess/ChessRender.js"
-import {COLOR} from "../../../lib/cm-chess/Chess.js"
+import {EventUtils} from "../../../lib/cm-web-modules/utils/EventUtils.mjs"
+import {ChessRender} from "../../../lib/cm-chess/ChessRender.mjs"
+import {COLOR} from "../../../lib/cm-chess/Chess.mjs"
 
 export class History extends Component {
 

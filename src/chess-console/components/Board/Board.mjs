@@ -4,9 +4,9 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../../../lib/cm-chessboard/Chessboard.js"
-import {consoleMessageTopics} from "../../ChessConsole.js"
-import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
+import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../../../lib/cm-chessboard/Chessboard.mjs"
+import {consoleMessageTopics} from "../../ChessConsole.mjs"
+import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.mjs"
 import {Component} from "../../../../lib/cm-web-modules/app-deprecated/Component.js"
 
 export const MARKER_TYPE = {

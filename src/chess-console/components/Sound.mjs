@@ -4,9 +4,9 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {AudioSprite} from "../../../lib/cm-web-modules/audio/AudioSprite.js"
+import {AudioSprite} from "../../../lib/cm-web-modules/audio/AudioSprite.mjs"
 import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
-import {consoleMessageTopics} from "../ChessConsole.js"
+import {consoleMessageTopics} from "../ChessConsole.mjs"
 
 export class Sound extends Component {
 

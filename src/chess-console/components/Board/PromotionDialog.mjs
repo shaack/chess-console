@@ -5,7 +5,7 @@
  */
 
 import "../../../../lib/bootstrap-show-modal.js"
-import {COLOR} from "../../../../lib/cm-chessboard/Chessboard.js"
+import {COLOR} from "../../../../lib/cm-chessboard/Chessboard.mjs"
 
 export class PromotionDialog {
 
@@ -50,7 +50,7 @@ export class PromotionDialog {
                     modal.piece = event.target.getAttribute("data-piece")
                     modal.hide()
                 })
-                $(modal.element).on("hidden.bs.modal", (event) => {
+                $(modal.element).on("hidden.bs.modal", (ignored) => {
                     this.callback(modal.piece)
                 })
             }

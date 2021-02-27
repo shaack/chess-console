@@ -20,13 +20,12 @@
 </div>
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
-<script src="../node_modules/chess.js/chess.js"></script>
 <script type="module">
 
-    import {ChessConsole} from "../src/chess-console/ChessConsole.js"
-    import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.js"
-    import {Board} from "../src/chess-console/components/Board/Board.js"
-    import {GameStateOutput} from "../src/chess-console/components/GameStateOutput.js"
+    import {ChessConsole} from "../src/chess-console/ChessConsole.mjs"
+    import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.mjs"
+    import {Board} from "../src/chess-console/components/Board/Board.mjs"
+    import {GameStateOutput} from "../src/chess-console/components/GameStateOutput.mjs"
 
     const chessConsole = new ChessConsole(
         document.getElementById("console-container"),
