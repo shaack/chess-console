@@ -4,9 +4,9 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Observe} from "../../../lib/cm-web-modules/observe/Observe.mjs"
+import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
-import {PIECES_VALUES} from "../../../lib/cm-chess/Chess.mjs"
+import {PIECES_VALUES} from "../../../lib/cm-chess/Chess.js"
 
 export class CapturedPieces extends Component {
 

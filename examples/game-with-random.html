@@ -22,17 +22,17 @@
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
 <script type="module">
 
-    import {ChessConsole} from "../src/chess-console/ChessConsole.mjs"
-    import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.mjs"
-    import {RandomPlayer} from "../src/chess-console/players/RandomPlayer.mjs"
-    import {Board} from "../src/chess-console/components/Board/Board.mjs"
-    import {GameStateOutput} from "../src/chess-console/components/GameStateOutput.mjs"
-    import {History} from "../src/chess-console/components/History.mjs"
-    import {CapturedPieces} from "../src/chess-console/components/CapturedPieces.mjs"
-    import {HistoryControl} from "../src/chess-console/components/HistoryControl.mjs"
-    import {GameControl} from "../src/chess-console/components/GameControl/GameControl.mjs"
-    import {Persistence} from "../src/chess-console/components/Persistence.mjs"
-    import {Sound} from "../src/chess-console/components/Sound.mjs"
+    import {ChessConsole} from "../src/chess-console/ChessConsole.js"
+    import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.js"
+    import {RandomPlayer} from "../src/chess-console/players/RandomPlayer.js"
+    import {Board} from "../src/chess-console/components/Board/Board.js"
+    import {GameStateOutput} from "../src/chess-console/components/GameStateOutput.js"
+    import {History} from "../src/chess-console/components/History.js"
+    import {CapturedPieces} from "../src/chess-console/components/CapturedPieces.js"
+    import {HistoryControl} from "../src/chess-console/components/HistoryControl.js"
+    import {GameControl} from "../src/chess-console/components/GameControl/GameControl.js"
+    import {Persistence} from "../src/chess-console/components/Persistence.js"
+    import {Sound} from "../src/chess-console/components/Sound.js"
 
     const chessConsole = new ChessConsole(
         document.getElementById("console-container"),

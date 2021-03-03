@@ -5,7 +5,7 @@
  */
 
 import "../../../../lib/bootstrap-show-modal.js"
-import {COLOR} from "../../../../lib/cm-chessboard/Chessboard.mjs"
+import {COLOR} from "../../../../lib/cm-chessboard/Chessboard.js"
 
 export class PromotionDialog {
 

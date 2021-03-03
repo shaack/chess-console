@@ -5,11 +5,11 @@
  */
 
 import {App} from "../../lib/cm-web-modules/app-deprecated/App.js"
-import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.mjs"
-import {COLOR} from "../../lib/cm-chessboard/Chessboard.mjs"
-import {ChessConsoleState} from "./ChessConsoleState.mjs"
-import {I18n} from "../../lib/cm-web-modules/i18n/I18n.mjs"
-import {FEN} from "../../lib/cm-chess/Chess.mjs"
+import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
+import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
+import {ChessConsoleState} from "./ChessConsoleState.js"
+import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
+import {FEN} from "../../lib/cm-chess/Chess.js"
 
 export const consoleMessageTopics = {
     /** @deprecated */
