@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Chessboard, COLOR, MOVE_INPUT_MODE} from "../../../../lib/cm-chessboard/Chessboard.js"
+import {Chessboard, COLOR} from "../../../../lib/cm-chessboard/Chessboard.js"
 import {consoleMessageTopics} from "../../ChessConsole.js"
 import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../../lib/cm-web-modules/app-deprecated/Component.js"
@@ -53,7 +53,6 @@ export class Board extends Component {
             const props = {
                 responsive: true,
                 position: "empty",
-                moveInputMode: MOVE_INPUT_MODE.dragPiece,
                 orientation: chessConsole.state.orientation,
                 style: {
                     aspectRatio: 0.94
