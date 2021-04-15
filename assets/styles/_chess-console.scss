@@ -3,14 +3,17 @@
 .flex-buttons {
   display: flex;
   flex-wrap: wrap;
+
   button {
     margin-right: $spacer / 2;
     margin-bottom: $spacer / 2;
     background-color: transparent;
+
     &:disabled {
-      color: rgba(0,0,0,0.5);
+      color: rgba(0, 0, 0, 0.5);
     }
   }
+
   margin-bottom: $spacer / 2;
 }
 
@@ -18,27 +21,32 @@
   .chess-console-right, .chess-console-left {
     margin-top: 20px;
   }
+
   .chess-console-board {
     // margin-top: -1.4em;
     .chessboard {
       width: 100%;
     }
+
     .player {
       // text-align: center;
       font-weight: bold;
       font-size: 120%;
+
       &.to-move:after {
         color: #333;
         margin-left: 8px;
         content: "■";
       }
     }
+
     .clock {
       font-family: 'DSDIGI', sans-serif;
       font-size: 150%;
       line-height: 0.99;
     }
   }
+
   .chess-console-left {
     .history {
       max-height: 284px;
@@ -47,56 +55,70 @@
       overflow-x: visible;
       margin-bottom: $spacer;
       width: calc(100% + 8px);
+
       table {
         width: 100%;
+
         .num {
           width: 18%;
         }
+
         .ply {
           cursor: pointer;
           width: 41%;
         }
       }
     }
+
     .captured-pieces {
       margin-bottom: $spacer;
     }
   }
+
   .chess-console-right {
     .flex-buttons {
       .autoplay {
         .fa-play {
           color: $green;
         }
+
         .fa-stop {
           color: $orange;
         }
       }
+
       .btn-light {
         background-color: rgba(0, 0, 0, 0.05);
       }
+
       .btn-active {
         color: $green;
       }
     }
+
     .game-status {
       font-weight: bold;
       margin-bottom: $spacer;
     }
+
     .last-error {
       color: $danger;
       margin-bottom: $spacer;
     }
+
     .move-input {
       margin-bottom: $spacer;
+
       .first-move {
         color: $gray-800;
         font-size: 280%;
         width: 100%;
         overflow: hidden;
       }
+
       .move-input-controls {
         width: 100%;
+
         button {
           float: left;
           margin-right: $spacer-small;
@@ -111,6 +133,7 @@
   width: 40px;
   height: 40px;
   cursor: pointer;
+
   &:hover {
     background-color: #ccc;
   }

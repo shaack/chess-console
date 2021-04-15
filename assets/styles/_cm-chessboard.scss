@@ -14,81 +14,97 @@ $light-blue: #d7e3fc;
         cursor: pointer;
       }
     }
+
     .border {
-      fill: rgba(0,0,0,0.7);
+      fill: rgba(0, 0, 0, 0.7);
     }
+
     .square {
       &.white {
         fill: $light-default;
       }
+
       &.black {
         fill: $dark-default;
       }
     }
   }
+
   &.has-border {
     .board {
       .border {
         fill: $light-default;
       }
+
       .border-inner {
         fill: $dark-default;
       }
     }
   }
+
   .coordinates {
     pointer-events: none;
     user-select: none;
+
     .coordinate {
       fill: rgba(0, 0, 0, 0.7);
       font-size: 7px;
       cursor: default;
     }
   }
+
   &.green {
     .board {
       .square {
         &.white {
           fill: $light-green;
         }
+
         &.black {
           fill: $dark-green;
         }
       }
     }
+
     &.has-border {
       .board {
         .border {
           fill: $light-green;
         }
+
         .border-inner {
           fill: $dark-green;
         }
       }
     }
   }
+
   &.blue {
     .board {
       .square {
         &.white {
           fill: $light-blue;
         }
+
         &.black {
           fill: $dark-blue;
         }
       }
     }
+
     &.has-border {
       .board {
         .border {
           fill: $light-blue;
         }
+
         .border-inner {
           fill: $dark-blue;
         }
       }
     }
   }
+
   .markers {
     .marker {
       &.move {
@@ -96,21 +112,25 @@ $light-blue: #d7e3fc;
         stroke-width: 2px;
         opacity: 0.7;
       }
+
       &.emphasize {
         stroke: blue;
         stroke-width: 4px;
         opacity: 0.5;
       }
+
       &.last-move {
         stroke: black;
         stroke-width: 2px;
         opacity: 0.4;
       }
+
       &.wrong-move {
         stroke: $danger;
         stroke-width: 2px;
         opacity: 0.5;
       }
+
       &.check {
         stroke: $danger;
         stroke-width: 3px;
@@ -118,6 +138,7 @@ $light-blue: #d7e3fc;
       }
     }
   }
+
   .pieces, .markers {
     pointer-events: none;
   }
