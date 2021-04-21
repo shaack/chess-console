@@ -6,7 +6,7 @@
 
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
-import {PIECES_VALUES} from "../../../lib/cm-chess/Chess.js"
+import {PIECES} from "../../../lib/cm-chess/Chess.js"
 
 export class CapturedPieces extends Component {
 
@@ -47,14 +47,14 @@ export class CapturedPieces extends Component {
                         } else {
                             capturedPiecesWhiteAfterPlyViewed.push(this.chessConsole.props.figures[pieceCaptured + "w"])
                         }
-                        pointsWhite += PIECES_VALUES[pieceCaptured]
+                        pointsWhite += PIECES[pieceCaptured.toLowerCase()].value
                     } else if (move.color === "w") {
                         if (index < this.chessConsole.state.plyViewed) {
                             capturedPiecesBlack.push(this.chessConsole.props.figures[pieceCaptured + "b"])
                         } else {
                             capturedPiecesBlackAfterPlyViewed.push(this.chessConsole.props.figures[pieceCaptured + "b"])
                         }
-                        pointsBlack += PIECES_VALUES[pieceCaptured]
+                        pointsBlack += PIECES[pieceCaptured.toLowerCase()].value
                     }
                 }
             })

@@ -56,7 +56,7 @@ export class Persistence extends Component {
 
     save(prefix = this.chessConsole.props.savePrefix) {
         localStorage.setItem(prefix + "PlayerColor", JSON.stringify(this.chessConsole.props.playerColor))
-        localStorage.setItem(prefix + "Pgn", this.chessConsole.state.chess.pgn())
+        localStorage.setItem(prefix + "Pgn", this.chessConsole.state.chess.renderPgn())
     }
 
     saveValue(valueName, value, prefix = this.chessConsole.props.savePrefix) {

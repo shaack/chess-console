@@ -10,9 +10,9 @@ import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../../lib/cm-web-modules/app-deprecated/Component.js"
 
 export const MARKER_TYPE = {
-    lastMove: {class: "last-move", slice: "marker1"},
-    check: {class: "check", slice: "marker2"},
-    wrongMove: {class: "wrong-move", slice: "marker1"}
+    lastMove: {class: "last-move", slice: "markerFrame"},
+    check: {class: "check", slice: "markerCircle"},
+    wrongMove: {class: "wrong-move", slice: "markerFrame"}
 }
 
 export class Board extends Component {
