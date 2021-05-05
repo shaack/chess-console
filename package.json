@@ -30,7 +30,7 @@
     "bootstrap-show-modal": "^1.4.2",
     "chess.mjs": "^1.2.0",
     "cm-chess": "^2.1.1",
-    "cm-chessboard": "^3.10.6",
+    "cm-chessboard": "^3.10.12",
     "cm-pgn": "^2.1.4",
     "cm-web-modules": "^1.7.6",
     "jquery": "^3.6.0",
