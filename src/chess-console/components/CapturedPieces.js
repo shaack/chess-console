@@ -39,7 +39,7 @@ export class CapturedPieces extends Component {
             let pointsWhite = 0
             let pointsBlack = 0
             $.each(history, (index, move) => {
-                if (move.flags === "c" || move.flags === "e") {
+                if (move.flags.indexOf("c") !== -1 || move.flags.indexOf("e") !== -1) {
                     const pieceCaptured = move.captured.toUpperCase()
                     if (move.color === "b") {
                         if (index < this.chessConsole.state.plyViewed) {
