@@ -7336,7 +7336,7 @@ button.close {
   stroke-width: 4px;
   opacity: 0.5; }
 
-.cm-chessboard .markers .marker.last-move, .cm-chessboard .markers .marker.markerFrame {
+.cm-chessboard .markers .marker.last-move {
   stroke: black;
   stroke-width: 2px;
   opacity: 0.4; }

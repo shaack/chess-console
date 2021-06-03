@@ -55,7 +55,9 @@ export class Board extends Component {
                 position: "empty",
                 orientation: chessConsole.state.orientation,
                 style: {
-                    aspectRatio: 0.94
+                    aspectRatio: 0.94,
+                    moveMarker: MARKER_TYPE.lastMove,
+                    hoverMarker: MARKER_TYPE.lastMove
                 },
                 sprite: {
                     url: chessConsole.props.chessboardSpriteFile, // pieces and markers
