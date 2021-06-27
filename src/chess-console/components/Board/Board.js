@@ -10,6 +10,8 @@ import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../../lib/cm-web-modules/app-deprecated/Component.js"
 
 export const MARKER_TYPE = {
+    hover: {class: "last-move", slice: "markerFrame"},
+    move: {class: "last-move", slice: "markerFrame"},
     lastMove: {class: "last-move", slice: "markerFrame"},
     check: {class: "check", slice: "markerCircle"},
     wrongMove: {class: "wrong-move", slice: "markerFrame"}
@@ -56,8 +58,8 @@ export class Board extends Component {
                 orientation: chessConsole.state.orientation,
                 style: {
                     aspectRatio: 0.94,
-                    moveMarker: MARKER_TYPE.lastMove,
-                    hoverMarker: MARKER_TYPE.lastMove
+                    moveMarker: MARKER_TYPE.move,
+                    hoverMarker: MARKER_TYPE.hover
                 },
                 sprite: {
                     url: chessConsole.props.chessboardSpriteFile, // pieces and markers
