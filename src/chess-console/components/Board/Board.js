@@ -103,7 +103,9 @@ export class Board extends Component {
         clearTimeout(this.setPositionOfPlyViewedDebounced)
         this.setPositionOfPlyViewedDebounced = setTimeout(() => {
             const to = this.chessConsole.state.fenOfPly(this.chessConsole.state.plyViewed)
-            this.chessboard.setPosition(to, animated)
+            this.chessboard.setPosition(to, animated).then(() => {
+                // console.log("setPosition resolved") TODO
+            })
         })
     }
 
