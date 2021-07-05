@@ -46,16 +46,16 @@
             }
         }
     )
-    chessConsole.addComponent(Board).then(() => {
-        chessConsole.addComponent(Persistence)
+    chessConsole.addComponentOLD(Board).then(() => {
+        chessConsole.addComponentOLD(Persistence)
             .then((component) => component.load())
     })
-    chessConsole.addComponent(GameStateOutput)
-    chessConsole.addComponent(History)
-    chessConsole.addComponent(HistoryControl)
-    chessConsole.addComponent(CapturedPieces)
-    chessConsole.addComponent(GameControl)
-    chessConsole.addComponent(Sound)
+    chessConsole.addComponentOLD(GameStateOutput)
+    chessConsole.addComponentOLD(History)
+    chessConsole.addComponentOLD(HistoryControl)
+    chessConsole.addComponentOLD(CapturedPieces)
+    chessConsole.addComponentOLD(GameControl)
+    chessConsole.addComponentOLD(Sound)
 
 </script>
 </body>

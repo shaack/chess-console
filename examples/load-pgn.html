@@ -49,22 +49,22 @@ Rg8 19.Rad1 Qxf3 20.Rxe7+ Nxe7 21.Qxd7+ Kxd7 22.Bf5+ Ke8
             chessboardSpriteFile: "../assets/images/chessboard-sprite.svg"
         }
     )
-    chessConsole.addComponent(Board).then(() => {
-        chessConsole.addComponent(Persistence)
+    chessConsole.addComponentOLD(Board).then(() => {
+        chessConsole.addComponentOLD(Persistence)
             .then(() => {
-                chessConsole.initGame({
+                chessConsole.newGame({
                     playerColor: "b",
                     pgn: pgn
                 })
             })
 
     })
-    chessConsole.addComponent(GameStateOutput)
-    chessConsole.addComponent(History)
-    chessConsole.addComponent(HistoryControl)
-    chessConsole.addComponent(CapturedPieces)
-    chessConsole.addComponent(GameControl)
-    chessConsole.addComponent(Sound)
+    chessConsole.addComponentOLD(GameStateOutput)
+    chessConsole.addComponentOLD(History)
+    chessConsole.addComponentOLD(HistoryControl)
+    chessConsole.addComponentOLD(CapturedPieces)
+    chessConsole.addComponentOLD(GameControl)
+    chessConsole.addComponentOLD(Sound)
     document.getElementById("pgnOutput").innerText = pgn
 </script>
 </body>

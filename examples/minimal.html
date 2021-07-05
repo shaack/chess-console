@@ -33,9 +33,9 @@
             chessboardSpriteFile: "../assets/images/chessboard-sprite.svg",
         }
     )
-    chessConsole.addComponent(Board)
-    chessConsole.addComponent(GameStateOutput)
-    chessConsole.initGame()
+    chessConsole.addComponent(new Board(chessConsole))
+    chessConsole.addComponent(new GameStateOutput(chessConsole))
+    chessConsole.newGame()
 
 </script>
 </body>

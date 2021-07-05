@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {App} from "../../lib/cm-web-modules/app-deprecated/App.js"
+import {App} from "../../lib/cm-web-modules/app/App.js"
 import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
 import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
@@ -101,7 +101,7 @@ export class ChessConsole extends App {
         })
     }
 
-    addComponent(componentType, props = {}) {
+    addComponentOLD(componentType, props = {}) {
         return new Promise((resolve) => {
             this.initialization.then(() => {
                 const component = new componentType(this, props)
@@ -117,14 +117,14 @@ export class ChessConsole extends App {
         })
     }
 
-    /** @deprecated use initGame() */
-    newGame(props = {}) {
-        console.warn("newGame is deprecated, use initGame")
-        this.initGame(props)
-        this.messageBroker.publish(consoleMessageTopics.newGame, {props: props})
+    /** @deprecated use newGame() */
+    initGame(props = {}) {
+        console.warn("initGame is deprecated, use newGame")
+        this.newGame(props)
+        this.messageBroker.publish(consoleMessageTopics.initGame, {props: props})
     }
 
-    initGame(props = {}) {
+    newGame(props = {}) {
         Object.assign(this.props, props)
         this.state.orientation = this.props.playerColor
         if(props.pgn) {
@@ -137,7 +137,7 @@ export class ChessConsole extends App {
             this.state.chess.load(FEN.start)
             this.state.plyViewed = 0
         }
-        this.messageBroker.publish(consoleMessageTopics.initGame, {props: props})
+        this.messageBroker.publish(consoleMessageTopics.newGame, {props: props})
         this.nextMove()
     }
 
