@@ -32,7 +32,7 @@ export class Sound extends Service {
                 }
             })
         chessConsole.messageBroker.subscribe(consoleMessageTopics.newGame, () => {
-            this.play("game_start")
+            // this.play("game_start")
         })
         chessConsole.messageBroker.subscribe(consoleMessageTopics.legalMove, (data) => {
             const chess = this.chessConsole.state.chess

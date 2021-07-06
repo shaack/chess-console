@@ -10,11 +10,11 @@ import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../../lib/cm-web-modules/app/Component.js"
 
 export const CONSOLE_MARKER_TYPE = {
-    hover: {class: "last-move", slice: "markerFrame"},
-    move: {class: "last-move", slice: "markerFrame"},
-    lastMove: {class: "last-move", slice: "markerFrame"},
-    check: {class: "check", slice: "markerCircle"},
-    wrongMove: {class: "wrong-move", slice: "markerFrame"}
+    hover: {class: "markerFrame", slice: "markerFrame"},
+    move: {class: "markerFrame", slice: "markerFrame"},
+    lastMove: {class: "markerFrame", slice: "markerFrame"},
+    check: {class: "markerCircleRed", slice: "markerCircle"},
+    wrongMove: {class: "markerFrameRed", slice: "markerFrame"}
 }
 
 export class Board extends Component {

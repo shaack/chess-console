@@ -30,7 +30,38 @@
     import {GameControl} from "../src/chess-console/components/GameControl/GameControl.js"
     import {Persistence} from "../src/chess-console/components/Persistence.js"
     import {Sound} from "../src/chess-console/components/Sound.js"
+    import {BORDER_TYPE} from "../lib/cm-chessboard/Chessboard.js"
 
+    new ChessConsole(
+        document.getElementById("console-container"),
+        {name: "Local Player", type: LocalPlayer},
+        {name: "Random Player", type: RandomPlayer}
+    ).initialization.then((chessConsole) => {
+        new Board(chessConsole, {
+            sprite: {
+                url: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg"
+            },
+            style: {
+                cssClass: "blue",
+                borderType: BORDER_TYPE.frame,
+                showCoordinates: true
+            }
+        }).initialization.then(() => {
+            new Persistence(chessConsole, {
+                savePrefix: "Random"
+            }).initialization.then((persistence) => persistence.load())
+        })
+        new GameStateOutput(chessConsole)
+        new History(chessConsole)
+        new HistoryControl(chessConsole)
+        new CapturedPieces(chessConsole)
+        new GameControl(chessConsole)
+        new Sound(chessConsole, {
+            soundSpriteFile: "../assets/sounds/chess_console_sounds.mp3"
+        })
+    })
+
+    /*
     const chessConsole = new ChessConsole(
         document.getElementById("console-container"),
         {name: "Local Player", type: LocalPlayer},
@@ -56,7 +87,7 @@
     chessConsole.addComponentOLD(CapturedPieces)
     chessConsole.addComponentOLD(GameControl)
     chessConsole.addComponentOLD(Sound)
-
+*/
 </script>
 </body>
 </html>
