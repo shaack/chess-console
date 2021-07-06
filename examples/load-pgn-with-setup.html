@@ -49,14 +49,12 @@
         }).initialization.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "loadPgnWithSetup"
-            }).initialization
-                .then(() => {
-                    chessConsole.newGame({
-                        playerColor: "w",
-                        pgn: pgn
-                    })
+            }).initialization.then(() => {
+                chessConsole.newGame({
+                    playerColor: "w",
+                    pgn: pgn
                 })
-
+            })
         })
         new GameStateOutput(chessConsole)
         new History(chessConsole)
