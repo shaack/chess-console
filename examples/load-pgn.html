@@ -40,31 +40,37 @@ Bb6 14.Nbd2 Bb7 15.Ne4 Qf5 16.Bxd3 Qh5 17.Nf6+ gxf6 18.exf6
 Rg8 19.Rad1 Qxf3 20.Rxe7+ Nxe7 21.Qxd7+ Kxd7 22.Bf5+ Ke8
 23.Bd7+`
 
-    const chessConsole = new ChessConsole(
+    new ChessConsole(
         document.getElementById("console-container"),
         {name: "Player", type: LocalPlayer},
-        {name: "Opponent", type: RandomPlayer},
-        {
-            soundSpriteFile: "../assets/sounds/chess_console_sounds.mp3",
-            chessboardSpriteFile: "../assets/images/chessboard-sprite.svg"
-        }
-    )
-    chessConsole.addComponentOLD(Board).then(() => {
-        chessConsole.addComponentOLD(Persistence)
-            .then(() => {
-                chessConsole.newGame({
-                    playerColor: "b",
-                    pgn: pgn
+        {name: "Opponent", type: RandomPlayer}
+    ).initialization.then((chessConsole) => {
+        new Board(chessConsole, {
+            sprite: {
+                url: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg"
+            }
+        }).initialization.then(() => {
+            new Persistence(chessConsole, {
+                savePrefix: "loadPgn"
+            }).initialization
+                .then(() => {
+                    chessConsole.newGame({
+                        playerColor: "b",
+                        pgn: pgn
+                    })
                 })
-            })
 
+        })
+        new GameStateOutput(chessConsole)
+        new History(chessConsole)
+        new HistoryControl(chessConsole)
+        new CapturedPieces(chessConsole)
+        new GameControl(chessConsole)
+        new Sound(chessConsole, {
+            soundSpriteFile: "../assets/sounds/chess_console_sounds.mp3",
+        })
     })
-    chessConsole.addComponentOLD(GameStateOutput)
-    chessConsole.addComponentOLD(History)
-    chessConsole.addComponentOLD(HistoryControl)
-    chessConsole.addComponentOLD(CapturedPieces)
-    chessConsole.addComponentOLD(GameControl)
-    chessConsole.addComponentOLD(Sound)
+
     document.getElementById("pgnOutput").innerText = pgn
 </script>
 </body>

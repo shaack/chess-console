@@ -104,22 +104,6 @@ export class ChessConsole extends Service {
         }))
     }
 
-    addComponentOLD(componentType, props = {}) {
-        return new Promise((resolve) => {
-            this.initialization.then(() => {
-                const component = new componentType(this, props)
-                this.components.push(component)
-                if (component.initialization) {
-                    component.initialization.then(() => {
-                        resolve(component)
-                    })
-                } else {
-                    resolve(component)
-                }
-            })
-        })
-    }
-
     /** @deprecated use newGame() */
     initGame(props = {}) {
         console.warn("initGame is deprecated, use newGame")
