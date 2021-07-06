@@ -5,18 +5,15 @@
  */
 
 import {AudioSprite} from "../../../lib/cm-web-modules/audio/AudioSprite.js"
-import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
 import {consoleMessageTopics} from "../ChessConsole.js"
+import {Service} from "../../../lib/cm-web-modules/app/Service.js"
 
-export class Sound extends Component {
+export class Sound extends Service {
 
-    constructor(chessConsole) {
-        super(chessConsole)
+    constructor(chessConsole, props) {
+        super(chessConsole, props)
         this.chessConsole = chessConsole
-        if(!chessConsole.props.soundSpriteFile) {
-            chessConsole.props.soundSpriteFile = "/assets/sounds/chess_console_sounds.mp3"
-        }
-        this.audioSprite = new AudioSprite(chessConsole.props.soundSpriteFile,
+        this.audioSprite = new AudioSprite(this.props.soundSpriteFile,
             {
                 gain: 1,
                 slices: {

@@ -3,12 +3,12 @@
  * Repository: https://github.com/shaack/chess-console
  * License: MIT, see file 'LICENSE'
  */
-import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
+import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class GameStateOutput extends Component {
 
     constructor(chessConsole) {
-        super(chessConsole)
+        super(chessConsole, chessConsole.componentContainers.notifications)
 
         this.chessConsole = chessConsole
         this.i18n = chessConsole.i18n
@@ -34,15 +34,15 @@ export class GameStateOutput extends Component {
         )
         this.element = document.createElement("div")
         this.element.setAttribute("class", "gameState alert alert-primary mb-2")
-        this.chessConsole.componentContainers.notifications.appendChild(this.element)
+        this.context.appendChild(this.element)
 
         this.chessConsole.state.observeChess(() => {
-            this.update()
+            this.redraw()
         })
-        this.update()
+        this.redraw()
     }
 
-    update() {
+    redraw() {
         const chess = this.chessConsole.state.chess
         let html = ''
         if (chess.gameOver()) {

@@ -6,11 +6,11 @@
 
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
-import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
+import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class HistoryControl extends Component {
     constructor(chessConsole) {
-        super(chessConsole)
+        super(chessConsole, chessConsole.componentContainers.controlButtons)
 
         this.chessConsole = chessConsole
         const i18n = chessConsole.i18n
@@ -40,17 +40,16 @@ export class HistoryControl extends Component {
             this.$btnAutoplay = $(`<button type="button" title="${i18n.t('auto_run')}" class="btn btn-icon autoplay"><i class="fa fa-fw fa-play" aria-hidden="true"></i><i class="fa fa-fw fa-stop" aria-hidden="true"></i></button>`)
             this.$btnOrientation = $(`<button type="button" title="${i18n.t('turn_board')}" class="btn btn-icon orientation"><i class="fa fa-fw fa-exchange-alt fa-rotate-90" aria-hidden="true"></i></button>`)
 
-            chessConsole.componentContainers.controlButtons.appendChild(this.$btnFirst[0])
-            chessConsole.componentContainers.controlButtons.appendChild(this.$btnBack[0])
-            chessConsole.componentContainers.controlButtons.appendChild(this.$btnForward[0])
-            chessConsole.componentContainers.controlButtons.appendChild(this.$btnLast[0])
-            chessConsole.componentContainers.controlButtons.appendChild(this.$btnAutoplay[0])
-            chessConsole.componentContainers.controlButtons.appendChild(this.$btnOrientation[0])
+            this.context.appendChild(this.$btnFirst[0])
+            this.context.appendChild(this.$btnBack[0])
+            this.context.appendChild(this.$btnForward[0])
+            this.context.appendChild(this.$btnLast[0])
+            this.context.appendChild(this.$btnAutoplay[0])
+            this.context.appendChild(this.$btnOrientation[0])
 
             this.chessConsole.state.observeChess(() => {
                 this.setButtonStates()
             })
-
             Observe.property(this.chessConsole.state, "plyViewed", () => {
                 this.setButtonStates()
             })

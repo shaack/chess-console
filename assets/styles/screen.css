@@ -7219,7 +7219,7 @@ a.text-dark:hover, a.text-dark:focus {
   max-width: 210px;
   overflow-y: auto;
   overflow-x: visible;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   width: calc(100% + 8px); }
   .chess-console .chess-console-left .history table {
     width: 100%; }
@@ -7230,7 +7230,8 @@ a.text-dark:hover, a.text-dark:focus {
       width: 41%; }
 
 .chess-console .chess-console-left .captured-pieces {
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  font-size: 120%; }
 
 .chess-console .chess-console-right .flex-buttons .autoplay .fa-play {
   color: #28a745; }

@@ -4,25 +4,25 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Component} from "../../../lib/cm-web-modules/app-deprecated/Component.js"
 import {consoleMessageTopics} from "../ChessConsole.js"
 import {COLOR} from "../../../lib/cm-chess/Chess.js"
+import {Service} from "../../../lib/cm-web-modules/app/Service.js"
 
-export class Persistence extends Component {
+export class Persistence extends Service {
 
     constructor(chessConsole) {
         super(chessConsole)
         this.chessConsole = chessConsole
-        if(!this.chessConsole.props.savePrefix) {
-            this.chessConsole.props.savePrefix = "ChessConsole"
+        if(!this.props.savePrefix) {
+            this.props.savePrefix = "ChessConsole"
         }
         this.chessConsole.state.observeChess(() => {
-            this.save(chessConsole.props.savePrefix)
+            this.save()
         })
         this.chessConsole.persistence = this
     }
 
-    load(prefix = this.chessConsole.props.savePrefix) {
+    load(prefix = this.props.savePrefix) {
         const props = {}
         try {
             if (this.loadValue("PlayerColor") !== null) {
@@ -34,15 +34,15 @@ export class Persistence extends Component {
                 props.pgn = localStorage.getItem(prefix + "Pgn")
             }
             this.chessConsole.messageBroker.publish(consoleMessageTopics.load)
-            this.chessConsole.initGame(props)
+            this.chessConsole.newGame(props)
         } catch (e) {
             localStorage.clear()
             console.warn(e)
-            this.chessConsole.initGame({playerColor: COLOR.white})
+            this.chessConsole.newGame({playerColor: COLOR.white})
         }
     }
 
-    loadValue(valueName, prefix = this.chessConsole.props.savePrefix) {
+    loadValue(valueName, prefix = this.props.savePrefix) {
         let item = null
         try {
             item = localStorage.getItem(prefix + valueName)
@@ -54,12 +54,12 @@ export class Persistence extends Component {
         }
     }
 
-    save(prefix = this.chessConsole.props.savePrefix) {
+    save(prefix = this.props.savePrefix) {
         localStorage.setItem(prefix + "PlayerColor", JSON.stringify(this.chessConsole.props.playerColor))
         localStorage.setItem(prefix + "Pgn", this.chessConsole.state.chess.renderPgn())
     }
 
-    saveValue(valueName, value, prefix = this.chessConsole.props.savePrefix) {
+    saveValue(valueName, value, prefix = this.props.savePrefix) {
         localStorage.setItem(prefix + valueName, JSON.stringify(value))
     }
 }

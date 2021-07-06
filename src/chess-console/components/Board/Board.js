@@ -7,7 +7,7 @@
 import {Chessboard, COLOR} from "../../../../lib/cm-chessboard/Chessboard.js"
 import {consoleMessageTopics} from "../../ChessConsole.js"
 import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
-import {Component} from "../../../../lib/cm-web-modules/app-deprecated/Component.js"
+import {Component} from "../../../../lib/cm-web-modules/app/Component.js"
 
 export const CONSOLE_MARKER_TYPE = {
     hover: {class: "last-move", slice: "markerFrame"},
@@ -20,10 +20,7 @@ export const CONSOLE_MARKER_TYPE = {
 export class Board extends Component {
 
     constructor(chessConsole, props) {
-        super(chessConsole, props)
-        if (!chessConsole.props.chessboardSpriteFile) {
-            chessConsole.props.chessboardSpriteFile = "/assets/images/chessboard-sprite.svg"
-        }
+        super(chessConsole, chessConsole.componentContainers.board, props)
         this.initialization = new Promise((resolve) => {
             chessConsole.board = this
             this.chessConsole = chessConsole
@@ -37,9 +34,9 @@ export class Board extends Component {
             this.elements.playerBottom.setAttribute("class", "player bottom")
             this.elements.playerBottom.innerHTML = "&nbsp;"
             this.elements.chessboard.setAttribute("class", "chessboard")
-            chessConsole.componentContainers.board.appendChild(this.elements.playerTop)
-            chessConsole.componentContainers.board.appendChild(this.elements.chessboard)
-            chessConsole.componentContainers.board.appendChild(this.elements.playerBottom)
+            this.context.appendChild(this.elements.playerTop)
+            this.context.appendChild(this.elements.chessboard)
+            this.context.appendChild(this.elements.playerBottom)
             this.chessConsole.state.observeChess((params) => {
                 let animated = true
                 if (params.functionName === "load_pgn") {
@@ -53,7 +50,7 @@ export class Board extends Component {
                 this.setPositionOfPlyViewed()
                 this.markLastMove()
             })
-            const props = {
+            const chessboardProps = {
                 responsive: true,
                 position: "empty",
                 orientation: chessConsole.state.orientation,
@@ -63,13 +60,13 @@ export class Board extends Component {
                     hoverMarker: CONSOLE_MARKER_TYPE.hover
                 },
                 sprite: {
-                    url: chessConsole.props.chessboardSpriteFile, // pieces and markers
+                    url: this.props.sprite.url, // pieces and markers
                 }
             }
-            if (chessConsole.props.chessboardStyle) {
-                Object.assign(props.style, chessConsole.props.chessboardStyle)
+            if (this.props.style) {
+                Object.assign(chessboardProps.style, this.props.style)
             }
-            this.chessboard = new Chessboard(this.elements.chessboard, props)
+            this.chessboard = new Chessboard(this.elements.chessboard, chessboardProps)
             Observe.property(chessConsole.state, ["orientation"], () => {
                 this.setPlayerNames()
                 this.chessboard.setOrientation(chessConsole.state.orientation).then(() => {
@@ -96,7 +93,7 @@ export class Board extends Component {
                 this.setPositionOfPlyViewed(false)
                 this.setPlayerNames()
                 this.markPlayerToMove()
-                resolve()
+                resolve(this)
             })
         })
     }

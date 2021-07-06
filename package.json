@@ -32,7 +32,7 @@
     "cm-chess": "^2.1.1",
     "cm-chessboard": "^3.12.14",
     "cm-pgn": "^2.1.4",
-    "cm-web-modules": "^1.9.18",
+    "cm-web-modules": "^1.11.1",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1"
   }

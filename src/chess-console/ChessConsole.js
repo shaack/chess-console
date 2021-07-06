@@ -4,17 +4,16 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {App} from "../../lib/cm-web-modules/app/App.js"
-import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
-import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
-import {ChessConsoleState} from "./ChessConsoleState.js"
-import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 import {FEN} from "../../lib/cm-chess/Chess.js"
+import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
+import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
+import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
+import {Service} from "../../lib/cm-web-modules/app/Service.js"
+import {ChessConsoleState} from "./ChessConsoleState.js"
 
 export const consoleMessageTopics = {
-    /** @deprecated */
     newGame: "game/new",
-    initGame: "game/init",
+    initGame: "game/init", // remove this (deprecated)
     gameOver: "game/over",
     moveRequest: "game/moveRequest",
     legalMove: "game/move/legal",
@@ -23,12 +22,12 @@ export const consoleMessageTopics = {
     load: "game/load"
 }
 // @deprecated, may be deleted in future versions, use `consoleMessageTopics`
-export const messageBrokerTopics = consoleMessageTopics
+// export const messageBrokerTopics = consoleMessageTopics
 
-export class ChessConsole extends App {
+export class ChessConsole extends Service {
 
-    constructor(container, player, opponent, props = {}) {
-        super(props)
+    constructor(context, player, opponent, props = {}) {
+        super(undefined, props)
         this.props = {
             locale: navigator.language, // locale for i18n
             playerColor: COLOR.white, // the players color (color at bottom)
@@ -72,7 +71,7 @@ export class ChessConsole extends App {
                 </div>`
         }
         Object.assign(this.props, props)
-        this.container = container
+        this.container = context
         this.i18n = new I18n({locale: props.locale})
         this.messageBroker = new MessageBroker()
         this.state = new ChessConsoleState(this.props)
@@ -89,16 +88,20 @@ export class ChessConsole extends App {
         this.player = new player.type(this, player.name, player.props)
         this.opponent = new opponent.type(this, opponent.name, opponent.props)
 
-        this.initialization = this.i18n.load({
-            de: {
-                ok: "OK",
-                cancel: "Abbrechen"
-            },
-            en: {
-                ok: "OK",
-                cancel: "Cancel"
-            }
-        })
+        this.initialization = new Promise((resolve => {
+            this.i18n.load({
+                de: {
+                    ok: "OK",
+                    cancel: "Abbrechen"
+                },
+                en: {
+                    ok: "OK",
+                    cancel: "Cancel"
+                }
+            }).then(() => {
+                resolve(this)
+            })
+        }))
     }
 
     addComponentOLD(componentType, props = {}) {
