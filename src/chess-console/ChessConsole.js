@@ -154,7 +154,7 @@ export class ChessConsole extends Component {
             this.messageBroker.publish(consoleMessageTopics.moveRequest, {playerToMove: playerToMove})
             setTimeout(() => {
                 playerToMove.moveRequest(this.state.chess.fen(), (san) => {
-                    this.moveResponse(san)
+                    return this.handleMoveResponse(san)
                 })
             })
         }
@@ -165,7 +165,7 @@ export class ChessConsole extends Component {
      * - calls moveDone() in player
      * - requests nextMove
      */
-    moveResponse(move) {
+    handleMoveResponse(move) {
         const playerMoved = this.playerToMove()
         const moveResult = this.state.chess.move(move)
         if (!moveResult) {
@@ -176,8 +176,8 @@ export class ChessConsole extends Component {
                 playerMoved: playerMoved,
                 move: move
             })
-            playerMoved.moveResult(move, moveResult)
-            return
+            // playerMoved.moveResult(move, moveResult)
+            return moveResult
         }
         if (this.state.plyViewed === this.state.plyCount - 1) {
             this.state.plyViewed++
@@ -187,7 +187,7 @@ export class ChessConsole extends Component {
             move: move,
             moveResult: moveResult
         })
-        playerMoved.moveResult(move, moveResult)
+        // playerMoved.moveResult(move, moveResult)
         if (!this.state.chess.gameOver()) {
             this.nextMove()
         } else {
@@ -197,6 +197,7 @@ export class ChessConsole extends Component {
             }
             this.messageBroker.publish(consoleMessageTopics.gameOver, {wonColor: wonColor})
         }
+        return moveResult
     }
 
     undoMove() {

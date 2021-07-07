@@ -61,10 +61,14 @@ export class LocalPlayer extends ChessConsolePlayer {
     moveInputCallback(event, fen, moveResponse) {
         if (event.type === INPUT_EVENT_TYPE.moveDone) {
             return this.validateMoveAndPromote(fen, event.squareFrom, event.squareTo, (move) => {
+                let result
                 if (move) { // valid
-                    moveResponse(move)
+                    result = moveResponse(move)
                 } else { // not valid
-                    moveResponse({from: event.squareFrom, to: event.squareTo})
+                    result = moveResponse({from: event.squareFrom, to: event.squareTo})
+                }
+                if(result) {
+                    this.chessConsole.board.chessboard.disableMoveInput()
                 }
             })
         } else if (event.type === INPUT_EVENT_TYPE.moveStart) {
@@ -85,12 +89,6 @@ export class LocalPlayer extends ChessConsolePlayer {
                     return this.moveInputCallback(event, fen, moveResponse)
                 }, color
             )
-        }
-    }
-
-    moveResult(move, result) {
-        if(result) {
-            this.chessConsole.board.chessboard.disableMoveInput()
         }
     }
 
