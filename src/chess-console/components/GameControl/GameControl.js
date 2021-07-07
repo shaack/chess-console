@@ -10,9 +10,9 @@ import {NewGameDialog} from "./NewGameDialog.js"
 export class GameControl extends Component {
 
     constructor(chessConsole, props) {
-        super(chessConsole, props)
-
+        super(chessConsole, chessConsole.componentContainers.controlButtons, props)
         this.chessConsole = chessConsole
+
         const i18n = chessConsole.i18n
         i18n.load({
             de: {
@@ -28,8 +28,8 @@ export class GameControl extends Component {
             this.$btnUndoMove = $(`<button type="button" title="${i18n.t('undo_move')}" class="btn btn-icon btn-light undoMove"><i class="fa fa-fw fa-undo-alt" aria-hidden="true"></i></button>`)
             this.$btnStartNewGame = $(`<button type="button" title="${i18n.t('start_game')}" class="btn btn-icon btn-light startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>\`)`)
 
-            chessConsole.componentContainers.controlButtons.appendChild(this.$btnUndoMove[0])
-            chessConsole.componentContainers.controlButtons.appendChild(this.$btnStartNewGame[0])
+            this.context.appendChild(this.$btnUndoMove[0])
+            this.context.appendChild(this.$btnStartNewGame[0])
 
             this.$btnUndoMove.click(() => {
                 this.chessConsole.undoMove()
