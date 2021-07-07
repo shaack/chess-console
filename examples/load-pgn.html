@@ -53,7 +53,7 @@ Rg8 19.Rad1 Qxf3 20.Rxe7+ Nxe7 21.Qxd7+ Kxd7 22.Bf5+ Ke8
             new Persistence(chessConsole, {
                 savePrefix: "loadPgn"
             }).initialization.then(() => {
-                chessConsole.newGame({
+                chessConsole.initGame({
                     playerColor: "b",
                     pgn: pgn
                 })

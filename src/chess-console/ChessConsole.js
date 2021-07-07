@@ -8,12 +8,12 @@ import {FEN} from "../../lib/cm-chess/Chess.js"
 import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
-import {Service} from "../../lib/cm-web-modules/app/Service.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
+import {Component} from "../../lib/cm-web-modules/app/Component.js"
 
 export const consoleMessageTopics = {
-    newGame: "game/new",
-    initGame: "game/init", // remove this (deprecated)
+    // newGame: "game/new", // remove this (deprecated)
+    initGame: "game/init",
     gameOver: "game/over",
     moveRequest: "game/moveRequest",
     legalMove: "game/move/legal",
@@ -24,10 +24,10 @@ export const consoleMessageTopics = {
 // @deprecated, may be deleted in future versions, use `consoleMessageTopics`
 // export const messageBrokerTopics = consoleMessageTopics
 
-export class ChessConsole extends Service {
+export class ChessConsole extends Component {
 
-    constructor(context, player, opponent, props = {}) {
-        super(undefined, props)
+    constructor(context, player, opponent, props = {}, app = undefined) {
+        super(app, context, props)
         this.props = {
             locale: navigator.language, // locale for i18n
             playerColor: COLOR.white, // the players color (color at bottom)
@@ -69,18 +69,17 @@ export class ChessConsole extends Service {
                 </div>`
         }
         Object.assign(this.props, props)
-        this.container = context
         this.i18n = new I18n({locale: props.locale})
         this.messageBroker = new MessageBroker()
         this.state = new ChessConsoleState(this.props)
-        this.container.innerHTML = this.props.template
+        this.context.innerHTML = this.props.template
         this.componentContainers = {
-            center: this.container.querySelector(".chess-console-center"),
-            left: this.container.querySelector(".chess-console-left"),
-            right: this.container.querySelector(".chess-console-right"),
-            board: this.container.querySelector(".chess-console-board"), // TODO put selector inside the components
-            controlButtons: this.container.querySelector(".control-buttons"),
-            notifications: this.container.querySelector(".chess-console-notifications")
+            center: this.context.querySelector(".chess-console-center"),
+            left: this.context.querySelector(".chess-console-left"),
+            right: this.context.querySelector(".chess-console-right"),
+            board: this.context.querySelector(".chess-console-board"),
+            controlButtons: this.context.querySelector(".control-buttons"),
+            notifications: this.context.querySelector(".chess-console-notifications")
         }
 
         this.player = new player.type(this, player.name, player.props)
@@ -102,28 +101,28 @@ export class ChessConsole extends Service {
         }))
     }
 
-    /** @deprecated use newGame() */
     initGame(props = {}) {
-        console.warn("initGame is deprecated, use newGame")
-        this.newGame(props)
-        this.messageBroker.publish(consoleMessageTopics.initGame, {props: props})
-    }
-
-    newGame(props = {}) {
         Object.assign(this.props, props)
         this.state.orientation = this.props.playerColor
         if(props.pgn) {
             this.state.chess.loadPgn(props.pgn, {sloppy: true})
             this.state.plyViewed = this.state.plyCount
         } else if (props.history) {
+            console.warn("props.history is deprecated, use props.pgn")
             this.state.chess.loadPgn(props.history, {sloppy: true})
             this.state.plyViewed = this.state.plyCount
         } else {
             this.state.chess.load(FEN.start)
             this.state.plyViewed = 0
         }
-        this.messageBroker.publish(consoleMessageTopics.newGame, {props: props})
         this.nextMove()
+        this.messageBroker.publish(consoleMessageTopics.initGame, {props: props})
+    }
+
+    // @deprecated use initGame()
+    newGame(props = {}) {
+        console.warn("newGame is deprecated, use initGame")
+        this.initGame(props)
     }
 
     playerWhite() {

@@ -34,11 +34,11 @@ export class Persistence extends Service {
                 props.pgn = localStorage.getItem(prefix + "Pgn")
             }
             this.chessConsole.messageBroker.publish(consoleMessageTopics.load)
-            this.chessConsole.newGame(props)
+            this.chessConsole.initGame(props)
         } catch (e) {
             localStorage.clear()
             console.warn(e)
-            this.chessConsole.newGame({playerColor: COLOR.white})
+            this.chessConsole.initGame({playerColor: COLOR.white})
         }
     }
 

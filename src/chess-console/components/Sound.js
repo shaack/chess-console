@@ -31,7 +31,7 @@ export class Sound extends Service {
                     "dialog": {offset: 10.8, duration: 0.45}
                 }
             })
-        chessConsole.messageBroker.subscribe(consoleMessageTopics.newGame, () => {
+        chessConsole.messageBroker.subscribe(consoleMessageTopics.initGame, () => {
             // this.play("game_start")
         })
         chessConsole.messageBroker.subscribe(consoleMessageTopics.legalMove, (data) => {

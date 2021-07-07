@@ -50,7 +50,7 @@
             new Persistence(chessConsole, {
                 savePrefix: "loadPgnWithSetup"
             }).initialization.then(() => {
-                chessConsole.newGame({
+                chessConsole.initGame({
                     playerColor: "w",
                     pgn: pgn
                 })

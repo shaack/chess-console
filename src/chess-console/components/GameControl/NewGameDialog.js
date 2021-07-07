@@ -47,7 +47,7 @@ export class NewGameDialog {
                         color = (module.props.playerColor === COLOR.white) ? COLOR.black : COLOR.white
                     }
                     modal.hide()
-                    module.newGame({playerColor: color})
+                    module.initGame({playerColor: color})
                 })
             }
             $.showModal(props)
