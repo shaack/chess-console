@@ -29,6 +29,7 @@ export class ChessConsole extends Component {
     constructor(context, player, opponent, props = {}, app = undefined) {
         super(app, context, props)
         this.props = {
+            figuresSpriteFile: undefined,
             locale: navigator.language, // locale for i18n
             playerColor: COLOR.white, // the players color (color at bottom)
             pgn: undefined // initial pgn, can contain header and history

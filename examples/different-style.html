@@ -35,12 +35,12 @@
     new ChessConsole(
         document.getElementById("console-container"),
         {name: "Local Player", type: LocalPlayer},
-        {name: "Random Player", type: RandomPlayer}
+        {name: "Random Player", type: RandomPlayer},
+        {
+            figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg",
+        }
     ).initialization.then((chessConsole) => {
         new Board(chessConsole, {
-            sprite: {
-                url: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg"
-            },
             style: {
                 cssClass: "blue",
                 borderType: BORDER_TYPE.frame,

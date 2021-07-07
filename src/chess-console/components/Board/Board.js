@@ -60,7 +60,7 @@ export class Board extends Component {
                     hoverMarker: CONSOLE_MARKER_TYPE.hover
                 },
                 sprite: {
-                    url: this.props.sprite.url, // pieces and markers
+                    url: chessConsole.props.figuresSpriteFile,
                 }
             }
             if (this.props.style) {

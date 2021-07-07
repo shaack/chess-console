@@ -33,7 +33,7 @@ export class LocalPlayer extends ChessConsolePlayer {
                     if (possibleMove.to === squareTo && possibleMove.promotion) {
                         new PromotionDialog({
                             color: tmpChess.turn(),
-                            spriteUrl: this.chessConsole.props.chessboardSpriteFile
+                            spriteUrl: this.chessConsole.props.figuresSpriteFile
                         }, (piece) => {
                             move.promotion = piece
                             callback(tmpChess.move(move))
@@ -60,10 +60,10 @@ export class LocalPlayer extends ChessConsolePlayer {
      */
     moveInputCallback(event, fen, moveResponse) {
         if (event.type === INPUT_EVENT_TYPE.moveDone) {
-            return this.validateMoveAndPromote(fen, event.squareFrom, event.squareTo, (move) => {
+            return this.validateMoveAndPromote(fen, event.squareFrom, event.squareTo, (moveResult) => {
                 let result
-                if (move) { // valid
-                    result = moveResponse(move)
+                if (moveResult) { // valid
+                    result = moveResponse(moveResult)
                 } else { // not valid
                     result = moveResponse({from: event.squareFrom, to: event.squareTo})
                 }
