@@ -23,10 +23,10 @@ export class Sound extends Service {
                     "game_draw": {offset: 9.45, duration: 1.35},
                     "check": {offset: 3.6, duration: 0.45},
                     "wrong_move": {offset: 4.05, duration: 0.45},
-                    "move": {offset: 4.5, duration: 0.45},
-                    "capture": {offset: 6.3, duration: 0.45},
-                    "castle": {offset: 7.65, duration: 0.45},
-                    "take_back": {offset: 8.1, duration: 0.45},
+                    "move": {offset: 4.5, duration: 0.2},
+                    "capture": {offset: 6.3, duration: 0.2},
+                    "castle": {offset: 7.65, duration: 0.2},
+                    "take_back": {offset: 8.1, duration: 0.12},
                     "promotion": {offset: 9.0, duration: 0.45},
                     "dialog": {offset: 10.8, duration: 0.45}
                 }

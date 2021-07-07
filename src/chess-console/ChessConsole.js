@@ -34,21 +34,19 @@ export class ChessConsole extends Service {
             pgn: undefined // initial pgn, can contain header and history
         }
         if (!this.props.figures) {
-            const whitePiecesStyle = 'color: white; text-shadow: 1px  1px 1px black, 1px -1px 1px black, -1px  1px 1px black, -1px -1px 1px black;'
-            const blackPiecesStyle = 'color: black; text-shadow: 1px  1px 1px white, 1px -1px 1px white, -1px  1px 1px white, -1px -1px 1px white;'
             this.props.figures = {
-                Rw: '<i class="fas fa-fw fa-chess-rook" style="' + whitePiecesStyle + '"></i>',
-                Nw: '<i class="fas fa-fw fa-chess-knight" style="' + whitePiecesStyle + '"></i>',
-                Bw: '<i class="fas fa-fw fa-chess-bishop" style="' + whitePiecesStyle + '"></i>',
-                Qw: '<i class="fas fa-fw fa-chess-queen" style="' + whitePiecesStyle + '"></i>',
-                Kw: '<i class="fas fa-fw fa-chess-king" style="' + whitePiecesStyle + '"></i>',
-                Pw: '<i class="fas fa-fw fa-chess-pawn" style="' + whitePiecesStyle + '"></i>',
-                Rb: '<i class="fas fa-fw fa-chess-rook" style="' + blackPiecesStyle + '"></i>',
-                Nb: '<i class="fas fa-fw fa-chess-knight" style="' + blackPiecesStyle + '"></i>',
-                Bb: '<i class="fas fa-fw fa-chess-bishop" style="' + blackPiecesStyle + '"></i>',
-                Qb: '<i class="fas fa-fw fa-chess-queen" style="' + blackPiecesStyle + '"></i>',
-                Kb: '<i class="fas fa-fw fa-chess-king" style="' + blackPiecesStyle + '"></i>',
-                Pb: '<i class="fas fa-fw fa-chess-pawn" style="' + blackPiecesStyle + '"></i>'
+                Rw: '<i class="fas fa-fw fa-chess-rook fa-figure-white"></i>',
+                Nw: '<i class="fas fa-fw fa-chess-knight fa-figure-white"></i>',
+                Bw: '<i class="fas fa-fw fa-chess-bishop fa-figure-white"></i>',
+                Qw: '<i class="fas fa-fw fa-chess-queen fa-figure-white"></i>',
+                Kw: '<i class="fas fa-fw fa-chess-king fa-figure-white"></i>',
+                Pw: '<i class="fas fa-fw fa-chess-pawn fa-figure-white"></i>',
+                Rb: '<i class="fas fa-fw fa-chess-rook fa-figure-black"></i>',
+                Nb: '<i class="fas fa-fw fa-chess-knight fa-figure-black"></i>',
+                Bb: '<i class="fas fa-fw fa-chess-bishop fa-figure-black"></i>',
+                Qb: '<i class="fas fa-fw fa-chess-queen fa-figure-black"></i>',
+                Kb: '<i class="fas fa-fw fa-chess-king fa-figure-black"></i>',
+                Pb: '<i class="fas fa-fw fa-chess-pawn fa-figure-black"></i>'
             }
         }
         const colSets = {

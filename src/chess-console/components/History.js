@@ -18,6 +18,9 @@ export class History extends Component {
         this.element = document.createElement("div")
         this.element.setAttribute("class", "history")
         this.context.appendChild(this.element)
+        if(!this.props.notationType) {
+            this.props.notationType = "figures"
+        }
 
         // this.state = chessConsole.state
         this.chessConsole.state.observeChess(() => {
