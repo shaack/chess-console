@@ -10,8 +10,8 @@ import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../../lib/cm-web-modules/app/Component.js"
 
 export const CONSOLE_MARKER_TYPE = {
-    hover: {class: "markerFrame", slice: "markerFrame"},
-    move: {class: "markerFrame", slice: "markerFrame"},
+    moveToMarker: {class: "markerFrame", slice: "markerFrame"},
+    moveFromMarker: {class: "markerFrame", slice: "markerFrame"},
     lastMove: {class: "markerFrame", slice: "markerFrame"},
     check: {class: "markerCircleRed", slice: "markerCircle"},
     wrongMove: {class: "markerFrameRed", slice: "markerFrame"}
@@ -56,8 +56,8 @@ export class Board extends Component {
                 orientation: chessConsole.state.orientation,
                 style: {
                     aspectRatio: 0.94,
-                    moveMarker: CONSOLE_MARKER_TYPE.move,
-                    hoverMarker: CONSOLE_MARKER_TYPE.hover
+                    moveFromMarker: CONSOLE_MARKER_TYPE.moveFromMarker,
+                    moveToMarker: CONSOLE_MARKER_TYPE.moveToMarker
                 },
                 sprite: {
                     url: chessConsole.props.figuresSpriteFile,
@@ -85,7 +85,7 @@ export class Board extends Component {
                 this.chessboard.addMarker(message.move.from, CONSOLE_MARKER_TYPE.wrongMove)
                 this.chessboard.addMarker(message.move.to, CONSOLE_MARKER_TYPE.wrongMove)
                 setTimeout(() => {
-                    this.chessboard.removeMarkers(null, CONSOLE_MARKER_TYPE.wrongMove)
+                    this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.wrongMove)
                 }, 500)
             })
             this.setPositionOfPlyViewed(false)
@@ -102,8 +102,8 @@ export class Board extends Component {
             const to = this.chessConsole.state.fenOfPly(this.chessConsole.state.plyViewed)
             this.chessboard.setPosition(to, animated).then(() => {
                 // TODO workaround, fix Promise
-                this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.move)
-                this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.hover)
+                this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.moveFromMarker)
+                this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.moveToMarker)
             })
         })
     }
@@ -111,8 +111,8 @@ export class Board extends Component {
     markLastMove() {
         window.clearTimeout(this.markLastMoveDebounce)
         this.markLastMoveDebounce = setTimeout(() => {
-            this.chessboard.removeMarkers(null, CONSOLE_MARKER_TYPE.lastMove)
-            this.chessboard.removeMarkers(null, CONSOLE_MARKER_TYPE.check)
+            this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.lastMove)
+            this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.check)
             if (this.chessConsole.state.plyViewed === this.chessConsole.state.plyCount) {
                 const lastMove = this.chessConsole.state.lastMove()
                 if (lastMove) {
