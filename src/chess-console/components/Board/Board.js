@@ -69,9 +69,8 @@ export class Board extends Component {
             this.chessboard = new Chessboard(this.elements.chessboard, chessboardProps)
             Observe.property(chessConsole.state, ["orientation"], () => {
                 this.setPlayerNames()
-                this.chessboard.setOrientation(chessConsole.state.orientation).then(() => {
-                    this.markPlayerToMove()
-                })
+                this.chessboard.setOrientation(chessConsole.state.orientation)
+                this.markPlayerToMove()
             })
             Observe.property(chessConsole.player, "name", () => {
                 this.setPlayerNames()
@@ -82,19 +81,18 @@ export class Board extends Component {
             chessConsole.messageBroker.subscribe(consoleMessageTopics.moveRequest, () => {
                 this.markPlayerToMove()
             })
-            this.chessboard.initialization.then(() => {
-                this.chessConsole.messageBroker.subscribe(consoleMessageTopics.illegalMove, (message) => {
-                    this.chessboard.addMarker(message.move.from, CONSOLE_MARKER_TYPE.wrongMove)
-                    this.chessboard.addMarker(message.move.to, CONSOLE_MARKER_TYPE.wrongMove)
-                    setTimeout(() => {
-                        this.chessboard.removeMarkers(null, CONSOLE_MARKER_TYPE.wrongMove)
-                    }, 500)
-                })
-                this.setPositionOfPlyViewed(false)
-                this.setPlayerNames()
-                this.markPlayerToMove()
-                resolve(this)
+            this.chessConsole.messageBroker.subscribe(consoleMessageTopics.illegalMove, (message) => {
+                this.chessboard.addMarker(message.move.from, CONSOLE_MARKER_TYPE.wrongMove)
+                this.chessboard.addMarker(message.move.to, CONSOLE_MARKER_TYPE.wrongMove)
+                setTimeout(() => {
+                    this.chessboard.removeMarkers(null, CONSOLE_MARKER_TYPE.wrongMove)
+                }, 500)
             })
+            this.setPositionOfPlyViewed(false)
+            this.setPlayerNames()
+            this.markPlayerToMove()
+
+            resolve(this)
         })
     }
 
