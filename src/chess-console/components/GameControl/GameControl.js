@@ -52,7 +52,7 @@ export class GameControl extends Component {
     }
 
     setButtonStates() {
-        if (this.chessConsole.state.plyCount() < 2) {
+        if (this.chessConsole.state.chess.plyCount() < 2) {
             this.$btnUndoMove.prop("disabled", true)
         } else {
             this.$btnUndoMove.prop("disabled", false)

@@ -99,7 +99,7 @@ export class Board extends Component {
     setPositionOfPlyViewed(animated = true) {
         clearTimeout(this.setPositionOfPlyViewedDebounced)
         this.setPositionOfPlyViewedDebounced = setTimeout(() => {
-            const to = this.chessConsole.state.fenOfPly(this.chessConsole.state.plyViewed)
+            const to = this.chessConsole.state.chess.fenOfPly(this.chessConsole.state.plyViewed)
             this.chessboard.setPosition(to, animated).then(() => {
                 // TODO workaround, fix Promise
                 this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.moveFromMarker)
@@ -113,8 +113,8 @@ export class Board extends Component {
         this.markLastMoveDebounce = setTimeout(() => {
             this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.lastMove)
             this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.check)
-            if (this.chessConsole.state.plyViewed === this.chessConsole.state.plyCount()) {
-                const lastMove = this.chessConsole.state.lastMove()
+            if (this.chessConsole.state.plyViewed === this.chessConsole.state.chess.plyCount()) {
+                const lastMove = this.chessConsole.state.chess.lastMove()
                 if (lastMove) {
                     this.chessboard.addMarker(lastMove.from, CONSOLE_MARKER_TYPE.lastMove)
                     this.chessboard.addMarker(lastMove.to, CONSOLE_MARKER_TYPE.lastMove)

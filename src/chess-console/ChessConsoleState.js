@@ -16,27 +16,6 @@ export class ChessConsoleState {
         this.plyViewed = 0 // the play viewed on the board
     }
 
-    plyCount() {
-        return this.chess.history().length
-    }
-
-    lastMove() {
-        const history = this.chess.history()
-        if (history.length > 0) {
-            return history[history.length - 1]
-        } else {
-            return undefined
-        }
-    }
-
-    fenOfPly(plyNumber) {
-        if(plyNumber > 0) {
-            return this.chess.history()[plyNumber - 1].fen
-        } else {
-            return this.chess.setUpFen()
-        }
-    }
-
     observeChess(callback) {
         const chessManipulationMethods = [
             'move', 'clear', 'load', 'loadPgn', 'put', 'remove', 'reset', 'undo'

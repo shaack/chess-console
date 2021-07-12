@@ -76,8 +76,8 @@ export class LocalPlayer extends ChessConsolePlayer {
                 }
             })
         } else if (event.type === INPUT_EVENT_TYPE.moveStart) {
-            if (this.chessConsole.state.plyViewed !== this.chessConsole.state.plyCount()) {
-                this.chessConsole.state.plyViewed = this.chessConsole.state.plyCount()
+            if (this.chessConsole.state.plyViewed !== this.chessConsole.state.chess.plyCount()) {
+                this.chessConsole.state.plyViewed = this.chessConsole.state.chess.plyCount()
                 return false
             } else {
                 return true
