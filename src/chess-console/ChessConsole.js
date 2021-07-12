@@ -27,7 +27,7 @@ export const consoleMessageTopics = {
 export class ChessConsole extends Component {
 
     constructor(context, player, opponent, props = {}, app = undefined) {
-        super(app, context, props)
+        super(app, context, props, new ChessConsoleState(props))
         this.props = {
             figuresSpriteFile: undefined,
             locale: navigator.language, // locale for i18n
@@ -72,7 +72,6 @@ export class ChessConsole extends Component {
         Object.assign(this.props, props)
         this.i18n = new I18n({locale: props.locale})
         this.messageBroker = new MessageBroker()
-        this.state = new ChessConsoleState(this.props)
         this.context.innerHTML = this.props.template
         this.componentContainers = {
             center: this.context.querySelector(".chess-console-center"),

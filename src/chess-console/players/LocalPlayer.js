@@ -8,7 +8,6 @@ import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
 import {COLOR, INPUT_EVENT_TYPE} from "../../../lib/cm-chessboard/Chessboard.js"
 import {PromotionDialog} from "../components/Board/PromotionDialog.js"
 import {Chess} from "../../../lib/chess.mjs/Chess.js"
-import {CONSOLE_MARKER_TYPE} from "../components/Board/Board.js"
 
 export class LocalPlayer extends ChessConsolePlayer {
 
@@ -61,9 +60,6 @@ export class LocalPlayer extends ChessConsolePlayer {
      */
     moveInputCallback(event, fen, moveResponse) {
         if (event.type === INPUT_EVENT_TYPE.moveDone) {
-            // prevent flicker
-            this.chessConsole.board.chessboard.addMarker(event.squareFrom, CONSOLE_MARKER_TYPE.lastMove)
-            this.chessConsole.board.chessboard.addMarker(event.squareTo, CONSOLE_MARKER_TYPE.lastMove)
             return this.validateMoveAndPromote(fen, event.squareFrom, event.squareTo, (moveResult) => {
                 let result
                 if (moveResult) { // valid

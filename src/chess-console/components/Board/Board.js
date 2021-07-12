@@ -67,7 +67,21 @@ export class Board extends Component {
                 Object.assign(chessboardProps.style, this.props.style)
             }
             this.chessboard = new Chessboard(this.elements.chessboard, chessboardProps)
-            Observe.property(chessConsole.state, ["orientation"], () => {
+            // debouncify redrawMarkers() to prevent flicker
+            this.chessboard.view.drawMarkers = function() {
+                // noinspection JSUnresolvedVariable
+                clearTimeout(this.drawMarkersDebounce)
+                this.drawMarkersDebounce = setTimeout(() => {
+                    while (this.markersGroup.firstChild) {
+                        this.markersGroup.removeChild(this.markersGroup.firstChild)
+                    }
+                    this.chessboard.state.markers.forEach((marker) => {
+                            this.drawMarker(marker)
+                        }
+                    )
+                })
+            }
+            Observe.property(chessConsole.state, "orientation", () => {
                 this.setPlayerNames()
                 this.chessboard.setOrientation(chessConsole.state.orientation)
                 this.markPlayerToMove()
