@@ -14,21 +14,24 @@ export class ChessConsoleState {
         this.chess = new Chess() // used to validate moves and keep the history
         this.orientation = props.playerColor || COLOR.white
         this.plyViewed = 0 // the play viewed on the board
-        this.plyCount = 0 // cache for this.chess.history().length, read only
+    }
+
+    plyCount() {
+        return this.chess.history().length
     }
 
     lastMove() {
-        const history = this.chess.history({verbose: true})
+        const history = this.chess.history()
         if (history.length > 0) {
             return history[history.length - 1]
         } else {
-            return null
+            return undefined
         }
     }
 
-    fenOfPly(plyCount) {
-        if(plyCount > 0) {
-            return this.chess.history()[plyCount - 1].fen
+    fenOfPly(plyNumber) {
+        if(plyNumber > 0) {
+            return this.chess.history()[plyNumber - 1].fen
         } else {
             return this.chess.setUpFen()
         }
@@ -40,7 +43,6 @@ export class ChessConsoleState {
         ]
         chessManipulationMethods.forEach((methodName) => {
             Observe.postFunction(this.chess, methodName, (params) => {
-                this.plyCount = this.chess.history().length
                 callback(params)
             })
         })

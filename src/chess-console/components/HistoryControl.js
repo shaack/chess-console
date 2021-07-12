@@ -70,7 +70,7 @@ export class HistoryControl extends Component {
                 this.chessConsole.state.plyViewed++
             })
             this.$btnLast.click(() => {
-                this.chessConsole.state.plyViewed = this.chessConsole.state.plyCount
+                this.chessConsole.state.plyViewed = this.chessConsole.state.plyCount()
             })
             this.$btnOrientation.click(() => {
                 this.chessConsole.state.orientation = this.chessConsole.state.orientation === COLOR.white ? COLOR.black : COLOR.white
@@ -83,13 +83,13 @@ export class HistoryControl extends Component {
                 } else {
                     this.chessConsole.state.plyViewed++
                     this.autoplay = setInterval(() => {
-                        if (this.chessConsole.state.plyViewed >= this.chessConsole.state.plyCount) {
+                        if (this.chessConsole.state.plyViewed >= this.chessConsole.state.plyCount()) {
                             clearInterval(this.autoplay)
                             this.autoplay = null
                             this.updatePlayIcon()
                         } else {
                             this.chessConsole.state.plyViewed++
-                            if (this.chessConsole.state.plyViewed >= this.chessConsole.state.plyCount) {
+                            if (this.chessConsole.state.plyViewed >= this.chessConsole.state.plyCount()) {
                                 clearInterval(this.autoplay)
                                 this.autoplay = null
                                 this.updatePlayIcon()
@@ -125,7 +125,7 @@ export class HistoryControl extends Component {
                 this.$btnFirst.prop('disabled', true)
                 this.$btnBack.prop('disabled', true)
             }
-            if (this.chessConsole.state.plyViewed < this.chessConsole.state.plyCount) {
+            if (this.chessConsole.state.plyViewed < this.chessConsole.state.plyCount()) {
                 this.$btnLast.prop('disabled', false)
                 this.$btnForward.prop('disabled', false)
                 this.$btnAutoplay.prop('disabled', false)

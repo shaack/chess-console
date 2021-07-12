@@ -107,11 +107,11 @@ export class ChessConsole extends Component {
         this.state.orientation = this.props.playerColor
         if(props.pgn) {
             this.state.chess.loadPgn(props.pgn, {sloppy: true})
-            this.state.plyViewed = this.state.plyCount
+            this.state.plyViewed = this.state.plyCount()
         } else if (props.history) {
             console.warn("props.history is deprecated, use props.pgn")
             this.state.chess.loadPgn(props.history, {sloppy: true})
-            this.state.plyViewed = this.state.plyCount
+            this.state.plyViewed = this.state.plyCount()
         } else {
             this.state.chess.load(FEN.start)
             this.state.plyViewed = 0
@@ -180,7 +180,7 @@ export class ChessConsole extends Component {
             // playerMoved.moveResult(move, moveResult)
             return moveResult
         }
-        if (this.state.plyViewed === this.state.plyCount - 1) {
+        if (this.state.plyViewed === this.state.plyCount() - 1) {
             this.state.plyViewed++
         }
         this.messageBroker.publish(consoleMessageTopics.legalMove, {
@@ -206,8 +206,8 @@ export class ChessConsole extends Component {
         if (this.playerToMove() !== this.player) {
             this.state.chess.undo()
         }
-        if (this.state.plyViewed > this.state.plyCount) {
-            this.state.plyViewed = this.state.plyCount
+        if (this.state.plyViewed > this.state.plyCount()) {
+            this.state.plyViewed = this.state.plyCount()
         }
         this.messageBroker.publish(consoleMessageTopics.moveUndone)
         this.nextMove()
