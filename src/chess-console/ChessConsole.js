@@ -26,8 +26,9 @@ export const consoleMessageTopics = {
 
 export class ChessConsole extends Component {
 
-    constructor(context, player, opponent, props = {}, app = undefined) {
-        super(app, context, props, new ChessConsoleState(props))
+    constructor(context, player, opponent, props = {}, app = undefined,
+                state = new ChessConsoleState(props)) {
+        super(app, context, props, state)
         this.props = {
             figuresSpriteFile: undefined,
             locale: navigator.language, // locale for i18n
