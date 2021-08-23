@@ -52,9 +52,9 @@ export class ChessConsole extends Component {
             }
         }
         const colSets = {
-            consoleGame: "col-lg-7 order-lg-2 col-md-8 order-md-1 order-sm-1 col-sm-12 order-sm-1",
-            consoleRight: "col-lg-3 order-lg-3 col-md-4 order-md-2 col-sm-8 order-sm-3",
-            consoleLeft: "col-lg-2 order-lg-1 order-md-3 col-sm-4 order-sm-2"
+            consoleGame: "col-xl-7 order-xl-2 col-lg-8 order-lg-1 order-md-1 col-md-12 order-md-1",
+            consoleRight: "col-xl-3 order-xl-3 col-lg-4 order-lg-2 col-md-8 order-md-3",
+            consoleLeft: "col-xl-2 order-xl-1 order-lg-3 col-md-4 order-md-2"
         }
         if (!this.props.template) {
             this.props.template =
