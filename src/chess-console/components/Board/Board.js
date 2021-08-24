@@ -96,8 +96,14 @@ export class Board extends Component {
                 this.markPlayerToMove()
             })
             this.chessConsole.messageBroker.subscribe(consoleMessageTopics.illegalMove, (message) => {
-                this.chessboard.addMarker(message.move.from, CONSOLE_MARKER_TYPE.wrongMove)
-                this.chessboard.addMarker(message.move.to, CONSOLE_MARKER_TYPE.wrongMove)
+                if(message.move.from) {
+                    this.chessboard.addMarker(message.move.from, CONSOLE_MARKER_TYPE.wrongMove)
+                } else {
+                    console.warn("illegalMove without `message.move.from`")
+                }
+                if(message.move.to) {
+                    this.chessboard.addMarker(message.move.to, CONSOLE_MARKER_TYPE.wrongMove)
+                }
                 setTimeout(() => {
                     this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.wrongMove)
                 }, 500)
