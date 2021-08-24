@@ -156,8 +156,8 @@ export class ChessConsole extends Component {
         if (playerToMove) {
             this.messageBroker.publish(consoleMessageTopics.moveRequest, {playerToMove: playerToMove})
             setTimeout(() => {
-                playerToMove.moveRequest(this.state.chess.fen(), (san) => {
-                    return this.handleMoveResponse(san)
+                playerToMove.moveRequest(this.state.chess.fen(), (move) => {
+                    return this.handleMoveResponse(move)
                 })
             })
         }
@@ -165,7 +165,6 @@ export class ChessConsole extends Component {
 
     /*
      * - validates move
-     * - calls moveDone() in player
      * - requests nextMove
      */
     handleMoveResponse(move) {
@@ -179,7 +178,6 @@ export class ChessConsole extends Component {
                 playerMoved: playerMoved,
                 move: move
             })
-            // playerMoved.moveResult(move, moveResult)
             return moveResult
         }
         if (this.state.plyViewed === this.state.chess.plyCount() - 1) {
@@ -190,7 +188,6 @@ export class ChessConsole extends Component {
             move: move,
             moveResult: moveResult
         })
-        // playerMoved.moveResult(move, moveResult)
         if (!this.state.chess.gameOver()) {
             this.nextMove()
         } else {
