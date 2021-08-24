@@ -102,7 +102,7 @@ export class ChessConsole extends Component {
         }))
     }
 
-    initGame(props = {}) {
+    initGame(props = {}, requestNextMove = true) {
         Object.assign(this.props, props)
         this.state.orientation = this.props.playerColor
         if(props.pgn) {
@@ -116,7 +116,9 @@ export class ChessConsole extends Component {
             this.state.chess.load(FEN.start)
             this.state.plyViewed = 0
         }
-        this.nextMove()
+        if(requestNextMove) {
+            this.nextMove()
+        }
         this.messageBroker.publish(consoleMessageTopics.initGame, {props: props})
     }
 
