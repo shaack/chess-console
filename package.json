@@ -1,6 +1,6 @@
 {
   "name": "chess-console",
-  "version": "4.8.5",
+  "version": "4.8.6",
   "description": "ES6 Module for playing chess",
   "main": "index.html",
   "scripts": {
