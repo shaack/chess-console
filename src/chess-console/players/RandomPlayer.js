@@ -9,8 +9,8 @@ import {Chess} from "../../../lib/chess.mjs/Chess.js"
 
 export class RandomPlayer extends ChessConsolePlayer {
 
-    constructor(name, chessConsole, props) {
-        super(name, chessConsole, props)
+    constructor(chessConsole, name, props) {
+        super(chessConsole, name, props)
         this.chess = new Chess()
     }
 
