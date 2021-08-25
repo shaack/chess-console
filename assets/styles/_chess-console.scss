@@ -75,8 +75,18 @@
         }
 
         .ply {
-          cursor: pointer;
           width: 41%;
+          i {
+            pointer-events: none;
+          }
+          &.active {
+            font-weight: bold;
+          }
+        }
+      }
+      &.clickable {
+        .ply {
+          cursor: pointer;
         }
       }
     }

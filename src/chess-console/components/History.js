@@ -18,21 +18,36 @@ export class History extends Component {
         this.element = document.createElement("div")
         this.element.setAttribute("class", "history")
         this.context.appendChild(this.element)
-        if(!this.props.notationType) {
-            this.props.notationType = "figures"
+        this.props = {
+            notationType: "figures",
+            makeClickable: true
         }
-
-        // this.state = chessConsole.state
+        Object.assign(this.props, props)
         this.chessConsole.state.observeChess(() => {
             this.redraw()
         })
         Observe.property(chessConsole.state, "plyViewed", () => {
             this.redraw()
         })
-        EventUtils.delegate(this.element, "click", ".ply", (event) => {
-            this.chessConsole.state.plyViewed = parseInt(event.target.getAttribute("data-ply"), 10)
-        })
+        if(this.props.makeClickable) {
+            this.addClickEvents()
+        }
         this.redraw()
+    }
+
+    addClickEvents() {
+        this.clickHandler = EventUtils.delegate(this.element, "click", ".ply", (event) => {
+            const ply = parseInt(event.target.getAttribute("data-ply"), 10)
+            if(ply <= this.chessConsole.state.chess.history().length) {
+                this.chessConsole.state.plyViewed = ply
+            }
+        })
+        this.element.classList.add("clickable")
+    }
+
+    removeClickEvents() {
+        this.clickHandler.remove()
+        this.element.classList.remove("clickable")
     }
 
     redraw() {
@@ -57,12 +72,17 @@ export class History extends Component {
                 } else {
                     sanBlack = ""
                 }
-                if (this.state.plyViewed < i + 1) {
-                    rowClass = "text-muted"
+                if (this.chessConsole.state.plyViewed < i + 1) {
                     whiteClass = "text-muted"
                 }
-                if (this.state.plyViewed < i + 2) {
+                if(this.chessConsole.state.plyViewed === i + 1) {
+                    whiteClass = "active"
+                }
+                if (this.chessConsole.state.plyViewed < i + 2) {
                     blackClass = "text-muted"
+                }
+                if(this.chessConsole.state.plyViewed === i + 2) {
+                    blackClass = "active"
                 }
                 output += "<tr><td class='num " + rowClass + "'>" + (i / 2 + 1) + ".</td><td data-ply='" + (i + 1) + "' class='ply " + whiteClass + " ply" + (i + 1) + "'>" + sanWhite + "</td><td data-ply='" + (i + 2) + "' class='ply " + blackClass + " ply" + (i + 2) + "'>" + sanBlack + "</td></tr>"
             }
