@@ -59,16 +59,16 @@ export class ChessConsole extends Component {
         if (!this.props.template) {
             this.props.template =
                 `<div class="row chess-console">
-                    <div class="chess-console-center ${colSets.consoleGame}">
-                        <div class="chess-console-board"></div>
-                    </div>
-                    <div class="chess-console-right ${colSets.consoleRight}">
-                        <div class="control-buttons flex-buttons"></div>
-                        <div class="chess-console-notifications"></div>
-                    </div>
-                    <div class="chess-console-left ${colSets.consoleLeft}">
-                    </div>
-                </div>`
+    <div class="chess-console-center ${colSets.consoleGame}">
+        <div class="chess-console-board"></div>
+    </div>
+    <div class="chess-console-right ${colSets.consoleRight}">
+        <div class="control-buttons flex-buttons"></div>
+        <div class="chess-console-notifications"></div>
+    </div>
+    <div class="chess-console-left ${colSets.consoleLeft}">
+    </div>
+</div>`
         }
         Object.assign(this.props, props)
         this.i18n = new I18n({locale: props.locale})
@@ -105,7 +105,7 @@ export class ChessConsole extends Component {
     initGame(props = {}, requestNextMove = true) {
         Object.assign(this.props, props)
         this.state.orientation = this.props.playerColor
-        if(props.pgn) {
+        if (props.pgn) {
             this.state.chess.loadPgn(props.pgn, {sloppy: true})
             this.state.plyViewed = this.state.chess.plyCount()
         } else if (props.history) {
@@ -116,7 +116,7 @@ export class ChessConsole extends Component {
             this.state.chess.load(FEN.start)
             this.state.plyViewed = 0
         }
-        if(requestNextMove) {
+        if (requestNextMove) {
             this.nextMove()
         }
         this.messageBroker.publish(consoleMessageTopics.initGame, {props: props})
@@ -171,7 +171,7 @@ export class ChessConsole extends Component {
         const playerMoved = this.playerToMove()
         const moveResult = this.state.chess.move(move)
         if (!moveResult) {
-            if(this.props.debug) {
+            if (this.props.debug) {
                 console.warn("illegalMove", this.state.chess, move)
             }
             this.messageBroker.publish(consoleMessageTopics.illegalMove, {
