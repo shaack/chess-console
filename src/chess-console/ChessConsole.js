@@ -28,7 +28,7 @@ export class ChessConsole extends Component {
 
     constructor(context, player, opponent, props = {}, app = undefined,
                 state = new ChessConsoleState(props)) {
-        super(app, context, props, state)
+        super(context, props, state)
         this.props = {
             figuresSpriteFile: undefined,
             locale: navigator.language, // locale for i18n
@@ -66,8 +66,7 @@ export class ChessConsole extends Component {
         <div class="control-buttons flex-buttons"></div>
         <div class="chess-console-notifications"></div>
     </div>
-    <div class="chess-console-left ${colSets.consoleLeft}">
-    </div>
+    <div class="chess-console-left ${colSets.consoleLeft}"></div>
 </div>`
         }
         Object.assign(this.props, props)

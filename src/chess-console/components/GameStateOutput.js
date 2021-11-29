@@ -8,7 +8,7 @@ import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 export class GameStateOutput extends Component {
 
     constructor(chessConsole) {
-        super(chessConsole, chessConsole.componentContainers.notifications)
+        super(chessConsole.componentContainers.notifications)
 
         this.chessConsole = chessConsole
         this.i18n = chessConsole.i18n

@@ -11,7 +11,7 @@ import {Service} from "../../../lib/cm-web-modules/app/Service.js"
 export class Sound extends Service {
 
     constructor(chessConsole, props) {
-        super(chessConsole, props)
+        super(props)
         this.chessConsole = chessConsole
         this.audioSprite = new AudioSprite(this.props.soundSpriteFile,
             {

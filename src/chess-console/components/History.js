@@ -6,14 +6,14 @@
 
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {Component} from "../../../lib/cm-web-modules/app/Component.js"
-import {EventUtils} from "../../../lib/cm-web-modules/utils/EventUtils.js"
 import {ChessRender} from "../../../lib/cm-chess/tools/ChessRender.js"
 import {COLOR} from "../../../lib/cm-chess/Chess.js"
+import {DomUtils} from "../../../lib/cm-web-modules/utils/DomUtils.js"
 
 export class History extends Component {
 
     constructor(chessConsole, props) {
-        super(chessConsole, chessConsole.componentContainers.left, props)
+        super(chessConsole.componentContainers.left, props)
         this.chessConsole = chessConsole
         this.element = document.createElement("div")
         this.element.setAttribute("class", "history")
@@ -36,7 +36,7 @@ export class History extends Component {
     }
 
     addClickEvents() {
-        this.clickHandler = EventUtils.delegate(this.element, "click", ".ply", (event) => {
+        this.clickHandler = DomUtils.delegate(this.element, "click", ".ply", (event) => {
             const ply = parseInt(event.target.getAttribute("data-ply"), 10)
             if(ply <= this.chessConsole.state.chess.history().length) {
                 this.chessConsole.state.plyViewed = ply

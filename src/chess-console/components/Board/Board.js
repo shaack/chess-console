@@ -20,7 +20,7 @@ export const CONSOLE_MARKER_TYPE = {
 export class Board extends Component {
 
     constructor(chessConsole, props) {
-        super(chessConsole, chessConsole.componentContainers.board, props)
+        super(chessConsole.componentContainers.board, props)
         this.initialization = new Promise((resolve) => {
             chessConsole.board = this
             this.chessConsole = chessConsole

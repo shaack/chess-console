@@ -10,7 +10,7 @@ import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class HistoryControl extends Component {
     constructor(chessConsole) {
-        super(chessConsole, chessConsole.componentContainers.controlButtons)
+        super(chessConsole.componentContainers.controlButtons)
 
         this.chessConsole = chessConsole
         const i18n = chessConsole.i18n

@@ -11,7 +11,7 @@ import {Service} from "../../../lib/cm-web-modules/app/Service.js"
 export class Persistence extends Service {
 
     constructor(chessConsole) {
-        super(chessConsole)
+        super()
         this.chessConsole = chessConsole
         if(!this.props.savePrefix) {
             this.props.savePrefix = "ChessConsole"

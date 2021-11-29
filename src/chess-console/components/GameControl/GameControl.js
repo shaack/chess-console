@@ -10,7 +10,7 @@ import {NewGameDialog} from "./NewGameDialog.js"
 export class GameControl extends Component {
 
     constructor(chessConsole, props) {
-        super(chessConsole, chessConsole.componentContainers.controlButtons, props)
+        super(chessConsole.componentContainers.controlButtons, props)
         this.chessConsole = chessConsole
 
         const i18n = chessConsole.i18n

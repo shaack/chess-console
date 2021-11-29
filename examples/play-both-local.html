@@ -41,9 +41,7 @@
         new Board(chessConsole).initialization.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "Local"
-            }).initialization.then((persistence) => {
-                persistence.load()
-            })
+            }).load()
         })
         new GameStateOutput(chessConsole)
         new History(chessConsole, {
