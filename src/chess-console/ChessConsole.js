@@ -9,7 +9,7 @@ import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
-import {Component} from "../../lib/cm-web-modules/app/Component.js"
+import {UiComponent} from "../../lib/cm-web-modules/app/UiComponent.js"
 
 export const consoleMessageTopics = {
     // newGame: "game/new", // remove this (deprecated)
@@ -24,9 +24,9 @@ export const consoleMessageTopics = {
 // @deprecated, may be deleted in future versions, use `consoleMessageTopics`
 // export const messageBrokerTopics = consoleMessageTopics
 
-export class ChessConsole extends Component {
+export class ChessConsole extends UiComponent {
 
-    constructor(context, player, opponent, props = {}, app = undefined,
+    constructor(context, player, opponent, props = {},
                 state = new ChessConsoleState(props)) {
         super(context, props, state)
         this.props = {

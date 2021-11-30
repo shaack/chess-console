@@ -49,7 +49,7 @@
         }).initialization.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "Random"
-            }).initialization.then((persistence) => persistence.load())
+            }).load()
         })
         new GameStateOutput(chessConsole)
         new History(chessConsole)

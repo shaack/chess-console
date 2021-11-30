@@ -5,12 +5,12 @@
  */
 
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
-import {Component} from "../../../lib/cm-web-modules/app/Component.js"
+import {UiComponent} from "../../../lib/cm-web-modules/app/UiComponent.js"
 import {ChessRender} from "../../../lib/cm-chess/tools/ChessRender.js"
 import {COLOR} from "../../../lib/cm-chess/Chess.js"
 import {DomUtils} from "../../../lib/cm-web-modules/utils/DomUtils.js"
 
-export class History extends Component {
+export class History extends UiComponent {
 
     constructor(chessConsole, props) {
         super(chessConsole.componentContainers.left, props)

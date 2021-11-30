@@ -3,9 +3,9 @@
  * Repository: https://github.com/shaack/chess-console
  * License: MIT, see file 'LICENSE'
  */
-import {Component} from "../../../lib/cm-web-modules/app/Component.js"
+import {UiComponent} from "../../../lib/cm-web-modules/app/UiComponent.js"
 
-export class GameStateOutput extends Component {
+export class GameStateOutput extends UiComponent {
 
     constructor(chessConsole) {
         super(chessConsole.componentContainers.notifications)

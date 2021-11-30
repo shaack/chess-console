@@ -4,10 +4,10 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Component} from "../../../../lib/cm-web-modules/app/Component.js"
+import {UiComponent} from "../../../../lib/cm-web-modules/app/UiComponent.js"
 import {NewGameDialog} from "./NewGameDialog.js"
 
-export class GameControl extends Component {
+export class GameControl extends UiComponent {
 
     constructor(chessConsole, props) {
         super(chessConsole.componentContainers.controlButtons, props)

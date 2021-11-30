@@ -6,9 +6,9 @@
 
 import {consoleMessageTopics} from "../ChessConsole.js"
 import {COLOR} from "../../../lib/cm-chess/Chess.js"
-import {Service} from "../../../lib/cm-web-modules/app/Service.js"
+import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
-export class Persistence extends Service {
+export class Persistence extends Component {
 
     constructor(chessConsole) {
         super()

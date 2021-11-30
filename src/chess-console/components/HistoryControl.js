@@ -6,9 +6,9 @@
 
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
-import {Component} from "../../../lib/cm-web-modules/app/Component.js"
+import {UiComponent} from "../../../lib/cm-web-modules/app/UiComponent.js"
 
-export class HistoryControl extends Component {
+export class HistoryControl extends UiComponent {
     constructor(chessConsole) {
         super(chessConsole.componentContainers.controlButtons)
 

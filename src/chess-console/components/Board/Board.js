@@ -7,7 +7,7 @@
 import {Chessboard, COLOR} from "../../../../lib/cm-chessboard/Chessboard.js"
 import {consoleMessageTopics} from "../../ChessConsole.js"
 import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
-import {Component} from "../../../../lib/cm-web-modules/app/Component.js"
+import {UiComponent} from "../../../../lib/cm-web-modules/app/UiComponent.js"
 
 export const CONSOLE_MARKER_TYPE = {
     moveToMarker: {class: "markerFrame", slice: "markerFrame"},
@@ -17,7 +17,7 @@ export const CONSOLE_MARKER_TYPE = {
     wrongMove: {class: "markerFrameRed", slice: "markerFrame"}
 }
 
-export class Board extends Component {
+export class Board extends UiComponent {
 
     constructor(chessConsole, props) {
         super(chessConsole.componentContainers.board, props)

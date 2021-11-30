@@ -6,9 +6,9 @@
 
 import {AudioSprite} from "../../../lib/cm-web-modules/audio/AudioSprite.js"
 import {consoleMessageTopics} from "../ChessConsole.js"
-import {Service} from "../../../lib/cm-web-modules/app/Service.js"
+import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
-export class Sound extends Service {
+export class Sound extends Component {
 
     constructor(chessConsole, props) {
         super(props)

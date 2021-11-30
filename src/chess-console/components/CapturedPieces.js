@@ -5,10 +5,10 @@
  */
 
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
-import {Component} from "../../../lib/cm-web-modules/app/Component.js"
+import {UiComponent} from "../../../lib/cm-web-modules/app/UiComponent.js"
 import {PIECES} from "../../../lib/cm-chess/Chess.js"
 
-export class CapturedPieces extends Component {
+export class CapturedPieces extends UiComponent {
 
     constructor(chessConsole) {
         super(chessConsole)
