@@ -10,8 +10,8 @@ import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class Persistence extends Component {
 
-    constructor(chessConsole) {
-        super()
+    constructor(chessConsole, props) {
+        super(props)
         this.chessConsole = chessConsole
         if(!this.props.savePrefix) {
             this.props.savePrefix = "ChessConsole"

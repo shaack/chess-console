@@ -30,7 +30,7 @@ export class ChessConsole extends UiComponent {
                 state = new ChessConsoleState(props)) {
         super(context, props, state)
         this.props = {
-            figuresSpriteFile: undefined,
+            figuresSpriteFile: undefined, // used also in player for promotion
             locale: navigator.language, // locale for i18n
             playerColor: COLOR.white, // the players color (color at bottom)
             pgn: undefined // initial pgn, can contain header and history
