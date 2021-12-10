@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/shaack/chess-console#readme",
   "dependencies": {
+    "bootstrap": "^4.6.1",
     "bootstrap-show-modal": "^1.4.4",
     "chess.mjs": "^1.2.0",
     "cm-chess": "^2.1.6",
