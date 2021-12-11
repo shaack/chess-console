@@ -19,6 +19,9 @@ export class Persistence extends Component {
         this.chessConsole.state.observeChess(() => {
             this.save()
         })
+        this.chessConsole.messageBroker.subscribe(consoleMessageTopics.newGame, () => {
+            this.save()
+        })
         this.chessConsole.persistence = this
     }
 
@@ -33,7 +36,7 @@ export class Persistence extends Component {
             if (localStorage.getItem(prefix + "Pgn") !== null) {
                 props.pgn = localStorage.getItem(prefix + "Pgn")
             }
-            this.chessConsole.messageBroker.publish(consoleMessageTopics.load)
+            // this.chessConsole.messageBroker.publish(consoleMessageTopics.load)
             this.chessConsole.initGame(props)
         } catch (e) {
             localStorage.clear()
@@ -62,4 +65,5 @@ export class Persistence extends Component {
     saveValue(valueName, value, prefix = this.props.savePrefix) {
         localStorage.setItem(prefix + valueName, JSON.stringify(value))
     }
+
 }

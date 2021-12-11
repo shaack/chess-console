@@ -12,14 +12,14 @@ import {ChessConsoleState} from "./ChessConsoleState.js"
 import {UiComponent} from "../../lib/cm-web-modules/app/UiComponent.js"
 
 export const consoleMessageTopics = {
-    // newGame: "game/new", // remove this (deprecated)
-    initGame: "game/init",
+    newGame: "game/new", // if a new game was startet
+    initGame: "game/init", // after a page reload and when a new game was started
     gameOver: "game/over",
     moveRequest: "game/moveRequest",
     legalMove: "game/move/legal",
     illegalMove: "game/move/illegal",
-    moveUndone: "game/move/undone",
-    load: "game/load"
+    moveUndone: "game/move/undone" // mainly for sound
+    // load: "game/load"
 }
 // @deprecated, may be deleted in future versions, use `consoleMessageTopics`
 // export const messageBrokerTopics = consoleMessageTopics
@@ -85,6 +85,9 @@ export class ChessConsole extends UiComponent {
         this.player = new player.type(this, player.name, player.props)
         this.opponent = new opponent.type(this, opponent.name, opponent.props)
 
+        /** @var this.persistence Persistence */
+        this.persistence = undefined
+
         this.initialization = new Promise((resolve => {
             this.i18n.load({
                 de: {
@@ -121,9 +124,8 @@ export class ChessConsole extends UiComponent {
         this.messageBroker.publish(consoleMessageTopics.initGame, {props: props})
     }
 
-    // @deprecated use initGame()
     newGame(props = {}) {
-        console.warn("newGame is deprecated, use initGame")
+        this.messageBroker.publish(consoleMessageTopics.newGame, {props: props})
         this.initGame(props)
     }
 
