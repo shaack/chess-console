@@ -18,8 +18,8 @@ export const consoleMessageTopics = {
     moveRequest: "game/moveRequest",
     legalMove: "game/move/legal",
     illegalMove: "game/move/illegal",
-    moveUndone: "game/move/undone" // mainly for sound
-    // load: "game/load"
+    moveUndone: "game/move/undone", // mainly for sound
+    load: "game/load"
 }
 // @deprecated, may be deleted in future versions, use `consoleMessageTopics`
 // export const messageBrokerTopics = consoleMessageTopics

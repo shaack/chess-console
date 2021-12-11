@@ -36,7 +36,7 @@ export class Persistence extends Component {
             if (localStorage.getItem(prefix + "Pgn") !== null) {
                 props.pgn = localStorage.getItem(prefix + "Pgn")
             }
-            // this.chessConsole.messageBroker.publish(consoleMessageTopics.load)
+            this.chessConsole.messageBroker.publish(consoleMessageTopics.load)
             this.chessConsole.initGame(props)
         } catch (e) {
             localStorage.clear()
