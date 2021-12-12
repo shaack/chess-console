@@ -9,7 +9,7 @@ import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
 import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
-import {UiComponent} from "../../lib/cm-web-modules/app/UiComponent.js"
+import {UiComponent} from "../../lib/cm-web-modules/app/Component.js"
 
 export const consoleMessageTopics = {
     newGame: "game/new", // if a new game was startet

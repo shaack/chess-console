@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {UiComponent} from "../../../../lib/cm-web-modules/app/UiComponent.js"
+import {UiComponent} from "../../../../lib/cm-web-modules/app/Component.js"
 import {NewGameDialog} from "./NewGameDialog.js"
 
 export class GameControl extends UiComponent {

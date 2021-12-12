@@ -3,7 +3,7 @@
  * Repository: https://github.com/shaack/chess-console
  * License: MIT, see file 'LICENSE'
  */
-import {UiComponent} from "../../../lib/cm-web-modules/app/UiComponent.js"
+import {UiComponent} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class GameStateOutput extends UiComponent {
 

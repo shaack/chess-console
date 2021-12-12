@@ -32,7 +32,7 @@
     "cm-chess": "^2.1.6",
     "cm-chessboard": "^3.16.3",
     "cm-pgn": "^2.1.7",
-    "cm-web-modules": "^1.14.0",
+    "cm-web-modules": "^1.15.0",
     "modrator": "^1.2.1"
   }
 }
