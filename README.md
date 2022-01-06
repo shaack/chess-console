@@ -73,7 +73,7 @@ return the black player
 #### playerToMove()
 return the player who can make a move, null if game_over
 
-#### loalPgn(pgn)
+#### loadPgn(pgn)
 Loads the history part of a PGN, the metadata is ignored
 
 #### nextMove() 
@@ -86,7 +86,7 @@ Take back the last move
 Set a position and player color
 
 #### newGame(props)
-Like `initGame(props)`, but sents `newGame` event via messageBroker.
+Like `initGame(props)`, but sends `newGame` event via messageBroker.
 
 ### Messaging
 
