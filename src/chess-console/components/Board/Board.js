@@ -165,6 +165,8 @@ export class Board extends UiComponent {
         this.markPlayerToMoveDebounce = setTimeout(() => {
             this.elements.playerTop.classList.remove("to-move")
             this.elements.playerBottom.classList.remove("to-move")
+            this.elements.playerTop.classList.remove("not-to-move")
+            this.elements.playerBottom.classList.remove("not-to-move")
             const playerMove = this.chessConsole.playerToMove()
             if (
                 this.chessConsole.state.orientation === COLOR.white &&
@@ -172,8 +174,10 @@ export class Board extends UiComponent {
                 this.chessConsole.state.orientation === COLOR.black &&
                 playerMove === this.chessConsole.playerBlack()) {
                 this.elements.playerBottom.classList.add("to-move")
+                this.elements.playerTop.classList.add("not-to-move")
             } else {
                 this.elements.playerTop.classList.add("to-move")
+                this.elements.playerBottom.classList.add("not-to-move")
             }
         }, 10)
     }
