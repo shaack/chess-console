@@ -13,7 +13,7 @@ chess game gui.
 
 ## Component structure
 
-Because if its component architecture chess-console is expandable for
+Because of its component architecture chess-console is expandable for
 all kind of chess pages. You may check out the [Stockfish Player](https://github.com/shaack/chess-console-stockfish) 
 for chess-console, with whom chess-console is a fully functional online
 chess computer.
