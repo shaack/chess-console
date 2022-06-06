@@ -121,7 +121,6 @@ export class Board extends UiComponent {
         this.setPositionOfPlyViewedDebounced = setTimeout(() => {
             const to = this.chessConsole.state.chess.fenOfPly(this.chessConsole.state.plyViewed)
             this.chessboard.setPosition(to, animated).then(() => {
-                // TODO workaround, fix Promise
                 this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.moveFromMarker)
                 this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.moveToMarker)
             })
