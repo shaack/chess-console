@@ -3,12 +3,12 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const ModRator = require("modrator/src/ModRator.js")
-const modRator = new ModRator(__dirname)
+const ModLib = require("modlib/src/ModLib.js")
+const modLib = new ModLib(__dirname)
 
-modRator.addToLibrary("cm-web-modules")
-modRator.addToLibrary("cm-chessboard")
-modRator.addToLibrary("cm-pgn")
-modRator.addToLibrary("cm-chess")
-modRator.addToLibrary("chess.mjs")
-modRator.addToLibrary("bootstrap-show-modal", "src", "bootstrap-show-modal.js")
+modLib.add("cm-web-modules")
+modLib.add("cm-chessboard")
+modLib.add("cm-pgn")
+modLib.add("cm-chess")
+modLib.add("chess.mjs")
+modLib.add("bootstrap-show-modal", "src", "bootstrap-show-modal.js")

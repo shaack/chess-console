@@ -52,7 +52,8 @@ Rg8 19.Rad1 Qxf3 20.Rxe7+ Nxe7 21.Qxd7+ Kxd7 22.Bf5+ Ke8
         {name: "Player", type: LocalPlayer},
         {name: "Opponent", type: RandomPlayer},
         {
-            figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg"
+            figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg",
+            accessible: true
         }
     ).initialization.then((chessConsole) => {
         new Board(chessConsole).initialization.then(() => {

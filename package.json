@@ -32,6 +32,6 @@
     "cm-chessboard": "^3.16.7",
     "cm-pgn": "^2.1.8",
     "cm-web-modules": "^1.16.0",
-    "modrator": "^1.2.1"
+    "modlib": "^1.2.1"
   }
 }

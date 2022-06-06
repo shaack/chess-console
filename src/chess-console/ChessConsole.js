@@ -33,7 +33,8 @@ export class ChessConsole extends UiComponent {
             figuresSpriteFile: undefined, // used also in player for promotion
             locale: navigator.language, // locale for i18n
             playerColor: COLOR.white, // the players color (color at bottom)
-            pgn: undefined // initial pgn, can contain header and history
+            pgn: undefined, // initial pgn, can contain header and history
+            accessible: false // render additional information to allow the usage for people using screen readers (beta)
         }
         if (!this.props.figures) {
             this.props.figures = {
