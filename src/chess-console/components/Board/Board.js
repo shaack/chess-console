@@ -54,6 +54,7 @@ export class Board extends UiComponent {
                 responsive: true,
                 position: "empty",
                 orientation: chessConsole.state.orientation,
+                accessible: chessConsole.props.accessible,
                 style: {
                     aspectRatio: 0.94,
                     moveFromMarker: CONSOLE_MARKER_TYPE.moveFromMarker,
