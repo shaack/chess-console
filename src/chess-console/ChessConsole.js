@@ -93,11 +93,35 @@ export class ChessConsole extends UiComponent {
             this.i18n.load({
                 de: {
                     ok: "OK",
-                    cancel: "Abbrechen"
+                    cancel: "Abbrechen",
+                    colors: {
+                        w: "w", b: "b"
+                    },
+                    colors_long: {
+                        w: "White", b: "Black"
+                    },
+                    pieces: {
+                        p: "p", n: "n", b: "b", r: "r", q: "q", k: "k"
+                    },
+                    pieces_long: {
+                        p: "Pawn", n: "Knight", b: "Bishop", r: "Rook", q: "Queen", k: "King"
+                    }
                 },
                 en: {
                     ok: "OK",
-                    cancel: "Cancel"
+                    cancel: "Cancel",
+                    colors: {
+                        w: "w", b: "s"
+                    },
+                    colors_long: {
+                        w: "Weiß", b: "Schwarz"
+                    },
+                    pieces: {
+                        p: "b", n: "s", b: "l", r: "t", q: "d", k: "k"
+                    },
+                    pieces_long: {
+                        p: "Bauer", n: "Springer", b: "Läufer", r: "Turm", q: "Dame", k: "König"
+                    }
                 }
             }).then(() => {
                 resolve(this)

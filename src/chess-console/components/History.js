@@ -4,9 +4,9 @@
  * License: MIT, see file 'LICENSE'
  */
 
+import {ChessRender} from "../tools/ChessRender.js"
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {UiComponent} from "../../../lib/cm-web-modules/app/Component.js"
-import {ChessRender} from "../../../lib/cm-chess/tools/ChessRender.js"
 import {COLOR} from "../../../lib/cm-chess/Chess.js"
 import {DomUtils} from "../../../lib/cm-web-modules/utils/DomUtils.js"
 
