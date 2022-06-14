@@ -10,6 +10,7 @@ import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
 import {UiComponent} from "../../lib/cm-web-modules/app/Component.js"
+import {piecesTranslations} from "../../lib/cm-chessboard/ChessboardView.js"
 
 export const consoleMessageTopics = {
     newGame: "game/new", // if a new game was startet
@@ -94,37 +95,15 @@ export class ChessConsole extends UiComponent {
                 de: {
                     ok: "OK",
                     cancel: "Abbrechen",
-                    colors: {
-                        w: "w", b: "b"
-                    },
-                    colors_long: {
-                        w: "White", b: "Black"
-                    },
-                    pieces: {
-                        p: "p", n: "n", b: "b", r: "r", q: "q", k: "k"
-                    },
-                    pieces_long: {
-                        p: "Pawn", n: "Knight", b: "Bishop", r: "Rook", q: "Queen", k: "King"
-                    }
                 },
                 en: {
                     ok: "OK",
                     cancel: "Cancel",
-                    colors: {
-                        w: "w", b: "s"
-                    },
-                    colors_long: {
-                        w: "Weiß", b: "Schwarz"
-                    },
-                    pieces: {
-                        p: "b", n: "s", b: "l", r: "t", q: "d", k: "k"
-                    },
-                    pieces_long: {
-                        p: "Bauer", n: "Springer", b: "Läufer", r: "Turm", q: "Dame", k: "König"
-                    }
                 }
             }).then(() => {
-                resolve(this)
+                this.i18n.load(piecesTranslations).then(() => {
+                    resolve(this)
+                })
             })
         }))
     }

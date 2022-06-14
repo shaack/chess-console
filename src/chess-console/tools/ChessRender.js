@@ -9,7 +9,6 @@
 import {COLOR} from "../../../lib/cm-chess/Chess.js"
 
 export const PIECES = {
-    // https://en.wikipedia.org/wiki/Chess_piece_relative_value
     notation: {
         de: {
             R: "T", N: "S", B: "L", Q: "D", K: "K", P: ""
