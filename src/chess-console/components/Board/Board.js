@@ -57,8 +57,8 @@ export class Board extends UiComponent {
                 accessible: chessConsole.props.accessible,
                 style: {
                     aspectRatio: 0.94,
-                    moveFromMarker: CONSOLE_MARKER_TYPE.moveFromMarker,
-                    moveToMarker: CONSOLE_MARKER_TYPE.moveToMarker
+                    // moveFromMarker: CONSOLE_MARKER_TYPE.moveFromMarker,
+                    // moveToMarker: CONSOLE_MARKER_TYPE.moveToMarker
                 },
                 sprite: {
                     url: chessConsole.props.figuresSpriteFile,
