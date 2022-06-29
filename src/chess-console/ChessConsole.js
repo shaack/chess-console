@@ -22,8 +22,6 @@ export const consoleMessageTopics = {
     moveUndone: "game/move/undone", // mainly for sound
     load: "game/load"
 }
-// @deprecated, may be deleted in future versions, use `consoleMessageTopics`
-// export const messageBrokerTopics = consoleMessageTopics
 
 export class ChessConsole extends UiComponent {
 
@@ -113,10 +111,6 @@ export class ChessConsole extends UiComponent {
         this.state.orientation = this.props.playerColor
         if (props.pgn) {
             this.state.chess.loadPgn(props.pgn, {sloppy: true})
-            this.state.plyViewed = this.state.chess.plyCount()
-        } else if (props.history) {
-            console.warn("props.history is deprecated, use props.pgn")
-            this.state.chess.loadPgn(props.history, {sloppy: true})
             this.state.plyViewed = this.state.chess.plyCount()
         } else {
             this.state.chess.load(FEN.start)

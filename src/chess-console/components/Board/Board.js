@@ -47,7 +47,7 @@ export class Board extends UiComponent {
 
             })
             Observe.property(this.chessConsole.state, "plyViewed", () => {
-                this.setPositionOfPlyViewed()
+                this.setPositionOfPlyViewed(true)
                 this.markLastMove()
             })
             const chessboardProps = {
