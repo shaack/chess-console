@@ -37,10 +37,11 @@
     import {GameControl} from "../src/chess-console/components/GameControl/GameControl.js"
     import {Persistence} from "../src/chess-console/components/Persistence.js"
     import {Sound} from "../src/chess-console/components/Sound.js"
+    import {LocalPlayerWithPreMoves} from "../src/chess-console/players/LocalPlayerWithPreMoves.js"
 
     new ChessConsole(
         document.getElementById("console-container"),
-        {name: "Local Player", type: LocalPlayer},
+        {name: "Local Player", type: LocalPlayerWithPreMoves},
         {name: "Random Player", type: RandomPlayer},
         {
             figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg"

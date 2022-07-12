@@ -14,7 +14,8 @@ export const CONSOLE_MARKER_TYPE = {
     moveFromMarker: {class: "markerFrame", slice: "markerFrame"},
     lastMove: {class: "markerFrame", slice: "markerFrame"},
     check: {class: "markerCircleRed", slice: "markerCircle"},
-    wrongMove: {class: "markerFrameRed", slice: "markerFrame"}
+    wrongMove: {class: "markerFrameRed", slice: "markerFrame"},
+    premove: {class: "markerFramePremove", slice: "markerFrame"},
 }
 
 export class Board extends UiComponent {
