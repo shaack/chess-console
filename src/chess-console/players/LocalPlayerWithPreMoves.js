@@ -60,8 +60,9 @@ export class LocalPlayerWithPreMoves extends ChessConsolePlayer {
      * INPUT_EVENT_TYPE.moveStart
      * - allowed only the right color to move
      */
-    moveInputCallback(event, gameFen, boardFen, moveResponse) {
+    moveInputCallback(event, ignored, boardFen, moveResponse) {
         // if player can make move, make, if not store as premove
+        const gameFen = this.chessConsole.state.chess.fen()
         if(this.chessConsole.playerToMove() === this) {
             if (event.type === INPUT_EVENT_TYPE.moveDone) {
                 return this.validateMoveAndPromote(gameFen, event.squareFrom, event.squareTo, (moveResult) => {

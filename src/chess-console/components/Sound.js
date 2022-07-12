@@ -44,7 +44,10 @@ export class Sound extends Component {
             } else if (flags.indexOf("k") !== -1 || flags.indexOf("q") !== -1) {
                 this.play("castle")
             } else {
-                this.play("move")
+                clearInterval(this.moveDebounced)
+                this.moveDebounced = setTimeout(() => {
+                    this.play("move")
+                }, 10)
             }
             if (chess.inCheck() || chess.inCheckmate()) {
                 this.play("check")
