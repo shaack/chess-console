@@ -55,9 +55,11 @@ export class Board extends UiComponent {
                 responsive: true,
                 position: "empty",
                 orientation: chessConsole.state.orientation,
-                accessible: chessConsole.props.accessible,
+                accessible: chessConsole.props.accessible, // TODO use accessibility extension
                 style: {
-                    aspectRatio: 0.94
+                    aspectRatio: 0.94,
+                    moveToMarker: CONSOLE_MARKER_TYPE.moveToMarker,
+                    moveFromMarker: CONSOLE_MARKER_TYPE.moveFromMarker
                 },
                 sprite: {
                     url: chessConsole.props.figuresSpriteFile,
@@ -67,22 +69,7 @@ export class Board extends UiComponent {
                 Object.assign(chessboardProps.style, this.props.style)
             }
             this.chessboard = new Chessboard(this.elements.chessboard, chessboardProps)
-            // debouncify redrawMarkers() to prevent flicker
-            /*
-            this.chessboard.view.drawMarkers = function() {
-                // noinspection JSUnresolvedVariable
-                clearTimeout(this.drawMarkersDebounce)
-                this.drawMarkersDebounce = setTimeout(() => {
-                    while (this.markersGroup.firstChild) {
-                        this.markersGroup.removeChild(this.markersGroup.firstChild)
-                    }
-                    this.chessboard.state.markers.forEach((marker) => {
-                            this.drawMarker(marker)
-                        }
-                    )
-                })
-            }
-             */
+
             Observe.property(chessConsole.state, "orientation", () => {
                 this.setPlayerNames()
                 this.chessboard.setOrientation(chessConsole.state.orientation)

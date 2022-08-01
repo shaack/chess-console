@@ -30,9 +30,9 @@
     "bootstrap-show-modal": "^1.4.4",
     "chess.mjs": "^1.2.0",
     "cm-chess": "^2.3.4",
-    "cm-chessboard": "^4.4.1",
+    "cm-chessboard": "^4.4.2",
     "cm-pgn": "^2.1.9",
-    "cm-web-modules": "^1.18.2",
+    "cm-web-modules": "^1.18.3",
     "modlib": "^1.2.2"
   }
 }

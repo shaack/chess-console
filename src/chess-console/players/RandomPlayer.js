@@ -9,11 +9,9 @@ import {Chess} from "../../../lib/chess.mjs/Chess.js"
 
 export class RandomPlayer extends ChessConsolePlayer {
 
-    constructor(chessConsole, name, props = {}) {
+    constructor(chessConsole, name, props = { delay: 1000}) {
         super(chessConsole, name, props)
         this.chess = new Chess()
-        this.props.delay = 1000
-        console.log("props", this.props, props)
         Object.assign(this.props, props)
     }
 

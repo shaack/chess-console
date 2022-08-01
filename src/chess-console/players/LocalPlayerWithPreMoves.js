@@ -29,7 +29,7 @@ export class LocalPlayerWithPreMoves extends ChessConsolePlayer {
             callback(moveResult)
             return true
         } else { // is a promotion?
-            if (tmpChess.get(squareFrom).type === "p") {
+            if (tmpChess.get(squareFrom) && tmpChess.get(squareFrom).type === "p") {
                 const possibleMoves = tmpChess.moves({square: squareFrom, verbose: true})
                 for (let possibleMove of possibleMoves) {
                     if (possibleMove.to === squareTo && possibleMove.promotion) {
