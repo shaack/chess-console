@@ -9,7 +9,8 @@ export class ChessConsolePlayer {
     constructor(chessConsole, name, props) {
         this.chessConsole = chessConsole
         this.name = name
-        this.props = props
+        this.props = {}
+        Object.assign(this.props, props)
     }
 
     /**

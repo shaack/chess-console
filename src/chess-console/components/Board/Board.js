@@ -68,6 +68,7 @@ export class Board extends UiComponent {
             }
             this.chessboard = new Chessboard(this.elements.chessboard, chessboardProps)
             // debouncify redrawMarkers() to prevent flicker
+            /*
             this.chessboard.view.drawMarkers = function() {
                 // noinspection JSUnresolvedVariable
                 clearTimeout(this.drawMarkersDebounce)
@@ -81,6 +82,7 @@ export class Board extends UiComponent {
                     )
                 })
             }
+             */
             Observe.property(chessConsole.state, "orientation", () => {
                 this.setPlayerNames()
                 this.chessboard.setOrientation(chessConsole.state.orientation)

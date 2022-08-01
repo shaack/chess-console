@@ -42,7 +42,7 @@
     new ChessConsole(
         document.getElementById("console-container"),
         {name: "Local Player", type: LocalPlayerWithPreMoves},
-        {name: "Random Player", type: RandomPlayer},
+        {name: "Random Player", type: RandomPlayer, props: {delay: 3000}},
         {
             figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg"
         }
