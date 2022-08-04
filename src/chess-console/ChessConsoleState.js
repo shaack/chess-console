@@ -13,7 +13,7 @@ export class ChessConsoleState {
     constructor(props) {
         this.chess = new Chess() // used to validate moves and keep the history
         this.orientation = props.playerColor || COLOR.white
-        this.plyViewed = 0 // the play viewed on the board
+        this.plyViewed = undefined // the play viewed on the board
     }
 
     observeChess(callback) {
