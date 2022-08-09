@@ -41,7 +41,7 @@ export class PromotionDialog {
                             </div>
                         </div>
                      </div>`
-        $.showModal({
+        bootstrap.showModal({
             modalClass: "fade",
             title: title,
             body: body,

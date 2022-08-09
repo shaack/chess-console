@@ -6,10 +6,13 @@
   button {
     margin-right: $spacer / 2;
     margin-bottom: $spacer / 2;
-    background-color: transparent;
+    // background-color: transparent;
+
 
     &:disabled {
-      color: rgba(0, 0, 0, 0.5);
+      &.btn-light, &.btn-outline-dark {
+        color: rgba(0, 0, 0, 0.5);
+      }
     }
   }
 
@@ -76,14 +79,17 @@
 
         .ply {
           width: 41%;
+
           i {
             pointer-events: none;
           }
+
           &.active {
             font-weight: bold;
           }
         }
       }
+
       &.clickable {
         .ply {
           cursor: pointer;
@@ -110,7 +116,7 @@
       }
 
       .btn-light {
-        background-color: rgba(0, 0, 0, 0.05);
+        // background-color: rgba(0, 0, 0, 0.05);
       }
 
       .btn-active {
