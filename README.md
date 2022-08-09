@@ -1,7 +1,7 @@
 # chess-console
 
 chess-console is a **chess game client framework**, which uses [cm-chessboard](https://github.com/shaack/cm-chessboard) 
-and [Bootstrap 4](https://getbootstrap.com/) to create a browser based, mobile friendly, responsive 
+and [Bootstrap](https://getbootstrap.com/) to create a browser based, mobile friendly, responsive 
 chess game gui.
 
 - **[Repository on GitHub](https://github.com/shaack/chess-console)**
