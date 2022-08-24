@@ -86,15 +86,15 @@ export class Board extends UiComponent {
             })
             this.chessConsole.messageBroker.subscribe(consoleMessageTopics.illegalMove, (message) => {
                 if(message.move.from) {
-                    this.chessboard.addMarker(message.move.from, CONSOLE_MARKER_TYPE.wrongMove)
+                    this.chessboard.addMarker(CONSOLE_MARKER_TYPE.wrongMove, message.move.from)
                 } else {
                     console.warn("illegalMove without `message.move.from`")
                 }
                 if(message.move.to) {
-                    this.chessboard.addMarker(message.move.to, CONSOLE_MARKER_TYPE.wrongMove)
+                    this.chessboard.addMarker(CONSOLE_MARKER_TYPE.wrongMove, message.move.to)
                 }
                 setTimeout(() => {
-                    this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.wrongMove)
+                    this.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.wrongMove)
                 }, 500)
             })
             this.setPositionOfPlyViewed(false)
@@ -110,8 +110,8 @@ export class Board extends UiComponent {
         this.setPositionOfPlyViewedDebounced = setTimeout(() => {
             const to = this.chessConsole.state.chess.fenOfPly(this.chessConsole.state.plyViewed)
             this.chessboard.setPosition(to, animated).then(() => {
-                this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.moveFromMarker)
-                this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.moveToMarker)
+                this.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.moveFromMarker)
+                this.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.moveToMarker)
             })
         })
     }
@@ -119,17 +119,17 @@ export class Board extends UiComponent {
     markLastMove() {
         window.clearTimeout(this.markLastMoveDebounce)
         this.markLastMoveDebounce = setTimeout(() => {
-            this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.lastMove)
-            this.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.check)
+            this.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.lastMove)
+            this.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.check)
             if (this.chessConsole.state.plyViewed === this.chessConsole.state.chess.plyCount()) {
                 const lastMove = this.chessConsole.state.chess.lastMove()
                 if (lastMove) {
-                    this.chessboard.addMarker(lastMove.from, CONSOLE_MARKER_TYPE.lastMove)
-                    this.chessboard.addMarker(lastMove.to, CONSOLE_MARKER_TYPE.lastMove)
+                    this.chessboard.addMarker(CONSOLE_MARKER_TYPE.lastMove, lastMove.from)
+                    this.chessboard.addMarker(CONSOLE_MARKER_TYPE.lastMove, lastMove.to)
                 }
                 if (this.chessConsole.state.chess.inCheck() || this.chessConsole.state.chess.inCheckmate()) {
                     const kingSquare = this.chessConsole.state.chess.pieces("k", this.chessConsole.state.chess.turn())[0]
-                    this.chessboard.addMarker(kingSquare.square, CONSOLE_MARKER_TYPE.check)
+                    this.chessboard.addMarker(CONSOLE_MARKER_TYPE.check, kingSquare.square)
                 }
             }
         })

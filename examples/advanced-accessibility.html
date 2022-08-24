@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Chess Console</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="../assets/styles/screen.css"/>
+</head>
+<body>
+<div class="container-fluid">
+    <h1><a href="../">chess-console</a></h1>
+    <h2>Local vs Random with advanced accessibility</h2>
+
+    <div id="console-container"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+<script type="module">
+
+    import {ChessConsole} from "../src/chess-console/ChessConsole.js"
+    import {RandomPlayer} from "../src/chess-console/players/RandomPlayer.js"
+    import {Board} from "../src/chess-console/components/Board/Board.js"
+    import {GameStateOutput} from "../src/chess-console/components/GameStateOutput.js"
+    import {History} from "../src/chess-console/components/History.js"
+    import {CapturedPieces} from "../src/chess-console/components/CapturedPieces.js"
+    import {HistoryControl} from "../src/chess-console/components/HistoryControl.js"
+    import {GameControl} from "../src/chess-console/components/GameControl/GameControl.js"
+    import {Persistence} from "../src/chess-console/components/Persistence.js"
+    import {Sound} from "../src/chess-console/components/Sound.js"
+    import {LocalPlayerWithPreMoves} from "../src/chess-console/players/LocalPlayerWithPreMoves.js"
+
+    new ChessConsole(
+        document.getElementById("console-container"),
+        {name: "Local Player", type: LocalPlayerWithPreMoves},
+        {name: "Random Player", type: RandomPlayer, props: {delay: 500}},
+        {
+            figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg",
+            accessible: true
+        }
+    ).initialization.then((chessConsole) => {
+        new Board(chessConsole).initialization.then(() => {
+            new Persistence(chessConsole, {
+                savePrefix: "Random"
+            }).load()
+        })
+        new GameStateOutput(chessConsole)
+        new History(chessConsole)
+        new HistoryControl(chessConsole)
+        new CapturedPieces(chessConsole)
+        new GameControl(chessConsole)
+        new Sound(chessConsole, {
+            soundSpriteFile: "../assets/sounds/chess_console_sounds.mp3"
+        })
+    })
+
+</script>
+</body>
+</html>

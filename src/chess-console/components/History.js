@@ -32,7 +32,17 @@ export class History extends UiComponent {
         if(this.props.makeClickable) {
             this.addClickEvents()
         }
-        this.redraw()
+        this.i18n = chessConsole.i18n
+        this.i18n.load({
+            "de": {
+                "game_history": "Spielnotation"
+            },
+            "en": {
+                "game_history": "Game notation"
+            }
+        }).then(() => {
+            this.redraw()
+        })
     }
 
     addClickEvents() {
@@ -86,7 +96,8 @@ export class History extends UiComponent {
                 }
                 output += "<tr><td class='num " + rowClass + "'>" + (i / 2 + 1) + ".</td><td data-ply='" + (i + 1) + "' class='ply " + whiteClass + " ply" + (i + 1) + "'>" + sanWhite + "</td><td data-ply='" + (i + 2) + "' class='ply " + blackClass + " ply" + (i + 2) + "'>" + sanBlack + "</td></tr>"
             }
-            this.element.innerHTML = "<table>" + output + "</table>"
+            this.element.innerHTML = "<h2 class='visually-hidden'>" + this.i18n.t("game_history") + "</h2>" +
+                "<table>" + output + "</table>"
             if (this.chessConsole.state.plyViewed > 0) {
                 const $ply = $(this.element).find('.ply' + this.chessConsole.state.plyViewed)
                 if ($ply.position()) {
