@@ -35,7 +35,7 @@ export class NewGameDialog {
                         <option value="b" ${newGameColor === "b" ? "selected" : ""}>${i18n.t("black")}</option>
                         </select></div>
                         </div></form>`
-            props.footer = `<button type="button" class="btn btn-link" data-bs-dismiss="modal">${i18n.t("cancel")}</button>
+            props.footer = `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${i18n.t("cancel")}</button>
             <button type="submit" class="btn btn-primary">${i18n.t("ok")}</button>`
             props.onCreate = (modal) => {
                 modal.element.querySelector("button[type='submit']").addEventListener("click", function (event) {

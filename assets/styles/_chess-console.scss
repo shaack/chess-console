@@ -3,6 +3,16 @@
   justify-content: left;
   grid-template-columns: repeat(auto-fill, 3rem);
   gap: 0.5rem;
+
+  .btn-link.text-black:active, .btn-link.text-black:focus {
+    box-shadow: none !important;
+    // background-color: $gray-100 !important;
+  }
+
+  .btn[disabled] {
+    opacity: 0.4;
+  }
+
 }
 
 .chess-console {
@@ -100,6 +110,7 @@
           color: $orange;
         }
       }
+
       .btn-active {
         color: $green;
       }

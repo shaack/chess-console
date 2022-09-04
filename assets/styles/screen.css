@@ -8348,6 +8348,10 @@ textarea.form-control-lg {
   justify-content: left;
   grid-template-columns: repeat(auto-fill, 3rem);
   gap: 0.5rem; }
+  .buttons-grid .btn-link.text-black:active, .buttons-grid .btn-link.text-black:focus {
+    box-shadow: none !important; }
+  .buttons-grid .btn[disabled] {
+    opacity: 0.4; }
 
 .chess-console .fa-figure-white {
   color: white;
