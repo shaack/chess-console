@@ -63,7 +63,7 @@ export class ChessConsole extends UiComponent {
         <div class="chess-console-board"></div>
     </div>
     <div class="chess-console-right ${colSets.consoleRight}">
-        <div class="control-buttons flex-buttons"></div>
+        <div class="control-buttons buttons-grid"></div>
         <div class="chess-console-notifications"></div>
     </div>
     <div class="chess-console-left ${colSets.consoleLeft}"></div>

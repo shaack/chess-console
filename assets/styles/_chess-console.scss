@@ -1,22 +1,8 @@
-
-.flex-buttons {
-  display: flex;
-  flex-wrap: wrap;
-
-  button {
-    margin-right: $spacer / 2;
-    margin-bottom: $spacer / 2;
-    // background-color: transparent;
-
-
-    &:disabled {
-      &.btn-light, &.btn-outline-dark {
-        color: rgba(0, 0, 0, 0.5);
-      }
-    }
-  }
-
-  margin-bottom: $spacer / 2;
+.buttons-grid {
+  display: grid;
+  justify-content: left;
+  grid-template-columns: repeat(auto-fill, 3rem);
+  gap: 0.5rem;
 }
 
 .chess-console {
@@ -104,7 +90,7 @@
   }
 
   .chess-console-right {
-    .flex-buttons {
+    .buttons-grid {
       .autoplay {
         .fa-play {
           color: $green;
@@ -114,11 +100,6 @@
           color: $orange;
         }
       }
-
-      .btn-light {
-        // background-color: rgba(0, 0, 0, 0.05);
-      }
-
       .btn-active {
         color: $green;
       }

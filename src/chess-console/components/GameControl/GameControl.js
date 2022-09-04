@@ -25,8 +25,8 @@ export class GameControl extends UiComponent {
             }
         }).then(() => {
 
-            this.$btnUndoMove = $(`<button type="button" title="${i18n.t('undo_move')}" class="btn btn-icon btn-light undoMove"><i class="fa fa-fw fa-undo-alt" aria-hidden="true"></i></button>`)
-            this.$btnStartNewGame = $(`<button type="button" title="${i18n.t('start_game')}" class="btn btn-icon btn-light startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>\`)`)
+            this.$btnUndoMove = $(`<button type="button" title="${i18n.t('undo_move')}" class="btn btn-icon btn-outline-secondary undoMove"><i class="fa fa-fw fa-undo-alt" aria-hidden="true"></i></button>`)
+            this.$btnStartNewGame = $(`<button type="button" title="${i18n.t('start_game')}" class="btn btn-icon btn-outline-secondary startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>\`)`)
 
             this.context.appendChild(this.$btnUndoMove[0])
             this.context.appendChild(this.$btnStartNewGame[0])

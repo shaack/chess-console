@@ -8343,15 +8343,11 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important; } }
 
-.flex-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 0.5rem; }
-  .flex-buttons button {
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem; }
-    .flex-buttons button:disabled.btn-light, .flex-buttons button:disabled.btn-outline-dark {
-      color: rgba(0, 0, 0, 0.5); }
+.buttons-grid {
+  display: grid;
+  justify-content: left;
+  grid-template-columns: repeat(auto-fill, 3rem);
+  gap: 0.5rem; }
 
 .chess-console .fa-figure-white {
   color: white;
@@ -8405,13 +8401,13 @@ textarea.form-control-lg {
   margin-bottom: 1rem;
   font-size: 120%; }
 
-.chess-console .chess-console-right .flex-buttons .autoplay .fa-play {
+.chess-console .chess-console-right .buttons-grid .autoplay .fa-play {
   color: #198754; }
 
-.chess-console .chess-console-right .flex-buttons .autoplay .fa-stop {
+.chess-console .chess-console-right .buttons-grid .autoplay .fa-stop {
   color: #fd7e14; }
 
-.chess-console .chess-console-right .flex-buttons .btn-active {
+.chess-console .chess-console-right .buttons-grid .btn-active {
   color: #198754; }
 
 .chess-console .chess-console-right .game-status {
@@ -8503,7 +8499,7 @@ button.close {
   .cm-chessboard-content .list-inline-item:not(:last-child) {
     margin-right: 1rem; }
 
-.visually-hidden {
+.cm-visually-hidden {
   position: absolute;
   left: -10000px;
   top: auto;
@@ -8511,11 +8507,6 @@ button.close {
   height: 1px;
   overflow: hidden; }
 
-/*
-body * {
-  outline: 1px rgba(255, 255, 255, 0.1) solid;
-}
-*/
 .cm-chessboard.default .board .square.white {
   fill: #ecdab9; }
 
