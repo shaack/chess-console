@@ -3,8 +3,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const ModLib = require("modlib/src/ModLib.js")
-const modLib = new ModLib(__dirname)
+const modLib = new (require("modlib"))
 
 modLib.add("cm-web-modules")
 modLib.add("cm-chessboard")
