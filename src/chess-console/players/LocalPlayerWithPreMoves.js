@@ -6,9 +6,8 @@
 
 import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
 import {COLOR, INPUT_EVENT_TYPE} from "../../../lib/cm-chessboard/Chessboard.js"
-import {PromotionDialog} from "../components/Board/PromotionDialog.js"
 import {Chess} from "../../../lib/chess.mjs/Chess.js"
-import {CONSOLE_MARKER_TYPE} from "../components/Board/Board.js"
+import {CONSOLE_MARKER_TYPE} from "../components/Board.js"
 
 export class LocalPlayerWithPreMoves extends ChessConsolePlayer {
 
@@ -33,6 +32,10 @@ export class LocalPlayerWithPreMoves extends ChessConsolePlayer {
                 const possibleMoves = tmpChess.moves({square: squareFrom, verbose: true})
                 for (let possibleMove of possibleMoves) {
                     if (possibleMove.to === squareTo && possibleMove.promotion) {
+                        // todo show the promotion plugin of the board
+
+                        return true;
+                        /*
                         new PromotionDialog({
                             color: tmpChess.turn(),
                             spriteUrl: this.chessConsole.props.figuresSpriteFile
@@ -41,6 +44,7 @@ export class LocalPlayerWithPreMoves extends ChessConsolePlayer {
                             callback(tmpChess.move(move))
                         })
                         return true
+                         */
                     }
                 }
             }

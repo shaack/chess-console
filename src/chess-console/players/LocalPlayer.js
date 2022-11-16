@@ -6,7 +6,7 @@
 
 import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
 import {COLOR, INPUT_EVENT_TYPE} from "../../../lib/cm-chessboard/Chessboard.js"
-import {PromotionDialog} from "../components/Board/PromotionDialog.js"
+import {PromotionDialog} from "./PromotionDialog.js"
 import {Chess} from "../../../lib/chess.mjs/Chess.js"
 
 export class LocalPlayer extends ChessConsolePlayer {

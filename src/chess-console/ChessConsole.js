@@ -73,7 +73,7 @@ export class ChessConsole extends UiComponent {
         this.i18n = new I18n({locale: props.locale})
         this.messageBroker = new MessageBroker()
         this.context.innerHTML = this.props.template
-        this.componentContainers = {
+        this.componentContainers = { // todo put this in the html
             center: this.context.querySelector(".chess-console-center"),
             left: this.context.querySelector(".chess-console-left"),
             right: this.context.querySelector(".chess-console-right"),

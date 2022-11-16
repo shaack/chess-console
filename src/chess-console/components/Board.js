@@ -4,10 +4,11 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Chessboard, COLOR} from "../../../../lib/cm-chessboard/Chessboard.js"
-import {consoleMessageTopics} from "../../ChessConsole.js"
-import {Observe} from "../../../../lib/cm-web-modules/observe/Observe.js"
-import {UiComponent} from "../../../../lib/cm-web-modules/app/Component.js"
+import {Chessboard, COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
+import {consoleMessageTopics} from "../ChessConsole.js"
+import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
+import {UiComponent} from "../../../lib/cm-web-modules/app/Component.js"
+import {FEN} from "../../../lib/cm-chessboard/model/Position.js"
 
 export const CONSOLE_MARKER_TYPE = {
     moveToMarker: {class: "markerFrame", slice: "markerFrame"},
@@ -20,7 +21,7 @@ export const CONSOLE_MARKER_TYPE = {
 
 export class Board extends UiComponent {
 
-    constructor(chessConsole, props) {
+    constructor(chessConsole, props = {}) {
         super(chessConsole.componentContainers.board, props)
         this.initialization = new Promise((resolve) => {
             chessConsole.board = this
@@ -53,7 +54,7 @@ export class Board extends UiComponent {
             })
             const chessboardProps = {
                 responsive: true,
-                position: "empty",
+                position: FEN.empty,
                 orientation: chessConsole.state.orientation,
                 accessible: chessConsole.props.accessible, // TODO use accessibility extension
                 style: {
@@ -63,7 +64,8 @@ export class Board extends UiComponent {
                 },
                 sprite: {
                     url: chessConsole.props.figuresSpriteFile,
-                }
+                },
+                extensions: props.extensions ? props.extensions : []
             }
             if (this.props.style) {
                 Object.assign(chessboardProps.style, this.props.style)
