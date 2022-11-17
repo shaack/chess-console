@@ -133,9 +133,9 @@ export class LocalPlayerWithPreMoves extends ChessConsolePlayer {
     }
 
     updatePremoveMarkers() {
-        this.chessConsole.board.chessboard.removeMarkers(undefined, CONSOLE_MARKER_TYPE.premove)
+        this.chessConsole.board.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.premove)
         for (const premove of this.premoves) {
-            this.chessConsole.board.chessboard.addMarker(premove.squareTo, CONSOLE_MARKER_TYPE.premove)
+            this.chessConsole.board.chessboard.addMarker(CONSOLE_MARKER_TYPE.premove, premove.squareTo)
         }
     }
 
