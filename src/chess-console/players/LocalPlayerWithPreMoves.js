@@ -37,9 +37,13 @@ export class LocalPlayerWithPreMoves extends ChessConsolePlayer {
                         const chessboard = this.chessConsole.components.board.chessboard
                         setTimeout(() => {
                                 chessboard.showPromotionDialog(squareTo, tmpChess.turn(), (event) => {
-                                    move.promotion = event.piece.charAt(1)
-                                    console.log(move)
-                                    callback(tmpChess.move(move))
+                                    if(event.piece) {
+                                        move.promotion = event.piece.charAt(1)
+                                        console.log(move)
+                                        callback(tmpChess.move(move))
+                                    } else {
+                                        callback(null)
+                                    }
                                 })
                             }
                             , 200)
