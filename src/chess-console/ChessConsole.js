@@ -81,7 +81,9 @@ export class ChessConsole extends UiComponent {
             controlButtons: this.context.querySelector(".control-buttons"),
             notifications: this.context.querySelector(".chess-console-notifications")
         }
-
+        this.components = {
+            // put here components, which want to be accessible from other components
+        }
         this.player = new player.type(this, player.name, player.props)
         this.opponent = new opponent.type(this, opponent.name, opponent.props)
 
