@@ -59,7 +59,7 @@ export class LocalPlayer extends ChessConsolePlayer {
      * - allowed only the right color to move
      */
     moveInputCallback(event, fen, moveResponse) {
-        if (event.type === INPUT_EVENT_TYPE.moveDone) {
+        if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
             return this.validateMoveAndPromote(fen, event.squareFrom, event.squareTo, (moveResult) => {
                 let result
                 if (moveResult) { // valid
@@ -71,7 +71,7 @@ export class LocalPlayer extends ChessConsolePlayer {
                     this.chessConsole.board.chessboard.disableMoveInput()
                 }
             })
-        } else if (event.type === INPUT_EVENT_TYPE.moveStart) {
+        } else if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
             if (this.chessConsole.state.plyViewed !== this.chessConsole.state.chess.plyCount()) {
                 this.chessConsole.state.plyViewed = this.chessConsole.state.chess.plyCount()
                 return false

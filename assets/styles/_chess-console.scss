@@ -162,17 +162,3 @@
 button.close {
   cursor: pointer;
 }
-
-.cm-chessboard {
-
-  .markers {
-    .marker {
-
-      &.markerFramePremove {
-        stroke: #008800;
-        stroke-width: 1.8px;
-        opacity: 0.8;
-      }
-    }
-  }
-}

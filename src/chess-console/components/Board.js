@@ -4,19 +4,39 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Chessboard, COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
+import {Chessboard, COLOR, INPUT_EVENT_TYPE} from "../../../lib/cm-chessboard/Chessboard.js"
 import {consoleMessageTopics} from "../ChessConsole.js"
 import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {UiComponent} from "../../../lib/cm-web-modules/app/Component.js"
 import {FEN} from "../../../lib/cm-chessboard/model/Position.js"
+import {CoreUtils} from "../../../lib/cm-web-modules/utils/CoreUtils.js"
+import {PromotionDialog} from "../../../lib/cm-chessboard/extensions/promotion-dialog/PromotionDialog.js"
+import {Markers} from "../../../lib/cm-chessboard/extensions/markers/Markers.js"
 
 export const CONSOLE_MARKER_TYPE = {
-    moveToMarker: {class: "markerFrame", slice: "markerFrame"},
-    moveFromMarker: {class: "markerFrame", slice: "markerFrame"},
-    lastMove: {class: "markerFrame", slice: "markerFrame"},
-    check: {class: "markerCircleRed", slice: "markerCircle"},
-    wrongMove: {class: "markerFrameRed", slice: "markerFrame"},
-    premove: {class: "markerFramePremove", slice: "markerFrame"},
+    moveInput: {class: "marker-frame", slice: "markerFrame"},
+    check: {class: "marker-circle-red", slice: "markerCircle"},
+    wrongMove: {class: "marker-frame-red", slice: "markerFrame"},
+    premove: {class: "marker-frame-blue", slice: "markerFrame"},
+    validMove: {class: "marker-dot", slice: "markerDot"},
+    validMoveCapture: {class: "marker-circle", slice: "markerCircle"}
+}
+
+class ChessConsoleMarkers extends Markers {
+    drawAutoMarkers(event) {
+        setTimeout(() => {
+            this.removeMarkers(this.autoMarker)
+            if (event.type === INPUT_EVENT_TYPE.moveInputStarted ||
+                event.type === INPUT_EVENT_TYPE.movingOverSquare) {
+                if (event.squareFrom) {
+                    this.addMarker(this.autoMarker, event.squareFrom)
+                }
+                if (event.squareTo) {
+                    this.addMarker(this.autoMarker, event.squareTo)
+                }
+            }
+        })
+    }
 }
 
 export class Board extends UiComponent {
@@ -53,30 +73,30 @@ export class Board extends UiComponent {
                 this.setPositionOfPlyViewed(props.oldValue !== undefined)
                 this.markLastMove()
             })
-            const chessboardProps = {
-                responsive: true,
+            this.props = {
                 position: FEN.empty,
                 orientation: chessConsole.state.orientation,
-                accessible: chessConsole.props.accessible, // TODO use accessibility extension
+                assetsUrl: undefined,
                 style: {
-                    aspectRatio: 0.94,
-                    moveToMarker: CONSOLE_MARKER_TYPE.moveToMarker,
-                    moveFromMarker: CONSOLE_MARKER_TYPE.moveFromMarker
+                    aspectRatio: 0.94
                 },
-                sprite: {
-                    url: chessConsole.props.figuresSpriteFile,
+                markers: {
+                    moveInput: CONSOLE_MARKER_TYPE.moveInput,
+                    check: CONSOLE_MARKER_TYPE.check,
+                    wrongMove: CONSOLE_MARKER_TYPE.wrongMove,
+                    premove: CONSOLE_MARKER_TYPE.premove,
+                    validMove: CONSOLE_MARKER_TYPE.validMove,
+                    validMoveCapture: CONSOLE_MARKER_TYPE.validMoveCapture
                 },
-                extensions: props.extensions ? props.extensions : []
+                extensions: [{class: PromotionDialog}, {class: ChessConsoleMarkers}]
             }
-            if (this.props.style) {
-                Object.assign(chessboardProps.style, this.props.style)
-            }
-            this.chessboard = new Chessboard(this.elements.chessboard, chessboardProps)
-
+            CoreUtils.mergeObjects(this.props, props)
+            this.chessboard = new Chessboard(this.elements.chessboard, this.props)
             Observe.property(chessConsole.state, "orientation", () => {
                 this.setPlayerNames()
-                this.chessboard.setOrientation(chessConsole.state.orientation)
-                this.markPlayerToMove()
+                this.chessboard.setOrientation(chessConsole.state.orientation).then(() => {
+                    this.markPlayerToMove()
+                })
             })
             Observe.property(chessConsole.player, "name", () => {
                 this.setPlayerNames()
@@ -88,12 +108,12 @@ export class Board extends UiComponent {
                 this.markPlayerToMove()
             })
             this.chessConsole.messageBroker.subscribe(consoleMessageTopics.illegalMove, (message) => {
-                if(message.move.from) {
+                if (message.move.from) {
                     this.chessboard.addMarker(CONSOLE_MARKER_TYPE.wrongMove, message.move.from)
                 } else {
                     console.warn("illegalMove without `message.move.from`")
                 }
-                if(message.move.to) {
+                if (message.move.to) {
                     this.chessboard.addMarker(CONSOLE_MARKER_TYPE.wrongMove, message.move.to)
                 }
                 setTimeout(() => {
@@ -122,13 +142,13 @@ export class Board extends UiComponent {
     markLastMove() {
         window.clearTimeout(this.markLastMoveDebounce)
         this.markLastMoveDebounce = setTimeout(() => {
-            this.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.lastMove)
+            this.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.moveInput)
             this.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.check)
             if (this.chessConsole.state.plyViewed === this.chessConsole.state.chess.plyCount()) {
                 const lastMove = this.chessConsole.state.chess.lastMove()
                 if (lastMove) {
-                    this.chessboard.addMarker(CONSOLE_MARKER_TYPE.lastMove, lastMove.from)
-                    this.chessboard.addMarker(CONSOLE_MARKER_TYPE.lastMove, lastMove.to)
+                    this.chessboard.addMarker(CONSOLE_MARKER_TYPE.moveInput, lastMove.from)
+                    this.chessboard.addMarker(CONSOLE_MARKER_TYPE.moveInput, lastMove.to)
                 }
                 if (this.chessConsole.state.chess.inCheck() || this.chessConsole.state.chess.inCheckmate()) {
                     const kingSquare = this.chessConsole.state.chess.pieces("k", this.chessConsole.state.chess.turn())[0]

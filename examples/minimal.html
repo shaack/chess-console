@@ -31,12 +31,11 @@
     new ChessConsole(
         document.getElementById("console-container"),
         {name: "Local Player 1", type: LocalPlayer},
-        {name: "Local Player 2", type: LocalPlayer},
-        {
-            figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg"
-        }
+        {name: "Local Player 2", type: LocalPlayer}
     ).initialization.then((chessConsole) => {
-        new Board(chessConsole)
+        new Board(chessConsole, {
+            assetsUrl: "../node_modules/cm-chessboard/assets/"
+        })
         new GameStateOutput(chessConsole)
         chessConsole.newGame()
     })

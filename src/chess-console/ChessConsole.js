@@ -10,7 +10,7 @@ import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
 import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
 import {UiComponent} from "../../lib/cm-web-modules/app/Component.js"
-import {piecesTranslations} from "../../lib/cm-chessboard/view/ChessboardView.js"
+import {piecesTranslations} from "../../lib/cm-chessboard/lib/I18n.js"
 
 export const consoleMessageTopics = {
     newGame: "game/new", // if a new game was startet
@@ -29,7 +29,6 @@ export class ChessConsole extends UiComponent {
                 state = new ChessConsoleState(props)) {
         super(context, props, state)
         this.props = {
-            figuresSpriteFile: undefined, // used also in player for promotion
             locale: navigator.language, // locale for i18n
             playerColor: COLOR.white, // the players color (color at bottom)
             pgn: undefined, // initial pgn, can contain header and history
