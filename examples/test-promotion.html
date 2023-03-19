@@ -34,7 +34,7 @@
     import {GameControl} from "../src/chess-console/components/GameControl/GameControl.js"
     import {Sound} from "../src/chess-console/components/Sound.js"
     import {Persistence} from "../src/chess-console/components/Persistence.js"
-    import {LocalPlayerWithPreMoves} from "../src/chess-console/players/LocalPlayerWithPreMoves.js"
+    import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.js"
     import {PromotionDialog} from "../lib/cm-chessboard/extensions/promotion-dialog/PromotionDialog.js"
 
     const pgn =
@@ -43,7 +43,7 @@
 
     new ChessConsole(
         document.getElementById("console-container"),
-        {name: "Player", type: LocalPlayerWithPreMoves},
+        {name: "Player", type: LocalPlayer},
         {name: "Opponent", type: RandomPlayer}
     ).initialization.then((chessConsole) => {
         new Board(chessConsole, {

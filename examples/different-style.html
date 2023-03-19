@@ -40,9 +40,10 @@
         new Board(chessConsole, {
             assetsUrl: "../node_modules/cm-chessboard/assets/",
             style: {
-                cssClass: "blue",
+                cssClass: "green",
                 borderType: BORDER_TYPE.frame,
-                showCoordinates: true
+                showCoordinates: true,
+                pieces: {file: "staunty.svg"}
             }
         }).initialization.then(() => {
             new Persistence(chessConsole, {

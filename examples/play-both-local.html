@@ -39,8 +39,7 @@
         {name: "Local Player 2", type: LocalPlayer},
     ).initialization.then((chessConsole) => {
         new Board(chessConsole, {
-            assetsUrl: "../node_modules/cm-chessboard/assets/",
-            style: {pieces: {file: "staunty.svg"}}
+            assetsUrl: "../node_modules/cm-chessboard/assets/"
         }).initialization.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "Local"
