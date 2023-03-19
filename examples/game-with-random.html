@@ -33,11 +33,15 @@
     import {GameControl} from "../src/chess-console/components/GameControl/GameControl.js"
     import {Persistence} from "../src/chess-console/components/Persistence.js"
     import {Sound} from "../src/chess-console/components/Sound.js"
-    import {LocalPlayerWithPreMoves} from "../src/chess-console/players/LocalPlayerWithPreMoves.js"
+    import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.js"
 
     new ChessConsole(
         document.getElementById("console-container"),
-        {name: "Local Player", type: LocalPlayerWithPreMoves},
+        {
+            name: "Local Player", type: LocalPlayer, props: {
+                allowPremoves: true
+            }
+        },
         {name: "Random Player", type: RandomPlayer, props: {delay: 3000}}
     ).initialization.then((chessConsole) => {
         new Board(chessConsole, {

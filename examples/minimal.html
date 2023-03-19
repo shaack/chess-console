@@ -34,7 +34,8 @@
         {name: "Local Player 2", type: LocalPlayer}
     ).initialization.then((chessConsole) => {
         new Board(chessConsole, {
-            assetsUrl: "../node_modules/cm-chessboard/assets/"
+            assetsUrl: "../node_modules/cm-chessboard/assets/",
+            markLegalMoves: false
         })
         new GameStateOutput(chessConsole)
         chessConsole.newGame()

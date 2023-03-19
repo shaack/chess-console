@@ -10,8 +10,8 @@ import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
 import {UiComponent} from "../../../lib/cm-web-modules/app/Component.js"
 import {FEN} from "../../../lib/cm-chessboard/model/Position.js"
 import {CoreUtils} from "../../../lib/cm-web-modules/utils/CoreUtils.js"
-import {PromotionDialog} from "../../../lib/cm-chessboard/extensions/promotion-dialog/PromotionDialog.js"
 import {Markers} from "../../../lib/cm-chessboard/extensions/markers/Markers.js"
+import {PromotionDialog} from "../../../lib/cm-chessboard/extensions/promotion-dialog/PromotionDialog.js"
 
 export const CONSOLE_MARKER_TYPE = {
     moveInput: {class: "marker-frame", slice: "markerFrame"},
@@ -45,6 +45,9 @@ class ChessConsoleMarkers extends Markers {
                 if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
                     const moves = this.props.board.chessConsole.state.chess.moves({square: event.square, verbose: true})
                     for (const move of moves) { // draw dots on possible squares
+                        if(move.promotion && move.promotion !== "q") {
+                            continue
+                        }
                         if (event.chessboard.getPiece(move.to)) {
                             event.chessboard.addMarker(CONSOLE_MARKER_TYPE.legalMoveCapture, move.to)
                         } else {
