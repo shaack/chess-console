@@ -15,11 +15,11 @@ import {Markers} from "../../../lib/cm-chessboard/extensions/markers/Markers.js"
 
 export const CONSOLE_MARKER_TYPE = {
     moveInput: {class: "marker-frame", slice: "markerFrame"},
-    check: {class: "marker-circle-red", slice: "markerCircle"},
-    wrongMove: {class: "marker-frame-red", slice: "markerFrame"},
-    premove: {class: "marker-frame-blue", slice: "markerFrame"},
-    validMove: {class: "marker-dot", slice: "markerDot"},
-    validMoveCapture: {class: "marker-circle", slice: "markerCircle"}
+    check: {class: "marker-circle-danger", slice: "markerCircle"},
+    wrongMove: {class: "marker-frame-danger", slice: "markerFrame"},
+    premove: {class: "marker-frame-primary", slice: "markerFrame"},
+    legalMove: {class: "marker-dot", slice: "markerDot"},
+    legalMoveCapture: {class: "marker-circle", slice: "markerCircle"}
 }
 
 class ChessConsoleMarkers extends Markers {
@@ -33,6 +33,24 @@ class ChessConsoleMarkers extends Markers {
                 }
                 if (event.squareTo) {
                     this.addMarker(this.autoMarker, event.squareTo)
+                }
+            }
+            if(this.props.board.props.markLegalMoves) {
+                if (event.type === INPUT_EVENT_TYPE.moveInputStarted ||
+                    event.type === INPUT_EVENT_TYPE.validateMoveInput ||
+                    event.type === INPUT_EVENT_TYPE.moveInputCanceled) {
+                    event.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.legalMove)
+                    event.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.legalMoveCapture)
+                }
+                if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
+                    const moves = this.props.board.chessConsole.state.chess.moves({square: event.square, verbose: true})
+                    for (const move of moves) { // draw dots on possible squares
+                        if (event.chessboard.getPiece(move.to)) {
+                            event.chessboard.addMarker(CONSOLE_MARKER_TYPE.legalMoveCapture, move.to)
+                        } else {
+                            event.chessboard.addMarker(CONSOLE_MARKER_TYPE.legalMove, move.to)
+                        }
+                    }
                 }
             }
         })
@@ -77,6 +95,7 @@ export class Board extends UiComponent {
                 position: FEN.empty,
                 orientation: chessConsole.state.orientation,
                 assetsUrl: undefined,
+                markLegalMoves: true,
                 style: {
                     aspectRatio: 0.94
                 },
@@ -88,7 +107,11 @@ export class Board extends UiComponent {
                     validMove: CONSOLE_MARKER_TYPE.validMove,
                     validMoveCapture: CONSOLE_MARKER_TYPE.validMoveCapture
                 },
-                extensions: [{class: PromotionDialog}, {class: ChessConsoleMarkers}]
+                extensions: [{class: PromotionDialog}, {
+                    class: ChessConsoleMarkers, props: {
+                        board: this
+                    }
+                }]
             }
             CoreUtils.mergeObjects(this.props, props)
             this.chessboard = new Chessboard(this.elements.chessboard, this.props)
