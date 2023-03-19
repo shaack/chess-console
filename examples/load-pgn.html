@@ -46,13 +46,11 @@ Rg8 19.Rad1 Qxf3 20.Rxe7+ Nxe7 21.Qxd7+ Kxd7 22.Bf5+ Ke8
     new ChessConsole(
         document.getElementById("console-container"),
         {name: "Player", type: LocalPlayer},
-        {name: "Opponent", type: RandomPlayer},
-        {
-            figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg",
-            accessible: true
-        }
+        {name: "Opponent", type: RandomPlayer}
     ).initialization.then((chessConsole) => {
-        new Board(chessConsole).initialization.then(() => {
+        new Board(chessConsole, {
+	assetsUrl: "../node_modules/cm-chessboard/assets/"
+}).initialization.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "loadPgn"
             })

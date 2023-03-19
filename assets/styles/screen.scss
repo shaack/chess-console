@@ -1,7 +1,8 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "chess-console.scss";
-@import "../../node_modules/cm-chessboard/assets/styles/cm-chessboard.scss";
-@import "../../node_modules/cm-chessboard/src/cm-chessboard/extensions/promotion-dialog/assets/promotion-dialog.scss";
+@import "../../node_modules/cm-chessboard/assets/chessboard/chessboard.scss";
+@import "../../node_modules/cm-chessboard/assets/extensions/promotion-dialog/promotion-dialog.scss";
+@import "../../node_modules/cm-chessboard/assets/extensions/markers/markers.scss";
 
 html {
   body {

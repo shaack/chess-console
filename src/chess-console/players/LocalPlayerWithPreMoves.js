@@ -81,7 +81,7 @@ export class LocalPlayerWithPreMoves extends ChessConsolePlayer {
         // if player can make move, make, if not store as premove
         const gameFen = this.chessConsole.state.chess.fen()
         if (this.chessConsole.playerToMove() === this) {
-            if (event.type === INPUT_EVENT_TYPE.moveDone) {
+            if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
                 return this.validateMoveAndPromote(gameFen, event.squareFrom, event.squareTo, (moveResult) => {
                     let result
                     if (moveResult) { // valid
@@ -95,7 +95,7 @@ export class LocalPlayerWithPreMoves extends ChessConsolePlayer {
                         // this.chessConsole.board.chessboard.disableMoveInput()
                     }
                 })
-            } else if (event.type === INPUT_EVENT_TYPE.moveStart) {
+            } else if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
                 if (this.chessConsole.state.plyViewed !== this.chessConsole.state.chess.plyCount()) {
                     this.chessConsole.state.plyViewed = this.chessConsole.state.chess.plyCount()
                     return false
@@ -104,10 +104,9 @@ export class LocalPlayerWithPreMoves extends ChessConsolePlayer {
                 }
             }
         } else {
-            // console.log("premove", event, gameFen, boardFen)
-            if (event.type === INPUT_EVENT_TYPE.moveDone) {
+            // premoves
+            if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
                 this.premoves.push(event)
-                // set markers for the premoves
                 this.updatePremoveMarkers()
             }
             return true

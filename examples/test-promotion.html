@@ -44,15 +44,12 @@
     new ChessConsole(
         document.getElementById("console-container"),
         {name: "Player", type: LocalPlayerWithPreMoves},
-        {name: "Opponent", type: RandomPlayer},
-        {
-            figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg",
-            accessible: true
-        }
+        {name: "Opponent", type: RandomPlayer}
     ).initialization.then((chessConsole) => {
         new Board(chessConsole, {
+            assetsUrl: "../node_modules/cm-chessboard/assets/",
             extensions: [
-                {class: PromotionDialog, props: {}}
+                {class: PromotionDialog}
             ]
         }).initialization.then(() => {
             new Persistence(chessConsole, {

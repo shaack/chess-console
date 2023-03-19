@@ -47,17 +47,6 @@ export class LocalPlayer extends ChessConsolePlayer {
         return false
     }
 
-    /**
-     * Handles the events from cm-chessboard
-     *
-     * INPUT_EVENT_TYPE.moveDone
-     * - validates Move, returns false, if not valid
-     * - does promotion
-     * - calls moveResponse()
-     *
-     * INPUT_EVENT_TYPE.moveStart
-     * - allowed only the right color to move
-     */
     moveInputCallback(event, fen, moveResponse) {
         if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
             return this.validateMoveAndPromote(fen, event.squareFrom, event.squareTo, (moveResult) => {

@@ -38,12 +38,11 @@
     new ChessConsole(
         document.getElementById("console-container"),
         {name: "Local Player", type: LocalPlayerWithPreMoves},
-        {name: "Random Player", type: RandomPlayer, props: {delay: 3000}},
-        {
-            figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg"
-        }
+        {name: "Random Player", type: RandomPlayer, props: {delay: 3000}}
     ).initialization.then((chessConsole) => {
-        new Board(chessConsole).initialization.then(() => {
+        new Board(chessConsole, {
+            assetsUrl: "../node_modules/cm-chessboard/assets/"
+        }).initialization.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "Random"
             }).load()

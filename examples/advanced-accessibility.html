@@ -40,11 +40,11 @@
         {name: "Local Player", type: LocalPlayerWithPreMoves},
         {name: "Random Player", type: RandomPlayer, props: {delay: 500}},
         {
-            figuresSpriteFile: "../node_modules/cm-chessboard/assets/images/chessboard-sprite-staunty.svg",
             accessible: true
-        }
-    ).initialization.then((chessConsole) => {
-        new Board(chessConsole).initialization.then(() => {
+        }).initialization.then((chessConsole) => {
+        new Board(chessConsole, {
+            assetsUrl: "../node_modules/cm-chessboard/assets/"
+        }).initialization.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "Random"
             }).load()

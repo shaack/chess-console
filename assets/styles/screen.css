@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
-   * Bootstrap  v5.2.2 (https://getbootstrap.com/)
+   * Bootstrap  v5.2.3 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -4716,7 +4716,6 @@ textarea.form-control-lg {
 .carousel-item-prev {
   display: block; }
 
-/* rtl:begin:ignore */
 .carousel-item-next:not(.carousel-item-start),
 .active.carousel-item-end {
   transform: translateX(100%); }
@@ -4725,7 +4724,6 @@ textarea.form-control-lg {
 .active.carousel-item-start {
   transform: translateX(-100%); }
 
-/* rtl:end:ignore */
 .carousel-fade .carousel-item {
   opacity: 0;
   transition-property: opacity;
@@ -8464,43 +8462,10 @@ textarea.form-control-lg {
 button.close {
   cursor: pointer; }
 
-.cm-chessboard .markers .marker.markerFramePremove {
-  stroke: #008800;
-  stroke-width: 1.8px;
-  opacity: 0.8; }
-
 .cm-chessboard .board.input-enabled .square {
   cursor: pointer; }
 
-.cm-chessboard .markers .marker.markerFrame, .cm-chessboard .markers .marker.marker-frame {
-  stroke: black;
-  stroke-width: 1.8px;
-  opacity: 0.5; }
-
-.cm-chessboard .markers .marker.markerFrameRed, .cm-chessboard .markers .marker.marker-frame-red {
-  stroke: #aa0000;
-  stroke-width: 1.8px;
-  opacity: 0.4; }
-
-.cm-chessboard .markers .marker.markerSquare, .cm-chessboard .markers .marker.marker-square {
-  fill: black;
-  opacity: 0.11; }
-
-.cm-chessboard .markers .marker.markerDot, .cm-chessboard .markers .marker.marker-dot {
-  fill: black;
-  opacity: 0.3; }
-
-.cm-chessboard .markers .marker.markerCircle, .cm-chessboard .markers .marker.marker-circle {
-  stroke: #000055;
-  stroke-width: 3px;
-  opacity: 0.4; }
-
-.cm-chessboard .markers .marker.markerCircleRed, .cm-chessboard .markers .marker.marker-circle-red {
-  stroke: #aa0000;
-  stroke-width: 3px;
-  opacity: 0.4; }
-
-.cm-chessboard .pieces, .cm-chessboard .markers {
+.cm-chessboard .pieces {
   pointer-events: none; }
 
 .cm-chessboard-content .list-inline {
@@ -8788,7 +8753,7 @@ button.close {
     .cm-chessboard.black-and-white .coordinates .coordinate.white {
       fill: #9c9c9c; }
 
-svg.cm-chessboard .promotion-dialog-group * {
+svg.cm-chessboard .promotion-dialog-group rect, svg.cm-chessboard .promotion-dialog-group g[data-piece] {
   animation: fade-in 0.25s ease-in; }
 
 svg.cm-chessboard .promotion-dialog-group .promotion-dialog {
@@ -8802,7 +8767,7 @@ svg.cm-chessboard .promotion-dialog-group .promotion-dialog-button {
   svg.cm-chessboard .promotion-dialog-group .promotion-dialog-button:hover {
     fill: rgba(0, 0, 0, 0.2); }
 
-svg.cm-chessboard .promotion-dialog-group .piece-group {
+svg.cm-chessboard .promotion-dialog-group .piece {
   pointer-events: none; }
 
 @keyframes fade-in {
@@ -8810,6 +8775,35 @@ svg.cm-chessboard .promotion-dialog-group .piece-group {
     opacity: 0; }
   100% {
     opacity: 1; } }
+
+.cm-chessboard .markers {
+  pointer-events: none; }
+  .cm-chessboard .markers .marker.marker-frame {
+    stroke: black;
+    stroke-width: 1.8px;
+    opacity: 0.5; }
+  .cm-chessboard .markers .marker.marker-frame-red {
+    stroke: #aa0000;
+    stroke-width: 1.8px;
+    opacity: 0.4; }
+  .cm-chessboard .markers .marker.marker-frame-blue {
+    stroke: #0017aa;
+    stroke-width: 1.8px;
+    opacity: 0.4; }
+  .cm-chessboard .markers .marker.marker-square {
+    fill: black;
+    opacity: 0.11; }
+  .cm-chessboard .markers .marker.marker-dot {
+    fill: black;
+    opacity: 0.3; }
+  .cm-chessboard .markers .marker.marker-circle {
+    stroke: #000055;
+    stroke-width: 3px;
+    opacity: 0.4; }
+  .cm-chessboard .markers .marker.marker-circle-red {
+    stroke: #aa0000;
+    stroke-width: 3px;
+    opacity: 0.4; }
 
 html body .container-fluid, html body .container-sm, html body .container-md, html body .container-lg, html body .container-xl, html body .container-xxl {
   max-width: 1200px; }
