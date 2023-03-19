@@ -66,7 +66,6 @@ export class LocalPlayer extends ChessConsolePlayer {
      * - allowed only the right color to move
      */
     moveInputCallback(event, ignored, boardFen, moveResponse) {
-        console.log("moveInputCallback", event)
         // if player can make move, make, if not store as premove
         const gameFen = this.chessConsole.state.chess.fen()
         if (this.chessConsole.playerToMove() === this) {
