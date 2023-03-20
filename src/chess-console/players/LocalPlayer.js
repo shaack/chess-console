@@ -118,17 +118,17 @@ export class LocalPlayer extends ChessConsolePlayer {
         const color = this.chessConsole.state.chess.turn() === 'w' ? COLOR.white : COLOR.black
         if (!this.chessConsole.state.chess.gameOver()) {
             if (this.premoves.length > 0) {
+                // premove
                 const eventFromPremovesQueue = this.premoves.shift()
                 this.updatePremoveMarkers()
-                // premove
                 setTimeout(() => {
                     this.chessboardMoveInputCallback(eventFromPremovesQueue, moveResponse)
-                })
+                }, 100)
                 return true
             }
+            // normal move
             this.chessConsole.board.chessboard.enableMoveInput(
                 (event) => {
-                    // normal move
                     return this.chessboardMoveInputCallback(event, moveResponse)
                 }, color
             )
