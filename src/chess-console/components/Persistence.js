@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {consoleMessageTopics} from "../ChessConsole.js"
+import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
 import {COLOR} from "../../../lib/cm-chess/Chess.js"
 import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
@@ -19,7 +19,7 @@ export class Persistence extends Component {
         this.chessConsole.state.observeChess(() => {
             this.save()
         })
-        this.chessConsole.messageBroker.subscribe(consoleMessageTopics.newGame, () => {
+        this.chessConsole.messageBroker.subscribe(CONSOLE_MESSAGE_TOPICS.newGame, () => {
             this.save()
         })
         this.chessConsole.persistence = this
@@ -36,7 +36,7 @@ export class Persistence extends Component {
             if (localStorage.getItem(prefix + "Pgn") !== null) {
                 props.pgn = localStorage.getItem(prefix + "Pgn")
             }
-            this.chessConsole.messageBroker.publish(consoleMessageTopics.load)
+            this.chessConsole.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.load)
             this.chessConsole.initGame(props)
         } catch (e) {
             localStorage.clear()

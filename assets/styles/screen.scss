@@ -1,6 +1,6 @@
-@import "../../node_modules/bootstrap/scss/bootstrap";
-@import "chess-console.scss";
-@import "../../node_modules/cm-chessboard/assets/chessboard/chessboard.scss";
+@import "config";
+@import "chess-console";
+@import "../../node_modules/cm-chessboard/assets/chessboard.scss";
 @import "../../node_modules/cm-chessboard/assets/extensions/promotion-dialog/promotion-dialog.scss";
 @import "markers";
 

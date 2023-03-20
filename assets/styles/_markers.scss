@@ -53,6 +53,11 @@ $marker-color-danger: #aa0000;
         opacity: 0.2;
       }
 
+      &.marker-bevel {
+        fill: black;
+        opacity: 0.2;
+      }
+
     }
   }
 }

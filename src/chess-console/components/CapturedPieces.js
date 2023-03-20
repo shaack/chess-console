@@ -38,7 +38,7 @@ export class CapturedPieces extends UiComponent {
             const history = this.chessConsole.state.chess.history({verbose: true})
             let pointsWhite = 0
             let pointsBlack = 0
-            $.each(history, (index, move) => {
+            history.forEach((move, index) => {
                 if (move.flags.indexOf("c") !== -1 || move.flags.indexOf("e") !== -1) {
                     const pieceCaptured = move.captured.toUpperCase()
                     if (move.color === "b") {

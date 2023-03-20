@@ -6,7 +6,7 @@
 import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
 import {COLOR, INPUT_EVENT_TYPE} from "../../../lib/cm-chessboard/Chessboard.js"
 import {Chess} from "../../../lib/chess.mjs/Chess.js"
-import {CONSOLE_MARKER_TYPE} from "../components/Board.js"
+import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
 
 export class LocalPlayer extends ChessConsolePlayer {
 
@@ -65,8 +65,9 @@ export class LocalPlayer extends ChessConsolePlayer {
      * INPUT_EVENT_TYPE.moveStart
      * - allowed only the right color to move
      */
-    moveInputCallback(event, ignored, boardFen, moveResponse) {
+    chessboardMoveInputCallback(event, moveResponse) {
         // if player can make move, make, if not store as premove
+        // const boardFen = this.chessConsole.board.chessboard.getPosition()
         const gameFen = this.chessConsole.state.chess.fen()
         if (this.chessConsole.playerToMove() === this) {
             if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
@@ -90,7 +91,17 @@ export class LocalPlayer extends ChessConsolePlayer {
                     this.chessConsole.state.plyViewed = this.chessConsole.state.chess.plyCount()
                     return false
                 } else {
-                    return true
+                    const possibleMoves = this.chessConsole.state.chess.moves({square: event.square})
+                    if(possibleMoves.length > 0) {
+                        return true
+                    } else {
+                        this.chessConsole.board.chessConsole.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.illegalMove, {
+                            move: {
+                                from: event.squareFrom
+                            }
+                        })
+                        return false
+                    }
                 }
             }
         } else {
@@ -111,23 +122,23 @@ export class LocalPlayer extends ChessConsolePlayer {
                 this.updatePremoveMarkers()
                 // premove
                 setTimeout(() => {
-                    this.moveInputCallback(eventFromPremovesQueue, fen, this.chessConsole.board.chessboard.getPosition(), moveResponse)
+                    this.chessboardMoveInputCallback(eventFromPremovesQueue, moveResponse)
                 })
                 return true
             }
             this.chessConsole.board.chessboard.enableMoveInput(
                 (event) => {
                     // normal move
-                    return this.moveInputCallback(event, fen, this.chessConsole.board.chessboard.getPosition(), moveResponse)
+                    return this.chessboardMoveInputCallback(event, moveResponse)
                 }, color
             )
         }
     }
 
     updatePremoveMarkers() {
-        this.chessConsole.board.chessboard.removeMarkers(CONSOLE_MARKER_TYPE.premove)
+        this.chessConsole.board.chessboard.removeMarkers(this.chessConsole.board.props.markers.premove)
         for (const premove of this.premoves) {
-            this.chessConsole.board.chessboard.addMarker(CONSOLE_MARKER_TYPE.premove, premove.squareTo)
+            this.chessConsole.board.chessboard.addMarker(this.chessConsole.board.props.markers.premove, premove.squareTo)
         }
     }
 

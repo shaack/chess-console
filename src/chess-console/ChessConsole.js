@@ -12,7 +12,7 @@ import {ChessConsoleState} from "./ChessConsoleState.js"
 import {UiComponent} from "../../lib/cm-web-modules/app/Component.js"
 import {piecesTranslations} from "../../lib/cm-chessboard/lib/I18n.js"
 
-export const consoleMessageTopics = {
+export const CONSOLE_MESSAGE_TOPICS = {
     newGame: "game/new", // if a new game was startet
     initGame: "game/init", // after a page reload and when a new game was started
     gameOver: "game/over",
@@ -120,11 +120,11 @@ export class ChessConsole extends UiComponent {
         if (requestNextMove) {
             this.nextMove()
         }
-        this.messageBroker.publish(consoleMessageTopics.initGame, {props: props})
+        this.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.initGame, {props: props})
     }
 
     newGame(props = {}) {
-        this.messageBroker.publish(consoleMessageTopics.newGame, {props: props})
+        this.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.newGame, {props: props})
         this.initGame(props)
     }
 
@@ -154,7 +154,7 @@ export class ChessConsole extends UiComponent {
     nextMove() {
         const playerToMove = this.playerToMove()
         if (playerToMove) {
-            this.messageBroker.publish(consoleMessageTopics.moveRequest, {playerToMove: playerToMove})
+            this.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.moveRequest, {playerToMove: playerToMove})
             setTimeout(() => {
                 playerToMove.moveRequest(this.state.chess.fen(), (move) => {
                     return this.handleMoveResponse(move)
@@ -174,7 +174,7 @@ export class ChessConsole extends UiComponent {
             if (this.props.debug) {
                 console.warn("illegalMove", this.state.chess, move)
             }
-            this.messageBroker.publish(consoleMessageTopics.illegalMove, {
+            this.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.illegalMove, {
                 playerMoved: playerMoved,
                 move: move
             })
@@ -183,7 +183,7 @@ export class ChessConsole extends UiComponent {
         if (this.state.plyViewed === this.state.chess.plyCount() - 1) {
             this.state.plyViewed++
         }
-        this.messageBroker.publish(consoleMessageTopics.legalMove, {
+        this.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.legalMove, {
             playerMoved: playerMoved,
             move: move,
             moveResult: moveResult
@@ -195,7 +195,7 @@ export class ChessConsole extends UiComponent {
             if (this.state.chess.inCheckmate()) {
                 wonColor = (this.state.chess.turn() === COLOR.white) ? COLOR.black : COLOR.white
             }
-            this.messageBroker.publish(consoleMessageTopics.gameOver, {wonColor: wonColor})
+            this.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.gameOver, {wonColor: wonColor})
         }
         return moveResult
     }
@@ -208,7 +208,7 @@ export class ChessConsole extends UiComponent {
         if (this.state.plyViewed > this.state.chess.plyCount()) {
             this.state.plyViewed = this.state.chess.plyCount()
         }
-        this.messageBroker.publish(consoleMessageTopics.moveUndone)
+        this.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.moveUndone)
         this.nextMove()
     }
 
