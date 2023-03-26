@@ -70,7 +70,6 @@ export class Board extends UiComponent {
         super(chessConsole.componentContainers.board, props)
         chessConsole.components.board = this // register board component, to allow access to the promotion dialog
         this.initialization = new Promise((resolve) => {
-            chessConsole.board = this
             this.chessConsole = chessConsole
             this.elements = {
                 playerTop: document.createElement("div"),
