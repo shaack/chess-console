@@ -119,6 +119,7 @@ export class LocalPlayer extends ChessConsolePlayer {
             this.chessConsole.components.board.chessboard.context.addEventListener("contextmenu", (event) => {
                 event.preventDefault()
                 if(this.premoves.length > 0) {
+                    this.resetBoardPosition()
                     this.premoves = []
                     this.updatePremoveMarkers()
                 }
@@ -150,6 +151,10 @@ export class LocalPlayer extends ChessConsolePlayer {
         for (const premove of this.premoves) {
             this.chessConsole.components.board.chessboard.addMarker(this.chessConsole.components.board.props.markers.premove, premove.squareTo)
         }
+    }
+
+    resetBoardPosition() {
+        this.chessConsole.components.board.chessboard.setPosition(this.chessConsole.state.chess.fen(), true)
     }
 
 }
