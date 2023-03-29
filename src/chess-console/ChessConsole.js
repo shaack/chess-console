@@ -55,6 +55,23 @@ export class ChessConsole extends UiComponent {
             consoleRight: "col-xl-3 order-xl-3 col-lg-4 order-lg-2 col-md-8 order-md-3",
             consoleLeft: "col-xl-2 order-xl-1 order-lg-3 col-md-4 order-md-2"
         }
+        this.initialization = new Promise((resolve => {
+            this.i18n = new I18n({locale: props.locale})
+            this.i18n.load({
+                de: {
+                    ok: "OK",
+                    cancel: "Abbrechen",
+                },
+                en: {
+                    ok: "OK",
+                    cancel: "Cancel",
+                }
+            }).then(() => {
+                this.i18n.load(piecesTranslations).then(() => {
+                    resolve(this)
+                })
+            })
+        }))
         if (!this.props.template) {
             this.props.template =
                 `<div class="row chess-console">
@@ -69,7 +86,6 @@ export class ChessConsole extends UiComponent {
 </div>`
         }
         Object.assign(this.props, props)
-        this.i18n = new I18n({locale: props.locale})
         this.messageBroker = new MessageBroker()
         this.context.innerHTML = this.props.template
         this.componentContainers = { // todo put this in the html
@@ -88,23 +104,6 @@ export class ChessConsole extends UiComponent {
 
         /** @var this.persistence Persistence */
         this.persistence = undefined
-
-        this.initialization = new Promise((resolve => {
-            this.i18n.load({
-                de: {
-                    ok: "OK",
-                    cancel: "Abbrechen",
-                },
-                en: {
-                    ok: "OK",
-                    cancel: "Cancel",
-                }
-            }).then(() => {
-                this.i18n.load(piecesTranslations).then(() => {
-                    resolve(this)
-                })
-            })
-        }))
     }
 
     initGame(props = {}, requestNextMove = true) {

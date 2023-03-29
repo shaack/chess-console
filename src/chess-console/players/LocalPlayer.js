@@ -115,6 +115,16 @@ export class LocalPlayer extends ChessConsolePlayer {
     }
 
     moveRequest(fen, moveResponse) {
+        if(!this.contextMenuEvent) {
+            this.chessConsole.components.board.chessboard.context.addEventListener("contextmenu", (event) => {
+                event.preventDefault()
+                if(this.premoves.length > 0) {
+                    this.premoves = []
+                    this.updatePremoveMarkers()
+                }
+            })
+            this.contextMenuEvent = true
+        }
         const color = this.chessConsole.state.chess.turn() === 'w' ? COLOR.white : COLOR.black
         if (!this.chessConsole.state.chess.gameOver()) {
             if (this.premoves.length > 0) {
