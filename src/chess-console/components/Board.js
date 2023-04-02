@@ -12,6 +12,8 @@ import {FEN} from "../../../lib/cm-chessboard/model/Position.js"
 import {CoreUtils} from "../../../lib/cm-web-modules/utils/CoreUtils.js"
 import {Markers} from "../../../lib/cm-chessboard/extensions/markers/Markers.js"
 import {PromotionDialog} from "../../../lib/cm-chessboard/extensions/promotion-dialog/PromotionDialog.js"
+import {DomUtils} from "../../../lib/cm-web-modules/utils/DomUtils.js"
+import {Accessibility} from "../../../lib/cm-chessboard/extensions/accessibility/Accessibility.js"
 
 export const CONSOLE_MARKER_TYPE = {
     moveInput: {class: "marker-frame", slice: "markerFrame"},
@@ -22,140 +24,115 @@ export const CONSOLE_MARKER_TYPE = {
     legalMoveCapture: {class: "marker-bevel", slice: "markerBevel"}
 }
 
-class ChessConsoleMarkers extends Markers {
-    drawAutoMarkers(event) {
-        clearTimeout(this.drawAutoMarkersDebounced)
-        this.drawAutoMarkersDebounced = setTimeout(() => {
-                this.removeMarkers(this.autoMarker)
-                const board = this.props.board
-                const moves = this.props.board.chessConsole.state.chess.moves({square: event.square, verbose: true})
-                if (board.props.markLegalMoves) {
-                    if (event.type === INPUT_EVENT_TYPE.moveInputStarted ||
-                        event.type === INPUT_EVENT_TYPE.validateMoveInput ||
-                        event.type === INPUT_EVENT_TYPE.moveInputCanceled) {
-                        event.chessboard.removeMarkers(board.props.markers.legalMove)
-                        event.chessboard.removeMarkers(board.props.markers.legalMoveCapture)
-                    }
-                    if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
-                        for (const move of moves) { // draw dots on possible squares
-                            if (move.promotion && move.promotion !== "q") {
-                                continue
-                            }
-                            if (event.chessboard.getPiece(move.to)) {
-                                event.chessboard.addMarker(board.props.markers.legalMoveCapture, move.to)
-                            } else {
-                                event.chessboard.addMarker(board.props.markers.legalMove, move.to)
-                            }
-                        }
-                    }
-                }
-                if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
-                    if(event.moveInputCallbackResult) {
-                        this.addMarker(this.autoMarker, event.squareFrom)
-                    }
-                } else if (event.type === INPUT_EVENT_TYPE.movingOverSquare) {
-                    this.addMarker(this.autoMarker, event.squareFrom)
-                    if (event.squareTo) {
-                        this.addMarker(this.autoMarker, event.squareTo)
-                    }
-                }
-            }
-        )
-    }
-}
-
 export class Board extends UiComponent {
 
     constructor(chessConsole, props = {}) {
         super(chessConsole.componentContainers.board, props)
         chessConsole.components.board = this // register board component, to allow access to the promotion dialog
         this.initialization = new Promise((resolve) => {
-            this.chessConsole = chessConsole
-            this.elements = {
-                playerTop: document.createElement("div"),
-                playerBottom: document.createElement("div"),
-                chessboard: document.createElement("div")
-            }
-            this.elements.playerTop.setAttribute("class", "player top")
-            this.elements.playerTop.innerHTML = "&nbsp;"
-            this.elements.playerBottom.setAttribute("class", "player bottom")
-            this.elements.playerBottom.innerHTML = "&nbsp;"
-            this.elements.chessboard.setAttribute("class", "chessboard")
-            this.context.appendChild(this.elements.playerTop)
-            this.context.appendChild(this.elements.chessboard)
-            this.context.appendChild(this.elements.playerBottom)
-            this.chessConsole.state.observeChess((params) => {
-                let animated = true
-                if (params.functionName === "load_pgn") {
-                    animated = false
+            this.i18n = chessConsole.i18n
+            this.i18n.load({
+                de: {
+                    chessBoard: "Schachbrett"
+                },
+                en: {
+                    chessBoard: "Chess Board"
                 }
-                this.setPositionOfPlyViewed(animated)
-                this.markLastMove()
-
-            })
-            Observe.property(this.chessConsole.state, "plyViewed", (props) => {
-                this.setPositionOfPlyViewed(props.oldValue !== undefined)
-                this.markLastMove()
-            })
-            this.props = {
-                position: FEN.empty,
-                orientation: chessConsole.state.orientation,
-                assetsUrl: undefined,
-                markLegalMoves: true,
-                style: {
-                    aspectRatio: 0.94
-                },
-                markers: {
-                    moveInput: CONSOLE_MARKER_TYPE.moveInput,
-                    check: CONSOLE_MARKER_TYPE.check,
-                    wrongMove: CONSOLE_MARKER_TYPE.wrongMove,
-                    premove: CONSOLE_MARKER_TYPE.premove,
-                    legalMove: CONSOLE_MARKER_TYPE.legalMove,
-                    legalMoveCapture: CONSOLE_MARKER_TYPE.legalMoveCapture
-                },
-                extensions: [{class: PromotionDialog}, {
-                    class: ChessConsoleMarkers, props: {
-                        board: this
+            }).then(() => {
+                this.chessConsole = chessConsole
+                this.elements = {
+                    playerTop: document.createElement("div"),
+                    playerBottom: document.createElement("div"),
+                    chessboard: document.createElement("div")
+                }
+                this.elements.playerTop.setAttribute("class", "player top")
+                this.elements.playerTop.innerHTML = "&nbsp;"
+                this.elements.playerBottom.setAttribute("class", "player bottom")
+                this.elements.playerBottom.innerHTML = "&nbsp;"
+                this.elements.chessboard.setAttribute("class", "chessboard")
+                this.context.appendChild(DomUtils.createElement("<h2 class='cm-visually-hidden'>" + this.i18n.t("chessBoard") + "</h2>"))
+                this.context.appendChild(this.elements.playerTop)
+                this.context.appendChild(this.elements.chessboard)
+                this.context.appendChild(this.elements.playerBottom)
+                this.chessConsole.state.observeChess((params) => {
+                    let animated = true
+                    if (params.functionName === "load_pgn") {
+                        animated = false
                     }
-                }]
-            }
-            CoreUtils.mergeObjects(this.props, props)
-            this.chessboard = new Chessboard(this.elements.chessboard, this.props)
-            Observe.property(chessConsole.state, "orientation", () => {
-                this.setPlayerNames()
-                this.chessboard.setOrientation(chessConsole.state.orientation).then(() => {
+                    this.setPositionOfPlyViewed(animated)
+                    this.markLastMove()
+
+                })
+                Observe.property(this.chessConsole.state, "plyViewed", (props) => {
+                    this.setPositionOfPlyViewed(props.oldValue !== undefined)
+                    this.markLastMove()
+                })
+                this.props = {
+                    position: FEN.empty,
+                    orientation: chessConsole.state.orientation,
+                    assetsUrl: undefined,
+                    markLegalMoves: true,
+                    style: {
+                        aspectRatio: 0.94
+                    },
+                    accessible: true,
+                    markers: {
+                        moveInput: CONSOLE_MARKER_TYPE.moveInput,
+                        check: CONSOLE_MARKER_TYPE.check,
+                        wrongMove: CONSOLE_MARKER_TYPE.wrongMove,
+                        premove: CONSOLE_MARKER_TYPE.premove,
+                        legalMove: CONSOLE_MARKER_TYPE.legalMove,
+                        legalMoveCapture: CONSOLE_MARKER_TYPE.legalMoveCapture
+                    },
+                    extensions: [{class: PromotionDialog}, {
+                        class: ChessConsoleMarkers, props: {
+                            board: this
+                        }
+                    }]
+                }
+                CoreUtils.mergeObjects(this.props, props)
+                if (this.props.accessible) {
+                    this.props.extensions.push({
+                        class: Accessibility, props: {}
+                    })
+                }
+                this.chessboard = new Chessboard(this.elements.chessboard, this.props)
+                Observe.property(chessConsole.state, "orientation", () => {
+                    this.setPlayerNames()
+                    this.chessboard.setOrientation(chessConsole.state.orientation).then(() => {
+                        this.markPlayerToMove()
+                    })
+                })
+                Observe.property(chessConsole.player, "name", () => {
+                    this.setPlayerNames()
+                })
+                Observe.property(chessConsole.opponent, "name", () => {
+                    this.setPlayerNames()
+                })
+                chessConsole.messageBroker.subscribe(CONSOLE_MESSAGE_TOPICS.moveRequest, () => {
                     this.markPlayerToMove()
                 })
-            })
-            Observe.property(chessConsole.player, "name", () => {
-                this.setPlayerNames()
-            })
-            Observe.property(chessConsole.opponent, "name", () => {
-                this.setPlayerNames()
-            })
-            chessConsole.messageBroker.subscribe(CONSOLE_MESSAGE_TOPICS.moveRequest, () => {
-                this.markPlayerToMove()
-            })
-            this.chessConsole.messageBroker.subscribe(CONSOLE_MESSAGE_TOPICS.illegalMove, (message) => {
-                this.chessboard.removeMarkers(this.props.markers.wrongMove)
-                clearTimeout(this.removeMarkersTimeout)
-                if (message.move.from) {
-                    this.chessboard.addMarker(this.props.markers.wrongMove, message.move.from)
-                } else {
-                    console.warn("illegalMove without `message.move.from`")
-                }
-                if (message.move.to) {
-                    this.chessboard.addMarker(this.props.markers.wrongMove, message.move.to)
-                }
-                this.removeMarkersTimeout = setTimeout(() => {
+                this.chessConsole.messageBroker.subscribe(CONSOLE_MESSAGE_TOPICS.illegalMove, (message) => {
                     this.chessboard.removeMarkers(this.props.markers.wrongMove)
-                }, 500)
-            })
-            this.setPositionOfPlyViewed(false)
-            this.setPlayerNames()
-            this.markPlayerToMove()
+                    clearTimeout(this.removeMarkersTimeout)
+                    if (message.move.from) {
+                        this.chessboard.addMarker(this.props.markers.wrongMove, message.move.from)
+                    } else {
+                        console.warn("illegalMove without `message.move.from`")
+                    }
+                    if (message.move.to) {
+                        this.chessboard.addMarker(this.props.markers.wrongMove, message.move.to)
+                    }
+                    this.removeMarkersTimeout = setTimeout(() => {
+                        this.chessboard.removeMarkers(this.props.markers.wrongMove)
+                    }, 500)
+                })
+                this.setPositionOfPlyViewed(false)
+                this.setPlayerNames()
+                this.markPlayerToMove()
 
-            resolve(this)
+                resolve(this)
+            })
         })
     }
 
@@ -221,4 +198,46 @@ export class Board extends UiComponent {
         }, 10)
     }
 
+}
+
+class ChessConsoleMarkers extends Markers {
+    drawAutoMarkers(event) {
+        clearTimeout(this.drawAutoMarkersDebounced)
+        this.drawAutoMarkersDebounced = setTimeout(() => {
+                this.removeMarkers(this.autoMarker)
+                const board = this.props.board
+                const moves = this.props.board.chessConsole.state.chess.moves({square: event.square, verbose: true})
+                if (board.props.markLegalMoves) {
+                    if (event.type === INPUT_EVENT_TYPE.moveInputStarted ||
+                        event.type === INPUT_EVENT_TYPE.validateMoveInput ||
+                        event.type === INPUT_EVENT_TYPE.moveInputCanceled) {
+                        event.chessboard.removeMarkers(board.props.markers.legalMove)
+                        event.chessboard.removeMarkers(board.props.markers.legalMoveCapture)
+                    }
+                    if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
+                        for (const move of moves) { // draw dots on possible squares
+                            if (move.promotion && move.promotion !== "q") {
+                                continue
+                            }
+                            if (event.chessboard.getPiece(move.to)) {
+                                event.chessboard.addMarker(board.props.markers.legalMoveCapture, move.to)
+                            } else {
+                                event.chessboard.addMarker(board.props.markers.legalMove, move.to)
+                            }
+                        }
+                    }
+                }
+                if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
+                    if (event.moveInputCallbackResult) {
+                        this.addMarker(this.autoMarker, event.squareFrom)
+                    }
+                } else if (event.type === INPUT_EVENT_TYPE.movingOverSquare) {
+                    this.addMarker(this.autoMarker, event.squareFrom)
+                    if (event.squareTo) {
+                        this.addMarker(this.autoMarker, event.squareTo)
+                    }
+                }
+            }
+        )
+    }
 }

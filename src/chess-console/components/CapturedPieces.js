@@ -24,7 +24,17 @@ export class CapturedPieces extends UiComponent {
         Observe.property(this.chessConsole.state, "plyViewed", () => {
             this.redraw()
         })
-        this.redraw()
+        this.i18n = chessConsole.i18n
+        this.i18n.load({
+            "de": {
+                "captured_pieces": "Geschlagene Figuren"
+            },
+            "en": {
+                "captured_pieces": "Captured pieces"
+            }
+        }).then(() => {
+            this.redraw()
+        })
     }
 
     redraw() {
@@ -80,7 +90,8 @@ export class CapturedPieces extends UiComponent {
                 output += "<span class='text-muted'>" + capturedPiecesBlackAfterPlyViewed.join(zeroWithSpace) + "</span>"
             }
             output += "<small> " + pointsBlack + "</small></div>"
-            this.element.innerHTML = output
+            this.element.innerHTML = "<h2 class='visually-hidden'>" + this.i18n.t("captured_pieces") + "</h2>" +
+                output
         })
     }
 
