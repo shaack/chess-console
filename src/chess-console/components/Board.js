@@ -50,7 +50,7 @@ export class Board extends UiComponent {
                 this.elements.playerBottom.setAttribute("class", "player bottom")
                 this.elements.playerBottom.innerHTML = "&nbsp;"
                 this.elements.chessboard.setAttribute("class", "chessboard")
-                this.context.appendChild(DomUtils.createElement("<h2 class='cm-visually-hidden'>" + this.i18n.t("chessBoard") + "</h2>"))
+                this.context.appendChild(DomUtils.createElement("<h2 class='visually-hidden'>" + this.i18n.t("chessBoard") + "</h2>"))
                 this.context.appendChild(this.elements.playerTop)
                 this.context.appendChild(this.elements.chessboard)
                 this.context.appendChild(this.elements.playerBottom)
