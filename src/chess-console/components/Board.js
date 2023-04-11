@@ -141,6 +141,10 @@ export class Board extends UiComponent {
                 resolve(this)
             })
         })
+        /**
+         * @deprecated use `this.initialized` instead
+         */
+        this.initialization = this.initialized
     }
 
     setPositionOfPlyViewed(animated = true) {
