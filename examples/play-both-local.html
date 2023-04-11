@@ -38,10 +38,10 @@
         document.getElementById("console-container"),
         {name: "Local Player 1", type: LocalPlayer},
         {name: "Local Player 2", type: LocalPlayer},
-    ).initialization.then((chessConsole) => {
+    ).initialized.then((chessConsole) => {
         new Board(chessConsole, {
             assetsUrl: "../node_modules/cm-chessboard/assets/"
-        }).initialization.then(() => {
+        }).initialized.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "Local"
             }).load()

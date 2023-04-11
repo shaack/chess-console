@@ -42,10 +42,10 @@
         {name: "Random Player", type: RandomPlayer, props: {delay: 500}},
         {
             accessible: true
-        }).initialization.then((chessConsole) => {
+        }).initialized.then((chessConsole) => {
         new Board(chessConsole, {
             assetsUrl: "../node_modules/cm-chessboard/assets/"
-        }).initialization.then(() => {
+        }).initialized.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "Random"
             }).load()

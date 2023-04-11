@@ -45,10 +45,10 @@
         document.getElementById("console-container"),
         {name: "Player", type: LocalPlayer},
         {name: "Opponent", type: RandomPlayer}
-    ).initialization.then((chessConsole) => {
+    ).initialized.then((chessConsole) => {
         new Board(chessConsole, {
             assetsUrl: "../node_modules/cm-chessboard/assets/"
-        }).initialization.then(() => {
+        }).initialized.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "loadPgnWithSetup"
             })

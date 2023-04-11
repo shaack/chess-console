@@ -48,10 +48,10 @@ Rg8 19.Rad1 Qxf3 20.Rxe7+ Nxe7 21.Qxd7+ Kxd7 22.Bf5+ Ke8
         document.getElementById("console-container"),
         {name: "Player", type: LocalPlayer},
         {name: "Opponent", type: RandomPlayer}
-    ).initialization.then((chessConsole) => {
+    ).initialized.then((chessConsole) => {
         new Board(chessConsole, {
 	assetsUrl: "../node_modules/cm-chessboard/assets/"
-}).initialization.then(() => {
+}).initialized.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "loadPgn"
             })

@@ -55,7 +55,7 @@ export class ChessConsole extends UiComponent {
             consoleRight: "col-xl-3 order-xl-3 col-lg-4 order-lg-2 col-md-8 order-md-3",
             consoleLeft: "col-xl-2 order-xl-1 order-lg-3 col-md-4 order-md-2"
         }
-        this.initialization = new Promise((resolve => {
+        this.initialized = new Promise((resolve => {
             this.i18n = new I18n({locale: props.locale})
             this.i18n.load({
                 de: {
@@ -72,6 +72,11 @@ export class ChessConsole extends UiComponent {
                 })
             })
         }))
+        /**
+         * @deprecated
+         * TODO 2023-04-11 this.initialization is deprecated, use this.initialized
+         */
+        this.initialization = this.initialized
         if (!this.props.template) {
             this.props.template =
                 `<div class="row chess-console">

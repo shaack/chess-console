@@ -37,7 +37,7 @@
         document.getElementById("console-container"),
         {name: "Local Player", type: LocalPlayer},
         {name: "Random Player", type: RandomPlayer}
-    ).initialization.then((chessConsole) => {
+    ).initialized.then((chessConsole) => {
         new Board(chessConsole, {
             assetsUrl: "../node_modules/cm-chessboard/assets/",
             style: {
@@ -46,7 +46,7 @@
                 showCoordinates: true,
                 pieces: {file: "staunty.svg"}
             }
-        }).initialization.then(() => {
+        }).initialized.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "Random"
             }).load()
