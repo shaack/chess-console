@@ -75,7 +75,14 @@ export class Board extends UiComponent {
                     style: {
                         aspectRatio: 0.94
                     },
-                    accessible: true,
+                    accessibility: {
+                        active: true, // turn accessibility on or off
+                        brailleNotationInAlt: true, // show the braille notation of the position in the alt attribute of the SVG image
+                        movePieceForm: true, // display a form to move a piece (from, to, move)
+                        boardAsTable: true, // display the board additionally as HTML table
+                        piecesAsList: true, // display the pieces additionally as List
+                        visuallyHidden: true // hide all those extra outputs visually but keep them accessible for screen readers and braille displays
+                    },
                     markers: {
                         moveInput: CONSOLE_MARKER_TYPE.moveInput,
                         check: CONSOLE_MARKER_TYPE.check,
@@ -91,9 +98,9 @@ export class Board extends UiComponent {
                     }]
                 }
                 CoreUtils.mergeObjects(this.props, props)
-                if (this.props.accessible) {
+                if (this.props.accessibility.active) {
                     this.props.extensions.push({
-                        class: Accessibility, props: {}
+                        class: Accessibility, props: this.props.accessibility
                     })
                 }
                 this.chessboard = new Chessboard(this.elements.chessboard, this.props)

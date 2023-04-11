@@ -12,12 +12,10 @@ export class CapturedPieces extends UiComponent {
 
     constructor(chessConsole) {
         super(chessConsole)
-
         this.chessConsole = chessConsole
         this.element = document.createElement("div")
         this.element.setAttribute("class", "captured-pieces")
         this.chessConsole.componentContainers.left.appendChild(this.element)
-
         this.chessConsole.state.observeChess(() => {
             this.redraw()
         })
