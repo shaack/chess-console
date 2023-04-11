@@ -73,8 +73,7 @@ export class ChessConsole extends UiComponent {
             })
         }))
         /**
-         * @deprecated
-         * TODO 2023-04-11 this.initialization is deprecated, use this.initialized
+         * @deprecated 2023-04-11 use this.initialized instead
          */
         this.initialization = this.initialized
         if (!this.props.template) {

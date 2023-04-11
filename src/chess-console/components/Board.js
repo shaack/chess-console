@@ -142,7 +142,7 @@ export class Board extends UiComponent {
             })
         })
         /**
-         * @deprecated use `this.initialized` instead
+         * @deprecated 2023-04-11 use `this.initialized` instead
          */
         this.initialization = this.initialized
     }
