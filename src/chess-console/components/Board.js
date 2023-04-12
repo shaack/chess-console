@@ -137,6 +137,7 @@ export class Board extends UiComponent {
                 this.setPositionOfPlyViewed(false)
                 this.setPlayerNames()
                 this.markPlayerToMove()
+                this.markLastMove()
 
                 resolve(this)
             })
