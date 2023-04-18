@@ -13,7 +13,7 @@ import {DomUtils} from "../../../lib/cm-web-modules/utils/DomUtils.js"
 export class History extends UiComponent {
 
     constructor(chessConsole, props) {
-        super(chessConsole.componentContainers.left, props)
+        super(chessConsole.componentContainers.left.querySelector(".chess-console-history"), props)
         this.chessConsole = chessConsole
         this.element = document.createElement("div")
         this.element.setAttribute("class", "history")

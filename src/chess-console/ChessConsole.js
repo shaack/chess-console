@@ -51,9 +51,9 @@ export class ChessConsole extends UiComponent {
             }
         }
         const colSets = {
-            consoleGame: "col-xl-7 order-xl-2 col-lg-8 order-lg-1 order-md-1 col-md-12 order-md-1",
+            consoleGame: "col-xl-7 order-xl-2 col-lg-8 order-lg-1 order-md-1 col-md-12",
             consoleRight: "col-xl-3 order-xl-3 col-lg-4 order-lg-2 col-md-8 order-md-3",
-            consoleLeft: "col-xl-2 order-xl-1 order-lg-3 col-md-4 order-md-2"
+            consoleLeft: "col-xl-2 order-xl-1 order-lg-3 col-lg-12 col-md-4 order-md-2"
         }
         this.initialized = new Promise((resolve => {
             this.i18n = new I18n({locale: props.locale})
@@ -86,7 +86,16 @@ export class ChessConsole extends UiComponent {
         <div class="control-buttons buttons-grid mb-4"></div>
         <div class="chess-console-notifications"></div>
     </div>
-    <div class="chess-console-left ${colSets.consoleLeft}"></div>
+    <div class="chess-console-left ${colSets.consoleLeft}">
+        <div class="row">
+            <div class="col-xl-12 col-lg-4 col-md-12 col-6">
+                <div class="chess-console-history"></div>
+            </div>
+            <div class="col-xl-12 col-lg-8 col-md-12 col-6">
+                <div class="chess-console-captured"></div>
+            </div>
+        </div>
+    </div>
 </div>`
         }
         Object.assign(this.props, props)
