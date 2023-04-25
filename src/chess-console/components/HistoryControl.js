@@ -9,11 +9,15 @@ import {COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
 import {UiComponent} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class HistoryControl extends UiComponent {
-    constructor(chessConsole) {
+    constructor(chessConsole, props = {}) {
         super(chessConsole.componentContainers.controlButtons)
 
         this.chessConsole = chessConsole
         const i18n = chessConsole.i18n
+        this.props = {
+            autoPlayDelay: 1500
+        }
+        Object.assign(this.props, props)
         i18n.load({
             de: {
                 "to_game_start": "Zum Spielstart",
@@ -62,15 +66,19 @@ export class HistoryControl extends UiComponent {
             })
             this.$btnFirst.click(() => {
                 this.chessConsole.state.plyViewed = 0
+                this.resetAutoPlay()
             })
             this.$btnBack.click(() => {
                 this.chessConsole.state.plyViewed--
+                this.resetAutoPlay()
             })
             this.$btnForward.click(() => {
                 this.chessConsole.state.plyViewed++
+                this.resetAutoPlay()
             })
             this.$btnLast.click(() => {
                 this.chessConsole.state.plyViewed = this.chessConsole.state.chess.plyCount()
+                this.resetAutoPlay()
             })
             this.$btnOrientation.click(() => {
                 this.chessConsole.state.orientation = this.chessConsole.state.orientation === COLOR.white ? COLOR.black : COLOR.white
@@ -79,28 +87,36 @@ export class HistoryControl extends UiComponent {
                 if (this.autoplay) {
                     clearInterval(this.autoplay)
                     this.autoplay = null
-
                 } else {
                     this.chessConsole.state.plyViewed++
-                    this.autoplay = setInterval(() => {
-                        if (this.chessConsole.state.plyViewed >= this.chessConsole.state.chess.plyCount()) {
-                            clearInterval(this.autoplay)
-                            this.autoplay = null
-                            this.updatePlayIcon()
-                        } else {
-                            this.chessConsole.state.plyViewed++
-                            if (this.chessConsole.state.plyViewed >= this.chessConsole.state.chess.plyCount()) {
-                                clearInterval(this.autoplay)
-                                this.autoplay = null
-                                this.updatePlayIcon()
-                            }
-                        }
-                    }, 1500)
+                    this.autoplay = setInterval(this.autoPlayMove.bind(this), this.props.autoPlayDelay)
                 }
                 this.updatePlayIcon()
             })
             this.setButtonStates()
         })
+    }
+
+    resetAutoPlay() {
+        if (this.autoplay) {
+            clearInterval(this.autoplay)
+            this.autoplay = setInterval(this.autoPlayMove.bind(this), this.props.autoPlayDelay)
+        }
+    }
+
+    autoPlayMove() {
+        if (this.chessConsole.state.plyViewed >= this.chessConsole.state.chess.plyCount()) {
+            clearInterval(this.autoplay)
+            this.autoplay = null
+            this.updatePlayIcon()
+        } else {
+            this.chessConsole.state.plyViewed++
+            if (this.chessConsole.state.plyViewed >= this.chessConsole.state.chess.plyCount()) {
+                clearInterval(this.autoplay)
+                this.autoplay = null
+                this.updatePlayIcon()
+            }
+        }
     }
 
     updatePlayIcon() {
