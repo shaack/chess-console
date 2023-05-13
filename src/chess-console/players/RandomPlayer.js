@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const {Chess} = await importNodeModule("chess.mjs/src/Chess.js")
+const {Chess} = await import(nodeModulesUrl + "chess.mjs/src/Chess.js")
 import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
 
 export class RandomPlayer extends ChessConsolePlayer {

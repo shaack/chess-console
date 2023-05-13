@@ -4,15 +4,15 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const {Chessboard, COLOR, INPUT_EVENT_TYPE} = await importNodeModule("cm-chessboard/src/Chessboard.js")
-const {FEN} = await importNodeModule("cm-chessboard/src/model/Position.js")
-const {Observe} = await importNodeModule("cm-web-modules/src/observe/Observe.js")
-const {UiComponent} = await importNodeModule("cm-web-modules/src/app/Component.js")
-const {CoreUtils} = await importNodeModule("cm-web-modules/src/utils/CoreUtils.js")
-const {Markers} = await importNodeModule("cm-chessboard/src/extensions/markers/Markers.js")
-const {PromotionDialog} = await importNodeModule("cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js")
-const {DomUtils} = await importNodeModule("cm-web-modules/src/utils/DomUtils.js")
-const {Accessibility} = await importNodeModule("cm-chessboard/src/extensions/accessibility/Accessibility.js")
+const {Chessboard, COLOR, INPUT_EVENT_TYPE} = await import(nodeModulesUrl + "cm-chessboard/src/Chessboard.js")
+const {FEN} = await import(nodeModulesUrl + "cm-chessboard/src/model/Position.js")
+const {Observe} = await import(nodeModulesUrl + "cm-web-modules/src/observe/Observe.js")
+const {UiComponent} = await import(nodeModulesUrl + "cm-web-modules/src/app/Component.js")
+const {CoreUtils} = await import(nodeModulesUrl + "cm-web-modules/src/utils/CoreUtils.js")
+const {Markers} = await import(nodeModulesUrl + "cm-chessboard/src/extensions/markers/Markers.js")
+const {PromotionDialog} = await import(nodeModulesUrl + "cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js")
+const {DomUtils} = await import(nodeModulesUrl + "cm-web-modules/src/utils/DomUtils.js")
+const {Accessibility} = await import(nodeModulesUrl + "cm-chessboard/src/extensions/accessibility/Accessibility.js")
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
 
 export const CONSOLE_MARKER_TYPE = {
