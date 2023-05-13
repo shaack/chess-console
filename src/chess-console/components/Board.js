@@ -9,9 +9,9 @@ const {FEN} = await import(nodeModulesUrl + "cm-chessboard/src/model/Position.js
 const {Observe} = await import(nodeModulesUrl + "cm-web-modules/src/observe/Observe.js")
 const {UiComponent} = await import(nodeModulesUrl + "cm-web-modules/src/app/Component.js")
 const {CoreUtils} = await import(nodeModulesUrl + "cm-web-modules/src/utils/CoreUtils.js")
+const {DomUtils} = await import(nodeModulesUrl + "cm-web-modules/src/utils/DomUtils.js")
 const {Markers} = await import(nodeModulesUrl + "cm-chessboard/src/extensions/markers/Markers.js")
 const {PromotionDialog} = await import(nodeModulesUrl + "cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js")
-const {DomUtils} = await import(nodeModulesUrl + "cm-web-modules/src/utils/DomUtils.js")
 const {Accessibility} = await import(nodeModulesUrl + "cm-chessboard/src/extensions/accessibility/Accessibility.js")
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
 
