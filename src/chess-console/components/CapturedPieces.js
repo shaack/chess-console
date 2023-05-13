@@ -4,9 +4,9 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
-import {UiComponent} from "../../../lib/cm-web-modules/app/Component.js"
-import {PIECES} from "../../../lib/cm-chess/Chess.js"
+const {Observe} = await importNodeModule("cm-web-modules/src/observe/Observe.js")
+const {UiComponent} = await importNodeModule("cm-web-modules/src/app/Component.js")
+const {PIECES} = await importNodeModule("cm-chess/src/Chess.js")
 
 export class CapturedPieces extends UiComponent {
 

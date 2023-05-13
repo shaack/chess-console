@@ -4,11 +4,11 @@
  * License: MIT, see file 'LICENSE'
  */
 
+const {Observe} = await importNodeModule("cm-web-modules/src/observe/Observe.js")
+const {UiComponent} = await importNodeModule("cm-web-modules/src/app/Component.js")
+const {COLOR} = await importNodeModule("cm-chess/src/Chess.js")
+const {DomUtils} = await importNodeModule("cm-web-modules/src/utils/DomUtils.js")
 import {ChessRender} from "../tools/ChessRender.js"
-import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
-import {UiComponent} from "../../../lib/cm-web-modules/app/Component.js"
-import {COLOR} from "../../../lib/cm-chess/Chess.js"
-import {DomUtils} from "../../../lib/cm-web-modules/utils/DomUtils.js"
 
 export class History extends UiComponent {
 

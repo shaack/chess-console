@@ -4,9 +4,9 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {AudioSprite} from "../../../lib/cm-web-modules/audio/AudioSprite.js"
+const {AudioSprite} = await importNodeModule("cm-web-modules/src/audio/AudioSprite.js")
+const {Component} = await importNodeModule("cm-web-modules/src/app/Component.js")
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
-import {Component} from "../../../lib/cm-web-modules/app/Component.js"
 
 export class Sound extends Component {
 

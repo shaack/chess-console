@@ -4,8 +4,8 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import "../../../../lib/bootstrap-show-modal.js"
-import {COLOR} from "../../../../lib/cm-chess/Chess.js"
+const {COLOR} = await importNodeModule("cm-chess/src/Chess.js")
+await importNodeModule("bootstrap-show-modal/src/bootstrap-show-modal.js")
 
 export class NewGameDialog {
 

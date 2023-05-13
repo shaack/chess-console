@@ -4,13 +4,13 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {FEN} from "../../lib/cm-chess/Chess.js"
-import {COLOR} from "../../lib/cm-chessboard/Chessboard.js"
-import {I18n} from "../../lib/cm-web-modules/i18n/I18n.js"
-import {MessageBroker} from "../../lib/cm-web-modules/message-broker/MessageBroker.js"
+const {FEN} = await importNodeModule("cm-chess/src/Chess.js")
+const {COLOR} = await importNodeModule("cm-chessboard/src/Chessboard.js")
+const {I18n} = await importNodeModule("cm-web-modules/src/i18n/I18n.js")
+const {MessageBroker} = await importNodeModule("cm-web-modules/src/message-broker/MessageBroker.js")
+const {UiComponent} = await importNodeModule("cm-web-modules/src/app/Component.js")
+const {piecesTranslations} = await importNodeModule("cm-chessboard/src/lib/I18n.js")
 import {ChessConsoleState} from "./ChessConsoleState.js"
-import {UiComponent} from "../../lib/cm-web-modules/app/Component.js"
-import {piecesTranslations} from "../../lib/cm-chessboard/lib/I18n.js"
 
 export const CONSOLE_MESSAGE_TOPICS = {
     newGame: "game/new", // if a new game was startet

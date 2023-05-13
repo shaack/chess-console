@@ -3,9 +3,9 @@
  * Repository: https://github.com/shaack/chess-console
  * License: MIT, see file 'LICENSE'
  */
+const {COLOR, INPUT_EVENT_TYPE} = await importNodeModule("cm-chessboard/src/Chessboard.js")
+const {Chess} = await importNodeModule("chess.mjs/src/Chess.js")
 import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
-import {COLOR, INPUT_EVENT_TYPE} from "../../../lib/cm-chessboard/Chessboard.js"
-import {Chess} from "../../../lib/chess.mjs/Chess.js"
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
 
 export class LocalPlayer extends ChessConsolePlayer {

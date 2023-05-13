@@ -19,7 +19,10 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
+<script type="module" src="../node_modules/import-node-module/import-node-module.js"></script>
+
 <script type="module">
+    const {BORDER_TYPE} = await importNodeModule("cm-chessboard/src/Chessboard.js")
     import {ChessConsole} from "../src/chess-console/ChessConsole.js"
     import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.js"
     import {RandomPlayer} from "../src/chess-console/players/RandomPlayer.js"
@@ -31,7 +34,6 @@
     import {GameControl} from "../src/chess-console/components/GameControl/GameControl.js"
     import {Persistence} from "../src/chess-console/components/Persistence.js"
     import {Sound} from "../src/chess-console/components/Sound.js"
-    import {BORDER_TYPE} from "../lib/cm-chessboard/Chessboard.js"
 
     new ChessConsole(
         document.getElementById("console-container"),

@@ -4,9 +4,9 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
-import {COLOR} from "../../../lib/cm-chessboard/Chessboard.js"
-import {UiComponent} from "../../../lib/cm-web-modules/app/Component.js"
+const {Observe} = await importNodeModule("cm-web-modules/src/observe/Observe.js")
+const {COLOR} = await importNodeModule("cm-chessboard/src/Chessboard.js")
+const {UiComponent} = await importNodeModule("cm-web-modules/src/app/Component.js")
 
 export class HistoryControl extends UiComponent {
     constructor(chessConsole, props = {}) {

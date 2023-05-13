@@ -4,16 +4,16 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {Chessboard, COLOR, INPUT_EVENT_TYPE} from "../../../lib/cm-chessboard/Chessboard.js"
+const {Chessboard, COLOR, INPUT_EVENT_TYPE} = await importNodeModule("cm-chessboard/src/Chessboard.js")
+const {FEN} = await importNodeModule("cm-chessboard/src/model/Position.js")
+const {Observe} = await importNodeModule("cm-web-modules/src/observe/Observe.js")
+const {UiComponent} = await importNodeModule("cm-web-modules/src/app/Component.js")
+const {CoreUtils} = await importNodeModule("cm-web-modules/src/utils/CoreUtils.js")
+const {Markers} = await importNodeModule("cm-chessboard/src/extensions/markers/Markers.js")
+const {PromotionDialog} = await importNodeModule("cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js")
+const {DomUtils} = await importNodeModule("cm-web-modules/src/utils/DomUtils.js")
+const {Accessibility} = await importNodeModule("cm-chessboard/src/extensions/accessibility/Accessibility.js")
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
-import {Observe} from "../../../lib/cm-web-modules/observe/Observe.js"
-import {UiComponent} from "../../../lib/cm-web-modules/app/Component.js"
-import {FEN} from "../../../lib/cm-chessboard/model/Position.js"
-import {CoreUtils} from "../../../lib/cm-web-modules/utils/CoreUtils.js"
-import {Markers} from "../../../lib/cm-chessboard/extensions/markers/Markers.js"
-import {PromotionDialog} from "../../../lib/cm-chessboard/extensions/promotion-dialog/PromotionDialog.js"
-import {DomUtils} from "../../../lib/cm-web-modules/utils/DomUtils.js"
-import {Accessibility} from "../../../lib/cm-chessboard/extensions/accessibility/Accessibility.js"
 
 export const CONSOLE_MARKER_TYPE = {
     moveInput: {class: "marker-frame", slice: "markerFrame"},
