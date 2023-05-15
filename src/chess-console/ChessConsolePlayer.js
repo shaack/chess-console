@@ -17,7 +17,7 @@ export class ChessConsolePlayer {
      * The moveResponse then returns the move result, if no move result was returned, the move was not legal.
      * @param fen current position
      * @param moveResponse a callback function to call as the moveResponse. Parameter is an object,
-     * containing 'from' and `to`. Example: `moveResult = moveResponse({from: "e2", to: "e4})`.
+     * containing 'from' and `to`. Example: `moveResult = moveResponse({from: "e2", to: "e4", promotion: null})`.
      */
     moveRequest(fen, moveResponse) {
     }
