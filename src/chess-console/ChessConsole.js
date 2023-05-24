@@ -136,6 +136,7 @@ export class ChessConsole extends UiComponent {
     }
 
     newGame(props = {}) {
+        this.components.board.chessboard.disableMoveInput()
         this.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.newGame, {props: props})
         this.initGame(props)
     }
@@ -213,6 +214,7 @@ export class ChessConsole extends UiComponent {
     }
 
     undoMove() {
+        this.components.board.chessboard.disableMoveInput()
         this.state.chess.undo()
         if (this.playerToMove() !== this.player) {
             this.state.chess.undo()

@@ -22,7 +22,20 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-
+<!-- @formatter:off -->
+<script type="importmap">
+    {
+        "imports": {
+            "cm-chessboard/": "../node_modules/cm-chessboard/",
+            "cm-web-modules/": "../node_modules/cm-web-modules/",
+            "chess.mjs/": "../node_modules/chess.mjs/",
+            "cm-pgn/": "../node_modules/cm-pgn/",
+            "cm-chess/": "../node_modules/cm-chess/",
+            "bootstrap-show-modal/": "../node_modules/bootstrap-show-modal/"
+        }
+    }
+</script>
+<!-- @formatter:on -->
 <script type="module">
     import {PromotionDialog} from "cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js"
     import {ChessConsole} from "../src/chess-console/ChessConsole.js"
