@@ -4,12 +4,12 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const {FEN} = await import(nodeModulesUrl + "cm-chess/src/Chess.js")
-const {COLOR} = await import(nodeModulesUrl + "cm-chessboard/src/Chessboard.js")
-const {I18n} = await import(nodeModulesUrl + "cm-web-modules/src/i18n/I18n.js")
-const {MessageBroker} = await import(nodeModulesUrl + "cm-web-modules/src/message-broker/MessageBroker.js")
-const {UiComponent} = await import(nodeModulesUrl + "cm-web-modules/src/app/Component.js")
-const {piecesTranslations} = await import(nodeModulesUrl + "cm-chessboard/src/lib/I18n.js")
+import {FEN} from "cm-chess/src/Chess.js"
+import {COLOR} from "cm-chessboard/src/Chessboard.js"
+import {I18n} from "cm-web-modules/src/i18n/I18n.js"
+import {MessageBroker} from "cm-web-modules/src/message-broker/MessageBroker.js"
+import {UiComponent} from "cm-web-modules/src/app/Component.js"
+import {piecesTranslations} from "cm-chessboard/src/lib/I18n.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
 
 export const CONSOLE_MESSAGE_TOPICS = {

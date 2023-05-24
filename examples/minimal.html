@@ -5,7 +5,8 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
     <link rel="stylesheet" href="../assets/styles/screen.css"/>
 </head>
@@ -17,17 +18,32 @@
     <div id="console-container"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-<script type="module" src="../node_modules/node-modules-url/node-modules-url.js"></script>
+<!-- @formatter:off -->
+<script type="importmap">
+    {
+        "imports": {
+            "cm-chessboard/": "../node_modules/cm-chessboard/",
+            "cm-web-modules/": "../node_modules/cm-web-modules/",
+            "chess.mjs/": "../node_modules/chess.mjs/",
+            "cm-pgn/": "../node_modules/cm-pgn/",
+            "cm-chess/": "../node_modules/cm-chess/"
+        }
+    }
+</script>
+<!-- @formatter:on -->
 
 <script type="module">
     import {ChessConsole} from "../src/chess-console/ChessConsole.js"
     import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.js"
     import {Board} from "../src/chess-console/components/Board.js"
     import {GameStateOutput} from "../src/chess-console/components/GameStateOutput.js"
+
     new ChessConsole(
         document.getElementById("console-container"),
         {name: "Local Player 1", type: LocalPlayer},

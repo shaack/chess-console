@@ -3,7 +3,7 @@
  * Repository: https://github.com/shaack/chess-console
  * License: MIT, see file 'LICENSE'
  */
-const {UiComponent} = await import(nodeModulesUrl + "cm-web-modules/src/app/Component.js")
+import {UiComponent} from "cm-web-modules/src/app/Component.js"
 
 export class GameStateOutput extends UiComponent {
 

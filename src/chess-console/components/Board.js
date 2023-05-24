@@ -4,15 +4,15 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const {Chessboard, COLOR, INPUT_EVENT_TYPE} = await import(nodeModulesUrl + "cm-chessboard/src/Chessboard.js")
-const {FEN} = await import(nodeModulesUrl + "cm-chessboard/src/model/Position.js")
-const {Observe} = await import(nodeModulesUrl + "cm-web-modules/src/observe/Observe.js")
-const {UiComponent} = await import(nodeModulesUrl + "cm-web-modules/src/app/Component.js")
-const {CoreUtils} = await import(nodeModulesUrl + "cm-web-modules/src/utils/CoreUtils.js")
-const {DomUtils} = await import(nodeModulesUrl + "cm-web-modules/src/utils/DomUtils.js")
-const {Markers} = await import(nodeModulesUrl + "cm-chessboard/src/extensions/markers/Markers.js")
-const {PromotionDialog} = await import(nodeModulesUrl + "cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js")
-const {Accessibility} = await import(nodeModulesUrl + "cm-chessboard/src/extensions/accessibility/Accessibility.js")
+import {Chessboard, COLOR, INPUT_EVENT_TYPE} from "cm-chessboard/src/Chessboard.js"
+import {FEN} from "cm-chessboard/src/model/Position.js"
+import {Markers} from "cm-chessboard/src/extensions/markers/Markers.js"
+import {Observe} from "cm-web-modules/src/observe/Observe.js"
+import {UiComponent} from "cm-web-modules/src/app/Component.js"
+import {CoreUtils} from "cm-web-modules/src/utils/CoreUtils.js"
+import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
+import {PromotionDialog} from "cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js"
+import {Accessibility} from "cm-chessboard/src/extensions/accessibility/Accessibility.js"
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
 
 export const CONSOLE_MARKER_TYPE = {
@@ -216,13 +216,14 @@ class ChessConsoleMarkers extends Markers {
     drawAutoMarkers(event) {
         clearTimeout(this.drawAutoMarkersDebounced)
         this.drawAutoMarkersDebounced = setTimeout(() => {
-                this.removeMarkers(this.autoMarker)
+                this.removeMarkers(this.props.autoMarkers)
                 const board = this.props.board
                 const moves = this.props.board.chessConsole.state.chess.moves({square: event.square, verbose: true})
                 if (board.props.markLegalMoves) {
                     if (event.type === INPUT_EVENT_TYPE.moveInputStarted ||
                         event.type === INPUT_EVENT_TYPE.validateMoveInput ||
-                        event.type === INPUT_EVENT_TYPE.moveInputCanceled) {
+                        event.type === INPUT_EVENT_TYPE.moveInputCanceled ||
+                        event.type === INPUT_EVENT_TYPE.moveInputFinished) {
                         event.chessboard.removeMarkers(board.props.markers.legalMove)
                         event.chessboard.removeMarkers(board.props.markers.legalMoveCapture)
                     }
@@ -241,12 +242,12 @@ class ChessConsoleMarkers extends Markers {
                 }
                 if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
                     if (event.moveInputCallbackResult) {
-                        this.addMarker(this.autoMarker, event.squareFrom)
+                        this.addMarker(this.props.autoMarkers, event.squareFrom)
                     }
                 } else if (event.type === INPUT_EVENT_TYPE.movingOverSquare) {
-                    this.addMarker(this.autoMarker, event.squareFrom)
+                    this.addMarker(this.props.autoMarkers, event.squareFrom)
                     if (event.squareTo) {
-                        this.addMarker(this.autoMarker, event.squareTo)
+                        this.addMarker(this.props.autoMarkers, event.squareTo)
                     }
                 }
             }

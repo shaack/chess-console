@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const {UiComponent} = await import(nodeModulesUrl + "/cm-web-modules/src/app/Component.js")
+import {UiComponent} from "/cm-web-modules/src/app/Component.js"
 import {NewGameDialog} from "./NewGameDialog.js"
 
 export class GameControl extends UiComponent {

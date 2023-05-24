@@ -6,7 +6,7 @@
  * @deprecated
  */
 
-const {COLOR} = await import(nodeModulesUrl + "/cm-chess/src/Chess.js")
+import {COLOR} from "/cm-chess/src/Chess.js"
 
 export const PIECES = {
     notation: {

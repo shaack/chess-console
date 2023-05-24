@@ -4,9 +4,9 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const {Observe} = await import(nodeModulesUrl + "cm-web-modules/src/observe/Observe.js")
-const {COLOR} = await import(nodeModulesUrl + "cm-chessboard/src/Chessboard.js")
-const {Chess} = await import(nodeModulesUrl + "cm-chess/src/Chess.js")
+import {Observe} from "cm-web-modules/src/observe/Observe.js"
+import {COLOR} from "cm-chessboard/src/Chessboard.js"
+import {Chess} from "cm-chess/src/Chess.js"
 
 export class ChessConsoleState {
 

@@ -3,8 +3,8 @@
  * Repository: https://github.com/shaack/chess-console
  * License: MIT, see file 'LICENSE'
  */
-const {COLOR, INPUT_EVENT_TYPE} = await import(nodeModulesUrl + "cm-chessboard/src/Chessboard.js")
-const {Chess} = await import(nodeModulesUrl + "chess.mjs/src/Chess.js")
+import {COLOR, INPUT_EVENT_TYPE} from "cm-chessboard/src/Chessboard.js"
+import {Chess} from "chess.mjs/src/Chess.js"
 import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
 

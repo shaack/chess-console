@@ -3,8 +3,8 @@
  * Repository: https://github.com/shaack/chess-console
  * License: MIT, see file 'LICENSE'
  */
-const {COLOR} = await import(nodeModulesUrl + "cm-chess/src/Chess.js")
-const {Component} = await import(nodeModulesUrl + "cm-web-modules/src/app/Component.js")
+import {COLOR} from "cm-chess/src/Chess.js"
+import {Component} from "cm-web-modules/src/app/Component.js"
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
 
 export class Persistence extends Component {

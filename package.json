@@ -28,10 +28,9 @@
   "dependencies": {
     "bootstrap-show-modal": "^5.0.2",
     "chess.mjs": "^1.4.0",
-    "cm-chess": "^3.0.1",
-    "cm-chessboard": "^7.4.0",
-    "cm-pgn": "^3.1.3",
-    "cm-web-modules": "^2.0.0",
-    "node-modules-url": "^1.0.3"
+    "cm-chess": "^3.3.2",
+    "cm-chessboard": "^7.6.10",
+    "cm-pgn": "^3.3.0",
+    "cm-web-modules": "^2.0.0"
   }
 }
