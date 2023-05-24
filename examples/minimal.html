@@ -24,6 +24,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.7.2/dist/es-module-shims.min.js"></script>
 <!-- @formatter:off -->
 <script type="importmap">
     {
@@ -38,10 +39,10 @@
 </script>
 <!-- @formatter:on -->
 <script type="module">
-    import {ChessConsole} from "../src/chess-console/ChessConsole.js"
-    import {LocalPlayer} from "../src/chess-console/players/LocalPlayer.js"
-    import {Board} from "../src/chess-console/components/Board.js"
-    import {GameStateOutput} from "../src/chess-console/components/GameStateOutput.js"
+    import {ChessConsole} from "../src/ChessConsole.js"
+    import {LocalPlayer} from "../src/players/LocalPlayer.js"
+    import {Board} from "../src/components/Board.js"
+    import {GameStateOutput} from "../src/components/GameStateOutput.js"
 
     new ChessConsole(
         document.getElementById("console-container"),
