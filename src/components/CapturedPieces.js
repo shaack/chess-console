@@ -8,6 +8,8 @@ import {Observe} from "cm-web-modules/src/observe/Observe.js"
 import {UiComponent} from "cm-web-modules/src/app/Component.js"
 import {PIECES} from "cm-chess/src/Chess.js"
 
+const zeroWithSpace = "&#8203;"
+
 export class CapturedPieces extends UiComponent {
 
     constructor(chessConsole) {
@@ -20,6 +22,9 @@ export class CapturedPieces extends UiComponent {
             this.redraw()
         })
         Observe.property(this.chessConsole.state, "plyViewed", () => {
+            this.redraw()
+        })
+        Observe.property(this.chessConsole.state, "orientation", () => {
             this.redraw()
         })
         this.i18n = chessConsole.i18n
@@ -66,31 +71,24 @@ export class CapturedPieces extends UiComponent {
                     }
                 }
             })
-            if(pointsWhite === 0) {
-                pointsWhite = ""
-            }
-            if(pointsBlack === 0) {
-                pointsBlack = ""
-            }
-            const zeroWithSpace = "&#8203;"
-            let output = "<div>"
-            if (capturedPiecesWhite.length > 0) {
-                output += capturedPiecesWhite.join(zeroWithSpace) // Zero width Space
-            }
-            if (capturedPiecesWhiteAfterPlyViewed.length > 0) {
-                output += "<span class='text-muted'>" + capturedPiecesWhiteAfterPlyViewed.join(zeroWithSpace) + "</span>"
-            }
-            output += "<small> " + pointsWhite + "</small></div><div>"
-            if (capturedPiecesBlack.length > 0) {
-                output += capturedPiecesBlack.join("&#8203;")
-            }
-            if (capturedPiecesBlackAfterPlyViewed.length > 0) {
-                output += "<span class='text-muted'>" + capturedPiecesBlackAfterPlyViewed.join(zeroWithSpace) + "</span>"
-            }
-            output += "<small> " + pointsBlack + "</small></div>"
+            const outputWhite = this.renderPieces(capturedPiecesWhite, capturedPiecesWhiteAfterPlyViewed, pointsWhite)
+            const outputBlack = this.renderPieces(capturedPiecesBlack, capturedPiecesBlackAfterPlyViewed, pointsBlack)
             this.element.innerHTML = "<h2 class='visually-hidden'>" + this.i18n.t("captured_pieces") + "</h2>" +
-                output
+                (this.chessConsole.state.orientation === "w" ? outputWhite + outputBlack : outputBlack + outputWhite)
         })
     }
+
+    renderPieces(capturedPieces, capturedPiecesAfterPlyViewed, points) {
+        let output = "<div>"
+        if (capturedPieces.length > 0) {
+            output += capturedPieces.join(zeroWithSpace)
+        }
+        if (capturedPiecesAfterPlyViewed.length > 0) {
+            output += "<span class='text-muted'>" + capturedPiecesAfterPlyViewed.join(zeroWithSpace) + "</span>"
+        }
+        output += "<small> " + (points > 0 ? points : "") + "</small></div>"
+        return output
+    }
+
 
 }

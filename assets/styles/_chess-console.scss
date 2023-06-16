@@ -96,6 +96,9 @@
     .captured-pieces {
       margin-bottom: $spacer;
       font-size: 120%;
+      > div:first-of-type  {
+        margin-bottom: 0.5rem;
+      }
     }
   }
 
