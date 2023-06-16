@@ -29,8 +29,8 @@
     "bootstrap-show-modal": "^5.0.2",
     "chess.mjs": "^1.4.0",
     "cm-chess": "^3.3.2",
-    "cm-chessboard": "^7.6.10",
+    "cm-chessboard": "^7.7.1",
     "cm-pgn": "^3.3.0",
-    "cm-web-modules": "^2.0.0"
+    "cm-web-modules": "^2.0.7"
   }
 }
