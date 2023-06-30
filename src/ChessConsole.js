@@ -138,7 +138,9 @@ export class ChessConsole extends UiComponent {
     newGame(props = {}) {
         this.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.newGame, {props: props})
         this.initGame(props)
-        this.components.board.chessboard.disableMoveInput()
+        if(this.components.board.chessboard) {
+            this.components.board.chessboard.disableMoveInput()
+        }
     }
 
     playerWhite() {
