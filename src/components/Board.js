@@ -73,7 +73,7 @@ export class Board extends UiComponent {
                     assetsUrl: undefined,
                     markLegalMoves: true,
                     style: {
-                        aspectRatio: 0.94
+                        aspectRatio: 0.98
                     },
                     accessibility: {
                         active: true, // turn accessibility on or off
