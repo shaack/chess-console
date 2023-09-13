@@ -54,8 +54,7 @@
         {name: "Local Player", type: LocalPlayer},
         {name: "Random Player", type: RandomPlayer, props: {delay: 500}},
         {
-            accessible: true,
-            reduceMotion: true
+            accessible: true
         }).initialized.then((chessConsole) => {
         new Board(chessConsole, {
             assetsUrl: "../node_modules/cm-chessboard/assets/"
