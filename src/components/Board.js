@@ -61,7 +61,6 @@ export class Board extends UiComponent {
                     }
                     this.setPositionOfPlyViewed(animated)
                     this.markLastMove()
-
                 })
                 Observe.property(this.chessConsole.state, "plyViewed", (props) => {
                     this.setPositionOfPlyViewed(props.oldValue !== undefined)
@@ -73,7 +72,8 @@ export class Board extends UiComponent {
                     assetsUrl: undefined,
                     markLegalMoves: true,
                     style: {
-                        aspectRatio: 0.98
+                        aspectRatio: 0.98,
+                        animationDuration: this.chessConsole.props.reduceMotion ? 0 : 300
                     },
                     accessibility: {
                         active: true, // turn accessibility on or off
@@ -149,6 +149,9 @@ export class Board extends UiComponent {
     }
 
     setPositionOfPlyViewed(animated = true) {
+        if(this.chessConsole.props.reduceMotion) {
+            animated = false
+        }
         clearTimeout(this.setPositionOfPlyViewedDebounced)
         this.setPositionOfPlyViewedDebounced = setTimeout(() => {
             const to = this.chessConsole.state.chess.fenOfPly(this.chessConsole.state.plyViewed)

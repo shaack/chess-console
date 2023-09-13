@@ -32,7 +32,8 @@ export class ChessConsole extends UiComponent {
             locale: navigator.language, // locale for i18n
             playerColor: COLOR.white, // the players color (color at bottom)
             pgn: undefined, // initial pgn, can contain header and history
-            accessible: false // render additional information to improve the usage for people using screen readers (beta)
+            accessible: false, // render additional information to improve the usage for people using screen readers (beta)
+            reduceMotion: false // reduce the movement of pieces
         }
         if (!this.props.figures) {
             this.props.figures = {
