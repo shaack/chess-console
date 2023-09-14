@@ -37,6 +37,7 @@ export class LocalPlayer extends ChessConsolePlayer {
                     if (possibleMove.to === squareTo && possibleMove.promotion) {
                         const chessboard = this.chessConsole.components.board.chessboard
                         chessboard.showPromotionDialog(squareTo, tmpChess.turn(), (event) => {
+                            console.log(event)
                             if (event.piece) {
                                 move.promotion = event.piece.charAt(1)
                                 console.log(move)
