@@ -43,6 +43,7 @@
     import {LocalPlayer} from "../src/players/LocalPlayer.js"
     import {Board} from "../src/components/Board.js"
     import {GameStateOutput} from "../src/components/GameStateOutput.js"
+    import {BORDER_TYPE} from "cm-chessboard/src/Chessboard.js"
 
     new ChessConsole(
         document.getElementById("console-container"),
@@ -50,7 +51,11 @@
         {name: "Local Player 2", type: LocalPlayer}
     ).initialized.then((chessConsole) => {
         new Board(chessConsole, {
-            assetsUrl: "../node_modules/cm-chessboard/assets/"
+            assetsUrl: "../node_modules/cm-chessboard/assets/",
+            style: {
+                borderType: BORDER_TYPE.frame,
+                showCoordinates: true
+            }
         })
         new GameStateOutput(chessConsole)
         chessConsole.newGame()

@@ -14,6 +14,7 @@ import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
 import {PromotionDialog} from "cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js"
 import {Accessibility} from "cm-chessboard/src/extensions/accessibility/Accessibility.js"
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
+import {AutoBorderNone} from "cm-chessboard/src/extensions/auto-border-none/AutoBorderNone.js"
 
 export const CONSOLE_MARKER_TYPE = {
     moveInput: {class: "marker-frame", slice: "markerFrame"},
@@ -94,7 +95,7 @@ export class Board extends UiComponent {
                         class: ChessConsoleMarkers, props: {
                             board: this
                         }
-                    }]
+                    }, {class: AutoBorderNone}]
                 }
                 CoreUtils.mergeObjects(this.props, props)
                 if (this.props.accessibility.active) {
