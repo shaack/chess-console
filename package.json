@@ -31,6 +31,7 @@
     "cm-chess": "^3.3.3",
     "cm-chessboard": "^8.4.0",
     "cm-pgn": "^3.3.0",
-    "cm-web-modules": "^2.1.2"
+    "cm-web-modules": "^2.1.2",
+    "patch": "^0.0.1"
   }
 }
