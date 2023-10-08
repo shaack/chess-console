@@ -9,7 +9,7 @@ import {COLOR} from "cm-chessboard/src/Chessboard.js"
 import {I18n} from "cm-web-modules/src/i18n/I18n.js"
 import {MessageBroker} from "cm-web-modules/src/message-broker/MessageBroker.js"
 import {UiComponent} from "cm-web-modules/src/app/Component.js"
-import {piecesTranslations} from "cm-chessboard/src/lib/I18n.js"
+import {piecesTranslations} from "cm-chessboard/src/extensions/accessibility/I18n.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
 
 export const CONSOLE_MESSAGE_TOPICS = {
