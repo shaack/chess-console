@@ -40,7 +40,7 @@ export class CapturedPieces extends UiComponent {
             this.redraw()
         })
         DomUtils.delegate(this.element, "click", ".piece", (event) => {
-            const ply = event.target.parentNode.getAttribute("data-ply")
+            const ply = event.target.getAttribute("data-ply")
             this.chessConsole.state.plyViewed = parseInt(ply, 10)
         })
     }

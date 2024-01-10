@@ -62,6 +62,8 @@
   font-size: 120%; }
   .chess-console .chess-console-left .captured-pieces > div:first-of-type {
     margin-bottom: 0.5rem; }
+  .chess-console .chess-console-left .captured-pieces .piece * {
+    pointer-events: none; }
 
 .chess-console .chess-console-right .buttons-grid .autoplay .fa-play {
   color: #198754; }

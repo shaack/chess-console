@@ -99,6 +99,11 @@
       > div:first-of-type  {
         margin-bottom: 0.5rem;
       }
+      .piece {
+        * {
+          pointer-events: none;
+        }
+      }
     }
   }
 
