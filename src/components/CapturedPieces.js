@@ -7,6 +7,7 @@
 import {Observe} from "cm-web-modules/src/observe/Observe.js"
 import {UiComponent} from "cm-web-modules/src/app/Component.js"
 import {PIECES} from "cm-chess/src/Chess.js"
+import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
 
 const zeroWithSpace = "&#8203;"
 
@@ -38,6 +39,10 @@ export class CapturedPieces extends UiComponent {
         }).then(() => {
             this.redraw()
         })
+        DomUtils.delegate(this.element, "click", ".piece", (event) => {
+            const ply = event.target.parentNode.getAttribute("data-ply")
+            this.chessConsole.state.plyViewed = parseInt(ply, 10)
+        })
     }
 
     redraw() {
@@ -55,17 +60,19 @@ export class CapturedPieces extends UiComponent {
                 if (move.flags.indexOf("c") !== -1 || move.flags.indexOf("e") !== -1) {
                     const pieceCaptured = move.captured.toUpperCase()
                     if (move.color === "b") {
+                        const pieceHtml = `<span class="piece" role='button' data-ply='${move.ply}'>` + this.chessConsole.props.figures[pieceCaptured + "w"] + "</span>"
                         if (index < this.chessConsole.state.plyViewed) {
-                            capturedPiecesWhite.push(this.chessConsole.props.figures[pieceCaptured + "w"])
+                            capturedPiecesWhite.push(pieceHtml)
                         } else {
-                            capturedPiecesWhiteAfterPlyViewed.push(this.chessConsole.props.figures[pieceCaptured + "w"])
+                            capturedPiecesWhiteAfterPlyViewed.push(pieceHtml)
                         }
                         pointsWhite += PIECES[pieceCaptured.toLowerCase()].value
                     } else if (move.color === "w") {
+                        const pieceHtml = `<span class="piece" role='button' data-ply='${move.ply}'>`  + this.chessConsole.props.figures[pieceCaptured + "b"] + "</span>"
                         if (index < this.chessConsole.state.plyViewed) {
-                            capturedPiecesBlack.push(this.chessConsole.props.figures[pieceCaptured + "b"])
+                            capturedPiecesBlack.push(pieceHtml)
                         } else {
-                            capturedPiecesBlackAfterPlyViewed.push(this.chessConsole.props.figures[pieceCaptured + "b"])
+                            capturedPiecesBlackAfterPlyViewed.push(pieceHtml)
                         }
                         pointsBlack += PIECES[pieceCaptured.toLowerCase()].value
                     }
