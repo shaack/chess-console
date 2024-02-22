@@ -11,6 +11,7 @@ import {MessageBroker} from "cm-web-modules/src/message-broker/MessageBroker.js"
 import {UiComponent} from "cm-web-modules/src/app/Component.js"
 import {piecesTranslations} from "cm-chessboard/src/extensions/accessibility/I18n.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
+import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
 
 export const CONSOLE_MESSAGE_TOPICS = {
     newGame: "game/new", // if a new game was startet
@@ -77,31 +78,36 @@ export class ChessConsole extends UiComponent {
          */
         this.initialization = this.initialized
         if (!this.props.template) {
-            this.props.template =
-                `<div class="row chess-console">
-    <div class="chess-console-center ${colSets.consoleGame}">
-        <div class="chess-console-board"></div>
-    </div>
-    <div class="chess-console-right ${colSets.consoleRight}">
-        <div class="control-buttons buttons-grid mb-4"></div>
-        <div class="chess-console-notifications"></div>
-    </div>
-    <div class="chess-console-left ${colSets.consoleLeft}">
-        <div class="row">
-            <div class="col-xl-12 col-lg-4 col-md-12 col-6">
-                <div class="chess-console-history"></div>
-            </div>
-            <div class="col-xl-12 col-lg-8 col-md-12 col-6">
-                <div class="chess-console-captured"></div>
-            </div>
-        </div>
-    </div>
-</div>`
+            this.props.template = `
+                <div class="row chess-console">
+                    <div class="chess-console-center ${colSets.consoleGame}">
+                        <div class="chess-console-board"></div>
+                    </div>
+                    <div class="chess-console-right ${colSets.consoleRight}">
+                        <div class="control-buttons buttons-grid mb-4"></div>
+                        <div class="chess-console-notifications"></div>
+                    </div>
+                    <div class="chess-console-left ${colSets.consoleLeft}">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-4 col-md-12 col-6">
+                                <div class="chess-console-history"></div>
+                            </div>
+                            <div class="col-xl-12 col-lg-8 col-md-12 col-6">
+                                <div class="chess-console-captured"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
         }
         Object.assign(this.props, props)
         this.messageBroker = new MessageBroker()
-        this.context.innerHTML = this.props.template
-        this.componentContainers = { // todo put this in the html
+        const innerHTMLElement = DomUtils.createElement(this.context.innerHTML)
+        if (!(innerHTMLElement instanceof Element) ||
+            (!innerHTMLElement.querySelector(".chess-console") &&
+                !innerHTMLElement.classList.contains("chess-console"))) {
+            this.context.innerHTML = this.props.template
+        }
+        this.componentContainers = {
             center: this.context.querySelector(".chess-console-center"),
             left: this.context.querySelector(".chess-console-left"),
             right: this.context.querySelector(".chess-console-right"),
@@ -138,7 +144,7 @@ export class ChessConsole extends UiComponent {
     newGame(props = {}) {
         this.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.newGame, {props: props})
         this.initGame(props)
-        if(this.components.board.chessboard) {
+        if (this.components.board.chessboard) {
             this.components.board.chessboard.disableMoveInput()
         }
     }
