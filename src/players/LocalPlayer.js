@@ -139,11 +139,13 @@ export class LocalPlayer extends ChessConsolePlayer {
                 return true
             }
             // normal move
-            this.chessConsole.components.board.chessboard.enableMoveInput(
-                (event) => {
-                    return this.chessboardMoveInputCallback(event, moveResponse)
-                }, color
-            )
+            if(!this.chessConsole.components.board.chessboard.isMoveInputEnabled()) {
+                this.chessConsole.components.board.chessboard.enableMoveInput(
+                    (event) => {
+                        return this.chessboardMoveInputCallback(event, moveResponse)
+                    }, color
+                )
+            }
         }
     }
 
