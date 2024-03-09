@@ -427,7 +427,7 @@ svg.cm-chessboard .promotion-dialog-group .piece {
   .cm-chessboard .markers .marker.marker-frame {
     stroke: #000000;
     stroke-width: 1.8px;
-    opacity: 0.5; }
+    opacity: 0.4; }
   .cm-chessboard .markers .marker.marker-frame-primary {
     stroke: #0009bd;
     stroke-width: 1.8px;
@@ -451,12 +451,18 @@ svg.cm-chessboard .promotion-dialog-group .piece {
   .cm-chessboard .markers .marker.marker-square {
     fill: black;
     opacity: 0.11; }
+  .cm-chessboard .markers .marker.marker-square-danger {
+    fill: #aa0000;
+    opacity: 0.11; }
+  .cm-chessboard .markers .marker.marker-square-primary {
+    fill: #0009bd;
+    opacity: 0.11; }
   .cm-chessboard .markers .marker.marker-dot {
     fill: black;
-    opacity: 0.2; }
+    opacity: 0.19; }
   .cm-chessboard .markers .marker.marker-bevel {
     fill: black;
-    opacity: 0.2; }
+    opacity: 0.19; }
 
 html body .container-fluid {
   max-width: 1200px; }
