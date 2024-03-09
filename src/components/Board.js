@@ -94,7 +94,7 @@ export class Board extends UiComponent {
                     extensions: [{class: PromotionDialog}, {
                         class: ChessConsoleMarkers, props: {
                             board: this,
-                            autoMarkers: props.markers && props.markers.moveInput ? props.markers.moveInput : CONSOLE_MARKER_TYPE.moveInput
+                            autoMarkers: props.markers && props.markers.moveInput ? {...props.markers.moveInput} : {...CONSOLE_MARKER_TYPE.moveInput}
                         }
                     }, {class: AutoBorderNone}]
                 }
