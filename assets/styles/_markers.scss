@@ -10,7 +10,7 @@ $marker-color-danger: #aa0000;
       &.marker-frame {
         stroke: $marker-color;
         stroke-width: 1.8px;
-        opacity: 0.5;
+        opacity: 0.4;
       }
 
       &.marker-frame-primary {
@@ -48,14 +48,24 @@ $marker-color-danger: #aa0000;
         opacity: 0.11;
       }
 
+      &.marker-square-danger {
+        fill: $marker-color-danger;
+        opacity: 0.11;
+      }
+
+      &.marker-square-primary {
+        fill: $marker-color-primary;
+        opacity: 0.11;
+      }
+
       &.marker-dot {
         fill: black;
-        opacity: 0.2;
+        opacity: 0.19;
       }
 
       &.marker-bevel {
         fill: black;
-        opacity: 0.2;
+        opacity: 0.19;
       }
 
     }
