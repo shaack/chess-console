@@ -162,8 +162,8 @@ export class Board extends UiComponent {
         this.markLastMoveDebounce = setTimeout(() => {
             this.chessboard.removeMarkers(this.props.markers.moveInput)
             this.chessboard.removeMarkers(this.props.markers.check)
-            if (this.chessConsole.state.plyViewed === this.chessConsole.state.chess.plyCount()) {
-                const lastMove = this.chessConsole.state.chess.lastMove()
+            if (this.chessConsole.state.plyViewed > 0) {
+                const lastMove = this.chessConsole.state.chess.history()[this.chessConsole.state.plyViewed - 1]
                 if (lastMove) {
                     this.chessboard.addMarker(this.props.markers.moveInput, lastMove.from)
                     this.chessboard.addMarker(this.props.markers.moveInput, lastMove.to)
