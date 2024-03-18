@@ -167,10 +167,10 @@ export class Board extends UiComponent {
                 if (lastMove) {
                     this.chessboard.addMarker(this.props.markers.moveInput, lastMove.from)
                     this.chessboard.addMarker(this.props.markers.moveInput, lastMove.to)
-                }
-                if (this.chessConsole.state.chess.inCheck(lastMove) || this.chessConsole.state.chess.inCheckmate(lastMove)) {
-                    const kingSquare = this.chessConsole.state.chess.pieces("k", this.chessConsole.state.chess.turn(), lastMove)[0]
-                    this.chessboard.addMarker(this.props.markers.check, kingSquare.square)
+                    if (this.chessConsole.state.chess.inCheck(lastMove) || this.chessConsole.state.chess.inCheckmate(lastMove)) {
+                        const kingSquare = this.chessConsole.state.chess.pieces("k", this.chessConsole.state.chess.turn(lastMove), lastMove)[0]
+                        this.chessboard.addMarker(this.props.markers.check, kingSquare.square)
+                    }
                 }
             }
         })
