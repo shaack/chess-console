@@ -94,33 +94,45 @@ export class HistoryControl extends UiComponent {
                 this.updatePlayIcon()
             })
             $(document).keydown((e) => {
+                // return if command or strg or alt or fn is pressed
+                if (e.metaKey || e.ctrlKey || e.altKey) {
+                    return
+                }
                 if (e.key === "ArrowLeft" || e.key === "j") {
                     if (this.chessConsole.state.plyViewed > 0) {
                         this.chessConsole.state.plyViewed--
                         this.resetAutoPlay()
+                        e.preventDefault()
                     }
                 } else if (e.key === "ArrowRight" || e.key === "k") {
                     if (this.chessConsole.state.plyViewed < this.chessConsole.state.chess.plyCount()) {
                         this.chessConsole.state.plyViewed++
                         this.resetAutoPlay()
+                        e.preventDefault()
                     }
                 } else if (e.key === "ArrowUp") {
                     this.chessConsole.state.plyViewed = 0
                     this.resetAutoPlay()
+                    e.preventDefault()
                 } else if (e.key === "ArrowDown") {
                     this.chessConsole.state.plyViewed = this.chessConsole.state.chess.plyCount()
                     this.resetAutoPlay()
+                    e.preventDefault()
                 } else if (e.key === "f") {
                     this.chessConsole.state.orientation = this.chessConsole.state.orientation === COLOR.white ? COLOR.black : COLOR.white
+                    e.preventDefault()
                 } else if (e.key === " ") {
                     if (this.autoplay) {
                         clearInterval(this.autoplay)
                         this.autoplay = null
                     } else {
-                        this.chessConsole.state.plyViewed++
-                        this.autoplay = setInterval(this.autoPlayMove.bind(this), this.props.autoPlayDelay)
+                        if (this.chessConsole.state.plyViewed < this.chessConsole.state.chess.plyCount()) {
+                            this.chessConsole.state.plyViewed++
+                            this.autoplay = setInterval(this.autoPlayMove.bind(this), this.props.autoPlayDelay)
+                        }
                     }
                     this.updatePlayIcon()
+                    e.preventDefault()
                 }
             })
             this.setButtonStates()
