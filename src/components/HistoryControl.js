@@ -93,9 +93,11 @@ export class HistoryControl extends UiComponent {
                 }
                 this.updatePlayIcon()
             })
-            $(document).keydown((e) => {
-                // return if command or strg or alt or fn is pressed
+            document.addEventListener('keydown', (e) => {
                 if (e.metaKey || e.ctrlKey || e.altKey) {
+                    return
+                }
+                if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA") {
                     return
                 }
                 if (e.key === "ArrowLeft" || e.key === "j") {
