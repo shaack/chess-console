@@ -129,7 +129,7 @@ export class ChessConsole extends UiComponent {
         Object.assign(this.props, props)
         this.state.orientation = this.props.playerColor
         if (props.pgn) {
-            this.state.chess.loadPgn(props.pgn, {sloppy: true})
+            this.state.chess.loadPgn(props.pgn, true)
             this.state.plyViewed = this.state.chess.plyCount()
         } else {
             this.state.chess.load(FEN.start)
