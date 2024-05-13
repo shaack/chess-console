@@ -96,7 +96,7 @@ export class Board extends UiComponent {
                             board: this,
                             autoMarkers: props.markers && props.markers.moveInput ? {...props.markers.moveInput} : {...CONSOLE_MARKER_TYPE.moveInput}
                         }
-                    }, {class: AutoBorderNone}]
+                    }, {class: AutoBorderNone, props: { borderNoneBelow: 580 }}]
                 }
                 CoreUtils.mergeObjects(this.props, props)
                 if (this.props.accessibility.active) {
