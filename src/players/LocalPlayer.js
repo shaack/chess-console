@@ -135,7 +135,7 @@ export class LocalPlayer extends ChessConsolePlayer {
                 this.updatePremoveMarkers()
                 setTimeout(() => {
                     this.chessboardMoveInputCallback(eventFromPremovesQueue, moveResponse)
-                })
+                }, 20)
                 return true
             }
             // normal move
