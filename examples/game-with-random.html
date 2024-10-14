@@ -60,6 +60,7 @@
     ).initialized.then((chessConsole) => {
         new Board(chessConsole, {
             assetsUrl: "../node_modules/cm-chessboard/assets/",
+            /*
             markers: {
                 moveInput: {class: "marker-square", slice: "markerSquare"},
                 wrongMove: {class: "marker-square-danger", slice: "markerSquare"},
@@ -67,6 +68,7 @@
                 legalMove: CONSOLE_MARKER_TYPE.legalMove,
                 legalMoveCapture: CONSOLE_MARKER_TYPE.legalMoveCapture
             }
+             */
         }).initialized.then(() => {
             new Persistence(chessConsole, {
                 savePrefix: "Random"
