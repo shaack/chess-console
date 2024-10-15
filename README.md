@@ -1,8 +1,6 @@
 # chess-console
 
-chess-console is a **chess game client framework**, which uses [cm-chessboard](https://github.com/shaack/cm-chessboard)
-and [Bootstrap](https://getbootstrap.com/) to create a browser based, mobile friendly, responsive
-chess game gui.
+ChessConsole is a JavaScript-based chess game client framework that uses [cm-chessboard](https://github.com/shaack/cm-chessboard) and [Bootstrap](https://getbootstrap.com/) to create a browser-based, mobile-friendly, responsive chess game GUI.
 
 - **[Repository on GitHub](https://github.com/shaack/chess-console)**
 - **[Demo pages](https://shaack.com/projekte/chess-console)**
@@ -13,9 +11,7 @@ chess game gui.
 
 ## Component structure
 
-Because of its component architecture chess-console is expandable for all kind of chess pages. You may check out
-the [Stockfish Player](https://github.com/shaack/chess-console-stockfish) for chess-console, a fully functional online
-chess computer.
+Because of its component architecture chess-console is expandable for all kind of chess pages. You may check out the [Stockfish Player](https://github.com/shaack/chess-console-stockfish) for chess-console, a fully functional online chess computer.
 
 ## Screenshot
 
@@ -23,9 +19,47 @@ chess computer.
 
 ## Installation
 
-- **Option 1:** Download from [GitHub](https://github.com/shaack/chess-console) and run `npm install` without
-  parameters, or
-- **Option 2:** Install the [npm package](https://www.npmjs.com/package/chess-console) with `npm install chess-console`
+### Option 1: Download from GitHub
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/shaack/chess-console.git
+    ```
+2. Navigate to the project directory and install dependencies:
+    ```sh
+    cd chess-console
+    npm install
+    ```
+
+### Option 2: Install via npm
+
+1. Install the npm package:
+    ```sh
+    npm install chess-console
+    ```
+
+## Usage
+
+### Initialization
+
+To initialize a new ChessConsole instance, you need to provide the context, player, opponent, and optional properties.
+
+```javascript
+import { ChessConsole } from 'chess-console';
+
+const context = document.getElementById('chess-console');
+// a LocalPlayer, that can be controlled by the user
+const player = { type: LocalPlayer, name: 'Player 1', props: {} };
+// an engine player, that playes random moves
+const opponent = { type: RandomPlayer, name: 'Player 2', props: {} };
+
+const chessConsole = new ChessConsole(context, player, opponent, {
+    locale: 'en',
+    playerColor: 'w',
+    pgn: undefined,
+    accessible: false
+});
+```
 
 ## Licenses
 
