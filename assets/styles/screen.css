@@ -447,22 +447,22 @@ svg.cm-chessboard .promotion-dialog-group .piece {
   .cm-chessboard .markers .marker.marker-circle-danger {
     stroke: #aa0000;
     stroke-width: 2.5px;
-    opacity: 0.4; }
+    opacity: 0.5; }
   .cm-chessboard .markers .marker.marker-square {
-    fill: black;
-    opacity: 0.11; }
+    fill: yellow;
+    opacity: 0.3; }
   .cm-chessboard .markers .marker.marker-square-danger {
     fill: #aa0000;
-    opacity: 0.11; }
+    opacity: 0.2; }
   .cm-chessboard .markers .marker.marker-square-primary {
     fill: #0009bd;
     opacity: 0.11; }
   .cm-chessboard .markers .marker.marker-dot {
     fill: black;
-    opacity: 0.19; }
+    opacity: 0.25; }
   .cm-chessboard .markers .marker.marker-bevel {
     fill: black;
-    opacity: 0.19; }
+    opacity: 0.25; }
 
 html body .container-fluid {
   max-width: 1200px; }

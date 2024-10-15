@@ -40,17 +40,17 @@ $marker-color-danger: #aa0000;
       &.marker-circle-danger {
         stroke: $marker-color-danger;
         stroke-width: 2.5px;
-        opacity: 0.4;
+        opacity: 0.5;
       }
 
       &.marker-square {
-        fill: black;
-        opacity: 0.11;
+        fill: yellow;
+        opacity: 0.3;
       }
 
       &.marker-square-danger {
         fill: $marker-color-danger;
-        opacity: 0.11;
+        opacity: 0.2;
       }
 
       &.marker-square-primary {
@@ -60,12 +60,12 @@ $marker-color-danger: #aa0000;
 
       &.marker-dot {
         fill: black;
-        opacity: 0.19;
+        opacity: 0.25;
       }
 
       &.marker-bevel {
         fill: black;
-        opacity: 0.19;
+        opacity: 0.25;
       }
 
     }
