@@ -5,15 +5,14 @@
  */
 
 import {Observe} from "cm-web-modules/src/observe/Observe.js"
-import {UiComponent} from "cm-web-modules/src/app/Component.js"
 import {COLOR} from "cm-chess/src/Chess.js"
 import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
 import {ChessRender} from "../tools/ChessRender.js"
 
-export class History extends UiComponent {
+export class History {
 
     constructor(chessConsole, props) {
-        super(chessConsole.componentContainers.left.querySelector(".chess-console-history"), props)
+        this.context = chessConsole.componentContainers.left.querySelector(".chess-console-history")
         this.chessConsole = chessConsole
         this.element = document.createElement("div")
         this.element.setAttribute("class", "history")

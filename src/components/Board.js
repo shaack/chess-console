@@ -8,7 +8,6 @@ import {Chessboard, COLOR, INPUT_EVENT_TYPE} from "cm-chessboard/src/Chessboard.
 import {FEN} from "cm-chessboard/src/model/Position.js"
 import {Markers} from "cm-chessboard/src/extensions/markers/Markers.js"
 import {Observe} from "cm-web-modules/src/observe/Observe.js"
-import {UiComponent} from "cm-web-modules/src/app/Component.js"
 import {CoreUtils} from "cm-web-modules/src/utils/CoreUtils.js"
 import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
 import {PromotionDialog} from "cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js"
@@ -25,10 +24,10 @@ export const CONSOLE_MARKER_TYPE = {
     legalMoveCapture: {class: "marker-bevel", slice: "markerBevel"}
 }
 
-export class Board extends UiComponent {
+export class Board {
 
     constructor(chessConsole, props = {}) {
-        super(chessConsole.componentContainers.board, props)
+        this.context = chessConsole.componentContainers.board
         chessConsole.components.board = this // register board component, to allow access to the promotion dialog
         this.initialized = new Promise((resolve) => {
             this.i18n = chessConsole.i18n

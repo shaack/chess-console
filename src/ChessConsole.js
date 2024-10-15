@@ -8,7 +8,6 @@ import {FEN} from "cm-chess/src/Chess.js"
 import {COLOR} from "cm-chessboard/src/Chessboard.js"
 import {I18n} from "cm-web-modules/src/i18n/I18n.js"
 import {MessageBroker} from "cm-web-modules/src/message-broker/MessageBroker.js"
-import {UiComponent} from "cm-web-modules/src/app/Component.js"
 import {piecesTranslations} from "cm-chessboard/src/extensions/accessibility/I18n.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
 import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
@@ -24,11 +23,12 @@ export const CONSOLE_MESSAGE_TOPICS = {
     load: "game/load"
 }
 
-export class ChessConsole extends UiComponent {
+export class ChessConsole {
 
     constructor(context, player, opponent, props = {},
                 state = new ChessConsoleState(props)) {
-        super(context, props, state)
+        this.context = context
+        this.state = state
         this.props = {
             locale: navigator.language, // locale for i18n
             playerColor: COLOR.white, // the players color (color at bottom)

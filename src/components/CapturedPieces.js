@@ -5,16 +5,14 @@
  */
 
 import {Observe} from "cm-web-modules/src/observe/Observe.js"
-import {UiComponent} from "cm-web-modules/src/app/Component.js"
 import {PIECES} from "cm-chess/src/Chess.js"
 import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
 
 const zeroWithSpace = "&#8203;"
 
-export class CapturedPieces extends UiComponent {
+export class CapturedPieces {
 
     constructor(chessConsole) {
-        super(chessConsole)
         this.chessConsole = chessConsole
         this.element = document.createElement("div")
         this.element.setAttribute("class", "captured-pieces")

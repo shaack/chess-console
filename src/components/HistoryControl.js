@@ -6,12 +6,10 @@
 
 import {Observe} from "cm-web-modules/src/observe/Observe.js"
 import {COLOR} from "cm-chessboard/src/Chessboard.js"
-import {UiComponent} from "cm-web-modules/src/app/Component.js"
 
-export class HistoryControl extends UiComponent {
+export class HistoryControl {
     constructor(chessConsole, props = {}) {
-        super(chessConsole.componentContainers.controlButtons)
-
+        this.context = chessConsole.componentContainers.controlButtons
         this.chessConsole = chessConsole
         const i18n = chessConsole.i18n
         this.props = {

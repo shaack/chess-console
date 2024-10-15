@@ -4,13 +4,12 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {UiComponent} from "cm-web-modules/src/app/Component.js"
 import {NewGameDialog} from "./NewGameDialog.js"
 
-export class GameControl extends UiComponent {
+export class GameControl {
 
     constructor(chessConsole, props) {
-        super(chessConsole.componentContainers.controlButtons, props)
+        this.context = chessConsole.componentContainers.controlButtons
         this.chessConsole = chessConsole
 
         const i18n = chessConsole.i18n
