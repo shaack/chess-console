@@ -7,11 +7,13 @@
 import {AudioSprite} from "cm-web-modules/src/audio/AudioSprite.js"
 import {Component} from "cm-web-modules/src/app/Component.js"
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
+import {createAudioContext} from "cm-web-modules/src/audio/Audio.js"
 
 export class Sound extends Component {
 
     constructor(chessConsole, props) {
         super(props)
+        createAudioContext()
         this.chessConsole = chessConsole
         this.audioSprite = new AudioSprite(this.props.soundSpriteFile,
             {
