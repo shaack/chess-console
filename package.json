@@ -26,12 +26,12 @@
   },
   "homepage": "https://github.com/shaack/chess-console#readme",
   "dependencies": {
-    "bootstrap-show-modal": "^6.0.8",
+    "bootstrap-show-modal": "^6.0.10",
     "chess.mjs": "^1.4.0",
     "cm-chess": "^3.5.1",
-    "cm-chessboard": "^8.7.4",
-    "cm-pgn": "^3.3.2",
-    "cm-web-modules": "^2.4.1",
+    "cm-chessboard": "^8.7.8",
+    "cm-pgn": "^3.3.3",
+    "cm-web-modules": "^2.4.4",
     "patch": "^0.0.1"
   }
 }
