@@ -26,7 +26,8 @@ export class RandomPlayer extends ChessConsolePlayer {
             const possibleMoves = this.chess.moves({verbose: true})
             if (possibleMoves.length > 0) {
                 const randomMove = possibleMoves[this.random(0, possibleMoves.length - 1)]
-                moveResponse({from: randomMove.from, to: randomMove.to})
+                console.log(randomMove)
+                moveResponse({from: randomMove.from, to: randomMove.to, promotion: randomMove.promotion})
             }
         }, this.props.delay)
     }
