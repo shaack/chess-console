@@ -11,6 +11,7 @@ export class GameControl {
     constructor(chessConsole, props) {
         this.context = chessConsole.componentContainers.controlButtons
         this.chessConsole = chessConsole
+        this.props = props
 
         const i18n = chessConsole.i18n
         i18n.load({
