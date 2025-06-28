@@ -24,9 +24,9 @@ export class GameStateOutput {
                     game_over: "The game is over",
                     check: "Check!",
                     checkmate: "Checkmate",
-                    draw: "Remis",
+                    draw: "Draw",
                     stalemate: "Stalemate",
-                    threefold_repetition: "Remis by threefold repetition"
+                    threefold_repetition: "Draw by threefold repetition"
                 }
             }
         )
