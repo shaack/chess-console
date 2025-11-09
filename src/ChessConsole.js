@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {FEN} from "cm-chess/src/Chess.js"
+import {FEN, GAME_VARIANT} from "cm-chess/src/Chess.js"
 import {COLOR} from "cm-chessboard/src/Chessboard.js"
 import {I18n} from "cm-web-modules/src/i18n/I18n.js"
 import {MessageBroker} from "cm-web-modules/src/message-broker/MessageBroker.js"
@@ -32,8 +32,9 @@ export class ChessConsole {
         this.props = {
             locale: navigator.language, // locale for i18n
             playerColor: COLOR.white, // the players color (color at bottom)
+            gameVariant: GAME_VARIANT.standard,
             pgn: undefined, // initial pgn, can contain header and history
-            accessible: false // render additional information to improve the usage for people using screen readers (beta)
+            accessible: false // render additional information to improve the usage for persons using screen readers
         }
         if (!this.props.figures) {
             this.props.figures = {
@@ -130,6 +131,7 @@ export class ChessConsole {
         this.state.orientation = this.props.playerColor
         if (props.pgn) {
             this.state.chess.loadPgn(props.pgn, true)
+            this.props.gameVariant = this.state.chess.props.gameVariant
             this.state.plyViewed = this.state.chess.plyCount()
         } else {
             this.state.chess.load(FEN.start)
