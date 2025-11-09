@@ -71,6 +71,7 @@ export class LocalPlayer extends ChessConsolePlayer {
         // const boardFen = this.chessConsole.components.board.chessboard.getPosition()
         const gameFen = this.chessConsole.state.chess.fen()
         if (this.chessConsole.playerToMove() === this) {
+            console.log("chessboardMoveInputCallback",event)
             if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
                 return this.validateMoveAndPromote(gameFen, event.squareFrom, event.squareTo, (moveResult) => {
                     let result
