@@ -98,10 +98,10 @@ export class History {
             this.element.innerHTML = "<h2 class='visually-hidden'>" + this.i18n.t("game_history") + "</h2>" +
                 "<table>" + output + "</table>"
             if (this.chessConsole.state.plyViewed > 0) {
-                const $ply = $(this.element).find('.ply' + this.chessConsole.state.plyViewed)
-                if ($ply.position()) {
+                const plyElement = this.element.querySelector('.ply' + this.chessConsole.state.plyViewed)
+                if (plyElement) {
                     this.element.scrollTop = 0
-                    this.element.scrollTop = ($ply.position().top - 68)
+                    this.element.scrollTop = plyElement.offsetTop - 68
                 }
             }
         })

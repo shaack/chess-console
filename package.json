@@ -16,8 +16,7 @@
     "chess",
     "stockfish",
     "chessboard",
-    "bootstrap",
-    "jquery"
+    "bootstrap"
   ],
   "author": "shaack (https://shaack.com)",
   "license": "MIT",

@@ -5,6 +5,7 @@
  */
 
 import {NewGameDialog} from "./NewGameDialog.js"
+import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
 
 export class GameControl {
 
@@ -25,16 +26,16 @@ export class GameControl {
             }
         }).then(() => {
 
-            this.$btnUndoMove = $(`<button type="button" title="${i18n.t('undo_move')}" class="btn btn-icon btn-light undoMove"><i class="fa fa-fw fa-undo-alt" aria-hidden="true"></i></button>`)
-            this.$btnStartNewGame = $(`<button type="button" title="${i18n.t('start_game')}" class="btn btn-icon btn-light startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>\`)`)
+            this.btnUndoMove = DomUtils.createElement(`<button type="button" title="${i18n.t('undo_move')}" class="btn btn-icon btn-light undoMove"><i class="fa fa-fw fa-undo-alt" aria-hidden="true"></i></button>`)
+            this.btnStartNewGame = DomUtils.createElement(`<button type="button" title="${i18n.t('start_game')}" class="btn btn-icon btn-light startNewGame"><i class="fa fa-fw fa-plus" aria-hidden="true"></i></button>`)
 
-            this.context.appendChild(this.$btnUndoMove[0])
-            this.context.appendChild(this.$btnStartNewGame[0])
+            this.context.appendChild(this.btnUndoMove)
+            this.context.appendChild(this.btnStartNewGame)
 
-            this.$btnUndoMove.click(() => {
+            this.btnUndoMove.addEventListener("click", () => {
                 this.chessConsole.undoMove()
             })
-            this.$btnStartNewGame.click(() => {
+            this.btnStartNewGame.addEventListener("click", () => {
                 this.showNewGameDialog()
             })
 
@@ -53,9 +54,9 @@ export class GameControl {
 
     setButtonStates() {
         if (this.chessConsole.state.chess.plyCount() < 2) {
-            this.$btnUndoMove.prop("disabled", true)
+            this.btnUndoMove.disabled = true
         } else {
-            this.$btnUndoMove.prop("disabled", false)
+            this.btnUndoMove.disabled = false
         }
     }
 
