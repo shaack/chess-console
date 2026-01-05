@@ -11,6 +11,7 @@ import {MessageBroker} from "cm-web-modules/src/message-broker/MessageBroker.js"
 import {piecesTranslations} from "cm-chessboard/src/extensions/accessibility/I18n.js"
 import {ChessConsoleState} from "./ChessConsoleState.js"
 import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
+import {html} from "./utils/html.js"
 
 export const CONSOLE_MESSAGE_TOPICS = {
     newGame: "game/new", // if a new game was startet
@@ -52,10 +53,10 @@ export class ChessConsole {
                 Pb: '<i class="fas fa-fw fa-chess-pawn fa-figure-black"></i>'
             }
         }
-        const colSets = {
-            consoleGame: "col-xl-7 order-xl-2 col-lg-8 order-lg-1 order-md-1 col-md-12",
-            consoleRight: "col-xl-3 order-xl-3 col-lg-4 order-lg-2 col-md-8 order-md-3",
-            consoleLeft: "col-xl-2 order-xl-1 order-lg-3 col-lg-12 col-md-4 order-md-2"
+        const layout = {
+            center: "col-xl-7 order-xl-2 col-lg-8 order-lg-1 order-md-1 col-md-12",
+            right: "col-xl-3 order-xl-3 col-lg-4 order-lg-2 col-md-8 order-md-3",
+            left: "col-xl-2 order-xl-1 order-lg-3 col-lg-12 col-md-4 order-md-2"
         }
         this.initialized = new Promise((resolve => {
             this.i18n = new I18n({locale: props.locale})
@@ -74,21 +75,17 @@ export class ChessConsole {
                 })
             })
         }))
-        /**
-         * @deprecated 2023-04-11 use this.initialized instead
-         */
-        this.initialization = this.initialized
         if (!this.props.template) {
-            this.props.template = `
+            this.props.template = html`
                 <div class="row chess-console">
-                    <div class="chess-console-center ${colSets.consoleGame}">
+                    <div class="chess-console-center ${layout.center}">
                         <div class="chess-console-board"></div>
                     </div>
-                    <div class="chess-console-right ${colSets.consoleRight}">
+                    <div class="chess-console-right ${layout.right}">
                         <div class="control-buttons buttons-grid mb-4"></div>
                         <div class="chess-console-notifications"></div>
                     </div>
-                    <div class="chess-console-left ${colSets.consoleLeft}">
+                    <div class="chess-console-left ${layout.left}">
                         <div class="row">
                             <div class="col-xl-12 col-lg-4 col-md-12 col-6">
                                 <div class="chess-console-history"></div>
@@ -98,7 +95,8 @@ export class ChessConsole {
                             </div>
                         </div>
                     </div>
-                </div>`
+                </div>
+            `
         }
         Object.assign(this.props, props)
         this.messageBroker = new MessageBroker()

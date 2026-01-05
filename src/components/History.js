@@ -8,6 +8,7 @@ import {Observe} from "cm-web-modules/src/observe/Observe.js"
 import {COLOR} from "cm-chess/src/Chess.js"
 import {DomUtils} from "cm-web-modules/src/utils/DomUtils.js"
 import {ChessRender} from "../tools/ChessRender.js"
+import {html} from "../utils/html.js"
 
 export class History {
 
@@ -59,44 +60,48 @@ export class History {
         this.element.classList.remove("clickable")
     }
 
+    getPlyClass(plyNumber) {
+        const plyViewed = this.chessConsole.state.plyViewed
+        if (plyViewed === plyNumber) return "active"
+        if (plyViewed < plyNumber) return "text-muted"
+        return ""
+    }
+
     redraw() {
         window.clearTimeout(this.redrawDebounce)
         this.redrawDebounce = setTimeout(() => {
             const history = this.chessConsole.state.chess.history()
-            let sanWhite
-            let sanBlack
-            let output = ""
-            let i
-            let rowClass = ""
-            let whiteClass = ""
-            let blackClass = ""
-            for (i = 0; i < history.length; i += 2) {
+            const rows = []
+
+            for (let i = 0; i < history.length; i += 2) {
+                const moveNumber = i / 2 + 1
+                const whitePly = i + 1
+                const blackPly = i + 2
+
                 const moveWhite = history[i]
-                if (moveWhite) {
-                    sanWhite = ChessRender.san(moveWhite.san, COLOR.white, this.chessConsole.i18n.lang, this.props.notationType, this.chessConsole.props.figures)
-                }
                 const moveBlack = history[i + 1]
-                if (moveBlack) {
-                    sanBlack = ChessRender.san(moveBlack.san, COLOR.black, this.chessConsole.i18n.lang, this.props.notationType, this.chessConsole.props.figures)
-                } else {
-                    sanBlack = ""
-                }
-                if (this.chessConsole.state.plyViewed < i + 1) {
-                    whiteClass = "text-muted"
-                }
-                if(this.chessConsole.state.plyViewed === i + 1) {
-                    whiteClass = "active"
-                }
-                if (this.chessConsole.state.plyViewed < i + 2) {
-                    blackClass = "text-muted"
-                }
-                if(this.chessConsole.state.plyViewed === i + 2) {
-                    blackClass = "active"
-                }
-                output += "<tr><td class='num " + rowClass + "'>" + (i / 2 + 1) + ".</td><td data-ply='" + (i + 1) + "' class='ply " + whiteClass + " ply" + (i + 1) + "'>" + sanWhite + "</td><td data-ply='" + (i + 2) + "' class='ply " + blackClass + " ply" + (i + 2) + "'>" + sanBlack + "</td></tr>"
+
+                const sanWhite = moveWhite
+                    ? ChessRender.san(moveWhite.san, COLOR.white, this.i18n.lang, this.props.notationType, this.chessConsole.props.figures)
+                    : ""
+                const sanBlack = moveBlack
+                    ? ChessRender.san(moveBlack.san, COLOR.black, this.i18n.lang, this.props.notationType, this.chessConsole.props.figures)
+                    : ""
+
+                rows.push(html`
+                    <tr>
+                        <td class="num">${moveNumber}.</td>
+                        <td data-ply="${whitePly}" class="ply ${this.getPlyClass(whitePly)} ply${whitePly}">${sanWhite}</td>
+                        <td data-ply="${blackPly}" class="ply ${this.getPlyClass(blackPly)} ply${blackPly}">${sanBlack}</td>
+                    </tr>
+                `)
             }
-            this.element.innerHTML = "<h2 class='visually-hidden'>" + this.i18n.t("game_history") + "</h2>" +
-                "<table>" + output + "</table>"
+
+            this.element.innerHTML = html`
+                <h2 class="visually-hidden">${this.i18n.t("game_history")}</h2>
+                <table>${rows}</table>
+            `
+
             if (this.chessConsole.state.plyViewed > 0) {
                 const plyElement = this.element.querySelector('.ply' + this.chessConsole.state.plyViewed)
                 if (plyElement) {

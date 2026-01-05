@@ -5,6 +5,7 @@
  */
 
 import {COLOR} from "cm-chess/src/Chess.js"
+import {html} from "../../utils/html.js"
 import "bootstrap-show-modal/src/ShowModal.js"
 
 export class NewGameDialog {
@@ -26,18 +27,36 @@ export class NewGameDialog {
             }
         }).then(() => {
             const newGameColor = module.persistence.loadValue("newGameColor")
+
+            const colorOptions = [
+                {value: "auto", label: i18n.t("auto")},
+                {value: "w", label: i18n.t("white")},
+                {value: "b", label: i18n.t("black")}
+            ]
+
             props.modalClass = "fade"
-            props.body =
-               `<form class="form"><div class="form-group row">
-                    <div class="col-3"><label for="color" class="col-form-label">${i18n.t("color")}</label></div>
-                    <div class="col-9"><select id="color" class="form-select">
-                        <option value="auto">${i18n.t("auto")}</option>
-                        <option value="w" ${newGameColor === "w" ? "selected" : ""}>${i18n.t("white")}</option>
-                        <option value="b" ${newGameColor === "b" ? "selected" : ""}>${i18n.t("black")}</option>
-                    </select></div>
-                </div></form>`
-            props.footer = `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${i18n.t("cancel")}</button>
-            <button type="submit" class="btn btn-primary">${i18n.t("ok")}</button>`
+            props.body = html`
+                <form class="form">
+                    <div class="form-group row">
+                        <div class="col-3">
+                            <label for="color" class="col-form-label">${i18n.t("color")}</label>
+                        </div>
+                        <div class="col-9">
+                            <select id="color" class="form-select">
+                                ${colorOptions.map(opt => html`
+                                    <option value="${opt.value}" ${opt.value === newGameColor ? "selected" : ""}>
+                                        ${opt.label}
+                                    </option>
+                                `)}
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            `
+            props.footer = html`
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${i18n.t("cancel")}</button>
+                <button type="submit" class="btn btn-primary">${i18n.t("ok")}</button>
+            `
             props.onCreate = (modal) => {
                 modal.element.querySelector("button[type='submit']").addEventListener("click", function (event) {
                     event.preventDefault()
