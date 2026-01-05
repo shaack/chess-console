@@ -7,6 +7,7 @@ import {COLOR, INPUT_EVENT_TYPE} from "cm-chessboard/src/Chessboard.js"
 import {Chess} from "chess.mjs/src/Chess.js"
 import {ChessConsolePlayer} from "../ChessConsolePlayer.js"
 import {CONSOLE_MESSAGE_TOPICS} from "../ChessConsole.js"
+import {PremoveManager} from "./PremoveManager.js"
 
 export class LocalPlayer extends ChessConsolePlayer {
 
@@ -16,149 +17,158 @@ export class LocalPlayer extends ChessConsolePlayer {
             allowPremoves: false
         }
         Object.assign(this.props, props)
-        this.premoves = []
+        this.premoveManager = new PremoveManager(chessConsole)
     }
 
     /**
-     * The return value returns, if valid or if is promotion.
-     * The callback returns the move.
+     * Validates a move and handles pawn promotion.
+     * @param {string} fen - Current position FEN
+     * @param {string} squareFrom - Source square
+     * @param {string} squareTo - Target square
+     * @param {Function} callback - Called with move result or null
+     * @returns {boolean} True if move is valid or promotion dialog shown
      */
     validateMoveAndPromote(fen, squareFrom, squareTo, callback) {
         const tmpChess = new Chess(fen)
-        let move = {from: squareFrom, to: squareTo}
+        const move = {from: squareFrom, to: squareTo}
         const moveResult = tmpChess.move(move)
+
         if (moveResult) {
             callback(moveResult)
             return true
-        } else { // is a promotion?
-            if (tmpChess.get(squareFrom) && tmpChess.get(squareFrom).type === "p") {
-                const possibleMoves = tmpChess.moves({square: squareFrom, verbose: true})
-                for (let possibleMove of possibleMoves) {
-                    if (possibleMove.to === squareTo && possibleMove.promotion) {
-                        const chessboard = this.chessConsole.components.board.chessboard
-                        chessboard.showPromotionDialog(squareTo, tmpChess.turn(), (event) => {
-                            console.log(event)
-                            if (event.piece) {
-                                move.promotion = event.piece.charAt(1)
-                                console.log(move)
-                                callback(tmpChess.move(move))
-                            } else {
-                                callback(null)
-                            }
-                        })
-                        return true
-                    }
+        }
+
+        // Check for promotion
+        const piece = tmpChess.get(squareFrom)
+        if (piece && piece.type === "p") {
+            const possibleMoves = tmpChess.moves({square: squareFrom, verbose: true})
+            for (const possibleMove of possibleMoves) {
+                if (possibleMove.to === squareTo && possibleMove.promotion) {
+                    this.showPromotionDialog(squareTo, tmpChess.turn(), move, tmpChess, callback)
+                    return true
                 }
             }
         }
+
         callback(null)
         return false
     }
 
     /**
-     * Handles the events from cm-chessboard
-     *
-     * INPUT_EVENT_TYPE.moveDone
-     * - validates Move, returns false, if not valid
-     * - does promotion
-     * - calls moveResponse()
-     *
-     * INPUT_EVENT_TYPE.moveStart
-     * - allowed only the right color to move
+     * Shows promotion dialog and executes move with selected piece.
+     */
+    showPromotionDialog(square, color, move, chess, callback) {
+        const chessboard = this.chessConsole.components.board.chessboard
+        chessboard.showPromotionDialog(square, color, (event) => {
+            if (event.piece) {
+                move.promotion = event.piece.charAt(1)
+                callback(chess.move(move))
+            } else {
+                callback(null)
+            }Mak
+        })
+    }
+
+    /**
+     * Handles move input events from cm-chessboard.
+     * @param {Object} event - Input event from chessboard
+     * @param {Function} moveResponse - Callback to report move result
      */
     chessboardMoveInputCallback(event, moveResponse) {
-        // if player can make move, make, if not store as premove
-        // const boardFen = this.chessConsole.components.board.chessboard.getPosition()
-        const gameFen = this.chessConsole.state.chess.fen()
-        if (this.chessConsole.playerToMove() === this) {
-            console.log("chessboardMoveInputCallback",event)
-            if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
-                return this.validateMoveAndPromote(gameFen, event.squareFrom, event.squareTo, (moveResult) => {
-                    let result
-                    if (moveResult) { // valid
-                        result = moveResponse(moveResult)
-                    } else { // not valid
-                        result = moveResponse({from: event.squareFrom, to: event.squareTo})
-                        this.premoves = []
-                        this.updatePremoveMarkers()
-                    }
-                    if (result) {
-                        if(!this.props.allowPremoves) {
-                            this.chessConsole.components.board.chessboard.disableMoveInput()
-                        }
-                    }
-                })
-            } else if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
-                if (this.chessConsole.state.plyViewed !== this.chessConsole.state.chess.plyCount()) {
-                    this.chessConsole.state.plyViewed = this.chessConsole.state.chess.plyCount()
-                    return false
-                } else {
-                    const possibleMoves = this.chessConsole.state.chess.moves({square: event.square})
-                    if(possibleMoves.length > 0) {
-                        return true
-                    } else {
-                        this.chessConsole.components.board.chessConsole.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.illegalMove, {
-                            move: {
-                                from: event.squareFrom
-                            }
-                        })
-                        return false
-                    }
-                }
-            }
+        const isPlayerTurn = this.chessConsole.playerToMove() === this
+
+        if (isPlayerTurn) {
+            return this.handlePlayerMove(event, moveResponse)
         } else {
-            // premoves
-            if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
-                this.premoves.push(event)
-                this.updatePremoveMarkers()
-            }
-            return true
+            return this.handlePremove(event)
         }
     }
 
-    moveRequest(fen, moveResponse) {
-        if(!this.contextMenuEvent) {
-            this.chessConsole.components.board.chessboard.context.addEventListener("contextmenu", (event) => {
-                event.preventDefault()
-                if(this.premoves.length > 0) {
-                    this.resetBoardPosition()
-                    this.premoves = []
-                    this.updatePremoveMarkers()
+    /**
+     * Handles move when it's the player's turn.
+     */
+    handlePlayerMove(event, moveResponse) {
+        if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
+            const gameFen = this.chessConsole.state.chess.fen()
+            return this.validateMoveAndPromote(gameFen, event.squareFrom, event.squareTo, (moveResult) => {
+                let result
+                if (moveResult) {
+                    result = moveResponse(moveResult)
+                } else {
+                    result = moveResponse({from: event.squareFrom, to: event.squareTo})
+                    this.premoveManager.clearQueue()
+                }
+                if (result && !this.props.allowPremoves) {
+                    this.chessConsole.components.board.chessboard.disableMoveInput()
                 }
             })
-            this.contextMenuEvent = true
         }
-        const color = this.chessConsole.state.chess.turn() === 'w' ? COLOR.white : COLOR.black
-        if (!this.chessConsole.state.chess.gameOver()) {
-            if (this.premoves.length > 0) {
-                // premove
-                const eventFromPremovesQueue = this.premoves.shift()
-                this.updatePremoveMarkers()
-                setTimeout(() => {
-                    this.chessboardMoveInputCallback(eventFromPremovesQueue, moveResponse)
-                }, 20)
-                return true
-            }
-            // normal move
-            if(!this.chessConsole.components.board.chessboard.isMoveInputEnabled()) {
-                this.chessConsole.components.board.chessboard.enableMoveInput(
-                    (event) => {
-                        return this.chessboardMoveInputCallback(event, moveResponse)
-                    }, color
-                )
-            }
+
+        if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
+            return this.handleMoveInputStarted(event)
         }
     }
 
-    updatePremoveMarkers() {
-        this.chessConsole.components.board.chessboard.removeMarkers(this.chessConsole.components.board.props.markers.premove)
-        for (const premove of this.premoves) {
-            this.chessConsole.components.board.chessboard.addMarker(this.chessConsole.components.board.props.markers.premove, premove.squareTo)
+    /**
+     * Handles the start of move input - validates if piece can be moved.
+     */
+    handleMoveInputStarted(event) {
+        // If viewing history, jump to current position
+        if (this.chessConsole.state.plyViewed !== this.chessConsole.state.chess.plyCount()) {
+            this.chessConsole.state.plyViewed = this.chessConsole.state.chess.plyCount()
+            return false
+        }
+
+        const possibleMoves = this.chessConsole.state.chess.moves({square: event.square})
+        if (possibleMoves.length > 0) {
+            return true
+        }
+
+        this.chessConsole.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.illegalMove, {
+            move: {from: event.squareFrom}
+        })
+        return false
+    }
+
+    /**
+     * Handles move input when it's not the player's turn (premove).
+     */
+    handlePremove(event) {
+        if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
+            this.premoveManager.add(event)
+        }
+        return true
+    }
+
+    /**
+     * Called when it's this player's turn to move.
+     * @param {string} fen - Current position FEN
+     * @param {Function} moveResponse - Callback to report move result
+     */
+    moveRequest(fen, moveResponse) {
+        this.premoveManager.initContextMenu()
+
+        if (this.chessConsole.state.chess.gameOver()) {
+            return
+        }
+
+        // Execute queued premove
+        if (this.premoveManager.hasPremoves()) {
+            const premoveEvent = this.premoveManager.shift()
+            setTimeout(() => {
+                this.chessboardMoveInputCallback(premoveEvent, moveResponse)
+            }, 20)
+            return
+        }
+
+        // Enable normal move input
+        const chessboard = this.chessConsole.components.board.chessboard
+        if (!chessboard.isMoveInputEnabled()) {
+            const color = this.chessConsole.state.chess.turn() === 'w' ? COLOR.white : COLOR.black
+            chessboard.enableMoveInput(
+                (event) => this.chessboardMoveInputCallback(event, moveResponse),
+                color
+            )
         }
     }
-
-    resetBoardPosition() {
-        this.chessConsole.components.board.chessboard.setPosition(this.chessConsole.state.chess.fen(), true)
-    }
-
 }
