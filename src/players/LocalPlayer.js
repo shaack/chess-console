@@ -65,7 +65,7 @@ export class LocalPlayer extends ChessConsolePlayer {
                 callback(chess.move(move))
             } else {
                 callback(null)
-            }Mak
+            }
         })
     }
 
