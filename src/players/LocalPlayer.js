@@ -97,6 +97,11 @@ export class LocalPlayer extends ChessConsolePlayer {
                 if (moveResult) {
                     result = moveResponse(moveResult)
                 } else {
+                    const targetPiece = event.chessboard.getPiece(event.squareTo)
+                    // Same-color targets are re-selection probes; legal Chess960 castling was handled above.
+                    if (targetPiece && targetPiece.charAt(0) === this.chessConsole.state.chess.turn()) {
+                        return
+                    }
                     result = moveResponse({from: event.squareFrom, to: event.squareTo})
                     this.premoveManager.clearQueue()
                 }
