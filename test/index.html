@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test chess-console</title>
+    <script type="importmap">
+        {
+            "imports": {
+                "cm-chessboard/": "../node_modules/cm-chessboard/",
+                "cm-web-modules/": "../node_modules/cm-web-modules/",
+                "chess.mjs/": "../node_modules/chess.mjs/",
+                "cm-pgn/": "../node_modules/cm-pgn/",
+                "cm-chess/": "../node_modules/cm-chess/"
+            }
+        }
+    </script>
+    <style>body {font-family: sans-serif}</style>
+</head>
+<body>
+<h1><a href="../">chess-console</a></h1>
+<p><i>Lightweight unit testing with <a href="https://github.com/shaack/teevi">Teevi</a></i>.</p>
+<script type="module">
+    import {teevi} from "../node_modules/teevi/src/teevi.js"
+    import "./TestLocalPlayer.js"
+    teevi.run()
+</script>
+</body>
+</html>
