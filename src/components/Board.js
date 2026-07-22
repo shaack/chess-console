@@ -142,10 +142,6 @@ export class Board {
                 resolve(this)
             })
         })
-        /**
-         * @deprecated 2023-04-11 use `this.initialized` instead
-         */
-        this.initialization = this.initialized
     }
 
     setPositionOfPlyViewed(animated = true) {
