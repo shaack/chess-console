@@ -47,7 +47,7 @@ export class History {
 
     addClickEvents() {
         this.clickHandler = DomUtils.delegate(this.element, "click", ".ply", (event) => {
-            const ply = parseInt(event.target.getAttribute("data-ply"), 10)
+            const ply = parseInt(event.target.closest(".ply").getAttribute("data-ply"), 10)
             if(ply <= this.chessConsole.state.chess.history().length) {
                 this.chessConsole.state.plyViewed = ply
             }
