@@ -22,7 +22,7 @@ export class HistoryControl {
                 "to_game_start": "Zum Spielstart",
                 "one_move_back": "Ein Zug zurück",
                 "one_move_forward": "Ein Zug weiter",
-                "to_last_move": "Zum letzen Zug",
+                "to_last_move": "Zum letzten Zug",
                 "auto_run": "Automatisch abspielen",
                 "turn_board": "Brett drehen"
             },
@@ -36,12 +36,12 @@ export class HistoryControl {
             }
         }).then(() => {
 
-            this.btnFirst = DomUtils.createElement(`<button type="button" title="${i18n.t('to_game_start')}" class="btn btn-link text-black first"><i class="fa fa-fw fa-fast-backward" aria-hidden="true"></i></button>`)
-            this.btnBack = DomUtils.createElement(`<button type="button" title="${i18n.t('one_move_back')}" class="btn btn-link text-black back"><i class="fa fa-fw fa-step-backward" aria-hidden="true"></i></button>`)
-            this.btnForward = DomUtils.createElement(`<button type="button" title="${i18n.t('one_move_forward')}" class="btn btn-link text-black forward"><i class="fa fa-fw fa-step-forward" aria-hidden="true"></i></button>`)
-            this.btnLast = DomUtils.createElement(`<button type="button" title="${i18n.t('to_last_move')}" class="btn btn-link text-black last"><i class="fa fa-fw fa-fast-forward" aria-hidden="true"></i></button>`)
-            this.btnAutoplay = DomUtils.createElement(`<button type="button" title="${i18n.t('auto_run')}" class="btn btn-link text-black autoplay"><i class="fa fa-fw fa-play" aria-hidden="true"></i><i class="fa fa-fw fa-stop" aria-hidden="true"></i></button>`)
-            this.btnOrientation = DomUtils.createElement(`<button type="button" title="${i18n.t('turn_board')}" class="btn btn-link text-black orientation"><i class="fa fa-fw fa-exchange-alt fa-rotate-90" aria-hidden="true"></i></button>`)
+            this.btnFirst = DomUtils.createElement(`<button type="button" title="${i18n.t('to_game_start')}" aria-label="${i18n.t('to_game_start')}" class="btn btn-link text-black first"><i class="fa fa-fw fa-fast-backward" aria-hidden="true"></i></button>`)
+            this.btnBack = DomUtils.createElement(`<button type="button" title="${i18n.t('one_move_back')}" aria-label="${i18n.t('one_move_back')}" class="btn btn-link text-black back"><i class="fa fa-fw fa-step-backward" aria-hidden="true"></i></button>`)
+            this.btnForward = DomUtils.createElement(`<button type="button" title="${i18n.t('one_move_forward')}" aria-label="${i18n.t('one_move_forward')}" class="btn btn-link text-black forward"><i class="fa fa-fw fa-step-forward" aria-hidden="true"></i></button>`)
+            this.btnLast = DomUtils.createElement(`<button type="button" title="${i18n.t('to_last_move')}" aria-label="${i18n.t('to_last_move')}" class="btn btn-link text-black last"><i class="fa fa-fw fa-fast-forward" aria-hidden="true"></i></button>`)
+            this.btnAutoplay = DomUtils.createElement(`<button type="button" title="${i18n.t('auto_run')}" aria-label="${i18n.t('auto_run')}" class="btn btn-link text-black autoplay"><i class="fa fa-fw fa-play" aria-hidden="true"></i><i class="fa fa-fw fa-stop" aria-hidden="true"></i></button>`)
+            this.btnOrientation = DomUtils.createElement(`<button type="button" title="${i18n.t('turn_board')}" aria-label="${i18n.t('turn_board')}" class="btn btn-link text-black orientation"><i class="fa fa-fw fa-exchange-alt fa-rotate-90" aria-hidden="true"></i></button>`)
 
             this.context.appendChild(this.btnFirst)
             this.context.appendChild(this.btnBack)
