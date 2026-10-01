@@ -5,8 +5,7 @@
   "browser": "index.html",
   "type": "module",
   "scripts": {
-    "test": "echo 'Run test/index.html in your browser for unit testing, or `npm run test:headless` (needs a global puppeteer).'; exit 0",
-    "test:headless": "node test/headless.mjs"
+    "test": "teevi"
   },
   "repository": {
     "type": "git",
@@ -35,6 +34,6 @@
     "patch": "^0.0.1"
   },
   "devDependencies": {
-    "teevi": "^2.4.1"
+    "teevi": "^2.7.0"
   }
 }
