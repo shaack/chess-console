@@ -103,7 +103,6 @@ export class LocalPlayer extends ChessConsolePlayer {
                         return
                     }
                     result = moveResponse({from: event.squareFrom, to: event.squareTo})
-                    this.premoveManager.clearQueue()
                 }
                 if (result && !this.props.allowPremoves) {
                     this.chessConsole.components.board.chessboard.disableMoveInput()
@@ -139,10 +138,39 @@ export class LocalPlayer extends ChessConsolePlayer {
 
     /**
      * Handles move input when it's not the player's turn (premove).
+     * The premove is only marked, the piece stays on its square (Lichess style).
      */
     handlePremove(event) {
         if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
-            this.premoveManager.add(event)
+            this.premoveManager.set(event)
+            // A click on an own piece as target would let cm-chessboard select that piece
+            // after the rejected move. Suppress this, the click was the premove target,
+            // e.g. for a recapture.
+            this.premoveTargetSquare = event.squareTo
+            setTimeout(() => {
+                this.premoveTargetSquare = null
+            })
+            return false
+        }
+        if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
+            return event.square !== this.premoveTargetSquare
+        }
+        return true
+    }
+
+    /**
+     * Executes the premove, if it is still legal. Promotes to a queen without a dialog.
+     * @returns {boolean} True, if the premove was executed
+     */
+    executePremove(premove, moveResponse) {
+        const isChess960 = this.chessConsole.state.chess.props.gameVariant === GAME_VARIANT.chess960
+        const tmpChess = new Chess(this.chessConsole.state.chess.fen(), isChess960 ? {chess960: true} : undefined)
+        const moveResult = tmpChess.move({from: premove.squareFrom, to: premove.squareTo, promotion: "q"})
+        if (!moveResult) {
+            return false
+        }
+        if (moveResponse(moveResult) && !this.props.allowPremoves) {
+            this.chessConsole.components.board.chessboard.disableMoveInput()
         }
         return true
     }
@@ -153,22 +181,31 @@ export class LocalPlayer extends ChessConsolePlayer {
      * @param {Function} moveResponse - Callback to report move result
      */
     moveRequest(fen, moveResponse) {
-        this.premoveManager.initContextMenu()
+        this.premoveManager.initListeners()
 
         if (this.chessConsole.state.chess.gameOver()) {
+            this.premoveManager.clear()
             return
         }
 
-        // Execute queued premove
-        if (this.premoveManager.hasPremoves()) {
-            const premoveEvent = this.premoveManager.shift()
+        // Execute the premove, an illegal one is dropped silently
+        const premove = this.premoveManager.take()
+        if (premove) {
             setTimeout(() => {
-                this.chessboardMoveInputCallback(premoveEvent, moveResponse)
+                if (!this.executePremove(premove, moveResponse)) {
+                    this.enableMoveInput(moveResponse)
+                }
             }, 20)
             return
         }
 
-        // Enable normal move input
+        this.enableMoveInput(moveResponse)
+    }
+
+    /**
+     * Enables the normal move input, if not already enabled.
+     */
+    enableMoveInput(moveResponse) {
         const chessboard = this.chessConsole.components.board.chessboard
         if (!chessboard.isMoveInputEnabled()) {
             const color = this.chessConsole.state.chess.turn() === 'w' ? COLOR.white : COLOR.black

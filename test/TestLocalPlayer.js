@@ -81,13 +81,47 @@ describe("TestLocalPlayer", () => {
         assert.equal(cc.published[0].topic, CONSOLE_MESSAGE_TOPICS.illegalMove)
     })
 
-    it("should queue a premove when it is not the player's turn", () => {
+    it("should set a premove but not move the piece when it is not the player's turn", () => {
         const player = new LocalPlayer(mockConsole(), "player", {})
         const result = player.chessboardMoveInputCallback(
             {type: INPUT_EVENT_TYPE.validateMoveInput, squareFrom: "e2", squareTo: "e4"},
             () => {})
-        assert.equal(result, true)
-        assert.equal(player.premoveManager.hasPremoves(), true)
+        assert.equal(result, false) // false keeps the piece on its square
+        assert.equal(player.premoveManager.hasPremove(), true)
+    })
+
+    it("should not select an own piece that was clicked as premove target", () => {
+        const player = new LocalPlayer(mockConsole(), "player", {})
+        player.chessboardMoveInputCallback(validateEvent("d1", "d2", "wp"), () => {})
+        // cm-chessboard starts a new input on the target after the rejected move
+        const started = player.chessboardMoveInputCallback(
+            {type: INPUT_EVENT_TYPE.moveInputStarted, square: "d2"}, () => {})
+        assert.equal(started, false)
+        assert.equal(player.premoveManager.premove.squareTo, "d2")
+    })
+
+    it("should execute a premove promotion as queen without a dialog", () => {
+        const chess = new Chess("6k1/1P5p/8/8/8/8/8/K7 w - - 0 1")
+        const player = new LocalPlayer(mockConsole({chess}), "player", {allowPremoves: true})
+        let reported
+        const executed = player.executePremove({squareFrom: "b7", squareTo: "b8"}, (move) => {
+            reported = move
+            return true
+        })
+        assert.equal(executed, true)
+        assert.equal(reported.promotion, "q")
+        assert.equal(reported.san, "b8=Q+")
+    })
+
+    it("should drop a premove that became illegal", () => {
+        const chess = new Chess("6k1/1P5p/8/8/8/8/8/K7 w - - 0 1")
+        const player = new LocalPlayer(mockConsole({chess}), "player", {allowPremoves: true})
+        let reported = false
+        const executed = player.executePremove({squareFrom: "a1", squareTo: "a3"}, () => {
+            reported = true
+        })
+        assert.equal(executed, false)
+        assert.equal(reported, false)
     })
 
 })

@@ -46,7 +46,7 @@ No automated tests are currently configured (`npm test` is not implemented).
 - Human player controlled via chessboard drag-and-drop
 - Handles move input events from cm-chessboard
 - Supports promotion dialogs via `validateMoveAndPromote()`
-- Implements premove support (optional via props.allowPremoves)
+- Implements premove support (optional via props.allowPremoves), Lichess style: one premove, marked on start and target square, the piece stays on its square, promotion to a queen
 - Enables/disables chessboard move input based on turn
 
 **RandomPlayer** (`src/players/RandomPlayer.js`)

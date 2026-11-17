@@ -10,48 +10,54 @@ import {mockConsole} from "./mocks/ConsoleMock.js"
 
 describe("TestPremoveManager", () => {
 
-    it("should queue, report and shift premoves", () => {
+    it("should set, report and take a premove", () => {
         const cc = mockConsole()
         const pm = new PremoveManager(cc)
-        assert.equal(pm.hasPremoves(), false)
+        assert.equal(pm.hasPremove(), false)
 
-        pm.add({squareFrom: "e2", squareTo: "e4"})
-        assert.equal(pm.hasPremoves(), true)
-        assert.equal(pm.queue.length, 1)
+        pm.set({squareFrom: "e2", squareTo: "e4"})
+        assert.equal(pm.hasPremove(), true)
 
-        const event = pm.shift()
-        assert.equal(event.squareTo, "e4")
-        assert.equal(pm.hasPremoves(), false)
+        const premove = pm.take()
+        assert.equal(premove.squareFrom, "e2")
+        assert.equal(premove.squareTo, "e4")
+        assert.equal(pm.hasPremove(), false)
+        assert.equal(pm.take(), null)
     })
 
-    it("should draw a marker for every queued premove", () => {
+    it("should replace an existing premove", () => {
         const cc = mockConsole()
         const pm = new PremoveManager(cc)
-        pm.add({squareFrom: "e2", squareTo: "e4"})
-        pm.add({squareFrom: "d2", squareTo: "d4"})
+        pm.set({squareFrom: "e2", squareTo: "e4"})
+        pm.set({squareFrom: "d2", squareTo: "d4"})
+        assert.equal(pm.take().squareTo, "d4")
+        assert.equal(pm.hasPremove(), false)
+    })
+
+    it("should mark start and target square of the premove", () => {
+        const cc = mockConsole()
+        const pm = new PremoveManager(cc)
+        pm.set({squareFrom: "e2", squareTo: "e4"})
         const calls = cc.components.board.chessboard.calls
-        // every updateMarkers() first clears, then re-adds all queued markers
-        assert.true(calls.removeMarkers.length >= 2)
-        assert.equal(calls.addMarker[calls.addMarker.length - 1].square, "d4")
+        assert.equal(calls.addMarker.length, 2)
+        assert.equal(calls.addMarker[0].square, "e2")
+        assert.equal(calls.addMarker[1].square, "e4")
     })
 
-    it("clearQueue should empty the queue without resetting the board", () => {
+    it("should remember the color of the premoved piece", () => {
         const cc = mockConsole()
         const pm = new PremoveManager(cc)
-        pm.add({squareTo: "e4"})
-        pm.add({squareTo: "d4"})
-        pm.clearQueue()
-        assert.equal(pm.hasPremoves(), false)
-        assert.equal(cc.components.board.chessboard.calls.setPosition.length, 0)
+        pm.set({squareFrom: "e2", squareTo: "e4", chessboard: {getPiece: () => "wp"}})
+        assert.equal(pm.premove.color, "w")
     })
 
-    it("clear should empty the queue and reset the board position", () => {
+    it("clear should remove the premove without touching the board position", () => {
         const cc = mockConsole()
         const pm = new PremoveManager(cc)
-        pm.add({squareTo: "e4"})
+        pm.set({squareFrom: "e2", squareTo: "e4"})
         pm.clear()
-        assert.equal(pm.hasPremoves(), false)
-        assert.equal(cc.components.board.chessboard.calls.setPosition.length, 1)
+        assert.equal(pm.hasPremove(), false)
+        assert.equal(cc.components.board.chessboard.calls.setPosition.length, 0)
     })
 
 })

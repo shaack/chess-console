@@ -97,7 +97,7 @@ Open any HTML file in the `examples/` directory directly in a browser (requires 
 - Human player controlled via chessboard drag-and-drop
 - Handles move input events from cm-chessboard
 - Supports promotion dialogs via `validateMoveAndPromote()`
-- Implements premove support (optional via props.allowPremoves)
+- Implements premove support (optional via props.allowPremoves), Lichess style: one premove, marked on start and target square, the piece stays on its square, promotion to a queen
 - Enables/disables chessboard move input based on turn
 
 **RandomPlayer** (`src/players/RandomPlayer.js`)

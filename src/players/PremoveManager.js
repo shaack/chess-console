@@ -5,80 +5,99 @@
  */
 
 /**
- * Manages premove queue and markers for LocalPlayer.
- * Premoves allow players to queue moves while waiting for opponent.
+ * Manages the premove of a LocalPlayer, Lichess style.
+ * There is at most one premove. The board keeps showing the real position, the
+ * premove is only marked on its start and target square. A new premove replaces
+ * the old one, a click on a square without an own piece or a right click cancels it.
  */
 export class PremoveManager {
 
     constructor(chessConsole) {
         this.chessConsole = chessConsole
-        this.queue = []
-        this.contextMenuInitialized = false
+        this.premove = null
+        this.listenersInitialized = false
     }
 
     /**
-     * Initialize context menu handler to clear premoves on right-click.
+     * Initialize the listeners that cancel the premove.
      * Only initializes once per instance.
      */
-    initContextMenu() {
-        if (this.contextMenuInitialized) return
+    initListeners() {
+        if (this.listenersInitialized) return
 
         const chessboard = this.chessConsole.components.board.chessboard
         chessboard.context.addEventListener("contextmenu", (event) => {
             event.preventDefault()
-            if (this.queue.length > 0) {
+            this.clear()
+        })
+        // capture phase, so this runs before cm-chessboard handles the pointerdown
+        const pointerDownListener = (event) => {
+            if (!this.premove || event.type === "mousedown" && event.button !== 0) return
+            const square = event.target.getAttribute && event.target.getAttribute("data-square")
+            if (!square || chessboard.view.visualMoveInput.moveInputState !== "waitForInputStart") {
+                // not on the board, or the click completes a move input, which sets a new premove
+                return
+            }
+            const piece = chessboard.getPiece(square)
+            if (!piece || piece.charAt(0) !== this.premove.color) {
                 this.clear()
             }
-        })
-        this.contextMenuInitialized = true
+        }
+        chessboard.context.addEventListener("mousedown", pointerDownListener, true)
+        chessboard.context.addEventListener("touchstart", pointerDownListener, true)
+        this.listenersInitialized = true
     }
 
     /**
-     * Add a premove event to the queue.
-     * @param {Object} event - The move input event from cm-chessboard
+     * Set the premove, replacing an existing one.
+     * @param {Object} event - The validateMoveInput event from cm-chessboard
      */
-    add(event) {
-        this.queue.push(event)
+    set(event) {
+        const piece = event.chessboard ? event.chessboard.getPiece(event.squareFrom) : null
+        this.premove = {
+            squareFrom: event.squareFrom,
+            squareTo: event.squareTo,
+            color: piece ? piece.charAt(0) : null
+        }
         this.updateMarkers()
     }
 
     /**
-     * Get and remove the next premove from the queue.
-     * @returns {Object|undefined} The next premove event, or undefined if queue is empty
+     * Get and remove the premove.
+     * @returns {Object|null} The premove {squareFrom, squareTo, color}, or null
      */
-    shift() {
-        const event = this.queue.shift()
-        this.updateMarkers()
-        return event
+    take() {
+        const premove = this.premove
+        this.clear()
+        return premove
     }
 
     /**
-     * Check if there are premoves in the queue.
-     * @returns {boolean}
+     * @returns {boolean} True, if a premove is set
      */
-    hasPremoves() {
-        return this.queue.length > 0
+    hasPremove() {
+        return this.premove !== null
     }
 
     /**
-     * Clear all premoves and reset board position.
+     * Remove the premove. The board position needs no reset, because a premove
+     * never moves a piece on the board.
      */
     clear() {
-        this.queue = []
+        if (!this.premove) return
+        this.premove = null
         this.updateMarkers()
-        this.resetBoardPosition()
     }
 
     /**
-     * Clear premoves without resetting board position.
+     * @deprecated since 7.1.0, use clear()
      */
     clearQueue() {
-        this.queue = []
-        this.updateMarkers()
+        this.clear()
     }
 
     /**
-     * Update visual markers on the board for queued premoves.
+     * Mark start and target square of the premove.
      */
     updateMarkers() {
         const board = this.chessConsole.components.board
@@ -86,17 +105,9 @@ export class PremoveManager {
         const premoveMarker = board.props.markers.premove
 
         chessboard.removeMarkers(premoveMarker)
-        for (const premove of this.queue) {
-            chessboard.addMarker(premoveMarker, premove.squareTo)
+        if (this.premove) {
+            chessboard.addMarker(premoveMarker, this.premove.squareFrom)
+            chessboard.addMarker(premoveMarker, this.premove.squareTo)
         }
-    }
-
-    /**
-     * Reset board position to current game state.
-     */
-    resetBoardPosition() {
-        const chessboard = this.chessConsole.components.board.chessboard
-        const fen = this.chessConsole.state.chess.fen()
-        chessboard.setPosition(fen, true)
     }
 }
