@@ -71,3 +71,19 @@ $marker-color-danger: #aa0000;
     }
   }
 }
+
+// the premove arrow (CONSOLE_ARROW_TYPE.premove), very pale in the color of the premove marker
+.cm-chessboard {
+  .arrow-premove {
+    .arrow-head {
+      fill: $marker-color-primary;
+      opacity: 0.2;
+    }
+
+    .arrow-line {
+      stroke: $marker-color-primary;
+      stroke-linecap: round;
+      opacity: 0.2;
+    }
+  }
+}

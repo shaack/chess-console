@@ -45,6 +45,7 @@
     import {Persistence} from "../src/components/Persistence.js"
     import {Sound} from "../src/components/Sound.js"
     import {LocalPlayer} from "../src/players/LocalPlayer.js"
+    import {Arrows} from "cm-chessboard/src/extensions/arrows/Arrows.js"
 
     new ChessConsole(
         document.getElementById("console-container"),
@@ -57,7 +58,8 @@
     ).initialized.then((chessConsole) => {
         new Board(chessConsole, {
             assetsUrl: "../node_modules/cm-chessboard/assets/"
-        }).initialized.then(() => {
+        }).initialized.then((board) => {
+            board.chessboard.addExtension(Arrows) // shows premoves as arrow
             new Persistence(chessConsole, {
                 savePrefix: "RandomPlayer"
             }).load()

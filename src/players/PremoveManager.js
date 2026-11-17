@@ -7,7 +7,8 @@
 /**
  * Manages the premove of a LocalPlayer, Lichess style.
  * There is at most one premove. The board keeps showing the real position, the
- * premove is only marked on its start and target square. A new premove replaces
+ * premove is only marked on its start and target square, plus an arrow if the
+ * board has the cm-chessboard Arrows extension. A new premove replaces
  * the old one, a click on a square without an own piece or a right click cancels it.
  */
 export class PremoveManager {
@@ -108,6 +109,14 @@ export class PremoveManager {
         if (this.premove) {
             chessboard.addMarker(premoveMarker, this.premove.squareFrom)
             chessboard.addMarker(premoveMarker, this.premove.squareTo)
+        }
+        // a pale arrow, if the board has the Arrows extension
+        const premoveArrow = board.props.arrows ? board.props.arrows.premove : null
+        if (premoveArrow && chessboard.addArrow) {
+            chessboard.removeArrows(premoveArrow)
+            if (this.premove) {
+                chessboard.addArrow(premoveArrow, this.premove.squareFrom, this.premove.squareTo)
+            }
         }
     }
 }
