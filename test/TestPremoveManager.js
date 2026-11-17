@@ -44,24 +44,6 @@ describe("TestPremoveManager", () => {
         assert.equal(calls.addMarker[1].square, "e4")
     })
 
-    it("should draw an arrow, if the board has the Arrows extension", () => {
-        const cc = mockConsole()
-        const chessboard = cc.components.board.chessboard
-        const arrows = []
-        chessboard.addArrow = (type, from, to) => arrows.push({type, from, to})
-        chessboard.removeArrows = () => arrows.length = 0
-        cc.components.board.props.arrows = {premove: "premoveArrow"}
-        const pm = new PremoveManager(cc)
-        pm.set({squareFrom: "e2", squareTo: "e4"})
-        assert.equal(arrows.length, 1)
-        assert.equal(arrows[0].from + arrows[0].to, "e2e4")
-        pm.set({squareFrom: "d2", squareTo: "d4"})
-        assert.equal(arrows.length, 1)
-        assert.equal(arrows[0].from + arrows[0].to, "d2d4")
-        pm.clear()
-        assert.equal(arrows.length, 0)
-    })
-
     it("should remember the color of the premoved piece", () => {
         const cc = mockConsole()
         const pm = new PremoveManager(cc)

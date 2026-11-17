@@ -24,11 +24,6 @@ export const CONSOLE_MARKER_TYPE = {
     legalMoveCapture: {class: "marker-bevel", slice: "markerBevel"}
 }
 
-// Drawn only if the board has the cm-chessboard Arrows extension
-export const CONSOLE_ARROW_TYPE = {
-    premove: {class: "arrow-premove"}
-}
-
 export class Board {
 
     constructor(chessConsole, props = {}) {
@@ -94,9 +89,6 @@ export class Board {
                         premove: CONSOLE_MARKER_TYPE.premove,
                         legalMove: CONSOLE_MARKER_TYPE.legalMove,
                         legalMoveCapture: CONSOLE_MARKER_TYPE.legalMoveCapture
-                    },
-                    arrows: {
-                        premove: CONSOLE_ARROW_TYPE.premove
                     },
                     extensions: [{class: PromotionDialog}, {
                         class: ChessConsoleMarkers, props: {
