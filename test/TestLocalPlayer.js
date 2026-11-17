@@ -81,6 +81,24 @@ describe("TestLocalPlayer", () => {
         assert.equal(cc.published[0].topic, CONSOLE_MESSAGE_TOPICS.illegalMove)
     })
 
+    it("should move the pawn back when the promotion dialog is canceled", () => {
+        const chess = new Chess("6k1/1P5p/8/8/8/8/8/K7 w - - 0 1")
+        const cc = mockConsole({chess, playerToMove: () => player})
+        cc.components.board.chessboard.showPromotionDialog = (square, color, callback) => {
+            callback({type: "canceled"})
+        }
+        const player = new LocalPlayer(cc, "player", {})
+        let reported = false
+        player.chessboardMoveInputCallback(validateEvent("b7", "b8", "wp"), () => {
+            reported = true
+        })
+        assert.equal(reported, false)
+        assert.equal(cc.published.length, 0) // no illegalMove
+        const setPosition = cc.components.board.chessboard.calls.setPosition
+        assert.equal(setPosition.length, 1)
+        assert.equal(setPosition[0].fen, chess.fen())
+    })
+
     it("should set a premove but not move the piece when it is not the player's turn", () => {
         const player = new LocalPlayer(mockConsole(), "player", {})
         const result = player.chessboardMoveInputCallback(

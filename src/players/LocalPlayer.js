@@ -66,7 +66,9 @@ export class LocalPlayer extends ChessConsolePlayer {
                 move.promotion = event.piece.charAt(1)
                 callback(chess.move(move))
             } else {
-                callback(null)
+                // Canceled: cm-chessboard already moved the pawn to the promotion square, move it back.
+                // Not reported as illegal move, the player just changed their mind.
+                chessboard.setPosition(this.chessConsole.state.chess.fen(), true)
             }
         })
     }
