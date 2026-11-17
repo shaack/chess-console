@@ -9,7 +9,7 @@
 
 // A cm-chessboard stand-in that records the calls made against it.
 export function mockChessboard(pieces = {}) {
-    const calls = {removeMarkers: [], addMarker: [], setPosition: [], disableMoveInput: 0}
+    const calls = {removeMarkers: [], addMarker: [], setPosition: [], disableMoveInput: 0, enableMoveInput: []}
     return {
         calls,
         getPiece: (square) => pieces[square] || null,
@@ -18,15 +18,16 @@ export function mockChessboard(pieces = {}) {
         setPosition: (fen, animated) => calls.setPosition.push({fen, animated}),
         disableMoveInput: () => { calls.disableMoveInput++ },
         isMoveInputEnabled: () => false,
-        enableMoveInput: () => {},
+        enableMoveInput: (handler, color) => calls.enableMoveInput.push({handler, color}),
         context: {addEventListener: () => {}}
     }
 }
 
 // A ChessConsole stand-in. `chess` should be an object exposing at least
 // fen()/turn(); pass a real cm-chess/chess.mjs instance or a small fake.
-export function mockConsole({chess, chessboard, playerToMove} = {}) {
+export function mockConsole({chess, chessboard, playerToMove, playerWhite} = {}) {
     const published = []
+    const subscribers = {}
     const board = chessboard || mockChessboard()
     return {
         published,
@@ -40,7 +41,14 @@ export function mockConsole({chess, chessboard, playerToMove} = {}) {
                 chessboard: board
             }
         },
-        messageBroker: {publish: (topic, data) => published.push({topic, data})},
-        playerToMove: playerToMove || (() => null)
+        messageBroker: {
+            publish: (topic, data) => {
+                published.push({topic, data});
+                (subscribers[topic] || []).forEach((callback) => callback(data))
+            },
+            subscribe: (topic, callback) => (subscribers[topic] = subscribers[topic] || []).push(callback)
+        },
+        playerToMove: playerToMove || (() => null),
+        playerWhite: playerWhite || (() => null)
     }
 }

@@ -99,6 +99,26 @@ describe("TestLocalPlayer", () => {
         assert.equal(setPosition[0].fen, chess.fen())
     })
 
+    it("should enable the move input for a premove as black before the first move of white", () => {
+        const cc = mockConsole()
+        const player = new LocalPlayer(cc, "player", {allowPremoves: true})
+        const opponent = {}
+        cc.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.moveRequest, {playerToMove: opponent})
+        const enabled = cc.components.board.chessboard.calls.enableMoveInput
+        assert.equal(enabled.length, 1)
+        assert.equal(enabled[0].color, "b")
+        // a premove can be set now
+        enabled[0].handler({type: INPUT_EVENT_TYPE.validateMoveInput, squareFrom: "e7", squareTo: "e5"})
+        assert.equal(player.premoveManager.hasPremove(), true)
+    })
+
+    it("should not enable the move input in the opponent's turn without allowPremoves", () => {
+        const cc = mockConsole()
+        new LocalPlayer(cc, "player", {})
+        cc.messageBroker.publish(CONSOLE_MESSAGE_TOPICS.moveRequest, {playerToMove: {}})
+        assert.equal(cc.components.board.chessboard.calls.enableMoveInput.length, 0)
+    })
+
     it("should set a premove but not move the piece when it is not the player's turn", () => {
         const player = new LocalPlayer(mockConsole(), "player", {})
         const result = player.chessboardMoveInputCallback(

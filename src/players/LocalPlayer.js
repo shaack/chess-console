@@ -19,6 +19,14 @@ export class LocalPlayer extends ChessConsolePlayer {
         }
         Object.assign(this.props, props)
         this.premoveManager = new PremoveManager(chessConsole)
+        this.moveResponse = undefined
+        // Premoves need the move input while the opponent is to move, e.g. as black
+        // before the first move of white, or after a reload in the opponent's turn
+        chessConsole.messageBroker.subscribe(CONSOLE_MESSAGE_TOPICS.moveRequest, (data) => {
+            if (this.props.allowPremoves && data.playerToMove !== this) {
+                this.enableMoveInput()
+            }
+        })
     }
 
     /**
@@ -188,6 +196,7 @@ export class LocalPlayer extends ChessConsolePlayer {
      * @param {Function} moveResponse - Callback to report move result
      */
     moveRequest(fen, moveResponse) {
+        this.moveResponse = moveResponse
         this.premoveManager.initListeners()
 
         if (this.chessConsole.state.chess.gameOver()) {
@@ -200,24 +209,26 @@ export class LocalPlayer extends ChessConsolePlayer {
         if (premove) {
             setTimeout(() => {
                 if (!this.executePremove(premove, moveResponse)) {
-                    this.enableMoveInput(moveResponse)
+                    this.enableMoveInput()
                 }
             }, 20)
             return
         }
 
-        this.enableMoveInput(moveResponse)
+        this.enableMoveInput()
     }
 
     /**
-     * Enables the normal move input, if not already enabled.
+     * Enables the move input for the own color, if not already enabled. The handler
+     * reads this.moveResponse when called, so it stays valid across move requests.
      */
-    enableMoveInput(moveResponse) {
-        const chessboard = this.chessConsole.components.board.chessboard
-        if (!chessboard.isMoveInputEnabled()) {
-            const color = this.chessConsole.state.chess.turn() === 'w' ? COLOR.white : COLOR.black
+    enableMoveInput() {
+        const board = this.chessConsole.components.board
+        const chessboard = board ? board.chessboard : undefined
+        if (chessboard && !chessboard.isMoveInputEnabled()) {
+            const color = this.chessConsole.playerWhite() === this ? COLOR.white : COLOR.black
             chessboard.enableMoveInput(
-                (event) => this.chessboardMoveInputCallback(event, moveResponse),
+                (event) => this.chessboardMoveInputCallback(event, this.moveResponse),
                 color
             )
         }
