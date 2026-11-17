@@ -169,11 +169,16 @@ export class LocalPlayer extends ChessConsolePlayer {
         const tmpChess = new Chess(this.chessConsole.state.chess.fen(), isChess960 ? {chess960: true} : undefined)
         const moveResult = tmpChess.move({from: premove.squareFrom, to: premove.squareTo, promotion: "q"})
         if (!moveResult) {
+            this.premoveManager.updateMarkers()
             return false
         }
         if (moveResponse(moveResult) && !this.props.allowPremoves) {
             this.chessConsole.components.board.chessboard.disableMoveInput()
         }
+        // after the Board marked the move (also in a timeout), otherwise the markers flicker
+        setTimeout(() => {
+            this.premoveManager.updateMarkers()
+        })
         return true
     }
 

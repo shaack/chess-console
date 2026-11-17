@@ -25,6 +25,18 @@ describe("TestPremoveManager", () => {
         assert.equal(pm.take(), null)
     })
 
+    it("take should keep the markers until updateMarkers", () => {
+        const cc = mockConsole()
+        const pm = new PremoveManager(cc)
+        pm.set({squareFrom: "e2", squareTo: "e4"})
+        const calls = cc.components.board.chessboard.calls
+        const removeCount = calls.removeMarkers.length
+        pm.take()
+        assert.equal(calls.removeMarkers.length, removeCount)
+        pm.updateMarkers()
+        assert.equal(calls.removeMarkers.length, removeCount + 1)
+    })
+
     it("should replace an existing premove", () => {
         const cc = mockConsole()
         const pm = new PremoveManager(cc)

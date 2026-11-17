@@ -63,12 +63,13 @@ export class PremoveManager {
     }
 
     /**
-     * Get and remove the premove.
+     * Get and remove the premove, without removing its markers.
      * @returns {Object|null} The premove {squareFrom, squareTo, color}, or null
      */
     take() {
         const premove = this.premove
-        this.clear()
+        // keeps the markers, so they don't flicker until the executed move is marked (updateMarkers)
+        this.premove = null
         return premove
     }
 
@@ -84,7 +85,6 @@ export class PremoveManager {
      * never moves a piece on the board.
      */
     clear() {
-        if (!this.premove) return
         this.premove = null
         this.updateMarkers()
     }
