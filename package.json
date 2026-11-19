@@ -26,14 +26,14 @@
   "homepage": "https://github.com/shaack/chess-console#readme",
   "dependencies": {
     "bootstrap-show-modal": "^6.1.1",
-    "chess.mjs": "^2.4.2",
-    "cm-chess": "^4.0.1",
-    "cm-chessboard": "^8.15.5",
+    "chess.mjs": "^2.5.1",
+    "cm-chess": "^4.0.2",
+    "cm-chessboard": "^8.15.7",
     "cm-pgn": "^5.0.1",
     "cm-web-modules": "^2.8.2",
     "patch": "^0.0.1"
   },
   "devDependencies": {
-    "teevi": "^2.7.0"
+    "teevi": "^2.7.1"
   }
 }
